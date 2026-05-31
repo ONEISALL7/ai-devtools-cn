@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-- 暂无
+- 更新 README 和 npm 发布清单，记录 `ai-devtools-cn@0.16.1` 已发布并通过 `npx` 验证
 
 ## 0.16.1 - 2026-06-01
 

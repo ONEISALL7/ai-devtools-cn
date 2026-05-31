@@ -2,6 +2,7 @@
 
 [![Markdown Check](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml/badge.svg)](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml)
 [![Latest Release](https://img.shields.io/github/v/release/ONEISALL7/ai-devtools-cn?label=release)](https://github.com/ONEISALL7/ai-devtools-cn/releases)
+[![npm version](https://img.shields.io/npm/v/ai-devtools-cn?label=npm)](https://www.npmjs.com/package/ai-devtools-cn)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 面向中文开发者的 AI 开发工具实践模板库，收集可复用的工作流、提示词模板、代码审查模板、issue 分流模板、发布说明模板和工具评估清单。
@@ -37,7 +38,18 @@ examples/    示例工作流
 3. 替换项目背景、技术栈、约束条件和期望输出。
 4. 把有效结果沉淀到 issue、PR、文档或 release note。
 
-最短路径二：用 CLI 生成工作稿
+最短路径二：用已发布的 npm CLI 生成工作稿
+
+无需克隆仓库，可以直接运行：
+
+```bash
+npx ai-devtools-cn doctor
+npx ai-devtools-cn recommend ci
+npx ai-devtools-cn trial --template pr-review --output work/trial
+npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
+```
+
+如果你在本仓库内开发或贡献，再使用 npm scripts：
 
 ```bash
 npm install
@@ -57,7 +69,7 @@ npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:application -- --output work/openai-application.md
 ```
 
-如果通过 npm 使用，发布后也可以运行：
+更多已发布 CLI 命令：
 
 ```bash
 npx ai-devtools-cn list

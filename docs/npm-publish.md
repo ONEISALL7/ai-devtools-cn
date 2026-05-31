@@ -1,6 +1,6 @@
 # npm 发布清单
 
-这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.16.1`，但发布需要维护者本人登录 npm 账号后执行。
+这个文档记录 `ai-devtools-cn` npm 包的发布流程和验证结果。当前 npm 已发布版本是 `0.16.1`。
 
 ## 当前包名状态
 
@@ -10,13 +10,23 @@
 npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
 ```
 
-返回 404，说明 npm registry 当前没有找到 `ai-devtools-cn` 包。发布前仍建议重新确认一次。
+返回：
 
-如果返回版本号，说明包名已经被发布。首次发布前应先确认这个包是否属于你，避免覆盖错误目标。
+```text
+0.16.1
+```
 
-## 当前 dry-run 结果
+npm 包页面：
 
-截至 2026-06-01，`ai-devtools-cn@0.16.1` 已完成一次真实 npm publish dry-run：
+```text
+https://www.npmjs.com/package/ai-devtools-cn
+```
+
+## 首次发布结果
+
+截至 2026-06-01，`ai-devtools-cn@0.16.1` 已成功发布到 npm。
+
+发布前完成过真实 npm publish dry-run：
 
 ```bash
 npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
@@ -30,7 +40,31 @@ npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-ca
 - unpacked size 约 221.4 kB
 - npm 提示真实发布仍需要登录 npm 账号
 
-这说明打包内容和 publish 流程已经通过 dry-run。剩余阻塞是维护者本人 npm 登录、账号确认和可能的 2FA。
+真实发布命令：
+
+```bash
+npm publish --access public --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
+```
+
+发布结果：
+
+```text
++ ai-devtools-cn@0.16.1
+```
+
+发布后验证：
+
+```bash
+npm view ai-devtools-cn version
+npx --yes --cache /private/tmp/ai-devtools-cn-npx-cache --strict-ssl=false ai-devtools-cn doctor
+npx --yes --cache /private/tmp/ai-devtools-cn-npx-cache --strict-ssl=false ai-devtools-cn adoption --template pr-review --output work/npm-adoption-check --force
+```
+
+验证结果：
+
+- `npm view` 返回 `0.16.1`
+- `npx ai-devtools-cn doctor` 通过
+- `npx ai-devtools-cn adoption` 成功生成外部试用冲刺包
 
 ## 发布前检查
 
@@ -155,7 +189,7 @@ npx ai-devtools-cn validate
 
 1. 在 README 顶部增加 npm 安装方式。
 2. 在 GitHub Release `v0.16.1` 中补充 npm 包链接。
-3. 创建一个 issue 记录发布结果和后续下载量观察。
+3. 在 issue #52 记录发布结果和后续下载量观察。
 4. 过 24 小时检查 npm 下载量。
 
 ## 版本更新规则
