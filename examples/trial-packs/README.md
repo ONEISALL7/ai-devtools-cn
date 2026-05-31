@@ -7,6 +7,7 @@
 | 示例 | 适合场景 | 包含内容 |
 | --- | --- | --- |
 | [PR Review 文档改动试用包](pr-review-docs/README.md) | 审查 README 或 docs 改动 | 试用说明、PR review 工作稿、feedback 草稿 |
+| [Node.js CI 排错试用包](node-ci-failure/README.md) | 排查 GitHub Actions 失败日志 | 试用说明、CI 排错工作稿、feedback 草稿 |
 
 ## 推荐使用方式
 
