@@ -107,6 +107,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 - [OpenAI Codex for Open Source 申请准备](docs/openai-codex-oss-application.md)
 - [npm 发布清单](docs/npm-publish.md)
 - [社区推广和反馈收集](docs/community-outreach.md)
+- [支持入口](SUPPORT.md)
 - [项目指标追踪](docs/metrics.md)
 - [Good First Issues](docs/first-issues.md)
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)

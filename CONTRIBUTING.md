@@ -17,6 +17,8 @@
 - CLI 问题或建议：CLI issue
 - 使用反馈：Template usage feedback
 
+如果你只是想确认该去哪里提问或反馈，先看 [支持入口](SUPPORT.md)。
+
 ## 不适合提交的内容
 
 - 仅用于营销的工具介绍
