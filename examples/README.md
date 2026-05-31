@@ -28,6 +28,7 @@
 | 示例 | 你能学到什么 |
 | --- | --- |
 | [PR Review 文档改动试用包](trial-packs/pr-review-docs/README.md) | 如何邀请外部 reviewer 试用模板并提交匿名化反馈 |
+| [Node.js CI 排错试用包](trial-packs/node-ci-failure/README.md) | 如何邀请维护者用失败日志试用 CI 排错模板 |
 
 ## 怎么复用示例
 
