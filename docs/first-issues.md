@@ -1,115 +1,59 @@
-# 首批 Issue Backlog
+# Good First Issues
 
-公开仓库后，可以把这些条目拆成 GitHub issues。它们应该作为真实维护任务推进，不建议一次性全部完成。
+这个页面记录适合外部贡献者参与的小任务。它们不要求访问私有代码，也不要求了解完整项目历史。
 
-## Documentation
+## 当前推荐任务
 
-### 1. 补充 FAQ
+| Issue | 方向 | 适合贡献者 |
+| --- | --- | --- |
+| [#45 Node.js CI 排错示例](https://github.com/ONEISALL7/ai-devtools-cn/issues/45) | CI / 示例 | 熟悉 Node.js 或 GitHub Actions 的开发者 |
+| [#46 依赖升级风险示例](https://github.com/ONEISALL7/ai-devtools-cn/issues/46) | 依赖 / 风险评估 | 做过依赖升级或安全修复的开发者 |
+| [#47 用户反馈案例整理文档](https://github.com/ONEISALL7/ai-devtools-cn/issues/47) | 文档 / 反馈 | 擅长整理文档和用户反馈的人 |
+| [#48 Python 项目 PR review 示例](https://github.com/ONEISALL7/ai-devtools-cn/issues/48) | PR review / 示例 | 熟悉 Python 项目的开发者 |
+| [#49 前端 README 改进示例](https://github.com/ONEISALL7/ai-devtools-cn/issues/49) | README / 前端 | 熟悉前端项目文档的人 |
 
-Labels: `documentation`, `good first issue`
+## 贡献步骤
 
-内容：
+1. 在对应 issue 下留言说明你想认领。
+2. Fork 仓库并创建分支。
+3. 新增或修改文档、示例或模板。
+4. 本地运行：
 
-```text
-整理用户可能关心的问题，例如：
-- 这个项目和普通提示词合集有什么区别？
-- 模板是否绑定某个 AI 工具？
-- 如何提交自己的模板？
-- 如何判断一个模板是否适合收录？
-```
+   ```bash
+   npm run lint:md
+   ```
 
-### 2. 增加团队导入 AI 工具指南
+5. 提交 PR，并在描述中关联 issue。
 
-Labels: `documentation`, `enhancement`
+## 内容要求
 
-内容：
+新增示例时请包含：
 
-```text
-写一份面向小团队的导入指南，覆盖权限、代码隐私、review 责任、试点范围和验收指标。
-```
+- 使用场景
+- 可复制输入
+- 期望输出
+- 维护者验收标准
+- 不应该怎么用
 
-## Templates
+不要提交：
 
-### 3. 增加 CI 排错模板
+- 私有源码
+- 客户数据
+- token、API key、cookie
+- 内部域名或内部日志
+- 未经授权的真实项目信息
 
-Labels: `template`, `enhancement`
+## 已完成的首批任务
 
-内容：
+早期 backlog 已经通过 issue 和 PR 完成，包括：
 
-```text
-用于让 AI 分析 GitHub Actions、测试失败、依赖安装失败和环境差异。
-```
+- FAQ
+- CI 排错模板
+- 依赖升级风险模板
+- 团队 AI 工具导入指南
+- README 改进模板
+- CI 排错示例
+- release note 示例
+- 模板质量评分表
 
-### 4. 增加依赖升级评估模板
-
-Labels: `template`, `security`
-
-内容：
-
-```text
-用于评估依赖升级风险，包括 breaking changes、安全修复、锁文件变化和回滚策略。
-```
-
-### 5. 增加 README 改进模板
-
-Labels: `template`, `documentation`
-
-内容：
-
-```text
-用于检查 README 是否说明项目价值、安装方式、快速开始、贡献方式和限制。
-```
-
-## Examples
-
-### 6. 增加 CI 排错示例
-
-Labels: `example`, `good first issue`
-
-内容：
-
-```text
-使用一个虚构但真实结构的 CI 失败日志，演示如何定位问题、生成修复建议和补充验证步骤。
-```
-
-### 7. 增加 release note 示例
-
-Labels: `example`, `documentation`
-
-内容：
-
-```text
-展示如何把多个 PR 整理成面向用户的 release notes。
-```
-
-## Maintenance
-
-### 8. 建立 v0.1.0 milestone
-
-Labels: `maintenance`
-
-内容：
-
-```text
-把第一批文档、模板、示例和仓库配置任务归到 v0.1.0。
-```
-
-### 9. 添加 branch protection 说明
-
-Labels: `maintenance`, `documentation`
-
-内容：
-
-```text
-说明 main 分支保护规则：要求 PR、要求 CI 通过、避免直接 push。
-```
-
-### 10. 建立模板质量评分表
-
-Labels: `maintenance`, `template`
-
-内容：
-
-```text
-给模板打分：适用场景、输入完整性、输出格式、验收标准、安全边界、可复用性。
-```
+新的外部贡献任务会继续以 `good first issue` 和 `help wanted` 标签维护。
