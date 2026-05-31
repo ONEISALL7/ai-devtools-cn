@@ -4,6 +4,20 @@
 
 目标不是刷数据，而是找到真正需要 AI 维护模板的开发者，收集反馈并改进项目。
 
+## 当前推荐主张
+
+推荐把项目介绍成：
+
+```text
+一个面向中文开发者和开源维护者的 AI 工程维护模板库，提供 PR review、issue triage、CI 排错、release note、安全审查、输出验收等可复制模板，并带有本地 CLI、真实维护案例和反馈入口。
+```
+
+不要把项目介绍成“已经被很多人使用”或“生态级基础设施”。当前更准确的说法是：
+
+```text
+早期但持续维护，已经有模板、案例、CLI、release、issue/PR 维护记录，正在收集第一批真实用户反馈。
+```
+
 ## 推广目标
 
 优先收集这些信号：
@@ -60,6 +74,31 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
+v0.4.0 还补了：
+- 模板注册校验命令
+- 真实维护案例
+- 用户反馈入口
+- SUPPORT 支持入口
+
+https://github.com/ONEISALL7/ai-devtools-cn
+```
+
+反馈版：
+
+```text
+我在维护一个早期中文开源项目：AI DevTools CN。
+
+它不是提示词收藏夹，而是把 AI 放进真实维护流程：
+- PR review
+- issue triage
+- CI debugging
+- release note
+- security review
+- output evaluation
+
+现在有模板、CLI、真实案例和 v0.4.0 release。
+
+想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
 ```
 
@@ -108,6 +147,28 @@ https://github.com/ONEISALL7/ai-devtools-cn
 2. 哪个场景还缺？
 3. CLI 是否方便？
 4. 输出能不能直接放进 issue、PR 或 release？
+```
+
+## 发布前检查
+
+发布前确认：
+
+- README 顶部能说明项目用途
+- `v0.4.0` release 已存在
+- issue 模板可用
+- [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
+- 不在文案中夸大 stars、下载量或用户数
+- 不承诺 AI 能替代维护者判断
+
+发布后建议在 issue #51 记录：
+
+```text
+发布日期：
+发布渠道：
+链接：
+收到的 stars/forks：
+收到的反馈 issue：
+下一步要改的模板或文档：
 ```
 
 ## 反馈收集方式
