@@ -6,7 +6,7 @@
 
 ## 当前项目状态
 
-截至 2026-05-31，基于 `v0.9.0` release 后的 `npm run metrics:snapshot` 和本地 `git ls-files` 的一次快照：
+截至 2026-05-31，基于 `v0.10.0` release 后的 `npm run metrics:snapshot` 和本地 `git ls-files` 的一次快照：
 
 | 项目 | 当前状态 |
 | --- | --- |
@@ -14,9 +14,9 @@
 | 可见性 | Public |
 | GitHub stars | 2 |
 | Forks | 1 |
-| Releases | 10 个：`v0.1.0` 到 `v0.9.0` |
-| Merged PRs | 53 个，最近一次完整快照统计到 PR #112 |
-| Closed issues | 52 个，最近一次完整快照统计到 issue #111 |
+| Releases | 11 个：`v0.1.0` 到 `v0.10.0` |
+| Merged PRs | 57 个，最近一次完整快照统计到 PR #120 |
+| Closed issues | 56 个，最近一次完整快照统计到 issue #119 |
 | External merged PRs | 0 |
 | External feedback issues | 0 |
 | npm package | not published or unavailable |
@@ -65,13 +65,13 @@ I am the primary maintainer of this public repository. I created and maintain th
 如实版本：
 
 ```text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 53 merged PRs, 52 closed issues, 10 releases, CI, a template CLI, and feedback channels. It serves Chinese developers who need reusable AI maintenance templates.
+ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 57 merged PRs, 56 closed issues, 11 releases, CI, a template CLI, and feedback channels. It serves Chinese developers who need reusable AI maintenance templates.
 ```
 
 更保守版本：
 
 ```text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 53 merged PRs, 52 closed issues, 10 releases, CI, and feedback channels. We are now collecting external usage and feedback.
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 57 merged PRs, 56 closed issues, 11 releases, CI, and feedback channels. We are now collecting external usage and feedback.
 ```
 
 ## API credits 使用计划
@@ -99,8 +99,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 ### Issue 和 PR
 
-- 53 个 merged PR，最近一次完整快照统计到 PR #112
-- 52 个 closed issues，最近一次完整快照统计到 issue #111
+- 57 个 merged PR，最近一次完整快照统计到 PR #120
+- 56 个 closed issues，最近一次完整快照统计到 issue #119
 - 每轮功能通过 issue 追踪，再通过 PR 合并
 - 已覆盖模板、案例、quickstart、CLI、npm 发布结构、用户反馈入口、issue 表单、第一批试用计划和试用包案例
 
@@ -116,6 +116,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.7.0`：第一批用户试用包 CLI，生成模板工作稿和反馈草稿
 - `v0.8.0`：本地诊断 `doctor` 命令，检查 Node 版本、目录写入能力和模板注册状态
 - `v0.9.0`：试用包案例集，新增 PR review、Node.js CI 和 Python pytest 三个可浏览示例
+- `v0.10.0`：CLI 发现能力，新增 `examples` 和 `recommend` 命令，帮助用户发现模板、案例和试用包
 
 ### CI 和质量控制
 
@@ -177,7 +178,7 @@ npx ai-devtools-cn validate
 5. 邀请 1-2 位外部贡献者提交文档或案例 PR。
 6. 按 [项目指标追踪](metrics.md) 每周生成一次指标快照。
 7. 增加 CLI 测试到 GitHub Actions。
-8. 发布 npm `v0.9.0`，让 CLI 可以通过 `npx ai-devtools-cn` 直接使用。
+8. 发布 npm `v0.10.0`，让 CLI 可以通过 `npx ai-devtools-cn` 直接使用。
 
 ## 申请前自查
 
