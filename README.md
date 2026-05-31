@@ -98,6 +98,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 - [用 PR Review 模板审查快速上手 PR](examples/case-studies/pr-review-quickstart-release.md)
 - [用 CI 排错模板修复 markdownlint MD012](examples/case-studies/ci-markdownlint-md012.md)
 - [用 release note 模板发布 v0.2.0](examples/case-studies/release-v020.md)
+- [为模板库增加 CLI 注册校验](examples/case-studies/template-registry-validation.md)
 
 ## 文档入口
 
