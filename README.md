@@ -24,6 +24,8 @@ examples/    示例工作流
 
 第一次使用建议从 [3 分钟快速上手](docs/quickstart.md) 开始。
 
+如果你不知道该选哪个模板，先看 [如何选择模板](docs/choose-template.md)。
+
 最短路径：
 
 1. 按场景从下面选择一个模板。
@@ -31,7 +33,19 @@ examples/    示例工作流
 3. 替换项目背景、技术栈、约束条件和期望输出。
 4. 把有效结果沉淀到 issue、PR、文档或 release note。
 
+## 按身份开始
+
+| 你是谁 | 第一步 |
+| --- | --- |
+| 个人开发者 | 用 [PR Review 模板](templates/pr-review-template.md) 检查一次改动 |
+| 开源维护者 | 用 [Issue Triage 模板](templates/issue-triage-template.md) 分流一个 issue |
+| 正在修 CI 的维护者 | 用 [CI 排错模板](templates/ci-troubleshooting-template.md) 分析失败日志 |
+| 技术负责人 | 用 [AI 工具导入检查清单](templates/ai-tool-onboarding-checklist.md) 设计团队试点规则 |
+| 发版负责人 | 用 [发布说明模板](templates/release-note-template.md) 生成 release note 草稿 |
+
 ## 模板索引
+
+完整说明见 [模板目录](templates/README.md)。
 
 | 场景 | 直接复制 |
 | --- | --- |
@@ -50,6 +64,8 @@ examples/    示例工作流
 
 ## 示例
 
+完整说明见 [示例目录](examples/README.md)。
+
 | 场景 | 示例 |
 | --- | --- |
 | PR review | [PR Review 示例](examples/pr-review-example.md) |
@@ -67,6 +83,7 @@ examples/    示例工作流
 
 ## 文档入口
 
+- [如何选择模板](docs/choose-template.md)
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)
 - [团队导入 AI 工具指南](docs/team-ai-adoption-guide.md)
 - [模板质量评分卡](docs/template-quality-scorecard.md)

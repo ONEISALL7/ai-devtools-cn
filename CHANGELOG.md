@@ -6,6 +6,8 @@
 
 - 新增真实维护案例目录 `examples/case-studies/`
 - 新增 PR review、CI 排错和 v0.2.0 发版说明案例
+- 新增模板选择指南 `docs/choose-template.md`
+- 新增 `templates/README.md` 和 `examples/README.md`，优化新用户目录导航
 
 ## 0.2.0 - 2026-05-31
 

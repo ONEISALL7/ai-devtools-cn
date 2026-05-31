@@ -6,6 +6,8 @@
 
 先判断你现在要解决的问题。
 
+如果你不确定该选哪个模板，先看 [如何选择模板](choose-template.md)。
+
 | 你现在要做什么 | 使用这个模板 |
 | --- | --- |
 | review 一个 PR | [PR Review 模板](../templates/pr-review-template.md) |
@@ -83,3 +85,8 @@
 - [PR review 案例](../examples/case-studies/pr-review-quickstart-release.md)
 - [CI 排错案例](../examples/case-studies/ci-markdownlint-md012.md)
 - [发版说明案例](../examples/case-studies/release-v020.md)
+
+更多入口：
+
+- [模板目录](../templates/README.md)
+- [示例目录](../examples/README.md)
