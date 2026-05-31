@@ -17,6 +17,12 @@ npm run templates:list
 npm run templates:new -- pr-review --output work/pr-review.md
 ```
 
+如果你想一次生成一组开源维护者工作稿：
+
+```bash
+npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+```
+
 新增或调整模板后，可以运行：
 
 ```bash

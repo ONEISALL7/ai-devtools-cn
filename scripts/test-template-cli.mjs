@@ -30,6 +30,10 @@ assert.match(validateOutput, /templates registered/);
 const validateAliasOutput = run(["templates:validate"]);
 assert.match(validateAliasOutput, /template files checked/);
 
+const kitListOutput = run(["kit"]);
+assert.match(kitListOutput, /oss-maintainer/);
+assert.match(kitListOutput, /pr-review/);
+
 const searchOutput = run(["search", "ci"]);
 assert.match(searchOutput, /ci-troubleshooting/);
 assert.match(searchOutput, /release-checklist/);
@@ -56,5 +60,28 @@ assert.throws(
 
 const forcedOutput = run(["new", "ci-troubleshooting", "--output", draftPath, "--force"]);
 assert.match(forcedOutput, /已生成工作稿/);
+
+const kitPath = path.join(tempDir, "oss-maintainer-kit");
+const kitOutput = run(["kit", "oss-maintainer", "--output", kitPath]);
+assert.match(kitOutput, /已生成工作包/);
+assert.equal(existsSync(path.join(kitPath, "README.md")), true);
+assert.equal(existsSync(path.join(kitPath, "pr-review.md")), true);
+assert.equal(existsSync(path.join(kitPath, "issue-triage.md")), true);
+assert.equal(existsSync(path.join(kitPath, "ci-troubleshooting.md")), true);
+assert.equal(existsSync(path.join(kitPath, "release-note.md")), true);
+assert.equal(existsSync(path.join(kitPath, "maintainer-weekly-checklist.md")), true);
+assert.equal(existsSync(path.join(kitPath, "ai-output-evaluation.md")), true);
+
+const kitReadme = readFileSync(path.join(kitPath, "README.md"), "utf8");
+assert.match(kitReadme, /开源维护者工作包/);
+assert.match(kitReadme, /推荐使用顺序/);
+
+assert.throws(
+  () => run(["kit", "oss-maintainer", "--output", kitPath]),
+  /输出文件已存在/
+);
+
+const forcedKitOutput = run(["kit", "oss-maintainer", "--output", kitPath, "--force"]);
+assert.match(forcedKitOutput, /已生成工作包/);
 
 console.log("template CLI tests passed");

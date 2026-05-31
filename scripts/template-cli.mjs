@@ -107,6 +107,22 @@ const templates = [
   },
 ];
 
+const kits = [
+  {
+    slug: "oss-maintainer",
+    title: "开源维护者工作包",
+    description: "面向公开开源仓库的日常维护流程，覆盖 review、triage、CI、release 和周期检查。",
+    templateSlugs: [
+      "pr-review",
+      "issue-triage",
+      "ci-troubleshooting",
+      "release-note",
+      "maintainer-weekly-checklist",
+      "ai-output-evaluation",
+    ],
+  },
+];
+
 const rawCommand = process.argv[2] ?? "help";
 const command = rawCommand.startsWith("templates:")
   ? rawCommand.slice("templates:".length)
@@ -121,6 +137,7 @@ Usage:
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
+  ai-devtools-cn kit <slug> --output <dir>
   ai-devtools-cn validate
 
 NPM scripts:
@@ -128,6 +145,7 @@ NPM scripts:
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
+  npm run templates:kit -- <slug> --output <dir>
   npm run templates:validate
 
 Examples:
@@ -135,16 +153,18 @@ Examples:
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
+  npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
   npx ai-devtools-cn validate
 
   npm run templates:list
   npm run templates:search -- ci
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
+  npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
   npm run templates:validate
 
 Options:
-  --output <path>  Output path for the generated working draft
+  --output <path>  Output path for the generated working draft or kit directory
   --force          Overwrite output file if it already exists
 `);
 }
@@ -153,12 +173,25 @@ function findTemplate(slug) {
   return templates.find((template) => template.slug === slug);
 }
 
+function findKit(slug) {
+  return kits.find((kit) => kit.slug === slug);
+}
+
 function listTemplates(items = templates) {
   for (const template of items) {
     console.log(`- ${template.slug}: ${template.title}
   用途：${template.useCase}
   输出：${template.output}
   文件：${template.file}
+`);
+  }
+}
+
+function listKits() {
+  for (const kit of kits) {
+    console.log(`- ${kit.slug}: ${kit.title}
+  用途：${kit.description}
+  模板：${kit.templateSlugs.join(", ")}
 `);
   }
 }
@@ -210,8 +243,47 @@ function createWorkingDraft(slug, options) {
   }
 
   mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatWorkingDraft(template), "utf8");
+  console.log(`已生成工作稿：${path.relative(repoRoot, resolvedOutput)}`);
+}
 
-  const body = `# ${template.title}工作稿
+function createKit(slug, options) {
+  const kit = requireKit(slug);
+  const outputPath = options.output ?? path.join("work", `${kit.slug}-kit`);
+  const resolvedOutput = path.resolve(repoRoot, outputPath);
+  const kitTemplates = kit.templateSlugs.map((templateSlug) => requireTemplate(templateSlug));
+  const files = [
+    {
+      name: "README.md",
+      content: formatKitReadme(kit, kitTemplates),
+    },
+    ...kitTemplates.map((template) => ({
+      name: `${template.slug}.md`,
+      content: formatWorkingDraft(template),
+    })),
+  ];
+
+  const conflicts = files
+    .map((file) => path.join(resolvedOutput, file.name))
+    .filter((filePath) => existsSync(filePath));
+
+  if (conflicts.length > 0 && !options.force) {
+    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${path.relative(repoRoot, filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(resolvedOutput, { recursive: true });
+  for (const file of files) {
+    writeFileSync(path.join(resolvedOutput, file.name), file.content, "utf8");
+  }
+
+  console.log(`已生成工作包：${path.relative(repoRoot, resolvedOutput)}`);
+  for (const file of files) {
+    console.log(`- ${path.join(path.relative(repoRoot, resolvedOutput), file.name)}`);
+  }
+}
+
+function formatWorkingDraft(template) {
+  return `# ${template.title}工作稿
 
 > 来源模板：${template.file}
 > 使用场景：${template.useCase}
@@ -232,9 +304,30 @@ function createWorkingDraft(slug, options) {
 
 ${readTemplate(template).trim()}
 `;
+}
 
-  writeFileSync(resolvedOutput, `${body}\n`, "utf8");
-  console.log(`已生成工作稿：${path.relative(repoRoot, resolvedOutput)}`);
+function formatKitReadme(kit, kitTemplates) {
+  return `# ${kit.title}
+
+> ${kit.description}
+
+## 包含文件
+
+${kitTemplates.map((template) => `- [${template.slug}.md](${template.slug}.md)：${template.title}，用于${template.useCase}`).join("\n")}
+
+## 推荐使用顺序
+
+1. 先用 \`maintainer-weekly-checklist.md\` 梳理当前 issue、PR、CI 和 release 状态。
+2. 有新 PR 时填写 \`pr-review.md\`。
+3. 有用户反馈时填写 \`issue-triage.md\`。
+4. CI 失败时填写 \`ci-troubleshooting.md\`。
+5. 发版前填写 \`release-note.md\`。
+6. 对 AI 输出不确定时，用 \`ai-output-evaluation.md\` 做人工验收。
+
+## 安全提醒
+
+不要把密钥、客户信息、内部日志、未公开源码或隐私数据写入这些工作稿。如果必须描述敏感场景，请先改写成可公开的抽象信息。
+`;
 }
 
 function validateTemplates() {
@@ -321,6 +414,19 @@ function requireTemplate(slug) {
   return template;
 }
 
+function requireKit(slug) {
+  if (!slug) {
+    fail("请提供工作包 slug。先运行 npm run templates:kit 查看可用工作包。");
+  }
+
+  const kit = findKit(slug);
+  if (!kit) {
+    fail(`未知工作包 slug：${slug}\n先运行 npm run templates:kit 查看可用工作包。`);
+  }
+
+  return kit;
+}
+
 function parseOptions(values) {
   const options = {};
   for (let index = 0; index < values.length; index += 1) {
@@ -361,6 +467,13 @@ switch (command) {
     break;
   case "new":
     createWorkingDraft(args[0], parseOptions(args.slice(1)));
+    break;
+  case "kit":
+    if (args.length === 0) {
+      listKits();
+    } else {
+      createKit(args[0], parseOptions(args.slice(1)));
+    }
     break;
   case "validate":
     validateTemplates();

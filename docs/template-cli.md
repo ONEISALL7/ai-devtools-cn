@@ -85,6 +85,36 @@ npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md --force
 ```
 
+## 生成维护者工作包
+
+如果你要给一个开源仓库建立一组基础维护工作流，可以运行：
+
+```bash
+npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
+```
+
+工作包会生成一个目录，包含：
+
+- `README.md`：工作包索引和推荐使用顺序
+- `pr-review.md`
+- `issue-triage.md`
+- `ci-troubleshooting.md`
+- `release-note.md`
+- `maintainer-weekly-checklist.md`
+- `ai-output-evaluation.md`
+
+如果输出目录里的文件已存在，命令会拒绝覆盖。确实需要覆盖时使用：
+
+```bash
+npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit --force
+```
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：
@@ -114,6 +144,8 @@ npx ai-devtools-cn validate
 3. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
 4. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
 5. 把整理后的提示词复制到你的 AI 开发工具。
+
+如果你是开源项目维护者，想先建立一整套基础流程，可以直接运行 `npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit`。
 
 ## 发布前检查
 

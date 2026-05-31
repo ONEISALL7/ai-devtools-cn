@@ -48,6 +48,7 @@
     "templates:search": "node scripts/template-cli.mjs search",
     "templates:show": "node scripts/template-cli.mjs show",
     "templates:new": "node scripts/template-cli.mjs new",
+    "templates:kit": "node scripts/template-cli.mjs kit",
     "templates:validate": "node scripts/template-cli.mjs validate"
   },
   "devDependencies": {
