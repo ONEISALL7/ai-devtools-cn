@@ -57,6 +57,14 @@ examples/    示例工作流
 | CI 排错 | [CI 排错示例](examples/ci-troubleshooting-example.md) |
 | release note | [Release note 示例](examples/release-note-example.md) |
 
+## 真实维护案例
+
+这些案例基于本仓库真实 issue、PR、CI 和 release 记录整理，适合照着复制到自己的项目中：
+
+- [用 PR Review 模板审查快速上手 PR](examples/case-studies/pr-review-quickstart-release.md)
+- [用 CI 排错模板修复 markdownlint MD012](examples/case-studies/ci-markdownlint-md012.md)
+- [用 release note 模板发布 v0.2.0](examples/case-studies/release-v020.md)
+
 ## 文档入口
 
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)
