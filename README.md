@@ -57,6 +57,8 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 
 更多命令见 [模板 CLI](docs/template-cli.md)。
 
+CLI 生成的相对路径会写入你运行命令时所在的当前目录，适合在自己的项目里生成 `work/` 草稿。
+
 ## 按身份开始
 
 | 你是谁 | 第一步 |
