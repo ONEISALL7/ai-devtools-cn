@@ -6,6 +6,7 @@
 
 - 新增用户反馈文档和模板使用反馈 issue 表单
 - 新增 OpenAI Codex for Open Source 申请证据和表单草稿文档
+- 新增 npm 发布清单和社区推广反馈收集 playbook
 
 ## 0.3.0 - 2026-05-31
 

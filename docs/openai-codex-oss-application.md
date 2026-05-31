@@ -146,8 +146,8 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 
 优先级从高到低：
 
-1. 发布 npm 包，开始积累下载量。
-2. 对外发布项目介绍，邀请开发者试用模板和 CLI。
+1. 按 [npm 发布清单](npm-publish.md) 发布 npm 包，开始积累下载量。
+2. 按 [社区推广和反馈收集](community-outreach.md) 对外发布项目介绍，邀请开发者试用模板和 CLI。
 3. 收集 5-10 条真实反馈 issue。
 4. 根据反馈新增或修正模板。
 5. 邀请 1-2 位外部贡献者提交文档或案例 PR。
