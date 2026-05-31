@@ -28,6 +28,14 @@
 
 这些数字不能替代真实用户采用证据。后续仍需要继续积累外部 issue、反馈、stars、forks、npm 下载量或使用案例。
 
+申请前可以生成本地申请包草稿：
+
+```bash
+npm run templates:application -- --output work/openai-application.md
+```
+
+这份草稿用于整理表单字段、证据清单和短板提醒，不会自动提交申请，也不会替代真实外部采用证据。
+
 ## 项目定位
 
 `ai-devtools-cn` 是面向中文开发者和开源维护者的 AI 工程维护模板库与 CLI 工具。
@@ -148,6 +156,8 @@ npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
+npm run templates:evidence -- --output work/external-evidence.md
+npm run templates:application -- --output work/openai-application.md
 npm run templates:publish-check
 npm run templates:validate
 ```
@@ -165,6 +175,8 @@ npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
+npx ai-devtools-cn evidence --output work/external-evidence.md
+npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-check
 npx ai-devtools-cn validate
 ```
