@@ -106,6 +106,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 - [npm 发布清单](docs/npm-publish.md)
 - [社区推广和反馈收集](docs/community-outreach.md)
 - [项目指标追踪](docs/metrics.md)
+- [Good First Issues](docs/first-issues.md)
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)
 - [团队导入 AI 工具指南](docs/team-ai-adoption-guide.md)
 - [模板质量评分卡](docs/template-quality-scorecard.md)
