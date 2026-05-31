@@ -1,0 +1,48 @@
+name: CLI issue
+description: 报告模板 CLI 问题或建议 CLI 新功能
+title: "[CLI]: "
+labels: ["cli", "needs-triage"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 类型
+      options:
+        - Bug
+        - Feature request
+        - Documentation
+        - Question
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: 运行的命令
+      description: 请贴出你运行的命令，不要包含私有路径或敏感信息。
+      placeholder: npm run templates:new -- pr-review --output work/pr-review.md
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+      description: 你希望 CLI 做什么？
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+      description: 如果是 bug，请贴出错误信息。请先删除私有路径、账号、token 和内部域名。
+  - type: input
+    id: environment
+    attributes:
+      label: 环境
+      placeholder: Node.js 版本、npm 版本、操作系统
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我确认没有提交密钥、账号、客户信息、未公开源码或隐私数据
+          required: true

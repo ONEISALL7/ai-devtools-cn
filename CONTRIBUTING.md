@@ -10,6 +10,13 @@
 - 现有文档的纠错、补充和过期信息更新
 - GitHub Actions、文档结构和贡献流程改进
 
+如果你不确定该用哪个 issue 表单：
+
+- 新模板或模板改进：Template request
+- 匿名化真实案例：Case study contribution
+- CLI 问题或建议：CLI issue
+- 使用反馈：Template usage feedback
+
 ## 不适合提交的内容
 
 - 仅用于营销的工具介绍

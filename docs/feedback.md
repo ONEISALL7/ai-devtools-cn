@@ -52,6 +52,12 @@
 - 选择 Template usage feedback
 - 按表单填写
 
+如果你的反馈更具体，可以选择：
+
+- Template request：请求新增或改进模板
+- Case study contribution：贡献匿名化真实案例
+- CLI issue：反馈 CLI bug 或功能建议
+
 也可以直接在相关 PR、issue 或讨论中反馈。
 
 ## 维护者如何处理反馈
