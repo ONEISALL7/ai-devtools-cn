@@ -32,6 +32,17 @@ const examplesAliasOutput = run(["templates:examples"]);
 assert.match(examplesAliasOutput, /真实维护案例/);
 assert.match(examplesAliasOutput, /template-registry-validation/);
 
+const recommendOutput = run(["recommend", "ci"]);
+assert.match(recommendOutput, /Recommended templates/);
+assert.match(recommendOutput, /ci-troubleshooting/);
+assert.match(recommendOutput, /Recommended examples/);
+assert.match(recommendOutput, /node-ci-failure/);
+assert.match(recommendOutput, /Recommended trial command/);
+
+const recommendAliasOutput = run(["templates:recommend", "pytest"]);
+assert.match(recommendAliasOutput, /python-pytest-failure/);
+assert.match(recommendAliasOutput, /ci-troubleshooting/);
+
 const validateOutput = run(["validate"]);
 assert.match(validateOutput, /Template registry validation passed/);
 assert.match(validateOutput, /templates registered/);

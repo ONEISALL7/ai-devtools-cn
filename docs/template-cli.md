@@ -49,7 +49,29 @@ npx ai-devtools-cn examples
 - 真实维护案例
 - 第一批用户试用包
 
-每条记录包含 slug、标题、适用场景和文件路径，适合第一次进入项目时快速找到可复制案例。
+每条记录包含 slug、标题、适用场景、关联模板和文件路径，适合第一次进入项目时快速找到可复制案例。
+
+## 按任务推荐模板和案例
+
+```bash
+npm run templates:recommend -- ci
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn recommend ci
+```
+
+这个命令会同时搜索模板和示例，并输出：
+
+- 推荐模板
+- 推荐案例或试用包
+- 查看模板的下一步命令
+- 生成工作稿的下一步命令
+- 生成试用包的推荐命令
+
+适合不确定该用哪个模板时先输入任务关键词，例如 `ci`、`review`、`pytest`、`release`。
 
 ## 搜索模板
 
@@ -236,10 +258,11 @@ npx ai-devtools-cn validate
 
 1. 运行 `npm run templates:list` 找到模板 slug。
 2. 运行 `npm run templates:examples` 找到可复制案例或试用包。
-3. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
-4. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
-5. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
-6. 把整理后的提示词复制到你的 AI 开发工具。
+3. 不确定时运行 `npm run templates:recommend -- <keyword>` 获取推荐。
+4. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
+5. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
+6. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
+7. 把整理后的提示词复制到你的 AI 开发工具。
 
 如果你是开源项目维护者，想先建立一整套基础流程，可以直接运行 `npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit`。
 

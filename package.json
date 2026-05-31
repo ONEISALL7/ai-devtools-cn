@@ -46,6 +46,7 @@
     "templates:help": "node scripts/template-cli.mjs help",
     "templates:list": "node scripts/template-cli.mjs list",
     "templates:examples": "node scripts/template-cli.mjs examples",
+    "templates:recommend": "node scripts/template-cli.mjs recommend",
     "templates:search": "node scripts/template-cli.mjs search",
     "templates:show": "node scripts/template-cli.mjs show",
     "templates:new": "node scripts/template-cli.mjs new",

@@ -133,24 +133,28 @@ const examples = [
         title: "PR Review 示例",
         file: "examples/pr-review-example.md",
         useCase: "学习如何输出 review 结论",
+        templateSlug: "pr-review",
       },
       {
         slug: "issue-triage-example",
         title: "Issue Triage 示例",
         file: "examples/issue-triage-example.md",
         useCase: "学习如何分流 issue",
+        templateSlug: "issue-triage",
       },
       {
         slug: "ci-troubleshooting-example",
         title: "CI 排错示例",
         file: "examples/ci-troubleshooting-example.md",
         useCase: "学习如何处理失败日志",
+        templateSlug: "ci-troubleshooting",
       },
       {
         slug: "release-note-example",
         title: "Release note 示例",
         file: "examples/release-note-example.md",
         useCase: "学习如何写发版说明",
+        templateSlug: "release-note",
       },
     ],
   },
@@ -162,18 +166,21 @@ const examples = [
         title: "审查快速上手 PR",
         file: "examples/case-studies/pr-review-quickstart-release.md",
         useCase: "审查文档入口型 PR",
+        templateSlug: "pr-review",
       },
       {
         slug: "ci-markdownlint-md012",
         title: "修复 markdownlint MD012",
         file: "examples/case-studies/ci-markdownlint-md012.md",
         useCase: "从 CI 日志定位最小修复",
+        templateSlug: "ci-troubleshooting",
       },
       {
         slug: "release-v020",
         title: "发布 v0.2.0",
         file: "examples/case-studies/release-v020.md",
         useCase: "把 PR 和 changelog 整理成 release note",
+        templateSlug: "release-note",
       },
       {
         slug: "template-registry-validation",
@@ -191,18 +198,21 @@ const examples = [
         title: "PR Review 文档改动试用包",
         file: "examples/trial-packs/pr-review-docs/README.md",
         useCase: "邀请外部 reviewer 试用模板并提交匿名化反馈",
+        templateSlug: "pr-review",
       },
       {
         slug: "node-ci-failure",
         title: "Node.js CI 排错试用包",
         file: "examples/trial-packs/node-ci-failure/README.md",
         useCase: "邀请维护者用失败日志试用 CI 排错模板",
+        templateSlug: "ci-troubleshooting",
       },
       {
         slug: "python-pytest-failure",
         title: "Python pytest 失败试用包",
         file: "examples/trial-packs/python-pytest-failure/README.md",
         useCase: "邀请 Python 维护者排查 pytest 和依赖差异",
+        templateSlug: "ci-troubleshooting",
       },
     ],
   },
@@ -220,6 +230,7 @@ function printHelp() {
 Usage:
   ai-devtools-cn list
   ai-devtools-cn examples
+  ai-devtools-cn recommend <keyword>
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
@@ -232,6 +243,7 @@ Usage:
 NPM scripts:
   npm run templates:list
   npm run templates:examples
+  npm run templates:recommend -- <keyword>
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
@@ -244,6 +256,7 @@ NPM scripts:
 Examples:
   npx ai-devtools-cn list
   npx ai-devtools-cn examples
+  npx ai-devtools-cn recommend ci
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
@@ -255,6 +268,7 @@ Examples:
 
   npm run templates:list
   npm run templates:examples
+  npm run templates:recommend -- ci
   npm run templates:search -- ci
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
@@ -305,6 +319,7 @@ function listExamples() {
     for (const item of group.items) {
       console.log(`- ${item.slug}: ${item.title}
   用途：${item.useCase}
+  关联模板：${item.templateSlug ?? "none"}
   文件：${item.file}
 `);
     }
@@ -330,22 +345,66 @@ function searchTemplates(keyword) {
     fail("请提供搜索关键词，例如：npm run templates:search -- ci");
   }
 
-  const normalized = keyword.toLowerCase();
-  const matches = templates.filter((template) => {
-    return [
-      template.slug,
-      template.title,
-      template.file,
-      template.useCase,
-      template.output,
-    ].some((value) => value.toLowerCase().includes(normalized));
-  });
+  const matches = getMatchingTemplates(keyword);
 
   if (matches.length === 0) {
     fail(`没有找到匹配模板：${keyword}`);
   }
 
   listTemplates(matches);
+}
+
+function recommend(keyword) {
+  if (!keyword) {
+    fail("请提供任务关键词，例如：npm run templates:recommend -- ci");
+  }
+
+  const templateMatches = getMatchingTemplates(keyword);
+  const exampleMatches = getMatchingExamples(keyword);
+  const recommendedTemplates = [...templateMatches];
+
+  for (const match of exampleMatches) {
+    if (!match.item.templateSlug) {
+      continue;
+    }
+    const template = findTemplate(match.item.templateSlug);
+    if (template && !recommendedTemplates.some((item) => item.slug === template.slug)) {
+      recommendedTemplates.push(template);
+    }
+  }
+
+  if (recommendedTemplates.length === 0 && exampleMatches.length === 0) {
+    fail(`没有找到匹配模板或案例：${keyword}`);
+  }
+
+  console.log(`推荐结果：${keyword}`);
+  console.log("");
+
+  if (recommendedTemplates.length > 0) {
+    console.log("Recommended templates:");
+    for (const template of recommendedTemplates) {
+      console.log(`- ${template.slug}: ${template.title}
+  用途：${template.useCase}
+  下一步：npm run templates:show -- ${template.slug}
+  生成：npm run templates:new -- ${template.slug} --output work/${template.slug}.md
+`);
+    }
+  }
+
+  if (exampleMatches.length > 0) {
+    console.log("Recommended examples:");
+    for (const match of exampleMatches) {
+      console.log(`- ${match.item.slug}: ${match.item.title}
+  分组：${match.group}
+  用途：${match.item.useCase}
+  文件：${match.item.file}
+`);
+    }
+  }
+
+  console.log("Recommended trial command:");
+  const trialTemplate = recommendedTemplates[0]?.slug ?? "pr-review";
+  console.log(`  npm run templates:trial -- --template ${trialTemplate} --scenario "${keyword}" --output work/trial`);
 }
 
 function createWorkingDraft(slug, options) {
@@ -708,6 +767,41 @@ function getTemplateValidationResult() {
   return { errors, templateFiles };
 }
 
+function getMatchingTemplates(keyword) {
+  const normalized = keyword.toLowerCase();
+  return templates.filter((template) => {
+    return [
+      template.slug,
+      template.title,
+      template.file,
+      template.useCase,
+      template.output,
+    ].some((value) => value.toLowerCase().includes(normalized));
+  });
+}
+
+function getMatchingExamples(keyword) {
+  const normalized = keyword.toLowerCase();
+  const matches = [];
+
+  for (const group of examples) {
+    for (const item of group.items) {
+      const values = [
+        group.group,
+        item.slug,
+        item.title,
+        item.file,
+        item.useCase,
+      ];
+      if (values.some((value) => value.toLowerCase().includes(normalized))) {
+        matches.push({ group: group.group, item });
+      }
+    }
+  }
+
+  return matches;
+}
+
 function readTemplate(template) {
   const fullPath = path.resolve(packageRoot, template.file);
   return readFileSync(fullPath, "utf8");
@@ -801,6 +895,9 @@ switch (command) {
     break;
   case "examples":
     listExamples();
+    break;
+  case "recommend":
+    recommend(args[0]);
     break;
   case "search":
     searchTemplates(args[0]);
