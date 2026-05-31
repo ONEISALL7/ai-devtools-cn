@@ -20,6 +20,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 npm install
 npm run test
 npm run templates:validate
+npm run templates:publish-check
 npm run pack:dry-run
 ```
 
@@ -30,6 +31,8 @@ npm publish --dry-run --access public
 ```
 
 dry-run 不会真正发布包，但能提前检查 npm publish 会打包哪些文件，以及当前 publish 流程是否能走通。
+
+`npm run templates:publish-check` 会先做本地静态检查，覆盖 package 元数据、CLI bin 入口、files 白名单、模板注册和案例注册。它不能替代 npm dry-run，因为它不会模拟 npm registry 和打包行为。
 
 如果本机 npm cache 有权限或证书问题，可以临时指定 cache：
 
@@ -58,6 +61,7 @@ npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- pr-review --output work/pr-review.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:feedback -- --template pr-review --output work/feedback.md
+npm run templates:publish-check
 npm run templates:validate
 ```
 
@@ -90,6 +94,7 @@ npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
+npx ai-devtools-cn publish-check
 npx ai-devtools-cn validate
 ```
 

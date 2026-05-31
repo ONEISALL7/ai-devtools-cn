@@ -50,6 +50,15 @@ assert.match(validateOutput, /templates registered/);
 const validateAliasOutput = run(["templates:validate"]);
 assert.match(validateAliasOutput, /template files checked/);
 
+const publishCheckOutput = run(["publish-check"]);
+assert.match(publishCheckOutput, /AI DevTools CN publish check/);
+assert.match(publishCheckOutput, /npm publish readiness check passed/);
+assert.match(publishCheckOutput, /npm publish --dry-run --access public/);
+
+const publishCheckAliasOutput = run(["templates:publish-check"]);
+assert.match(publishCheckAliasOutput, /Package: ai-devtools-cn@/);
+assert.match(publishCheckAliasOutput, /Examples: \d+ files checked/);
+
 const doctorOutput = run(["doctor"]);
 assert.match(doctorOutput, /AI DevTools CN doctor/);
 assert.match(doctorOutput, /Doctor passed/);

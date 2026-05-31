@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 修正 `metrics:snapshot` 快照日期，使用本地日期而不是 UTC 日期
+- 新增 CLI `publish-check` 命令，聚合检查 npm 发布前的包元数据、bin 入口、files 白名单和模板/案例注册
 
 ## 0.10.0 - 2026-05-31
 

@@ -46,6 +46,7 @@ npm run templates:examples
 npm run templates:recommend -- ci
 npm run templates:validate
 npm run templates:doctor
+npm run templates:publish-check
 npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
@@ -59,6 +60,7 @@ npx ai-devtools-cn list
 npx ai-devtools-cn examples
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn doctor
+npx ai-devtools-cn publish-check
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 ```
