@@ -116,4 +116,23 @@ const feedbackAliasOutput = run(["templates:feedback", "--output", feedbackAlias
 assert.match(feedbackAliasOutput, /已生成反馈 issue 草稿/);
 assert.equal(existsSync(feedbackAliasPath), true);
 
+const callerDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-caller-"));
+const callerDraftOutput = run(["new", "pr-review", "--output", "work/pr-review.md"], {
+  cwd: callerDir,
+});
+assert.match(callerDraftOutput, /work\/pr-review\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "pr-review.md")), true);
+
+const callerKitOutput = run(["kit", "oss-maintainer", "--output", "work/maintainer-kit"], {
+  cwd: callerDir,
+});
+assert.match(callerKitOutput, /work\/maintainer-kit/);
+assert.equal(existsSync(path.join(callerDir, "work", "maintainer-kit", "README.md")), true);
+
+const callerFeedbackOutput = run(["feedback", "--output", "work/feedback.md"], {
+  cwd: callerDir,
+});
+assert.match(callerFeedbackOutput, /work\/feedback\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "feedback.md")), true);
+
 console.log("template CLI tests passed");

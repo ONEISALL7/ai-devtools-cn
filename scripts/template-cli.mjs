@@ -4,7 +4,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const invocationRoot = process.cwd();
 
 const templates = [
   {
@@ -242,7 +243,7 @@ function searchTemplates(keyword) {
 function createWorkingDraft(slug, options) {
   const template = requireTemplate(slug);
   const outputPath = options.output ?? path.join("work", `${template.slug}-draft.md`);
-  const resolvedOutput = path.resolve(repoRoot, outputPath);
+  const resolvedOutput = resolveOutputPath(outputPath);
 
   if (existsSync(resolvedOutput) && !options.force) {
     fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
@@ -250,13 +251,13 @@ function createWorkingDraft(slug, options) {
 
   mkdirSync(path.dirname(resolvedOutput), { recursive: true });
   writeFileSync(resolvedOutput, formatWorkingDraft(template), "utf8");
-  console.log(`已生成工作稿：${path.relative(repoRoot, resolvedOutput)}`);
+  console.log(`已生成工作稿：${formatDisplayPath(resolvedOutput)}`);
 }
 
 function createKit(slug, options) {
   const kit = requireKit(slug);
   const outputPath = options.output ?? path.join("work", `${kit.slug}-kit`);
-  const resolvedOutput = path.resolve(repoRoot, outputPath);
+  const resolvedOutput = resolveOutputPath(outputPath);
   const kitTemplates = kit.templateSlugs.map((templateSlug) => requireTemplate(templateSlug));
   const files = [
     {
@@ -274,7 +275,7 @@ function createKit(slug, options) {
     .filter((filePath) => existsSync(filePath));
 
   if (conflicts.length > 0 && !options.force) {
-    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${path.relative(repoRoot, filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
+    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${formatDisplayPath(filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
   }
 
   mkdirSync(resolvedOutput, { recursive: true });
@@ -282,9 +283,9 @@ function createKit(slug, options) {
     writeFileSync(path.join(resolvedOutput, file.name), file.content, "utf8");
   }
 
-  console.log(`已生成工作包：${path.relative(repoRoot, resolvedOutput)}`);
+  console.log(`已生成工作包：${formatDisplayPath(resolvedOutput)}`);
   for (const file of files) {
-    console.log(`- ${path.join(path.relative(repoRoot, resolvedOutput), file.name)}`);
+    console.log(`- ${path.join(formatDisplayPath(resolvedOutput), file.name)}`);
   }
 }
 
@@ -294,7 +295,7 @@ function createFeedbackDraft(options) {
     "work",
     template ? `${template.slug}-feedback.md` : "template-feedback.md",
   );
-  const resolvedOutput = path.resolve(repoRoot, outputPath);
+  const resolvedOutput = resolveOutputPath(outputPath);
 
   if (existsSync(resolvedOutput) && !options.force) {
     fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
@@ -302,7 +303,7 @@ function createFeedbackDraft(options) {
 
   mkdirSync(path.dirname(resolvedOutput), { recursive: true });
   writeFileSync(resolvedOutput, formatFeedbackDraft(template, options), "utf8");
-  console.log(`已生成反馈 issue 草稿：${path.relative(repoRoot, resolvedOutput)}`);
+  console.log(`已生成反馈 issue 草稿：${formatDisplayPath(resolvedOutput)}`);
 }
 
 function formatWorkingDraft(template) {
@@ -425,7 +426,7 @@ function validateTemplates() {
     }
     registeredFiles.add(template.file);
 
-    const fullPath = path.resolve(repoRoot, template.file);
+    const fullPath = path.resolve(packageRoot, template.file);
     if (!existsSync(fullPath)) {
       errors.push(`${template.slug} 注册的文件不存在：${template.file}`);
       continue;
@@ -440,7 +441,7 @@ function validateTemplates() {
     }
   }
 
-  const templateDir = path.resolve(repoRoot, "templates");
+  const templateDir = path.resolve(packageRoot, "templates");
   const templateFiles = readdirSync(templateDir)
     .filter((file) => file.endsWith(".md") && file !== "README.md")
     .map((file) => `templates/${file}`)
@@ -466,8 +467,26 @@ function validateTemplates() {
 }
 
 function readTemplate(template) {
-  const fullPath = path.resolve(repoRoot, template.file);
+  const fullPath = path.resolve(packageRoot, template.file);
   return readFileSync(fullPath, "utf8");
+}
+
+function resolveOutputPath(outputPath) {
+  if (path.isAbsolute(outputPath)) {
+    return outputPath;
+  }
+  return path.resolve(invocationRoot, outputPath);
+}
+
+function formatDisplayPath(filePath) {
+  const relativePath = path.relative(invocationRoot, filePath);
+  if (relativePath === "") {
+    return ".";
+  }
+  if (relativePath.startsWith("..")) {
+    return filePath;
+  }
+  return relativePath;
 }
 
 function requireTemplate(slug) {
