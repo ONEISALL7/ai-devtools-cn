@@ -68,6 +68,21 @@ stars：20 个以上更有说服力
 
 这些不是官方硬性门槛，而是让申请材料更可信的实践目标。
 
+## 当前真实快照
+
+截至 2026-05-31，`ai-devtools-cn` 最新版本是 `v0.9.0`：
+
+- GitHub stars：2
+- Forks：1
+- Merged PRs：53
+- Closed issues：52
+- Releases：10
+- External merged PRs：0
+- External feedback issues：0
+- npm package：not published or unavailable
+
+这些数字能证明维护活动，但还不能证明广泛采用。申请时必须把“活跃维护记录”和“外部采用证据”分开写。
+
 ## Describe your role 草稿
 
 ```text
@@ -77,7 +92,7 @@ I am the primary maintainer of this repository. I maintain the documentation and
 ## Why does this repository qualify 草稿
 
 ```text
-This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has ongoing maintenance needs, user feedback, releases, and community contributions.
+This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 53 merged PRs, 52 closed issues, 10 releases, CI, a CLI, and public feedback channels.
 ```
 
 提交前请把最后一句改成真实数据，例如：
