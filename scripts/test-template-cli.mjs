@@ -23,6 +23,13 @@ assert.match(listOutput, /ci-troubleshooting/);
 const aliasOutput = run(["templates:list"]);
 assert.match(aliasOutput, /release-note/);
 
+const validateOutput = run(["validate"]);
+assert.match(validateOutput, /Template registry validation passed/);
+assert.match(validateOutput, /templates registered/);
+
+const validateAliasOutput = run(["templates:validate"]);
+assert.match(validateAliasOutput, /template files checked/);
+
 const searchOutput = run(["search", "ci"]);
 assert.match(searchOutput, /ci-troubleshooting/);
 assert.match(searchOutput, /release-checklist/);
