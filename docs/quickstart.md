@@ -31,6 +31,15 @@
 
 不要只给 AI 一句“帮我优化”。真实工程任务需要上下文、边界和验收标准。
 
+也可以用 CLI 生成一份本地工作稿：
+
+```bash
+npm install
+npm run templates:new -- pr-review --output work/pr-review.md
+```
+
+更多命令见 [模板 CLI](template-cli.md)。
+
 ## 第 3 分钟：把结果落到工程记录
 
 根据场景选择沉淀方式：

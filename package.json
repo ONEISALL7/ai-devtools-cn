@@ -4,7 +4,12 @@
   "private": true,
   "description": "Chinese AI developer tooling templates and maintenance workflows.",
   "scripts": {
-    "lint:md": "markdownlint-cli2 \"**/*.md\" \"!node_modules/**\""
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"!node_modules/**\" \"!work/**\"",
+    "templates:help": "node scripts/template-cli.mjs help",
+    "templates:list": "node scripts/template-cli.mjs list",
+    "templates:search": "node scripts/template-cli.mjs search",
+    "templates:show": "node scripts/template-cli.mjs show",
+    "templates:new": "node scripts/template-cli.mjs new"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.22.1"

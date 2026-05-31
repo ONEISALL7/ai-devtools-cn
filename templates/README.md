@@ -10,6 +10,15 @@
 4. 把 AI 输出整理到 issue、PR、文档或 release note。
 5. 人工检查关键结论后再执行。
 
+也可以使用 CLI 生成本地工作稿：
+
+```bash
+npm run templates:list
+npm run templates:new -- pr-review --output work/pr-review.md
+```
+
+更多命令见 [模板 CLI](../docs/template-cli.md)。
+
 ## 模板总览
 
 | 模板 | 什么时候用 | 准备材料 | 输出沉淀位置 |

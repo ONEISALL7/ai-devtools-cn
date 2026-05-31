@@ -1,0 +1,283 @@
+#!/usr/bin/env node
+
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+const templates = [
+  {
+    slug: "pr-review",
+    title: "PR Review 模板",
+    file: "templates/pr-review-template.md",
+    useCase: "检查代码或文档 PR",
+    output: "PR review comment",
+  },
+  {
+    slug: "issue-triage",
+    title: "Issue Triage 模板",
+    file: "templates/issue-triage-template.md",
+    useCase: "分流 bug、feature、docs 和 question",
+    output: "issue 评论、label",
+  },
+  {
+    slug: "ci-troubleshooting",
+    title: "CI 排错模板",
+    file: "templates/ci-troubleshooting-template.md",
+    useCase: "分析失败日志并给出最小修复",
+    output: "PR 描述、修复 commit",
+  },
+  {
+    slug: "test-generation",
+    title: "测试生成模板",
+    file: "templates/test-generation-template.md",
+    useCase: "补充测试场景和边界条件",
+    output: "测试文件、TODO issue",
+  },
+  {
+    slug: "documentation-update",
+    title: "文档更新模板",
+    file: "templates/documentation-update-template.md",
+    useCase: "维护 README、docs 或使用说明",
+    output: "docs、README",
+  },
+  {
+    slug: "readme-improvement",
+    title: "README 改进模板",
+    file: "templates/readme-improvement-template.md",
+    useCase: "优化项目首页和新用户入口",
+    output: "README",
+  },
+  {
+    slug: "release-note",
+    title: "发布说明模板",
+    file: "templates/release-note-template.md",
+    useCase: "根据 PR 和 changelog 生成 release note",
+    output: "GitHub Release、CHANGELOG",
+  },
+  {
+    slug: "release-checklist",
+    title: "Release Checklist",
+    file: "templates/release-checklist.md",
+    useCase: "发版前检查版本、CI、tag 和说明",
+    output: "release issue",
+  },
+  {
+    slug: "dependency-upgrade-risk",
+    title: "依赖升级风险模板",
+    file: "templates/dependency-upgrade-risk-template.md",
+    useCase: "评估依赖升级风险和验证范围",
+    output: "PR 描述",
+  },
+  {
+    slug: "security-review",
+    title: "安全审查模板",
+    file: "templates/security-review-template.md",
+    useCase: "检查权限、密钥、敏感信息和危险改动",
+    output: "PR review",
+  },
+  {
+    slug: "tool-evaluation",
+    title: "工具评估清单",
+    file: "templates/tool-evaluation-template.md",
+    useCase: "评估 AI 工具是否适合团队或项目",
+    output: "团队文档",
+  },
+  {
+    slug: "ai-tool-onboarding",
+    title: "AI 工具导入检查清单",
+    file: "templates/ai-tool-onboarding-checklist.md",
+    useCase: "设计团队 AI 工具试点和边界",
+    output: "onboarding 文档",
+  },
+  {
+    slug: "ai-output-evaluation",
+    title: "AI 输出质量评估模板",
+    file: "templates/ai-output-evaluation-template.md",
+    useCase: "判断 AI 输出能否进入工程流程",
+    output: "review 记录",
+  },
+  {
+    slug: "maintainer-weekly-checklist",
+    title: "维护者周检查清单",
+    file: "templates/maintainer-weekly-checklist.md",
+    useCase: "周期性检查 issue、PR、CI 和 release",
+    output: "maintainer log",
+  },
+];
+
+const command = process.argv[2] ?? "help";
+const args = process.argv.slice(3);
+
+function printHelp() {
+  console.log(`AI DevTools CN template CLI
+
+Usage:
+  npm run templates:list
+  npm run templates:search -- <keyword>
+  npm run templates:show -- <slug>
+  npm run templates:new -- <slug> --output <path>
+
+Examples:
+  npm run templates:list
+  npm run templates:search -- ci
+  npm run templates:show -- pr-review
+  npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
+
+Options:
+  --output <path>  Output path for the generated working draft
+  --force          Overwrite output file if it already exists
+`);
+}
+
+function findTemplate(slug) {
+  return templates.find((template) => template.slug === slug);
+}
+
+function listTemplates(items = templates) {
+  for (const template of items) {
+    console.log(`- ${template.slug}: ${template.title}
+  用途：${template.useCase}
+  输出：${template.output}
+  文件：${template.file}
+`);
+  }
+}
+
+function showTemplate(slug) {
+  const template = requireTemplate(slug);
+  console.log(`${template.title}
+
+slug: ${template.slug}
+file: ${template.file}
+use case: ${template.useCase}
+output: ${template.output}
+
+Preview:
+${readTemplate(template).slice(0, 1200).trim()}
+`);
+}
+
+function searchTemplates(keyword) {
+  if (!keyword) {
+    fail("请提供搜索关键词，例如：npm run templates:search -- ci");
+  }
+
+  const normalized = keyword.toLowerCase();
+  const matches = templates.filter((template) => {
+    return [
+      template.slug,
+      template.title,
+      template.file,
+      template.useCase,
+      template.output,
+    ].some((value) => value.toLowerCase().includes(normalized));
+  });
+
+  if (matches.length === 0) {
+    fail(`没有找到匹配模板：${keyword}`);
+  }
+
+  listTemplates(matches);
+}
+
+function createWorkingDraft(slug, options) {
+  const template = requireTemplate(slug);
+  const outputPath = options.output ?? path.join("work", `${template.slug}-draft.md`);
+  const resolvedOutput = path.resolve(repoRoot, outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+
+  const body = `# ${template.title}工作稿
+
+> 来源模板：${template.file}
+> 使用场景：${template.useCase}
+> 建议沉淀位置：${template.output}
+
+## 使用前填写
+
+\`\`\`text
+项目背景：
+技术栈：
+当前任务：
+相关文件或日志：
+约束条件：
+期望输出格式：
+\`\`\`
+
+## 模板正文
+
+${readTemplate(template).trim()}
+`;
+
+  writeFileSync(resolvedOutput, `${body}\n`, "utf8");
+  console.log(`已生成工作稿：${path.relative(repoRoot, resolvedOutput)}`);
+}
+
+function readTemplate(template) {
+  const fullPath = path.resolve(repoRoot, template.file);
+  return readFileSync(fullPath, "utf8");
+}
+
+function requireTemplate(slug) {
+  if (!slug) {
+    fail("请提供模板 slug。先运行 npm run templates:list 查看可用模板。");
+  }
+
+  const template = findTemplate(slug);
+  if (!template) {
+    fail(`未知模板 slug：${slug}\n先运行 npm run templates:list 查看可用模板。`);
+  }
+
+  return template;
+}
+
+function parseOptions(values) {
+  const options = {};
+  for (let index = 0; index < values.length; index += 1) {
+    const value = values[index];
+    if (value === "--output") {
+      options.output = values[index + 1];
+      index += 1;
+      continue;
+    }
+    if (value === "--force") {
+      options.force = true;
+      continue;
+    }
+    fail(`未知参数：${value}`);
+  }
+  return options;
+}
+
+function fail(message) {
+  console.error(message);
+  process.exit(1);
+}
+
+switch (command) {
+  case "help":
+  case "--help":
+  case "-h":
+    printHelp();
+    break;
+  case "list":
+    listTemplates();
+    break;
+  case "search":
+    searchTemplates(args[0]);
+    break;
+  case "show":
+    showTemplate(args[0]);
+    break;
+  case "new":
+    createWorkingDraft(args[0], parseOptions(args.slice(1)));
+    break;
+  default:
+    fail(`未知命令：${command}\n运行 npm run templates:help 查看用法。`);
+}
