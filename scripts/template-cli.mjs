@@ -218,6 +218,34 @@ const examples = [
   },
 ];
 
+const outreachChannels = [
+  {
+    slug: "github",
+    title: "GitHub issue / discussion",
+    audience: "已经在维护开源项目、愿意提交公开反馈的开发者",
+  },
+  {
+    slug: "x",
+    title: "X / Twitter",
+    audience: "关注 AI 开发工具、开源维护和工程效率的开发者",
+  },
+  {
+    slug: "v2ex",
+    title: "V2EX / 中文开发者社区",
+    audience: "愿意试用工具并给出具体意见的中文开发者",
+  },
+  {
+    slug: "wechat",
+    title: "微信群 / 私域社群",
+    audience: "熟人开发者、开源维护者和团队技术负责人",
+  },
+  {
+    slug: "email",
+    title: "Email / 私信",
+    audience: "已知有维护场景、适合一对一邀请的开发者",
+  },
+];
+
 const rawCommand = process.argv[2] ?? "help";
 const command = rawCommand.startsWith("templates:")
   ? rawCommand.slice("templates:".length)
@@ -237,6 +265,7 @@ Usage:
   ai-devtools-cn kit <slug> --output <dir>
   ai-devtools-cn trial --output <dir>
   ai-devtools-cn feedback --output <path>
+  ai-devtools-cn outreach --output <path>
   ai-devtools-cn doctor
   ai-devtools-cn validate
   ai-devtools-cn publish-check
@@ -251,6 +280,7 @@ NPM scripts:
   npm run templates:kit -- <slug> --output <dir>
   npm run templates:trial -- --template <slug> --output <dir>
   npm run templates:feedback -- --template <slug> --output <path>
+  npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -265,6 +295,7 @@ Examples:
   npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
   npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
+  npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
   npx ai-devtools-cn publish-check
@@ -278,6 +309,7 @@ Examples:
   npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
   npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
   npm run templates:feedback -- --template pr-review --output work/feedback.md
+  npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -286,6 +318,7 @@ Options:
   --output <path>  Output path for the generated working draft or kit directory
   --template <slug> Template slug to prefill feedback context
   --scenario <text> Public-safe usage scenario to prefill feedback context
+  --channel <slug> Outreach channel: github, x, v2ex, wechat, email
   --force          Overwrite output file if it already exists
 `);
 }
@@ -515,6 +548,21 @@ function createFeedbackDraft(options) {
   console.log(`已生成反馈 issue 草稿：${formatDisplayPath(resolvedOutput)}`);
 }
 
+function createOutreachPack(options) {
+  const template = options.template ? requireTemplate(options.template) : requireTemplate("pr-review");
+  const channel = requireOutreachChannel(options.channel ?? "github");
+  const outputPath = options.output ?? path.join("work", `${template.slug}-${channel.slug}-outreach.md`);
+  const resolvedOutput = resolveOutputPath(outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatOutreachPack(template, channel, options), "utf8");
+  console.log(`已生成外部试用邀请包：${formatDisplayPath(resolvedOutput)}`);
+}
+
 function formatWorkingDraft(template) {
   return `# ${template.title}工作稿
 
@@ -537,6 +585,136 @@ function formatWorkingDraft(template) {
 
 ${readTemplate(template).trim()}
 `;
+}
+
+function formatOutreachPack(template, channel, options) {
+  const scenarioLine = options.scenario ?? template.useCase;
+  const scenarioArg = formatShellArg(scenarioLine);
+  const trialCommand = `npx ai-devtools-cn trial --template ${template.slug} --scenario ${scenarioArg} --output work/ai-devtools-cn-trial`;
+  const feedbackCommand = `npx ai-devtools-cn feedback --template ${template.slug} --scenario ${scenarioArg} --output work/feedback.md`;
+
+  return `# AI DevTools CN 外部试用邀请包
+
+> 邀请渠道：${channel.slug} - ${channel.title}
+> 适合对象：${channel.audience}
+> 推荐模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这个邀请包用于找真实开发者完成一次 15 分钟试用，并把反馈沉淀到公开 issue。目标是获得可验证的产品反馈，不是刷 star、刷 issue 或制造虚假采用信号。
+
+## 发送前检查
+
+- [ ] 仓库 README 能说明项目用途和快速开始
+- [ ] 已确认反馈入口可访问
+- [ ] 邀请对象确实有 PR review、CI、issue、release 或文档维护场景
+- [ ] 文案没有夸大 stars、下载量、用户数或 OpenAI 申请结果
+- [ ] 已说明不要公开 API key、token、客户信息、内部日志或未公开源码
+
+## 可直接发送的邀请文案
+
+${formatOutreachMessage(template, channel, scenarioLine)}
+
+## 推荐试用命令
+
+\`\`\`bash
+${trialCommand}
+\`\`\`
+
+如果只想生成反馈草稿：
+
+\`\`\`bash
+${feedbackCommand}
+\`\`\`
+
+## 反馈入口
+
+- GitHub issue: https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+- 快速上手：https://github.com/ONEISALL7/ai-devtools-cn#readme
+- 第一批用户试用计划：https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/first-user-test-plan.md
+
+## 维护者记录
+
+收到反馈后，维护者应该记录：
+
+- 反馈 issue 链接
+- 试用者角色，例如个人开发者、开源维护者、团队技术负责人
+- 使用的模板或 CLI 命令
+- 是否进入真实 PR、issue、CI、release 或文档维护流程
+- 后续改进 PR 或 issue
+
+不要把维护者自己写的测试 issue、占位 issue 或泛泛建议包装成外部用户反馈。
+`;
+}
+
+function formatOutreachMessage(template, channel, scenarioLine) {
+  const baseLines = [
+    `我在维护一个中文 AI 开发者工具模板库 ai-devtools-cn，想找真实开发者试用 ${template.title}。`,
+    `这次只需要 15 分钟，用它跑一个可公开描述的场景：${scenarioLine}。`,
+    "如果模板对你的 PR review、CI 排错、issue 分流、release 或文档维护有帮助，请提交一条匿名化反馈 issue。",
+    "请不要提交 API key、token、客户信息、内部日志、未公开源码或生产事故敏感细节。",
+    "仓库：https://github.com/ONEISALL7/ai-devtools-cn",
+  ];
+
+  if (channel.slug === "x") {
+    return `${baseLines[0]}
+
+想请 5-10 位开发者试用一次：
+
+- 场景：${scenarioLine}
+- 时间：15 分钟
+- 反馈：提交匿名化 GitHub issue
+
+我最想知道：这个模板能不能进入你的真实维护流程，哪里不够具体。
+
+${baseLines[4]}`;
+  }
+
+  if (channel.slug === "v2ex") {
+    return `我做了一个中文 AI 工程维护模板库，想请大家试用和拍砖。
+
+目前重点不是宣传，而是验证模板能不能进入真实维护流程。推荐先试用：${template.title}。
+
+试用任务：${scenarioLine}
+
+如果你愿意反馈，请重点说：
+
+1. 模板有没有帮你更快完成维护任务。
+2. 哪些字段不清楚或太啰嗦。
+3. 缺少哪个技术栈或场景案例。
+
+仓库：https://github.com/ONEISALL7/ai-devtools-cn`;
+  }
+
+  if (channel.slug === "wechat") {
+    return `我最近在维护一个中文 AI 开发者工具模板库，想请你帮忙试用一次。
+
+不用提供私有代码，只要选一个可公开描述的场景：${scenarioLine}。
+
+推荐用 ${template.title} 跑一遍，看看能不能帮你完成 PR review、CI 排错、issue 分流、release 或文档维护中的一个小任务。
+
+如果愿意反馈，提交一个匿名化 GitHub issue 就可以。仓库：
+https://github.com/ONEISALL7/ai-devtools-cn`;
+  }
+
+  if (channel.slug === "email") {
+    return `你好，
+
+我在维护一个中文 AI 开发者工具模板库 ai-devtools-cn，想邀请你做一次 15 分钟试用。
+
+推荐试用：${template.title}
+建议场景：${scenarioLine}
+
+你不需要公开任何私有代码或敏感日志。只需要用一个可公开描述的维护任务跑一遍模板，然后反馈它是否真的帮你完成了 review、triage、CI、release 或文档维护。
+
+仓库：https://github.com/ONEISALL7/ai-devtools-cn
+反馈入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+
+谢谢。`;
+  }
+
+  return `${baseLines.join("\n\n")}
+
+反馈入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml`;
 }
 
 function formatFeedbackDraft(template, options) {
@@ -973,6 +1151,10 @@ function formatDisplayPath(filePath) {
   return relativePath;
 }
 
+function formatShellArg(value) {
+  return `'${value.replaceAll("'", "'\\''")}'`;
+}
+
 function requireTemplate(slug) {
   if (!slug) {
     fail("请提供模板 slug。先运行 npm run templates:list 查看可用模板。");
@@ -999,6 +1181,14 @@ function requireKit(slug) {
   return kit;
 }
 
+function requireOutreachChannel(slug) {
+  const channel = outreachChannels.find((item) => item.slug === slug);
+  if (!channel) {
+    fail(`未知邀请渠道：${slug}\n可用渠道：${outreachChannels.map((item) => item.slug).join(", ")}`);
+  }
+  return channel;
+}
+
 function parseOptions(values) {
   const options = {};
   for (let index = 0; index < values.length; index += 1) {
@@ -1019,6 +1209,11 @@ function parseOptions(values) {
     }
     if (value === "--scenario") {
       options.scenario = values[index + 1];
+      index += 1;
+      continue;
+    }
+    if (value === "--channel") {
+      options.channel = values[index + 1];
       index += 1;
       continue;
     }
@@ -1068,6 +1263,9 @@ switch (command) {
     break;
   case "feedback":
     createFeedbackDraft(parseOptions(args));
+    break;
+  case "outreach":
+    createOutreachPack(parseOptions(args));
     break;
   case "doctor":
     runDoctor();

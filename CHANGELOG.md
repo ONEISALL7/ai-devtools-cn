@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-- 暂无
+- 新增 CLI `outreach` 命令，可生成面向 GitHub、X、V2EX、微信和私信渠道的外部试用邀请包
 
 ## 0.11.0 - 2026-06-01
 

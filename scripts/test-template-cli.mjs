@@ -156,6 +156,42 @@ const feedbackAliasOutput = run(["templates:feedback", "--output", feedbackAlias
 assert.match(feedbackAliasOutput, /已生成反馈 issue 草稿/);
 assert.equal(existsSync(feedbackAliasPath), true);
 
+const outreachPath = path.join(tempDir, "outreach.md");
+const outreachOutput = run([
+  "outreach",
+  "--template",
+  "pr-review",
+  "--channel",
+  "x",
+  "--scenario",
+  "review a documentation PR",
+  "--output",
+  outreachPath,
+]);
+assert.match(outreachOutput, /已生成外部试用邀请包/);
+assert.equal(existsSync(outreachPath), true);
+
+const outreachDraft = readFileSync(outreachPath, "utf8");
+assert.match(outreachDraft, /外部试用邀请包/);
+assert.match(outreachDraft, /X \/ Twitter/);
+assert.match(outreachDraft, /PR Review 模板/);
+assert.match(outreachDraft, /review a documentation PR/);
+assert.match(outreachDraft, /template_feedback\.yml/);
+assert.match(outreachDraft, /不要把维护者自己写的测试 issue/);
+
+assert.throws(
+  () => run(["outreach", "--template", "pr-review", "--output", outreachPath]),
+  /输出文件已存在/
+);
+
+const forcedOutreachOutput = run(["outreach", "--template", "pr-review", "--output", outreachPath, "--force"]);
+assert.match(forcedOutreachOutput, /已生成外部试用邀请包/);
+
+const outreachAliasPath = path.join(tempDir, "outreach-alias.md");
+const outreachAliasOutput = run(["templates:outreach", "--channel", "wechat", "--output", outreachAliasPath]);
+assert.match(outreachAliasOutput, /已生成外部试用邀请包/);
+assert.equal(existsSync(outreachAliasPath), true);
+
 const callerDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-caller-"));
 const callerDraftOutput = run(["new", "pr-review", "--output", "work/pr-review.md"], {
   cwd: callerDir,
@@ -174,6 +210,12 @@ const callerFeedbackOutput = run(["feedback", "--output", "work/feedback.md"], {
 });
 assert.match(callerFeedbackOutput, /work\/feedback\.md/);
 assert.equal(existsSync(path.join(callerDir, "work", "feedback.md")), true);
+
+const callerOutreachOutput = run(["outreach", "--output", "work/outreach.md"], {
+  cwd: callerDir,
+});
+assert.match(callerOutreachOutput, /work\/outreach\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "outreach.md")), true);
 
 const trialPath = path.join(tempDir, "trial-pack");
 const trialOutput = run([

@@ -51,6 +51,7 @@ npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:feedback -- --template pr-review --output work/feedback.md
+npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
 ```
 
 如果通过 npm 使用，发布后也可以运行：
@@ -63,6 +64,7 @@ npx ai-devtools-cn doctor
 npx ai-devtools-cn publish-check
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
+npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 ```
 
 更多命令见 [模板 CLI](docs/template-cli.md)。
