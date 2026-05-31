@@ -15,6 +15,7 @@
 | PR review | [用 PR Review 模板审查快速上手 PR](pr-review-quickstart-release.md) |
 | CI 排错 | [用 CI 排错模板修复 markdownlint MD012](ci-markdownlint-md012.md) |
 | 发版说明 | [用 release note 模板发布 v0.2.0](release-v020.md) |
+| CLI 维护 | [为模板库增加 CLI 注册校验](template-registry-validation.md) |
 
 ## 使用方式
 
