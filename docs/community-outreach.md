@@ -179,6 +179,14 @@ https://github.com/ONEISALL7/ai-devtools-cn
 下一步要改的模板或文档：
 ```
 
+如果已经有外部反馈、外部 PR 或公开提及，建议同步生成外部采用证据台账：
+
+```bash
+npm run templates:evidence -- --output work/external-evidence.md
+```
+
+台账只记录可核验链接和经允许整理的匿名案例，不记录私聊敏感内容，也不把维护者自己的维护记录写成外部采用。
+
 ## 反馈收集方式
 
 引导用户使用：

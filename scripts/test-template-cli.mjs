@@ -195,6 +195,30 @@ const outreachAliasOutput = run(["templates:outreach", "--channel", "wechat", "-
 assert.match(outreachAliasOutput, /已生成外部试用邀请包/);
 assert.equal(existsSync(outreachAliasPath), true);
 
+const evidencePath = path.join(tempDir, "external-evidence.md");
+const evidenceOutput = run(["evidence", "--output", evidencePath]);
+assert.match(evidenceOutput, /已生成外部采用证据台账/);
+assert.equal(existsSync(evidencePath), true);
+
+const evidenceLedger = readFileSync(evidencePath, "utf8");
+assert.match(evidenceLedger, /外部采用证据台账/);
+assert.match(evidenceLedger, /External merged PRs/);
+assert.match(evidenceLedger, /external feedback issue/);
+assert.match(evidenceLedger, /不应计入外部采用/);
+
+assert.throws(
+  () => run(["evidence", "--output", evidencePath]),
+  /输出文件已存在/
+);
+
+const forcedEvidenceOutput = run(["evidence", "--output", evidencePath, "--force"]);
+assert.match(forcedEvidenceOutput, /已生成外部采用证据台账/);
+
+const evidenceAliasPath = path.join(tempDir, "external-evidence-alias.md");
+const evidenceAliasOutput = run(["templates:evidence", "--output", evidenceAliasPath]);
+assert.match(evidenceAliasOutput, /已生成外部采用证据台账/);
+assert.equal(existsSync(evidenceAliasPath), true);
+
 const callerDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-caller-"));
 const callerDraftOutput = run(["new", "pr-review", "--output", "work/pr-review.md"], {
   cwd: callerDir,
@@ -219,6 +243,12 @@ const callerOutreachOutput = run(["outreach", "--output", "work/outreach.md"], {
 });
 assert.match(callerOutreachOutput, /work\/outreach\.md/);
 assert.equal(existsSync(path.join(callerDir, "work", "outreach.md")), true);
+
+const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidence.md"], {
+  cwd: callerDir,
+});
+assert.match(callerEvidenceOutput, /work\/external-evidence\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "external-evidence.md")), true);
 
 const trialPath = path.join(tempDir, "trial-pack");
 const trialOutput = run([

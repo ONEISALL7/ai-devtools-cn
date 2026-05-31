@@ -31,6 +31,24 @@ npm run metrics:snapshot -- --output work/metrics.md
 
 `work/` 已加入 `.gitignore`，适合保存本地草稿。
 
+## 记录外部采用证据
+
+指标快照只能告诉你“数量是多少”，不能替代人工判断证据是否真实、可公开、可核验。收到外部反馈或外部 PR 后，可以生成证据台账：
+
+```bash
+npm run templates:evidence -- --output work/external-evidence.md
+```
+
+台账用于记录：
+
+- npm 包发布链接和版本
+- 外部 feedback issue
+- 外部贡献者 PR
+- 公开帖子、博客、讨论或引用
+- 经允许匿名化整理的真实案例
+
+不要把维护者自己创建的 issue、测试 issue、占位 issue 或无法核验的说法写成外部采用证据。
+
 ## 依赖
 
 脚本依赖本机已有：
