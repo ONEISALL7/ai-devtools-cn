@@ -5,6 +5,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 
 const repo = "ONEISALL7/ai-devtools-cn";
+const repoOwner = "ONEISALL7";
 const packageName = "ai-devtools-cn";
 const args = process.argv.slice(2);
 
@@ -29,7 +30,7 @@ const mergedPrs = getJson("gh", [
   "--limit",
   "100",
   "--json",
-  "number,title,mergedAt",
+  "number,title,mergedAt,author",
 ]);
 
 const closedIssues = getJson("gh", [
@@ -42,7 +43,7 @@ const closedIssues = getJson("gh", [
   "--limit",
   "100",
   "--json",
-  "number,title,closedAt",
+  "number,title,closedAt,labels",
 ]);
 
 const openIssues = getJson("gh", [
@@ -55,7 +56,7 @@ const openIssues = getJson("gh", [
   "--limit",
   "100",
   "--json",
-  "number,title",
+  "number,title,labels",
 ]);
 
 const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", "20"]);
@@ -66,6 +67,13 @@ const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl
 const releaseRows = releases.ok
   ? releases.value.trim().split("\n").filter(Boolean)
   : [];
+const mergedPrItems = mergedPrs.ok ? mergedPrs.value : [];
+const closedIssueItems = closedIssues.ok ? closedIssues.value : [];
+const openIssueItems = openIssues.ok ? openIssues.value : [];
+const feedbackIssues = [...closedIssueItems, ...openIssueItems]
+  .filter((issue) => hasLabel(issue, "feedback"));
+const externalMergedPrs = mergedPrItems
+  .filter((pr) => isExternalHumanAuthor(pr.author));
 
 const markdown = `# 项目指标快照
 
@@ -79,19 +87,31 @@ const markdown = `# 项目指标快照
 | 可见性 | ${repoInfo.ok ? repoInfo.value.visibility : "unknown"} |
 | Stars | ${repoInfo.ok ? repoInfo.value.stargazerCount : "unknown"} |
 | Forks | ${repoInfo.ok ? repoInfo.value.forkCount : "unknown"} |
-| Merged PRs | ${mergedPrs.ok ? mergedPrs.value.length : "unknown"} |
-| Closed issues | ${closedIssues.ok ? closedIssues.value.length : "unknown"} |
-| Open issues | ${openIssues.ok ? openIssues.value.length : "unknown"} |
+| Merged PRs | ${mergedPrs.ok ? mergedPrItems.length : "unknown"} |
+| External merged PRs | ${mergedPrs.ok ? externalMergedPrs.length : "unknown"} |
+| Closed issues | ${closedIssues.ok ? closedIssueItems.length : "unknown"} |
+| Open issues | ${openIssues.ok ? openIssueItems.length : "unknown"} |
+| Feedback-labeled issues | ${closedIssues.ok && openIssues.ok ? feedbackIssues.length : "unknown"} |
 | Releases | ${releaseRows.length || "unknown"} |
 | npm package | ${npmVersion.ok ? npmVersion.value.trim() : "not published or unavailable"} |
 
 ## 最近 merged PR
 
-${formatItems(mergedPrs.ok ? mergedPrs.value.slice(0, 10) : [], "mergedAt")}
+${formatPullRequests(mergedPrItems.slice(0, 10))}
 
 ## 最近 closed issue
 
-${formatItems(closedIssues.ok ? closedIssues.value.slice(0, 10) : [], "closedAt")}
+${formatIssues(closedIssueItems.slice(0, 10), "closedAt")}
+
+## 外部采用信号
+
+Feedback-labeled issues:
+
+${formatIssues(feedbackIssues.slice(0, 10), "closedAt", "- none yet")}
+
+External merged PRs:
+
+${formatPullRequests(externalMergedPrs.slice(0, 10), "- none yet")}
 
 ## Release 列表
 
@@ -102,6 +122,7 @@ ${releaseRows.length > 0 ? releaseRows.map((row) => `- ${row}`).join("\n") : "- 
 - 这个快照用于维护者复盘和申请材料准备。
 - npm 查询失败不一定代表包名不可用，可能是网络、证书或登录环境问题。
 - 不要手动夸大 stars、downloads、forks 或外部贡献数量。
+- 不要把维护者自己创建的 issue 包装成外部用户反馈；外部采用信号需要结合作者、上下文和来源人工判断。
 `;
 
 if (options.output) {
@@ -113,17 +134,45 @@ if (options.output) {
   console.log(markdown);
 }
 
-function formatItems(items, dateField) {
+function formatPullRequests(items, emptyText = "- unavailable") {
   if (items.length === 0) {
-    return "- unavailable";
+    return emptyText;
   }
 
   return items
     .map((item) => {
-      const date = item[dateField] ? item[dateField].slice(0, 10) : "unknown";
-      return `- #${item.number} ${item.title} (${date})`;
+      const date = item.mergedAt ? item.mergedAt.slice(0, 10) : "unknown";
+      const author = item.author?.login ? ` by @${item.author.login}` : "";
+      return `- #${item.number} ${item.title}${author} (${date})`;
     })
     .join("\n");
+}
+
+function formatIssues(items, dateField, emptyText = "- unavailable") {
+  if (items.length === 0) {
+    return emptyText;
+  }
+
+  return items
+    .map((item) => {
+      const date = item[dateField] ? item[dateField].slice(0, 10) : "open";
+      const labels = Array.isArray(item.labels) && item.labels.length > 0
+        ? ` [${item.labels.map((label) => label.name).join(", ")}]`
+        : "";
+      return `- #${item.number} ${item.title}${labels} (${date})`;
+    })
+    .join("\n");
+}
+
+function hasLabel(item, labelName) {
+  return Array.isArray(item.labels)
+    && item.labels.some((label) => label.name === labelName);
+}
+
+function isExternalHumanAuthor(author) {
+  return Boolean(author?.login)
+    && author.login !== repoOwner
+    && author.is_bot !== true;
 }
 
 function getJson(command, commandArgs) {
