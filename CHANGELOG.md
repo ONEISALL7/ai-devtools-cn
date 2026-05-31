@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-- 暂无
+- 修正 `metrics:snapshot` 快照日期，使用本地日期而不是 UTC 日期
 
 ## 0.10.0 - 2026-05-31
 

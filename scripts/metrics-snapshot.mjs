@@ -3,6 +3,7 @@
 import { execFileSync } from "node:child_process";
 import { writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
+import { formatSnapshotDate } from "./date-utils.mjs";
 
 const repo = "ONEISALL7/ai-devtools-cn";
 const repoOwner = "ONEISALL7";
@@ -10,7 +11,7 @@ const packageName = "ai-devtools-cn";
 const args = process.argv.slice(2);
 
 const options = parseOptions(args);
-const today = new Date().toISOString().slice(0, 10);
+const today = formatSnapshotDate();
 
 const repoInfo = getJson("gh", [
   "repo",
