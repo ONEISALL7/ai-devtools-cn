@@ -106,6 +106,13 @@ const templates = [
     useCase: "周期性检查 issue、PR、CI 和 release",
     output: "maintainer log",
   },
+  {
+    slug: "contributor-onboarding",
+    title: "外部贡献者引导模板",
+    file: "templates/contributor-onboarding-template.md",
+    useCase: "把 good first issue 整理成外部贡献者可执行的 PR 引导",
+    output: "contributor guide、issue comment、PR checklist",
+  },
 ];
 
 const kits = [
@@ -119,6 +126,7 @@ const kits = [
       "ci-troubleshooting",
       "release-note",
       "maintainer-weekly-checklist",
+      "contributor-onboarding",
       "ai-output-evaluation",
     ],
   },
