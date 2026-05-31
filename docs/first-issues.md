@@ -16,14 +16,44 @@
 
 1. 在对应 issue 下留言说明你想认领。
 2. Fork 仓库并创建分支。
-3. 新增或修改文档、示例或模板。
-4. 本地运行：
+3. 本地安装依赖并先查看参考案例：
+
+   ```bash
+   npm install
+   npm run templates:doctor
+   npm run templates:examples
+   ```
+
+4. 用任务关键词推荐模板和案例。例如：
+
+   ```bash
+   npm run templates:recommend -- ci
+   npm run templates:recommend -- review
+   npm run templates:recommend -- pytest
+   ```
+
+5. 生成工作稿或试用包，整理你的示例输入和期望输出：
+
+   ```bash
+   npm run templates:new -- pr-review --output work/pr-review.md
+   npm run templates:trial -- --template ci-troubleshooting --scenario "debug a failing CI job" --output work/trial-ci
+   ```
+
+6. 新增或修改文档、示例或模板。
+7. 本地运行：
 
    ```bash
    npm run lint:md
    ```
 
-5. 提交 PR，并在描述中关联 issue。
+8. 提交 PR，并在描述中关联 issue。
+
+PR 描述建议包含：
+
+- 关联 issue，例如 `Closes #45`
+- 新增或修改的文件
+- 使用了哪个模板或案例作为参考
+- 本地验证结果，例如 `npm run lint:md`
 
 ## 内容要求
 
@@ -34,6 +64,13 @@
 - 期望输出
 - 维护者验收标准
 - 不应该怎么用
+
+如果你不确定示例应该放在哪里：
+
+- 基础示例放在 `examples/`
+- 来自真实维护流程的案例放在 `examples/case-studies/`
+- 面向第一批用户试用的完整流程放在 `examples/trial-packs/`
+- 通用方法论和流程说明放在 `docs/`
 
 不要提交：
 
