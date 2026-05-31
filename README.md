@@ -41,6 +41,13 @@ npm run templates:list
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 ```
 
+如果通过 npm 使用，发布后也可以运行：
+
+```bash
+npx ai-devtools-cn list
+npx ai-devtools-cn new pr-review --output work/pr-review.md
+```
+
 更多命令见 [模板 CLI](docs/template-cli.md)。
 
 ## 按身份开始
