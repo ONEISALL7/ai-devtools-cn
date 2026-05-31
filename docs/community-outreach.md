@@ -29,7 +29,7 @@
 - 外部贡献者 PR
 - 真实案例补充
 
-如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，再收集反馈。
+如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，并把 [外部试用者快速指南](external-tester-guide.md) 发给对方，再收集反馈。
 
 如果你想把这件事压缩成一周执行，可以先生成外部试用冲刺包：
 
@@ -170,7 +170,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - README 顶部能说明项目用途
 - `v0.10.0` release 已存在
 - issue 模板可用
-- [第一批用户试用计划](first-user-test-plan.md) 可直接发给试用者
+- [第一批用户试用计划](first-user-test-plan.md) 和 [外部试用者快速指南](external-tester-guide.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
 - README 中展示 examples、recommend 和 trial 的最短路径
 - 不在文案中夸大 stars、下载量或用户数
@@ -201,6 +201,7 @@ npm run templates:evidence -- --output work/external-evidence.md
 引导用户使用：
 
 - [用户反馈](feedback.md)
+- [外部试用者快速指南](external-tester-guide.md)
 - GitHub issue template: Template usage feedback
 
 建议维护者定期整理反馈：
