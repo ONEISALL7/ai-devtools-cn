@@ -26,12 +26,22 @@ examples/    示例工作流
 
 如果你不知道该选哪个模板，先看 [如何选择模板](docs/choose-template.md)。
 
-最短路径：
+最短路径一：直接复制模板
 
 1. 按场景从下面选择一个模板。
 2. 复制模板内容到你的 AI 开发工具。
 3. 替换项目背景、技术栈、约束条件和期望输出。
 4. 把有效结果沉淀到 issue、PR、文档或 release note。
+
+最短路径二：用 CLI 生成工作稿
+
+```bash
+npm install
+npm run templates:list
+npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
+```
+
+更多命令见 [模板 CLI](docs/template-cli.md)。
 
 ## 按身份开始
 
@@ -84,6 +94,7 @@ examples/    示例工作流
 ## 文档入口
 
 - [如何选择模板](docs/choose-template.md)
+- [模板 CLI](docs/template-cli.md)
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)
 - [团队导入 AI 工具指南](docs/team-ai-adoption-guide.md)
 - [模板质量评分卡](docs/template-quality-scorecard.md)
