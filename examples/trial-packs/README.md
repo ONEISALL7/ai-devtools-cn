@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | [PR Review 文档改动试用包](pr-review-docs/README.md) | 审查 README 或 docs 改动 | 试用说明、PR review 工作稿、feedback 草稿 |
 | [Node.js CI 排错试用包](node-ci-failure/README.md) | 排查 GitHub Actions 失败日志 | 试用说明、CI 排错工作稿、feedback 草稿 |
+| [Python pytest 失败试用包](python-pytest-failure/README.md) | 排查 pytest 失败和版本差异 | 试用说明、CI 排错工作稿、feedback 草稿 |
 
 ## 推荐使用方式
 
