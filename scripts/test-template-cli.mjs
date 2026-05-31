@@ -84,4 +84,36 @@ assert.throws(
 const forcedKitOutput = run(["kit", "oss-maintainer", "--output", kitPath, "--force"]);
 assert.match(forcedKitOutput, /已生成工作包/);
 
+const feedbackPath = path.join(tempDir, "feedback.md");
+const feedbackOutput = run([
+  "feedback",
+  "--template",
+  "pr-review",
+  "--scenario",
+  "review a documentation PR",
+  "--output",
+  feedbackPath,
+]);
+assert.match(feedbackOutput, /已生成反馈 issue 草稿/);
+assert.equal(existsSync(feedbackPath), true);
+
+const feedbackDraft = readFileSync(feedbackPath, "utf8");
+assert.match(feedbackDraft, /PR Review 模板/);
+assert.match(feedbackDraft, /review a documentation PR/);
+assert.match(feedbackDraft, /没有包含 API key/);
+assert.match(feedbackDraft, /template_feedback\.yml/);
+
+assert.throws(
+  () => run(["feedback", "--template", "pr-review", "--output", feedbackPath]),
+  /输出文件已存在/
+);
+
+const forcedFeedbackOutput = run(["feedback", "--template", "pr-review", "--output", feedbackPath, "--force"]);
+assert.match(forcedFeedbackOutput, /已生成反馈 issue 草稿/);
+
+const feedbackAliasPath = path.join(tempDir, "feedback-alias.md");
+const feedbackAliasOutput = run(["templates:feedback", "--output", feedbackAliasPath]);
+assert.match(feedbackAliasOutput, /已生成反馈 issue 草稿/);
+assert.equal(existsSync(feedbackAliasPath), true);
+
 console.log("template CLI tests passed");

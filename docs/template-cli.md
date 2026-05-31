@@ -115,6 +115,35 @@ npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit --force
 ```
 
+## 生成反馈 issue 草稿
+
+邀请试用者反馈时，可以先生成一份公开安全的 issue 草稿：
+
+```bash
+npm run templates:feedback -- --template pr-review --scenario "review a documentation PR" --output work/feedback.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn feedback --template pr-review --scenario "review a documentation PR" --output work/feedback.md
+```
+
+生成的草稿会包含：
+
+- GitHub 反馈 issue 入口
+- 公开安全检查
+- 使用模板或功能
+- 使用场景
+- 遇到的困难
+- 希望补充的模板或案例
+
+如果只想生成空白反馈草稿，也可以运行：
+
+```bash
+npm run templates:feedback -- --output work/feedback.md
+```
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：

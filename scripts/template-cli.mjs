@@ -138,6 +138,7 @@ Usage:
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
   ai-devtools-cn kit <slug> --output <dir>
+  ai-devtools-cn feedback --output <path>
   ai-devtools-cn validate
 
 NPM scripts:
@@ -146,6 +147,7 @@ NPM scripts:
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
   npm run templates:kit -- <slug> --output <dir>
+  npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:validate
 
 Examples:
@@ -154,6 +156,7 @@ Examples:
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
   npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
+  npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn validate
 
   npm run templates:list
@@ -161,10 +164,13 @@ Examples:
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
   npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+  npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:validate
 
 Options:
   --output <path>  Output path for the generated working draft or kit directory
+  --template <slug> Template slug to prefill feedback context
+  --scenario <text> Public-safe usage scenario to prefill feedback context
   --force          Overwrite output file if it already exists
 `);
 }
@@ -282,6 +288,23 @@ function createKit(slug, options) {
   }
 }
 
+function createFeedbackDraft(options) {
+  const template = options.template ? requireTemplate(options.template) : null;
+  const outputPath = options.output ?? path.join(
+    "work",
+    template ? `${template.slug}-feedback.md` : "template-feedback.md",
+  );
+  const resolvedOutput = path.resolve(repoRoot, outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatFeedbackDraft(template, options), "utf8");
+  console.log(`已生成反馈 issue 草稿：${path.relative(repoRoot, resolvedOutput)}`);
+}
+
 function formatWorkingDraft(template) {
   return `# ${template.title}工作稿
 
@@ -303,6 +326,52 @@ function formatWorkingDraft(template) {
 ## 模板正文
 
 ${readTemplate(template).trim()}
+`;
+}
+
+function formatFeedbackDraft(template, options) {
+  const templateLine = template
+    ? `${template.slug} - ${template.title} (${template.file})`
+    : "请填写使用的模板、CLI 命令或案例链接";
+  const scenarioLine = options.scenario ?? "请填写公开安全的使用场景";
+
+  return `# Template usage feedback issue draft
+
+> 提交入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+> 你可以把下面内容复制到 GitHub issue 中，再按实际情况删改。
+
+## Safety check
+
+- [ ] 没有包含 API key、token、密码、cookie
+- [ ] 没有包含客户名称、内部域名、合同、订单或个人隐私
+- [ ] 没有包含未公开源码、私有日志或生产事故敏感细节
+- [ ] 如涉及敏感项目，已经改写成可公开的抽象描述
+
+## Feedback
+
+使用的模板或功能：
+${templateLine}
+
+使用场景：
+${scenarioLine}
+
+项目类型：
+例如：开源库、团队内部工具、前端应用、Node.js 服务、Python 包、数据脚本
+
+是否解决问题：
+请说明这个模板或命令是否帮你完成了 review、triage、CI 排错、release 或文档维护。
+
+节省了什么工作：
+例如：少写 review checklist、少整理日志、减少 release note 草稿时间。
+
+遇到的困难：
+例如：字段不清楚、输出不够具体、缺少某个技术栈示例、CLI 命令难记。
+
+希望补充的模板或案例：
+请写具体场景，越具体越容易变成 issue 或 PR。
+
+是否愿意被匿名引用为使用案例：
+是 / 否
 `;
 }
 
@@ -440,6 +509,16 @@ function parseOptions(values) {
       options.force = true;
       continue;
     }
+    if (value === "--template") {
+      options.template = values[index + 1];
+      index += 1;
+      continue;
+    }
+    if (value === "--scenario") {
+      options.scenario = values[index + 1];
+      index += 1;
+      continue;
+    }
     fail(`未知参数：${value}`);
   }
   return options;
@@ -474,6 +553,9 @@ switch (command) {
     } else {
       createKit(args[0], parseOptions(args.slice(1)));
     }
+    break;
+  case "feedback":
+    createFeedbackDraft(parseOptions(args));
     break;
   case "validate":
     validateTemplates();

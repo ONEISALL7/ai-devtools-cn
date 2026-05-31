@@ -45,6 +45,7 @@ npm run templates:list
 npm run templates:validate
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+npm run templates:feedback -- --template pr-review --output work/feedback.md
 ```
 
 如果通过 npm 使用，发布后也可以运行：
