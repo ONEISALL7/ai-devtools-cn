@@ -254,6 +254,31 @@ npx ai-devtools-cn validate
 - `templates/` 下的模板文件是否已注册到 CLI
 - 模板文件是否以一级标题开头
 
+## 检查 npm 发布准备状态
+
+维护者准备发布 npm 包前，可以运行：
+
+```bash
+npm run templates:publish-check
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn publish-check
+```
+
+这个命令会检查：
+
+- package name、version、license、repository、bugs 和 engines
+- `bin.ai-devtools-cn` 是否指向 `scripts/template-cli.mjs`
+- `files` 白名单是否包含 README、LICENSE、CHANGELOG、docs、examples、templates 和 CLI 入口
+- 模板注册和模板文件是否一致
+- 案例注册和案例文件是否一致
+- 发布相关 npm scripts 是否存在
+
+这个命令不会登录 npm，也不会发布包。真正发布前仍需要继续运行 `npm run pack:dry-run` 和 `npm publish --dry-run --access public`。
+
 ## 推荐流程
 
 1. 运行 `npm run templates:list` 找到模板 slug。
@@ -273,10 +298,11 @@ npx ai-devtools-cn validate
 ```bash
 npm run test
 npm run templates:validate
+npm run templates:publish-check
 npm run pack:dry-run
 ```
 
-`npm run pack:dry-run` 只检查发布内容，不会真正发布包。
+`npm run templates:publish-check` 只检查本地包结构；`npm run pack:dry-run` 只检查发布内容。两者都不会真正发布包。
 
 ## 注意事项
 

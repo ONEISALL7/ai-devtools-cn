@@ -239,6 +239,7 @@ Usage:
   ai-devtools-cn feedback --output <path>
   ai-devtools-cn doctor
   ai-devtools-cn validate
+  ai-devtools-cn publish-check
 
 NPM scripts:
   npm run templates:list
@@ -252,6 +253,7 @@ NPM scripts:
   npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:doctor
   npm run templates:validate
+  npm run templates:publish-check
 
 Examples:
   npx ai-devtools-cn list
@@ -265,6 +267,7 @@ Examples:
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
+  npx ai-devtools-cn publish-check
 
   npm run templates:list
   npm run templates:examples
@@ -277,6 +280,7 @@ Examples:
   npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:doctor
   npm run templates:validate
+  npm run templates:publish-check
 
 Options:
   --output <path>  Output path for the generated working draft or kit directory
@@ -652,6 +656,119 @@ function validateTemplates() {
   console.log(`- ${templateFiles.length} template files checked`);
 }
 
+function runPublishCheck() {
+  const errors = [];
+  const warnings = [];
+  const packageJson = JSON.parse(readFileSync(path.resolve(packageRoot, "package.json"), "utf8"));
+  const validationResult = getTemplateValidationResult();
+  const exampleValidationResult = getExampleValidationResult();
+  const requiredFiles = [
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "docs",
+    "examples",
+    "templates",
+    "scripts/template-cli.mjs",
+  ];
+  const requiredScripts = [
+    "test",
+    "test:cli",
+    "lint:md",
+    "pack:dry-run",
+    "templates:doctor",
+    "templates:validate",
+    "templates:publish-check",
+  ];
+
+  if (packageJson.name !== "ai-devtools-cn") {
+    errors.push(`package name 应为 ai-devtools-cn，当前为：${packageJson.name ?? "(missing)"}`);
+  }
+  if (!/^\d+\.\d+\.\d+$/.test(packageJson.version ?? "")) {
+    errors.push(`package version 应使用 semver x.y.z，当前为：${packageJson.version ?? "(missing)"}`);
+  }
+  if (packageJson.license !== "MIT") {
+    errors.push(`license 应为 MIT，当前为：${packageJson.license ?? "(missing)"}`);
+  }
+  if (packageJson.type !== "module") {
+    errors.push(`type 应为 module，当前为：${packageJson.type ?? "(missing)"}`);
+  }
+  if (packageJson.bin?.["ai-devtools-cn"] !== "scripts/template-cli.mjs") {
+    errors.push("bin.ai-devtools-cn 应指向 scripts/template-cli.mjs");
+  }
+  if (!packageJson.engines?.node?.includes(">=18")) {
+    errors.push("engines.node 应声明 Node.js >=18");
+  }
+  if (!packageJson.repository?.url?.includes("ONEISALL7/ai-devtools-cn")) {
+    errors.push("repository.url 应指向 GitHub 仓库 ONEISALL7/ai-devtools-cn");
+  }
+  if (!packageJson.bugs?.url?.includes("ONEISALL7/ai-devtools-cn/issues")) {
+    errors.push("bugs.url 应指向 GitHub issues");
+  }
+
+  for (const file of requiredFiles) {
+    if (!packageJson.files?.includes(file)) {
+      errors.push(`package files 缺少：${file}`);
+    }
+    if (!existsSync(path.resolve(packageRoot, file))) {
+      errors.push(`打包路径不存在：${file}`);
+    }
+  }
+
+  for (const scriptName of requiredScripts) {
+    if (!packageJson.scripts?.[scriptName]) {
+      errors.push(`package scripts 缺少：${scriptName}`);
+    }
+  }
+
+  const binPath = path.resolve(packageRoot, "scripts/template-cli.mjs");
+  const binContent = existsSync(binPath) ? readFileSync(binPath, "utf8") : "";
+  if (!binContent.startsWith("#!/usr/bin/env node")) {
+    errors.push("scripts/template-cli.mjs 必须保留 node shebang");
+  }
+  try {
+    accessSync(binPath, constants.X_OK);
+  } catch {
+    warnings.push("scripts/template-cli.mjs 当前不可执行；发布前建议确认文件权限为 executable。");
+  }
+
+  errors.push(...validationResult.errors);
+  errors.push(...exampleValidationResult.errors);
+
+  console.log("AI DevTools CN publish check");
+  console.log("");
+  console.log(`Package: ${packageJson.name}@${packageJson.version}`);
+  console.log(`Bin: ${packageJson.bin?.["ai-devtools-cn"] ?? "(missing)"}`);
+  console.log(`Files: ${packageJson.files?.length ?? 0} entries`);
+  console.log(`Templates: ${templates.length} registered, ${validationResult.templateFiles.length} files checked`);
+  console.log(`Examples: ${exampleValidationResult.exampleFiles.length} files checked`);
+  console.log("");
+  console.log("Required next manual step:");
+  console.log("  npm run pack:dry-run");
+  console.log("  npm publish --dry-run --access public");
+  console.log("  npm publish --access public");
+
+  if (warnings.length > 0) {
+    console.log("");
+    console.log("Warnings:");
+    for (const warning of warnings) {
+      console.log(`- ${warning}`);
+    }
+  }
+
+  if (errors.length > 0) {
+    console.log("");
+    console.log("Publish check failed:");
+    for (const error of errors) {
+      console.log(`- ${error}`);
+    }
+    process.exit(1);
+  }
+
+  console.log("");
+  console.log("npm publish readiness check passed.");
+}
+
 function runDoctor() {
   const errors = [];
   const warnings = [];
@@ -765,6 +882,37 @@ function getTemplateValidationResult() {
   }
 
   return { errors, templateFiles };
+}
+
+function getExampleValidationResult() {
+  const errors = [];
+  const exampleFiles = [];
+
+  for (const group of examples) {
+    for (const item of group.items) {
+      if (!item.slug || !item.title || !item.file || !item.useCase) {
+        errors.push(`${item.slug ?? "(missing slug)"} 缺少案例注册字段`);
+      }
+      if (!item.file.startsWith("examples/") || !item.file.endsWith(".md")) {
+        errors.push(`${item.slug} 的案例路径必须指向 examples/*.md：${item.file}`);
+      }
+      if (item.templateSlug && !findTemplate(item.templateSlug)) {
+        errors.push(`${item.slug} 关联了未知模板：${item.templateSlug}`);
+      }
+      const fullPath = path.resolve(packageRoot, item.file);
+      if (!existsSync(fullPath)) {
+        errors.push(`${item.slug} 注册的案例文件不存在：${item.file}`);
+        continue;
+      }
+      exampleFiles.push(item.file);
+      const content = readFileSync(fullPath, "utf8");
+      if (!content.trim().startsWith("# ")) {
+        errors.push(`${item.file} 应该以一级标题开头`);
+      }
+    }
+  }
+
+  return { errors, exampleFiles };
 }
 
 function getMatchingTemplates(keyword) {
@@ -926,6 +1074,9 @@ switch (command) {
     break;
   case "validate":
     validateTemplates();
+    break;
+  case "publish-check":
+    runPublishCheck();
     break;
   default:
     fail(`未知命令：${command}\n运行 npm run templates:help 查看用法。`);
