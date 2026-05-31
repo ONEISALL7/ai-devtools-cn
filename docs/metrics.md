@@ -64,6 +64,7 @@ npm run metrics:snapshot -- --output work/metrics-YYYY-MM-DD.md
 - `Merged PRs`：所有已合并 PR，包括维护者自己的维护 PR。
 - `External merged PRs`：作者不是仓库 owner 且不是 bot 的已合并 PR。
 - `Feedback-labeled issues`：带 `feedback` label 的 open 和 closed issue，不一定等同于外部用户反馈。
+- `External feedback-labeled issues`：作者不是仓库 owner 且不是 bot 的 feedback-labeled issue。
 
 这些字段只是初筛。申请材料中仍应人工确认来源，不要把维护者自己创建的反馈入口、测试 issue 或占位 issue 写成外部用户反馈。
 
