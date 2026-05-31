@@ -1,10 +1,10 @@
 # npm 发布清单
 
-这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.14.0`，但发布需要维护者本人登录 npm 账号后执行。
+这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.15.0`，但发布需要维护者本人登录 npm 账号后执行。
 
 ## 当前包名状态
 
-截至 2026-05-31，执行：
+截至 2026-06-01，执行：
 
 ```bash
 npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
@@ -64,6 +64,7 @@ npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
 npm run templates:evidence -- --output work/external-evidence.md
+npm run templates:application -- --output work/openai-application.md
 npm run templates:publish-check
 npm run templates:validate
 ```
@@ -100,6 +101,7 @@ npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn evidence --output work/external-evidence.md
+npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-check
 npx ai-devtools-cn validate
 ```
@@ -109,7 +111,7 @@ npx ai-devtools-cn validate
 发布成功后建议做这些维护动作：
 
 1. 在 README 顶部增加 npm 安装方式。
-2. 在 GitHub Release `v0.14.0` 中补充 npm 包链接。
+2. 在 GitHub Release `v0.15.0` 中补充 npm 包链接。
 3. 创建一个 issue 记录发布结果和后续下载量观察。
 4. 过 24 小时检查 npm 下载量。
 
