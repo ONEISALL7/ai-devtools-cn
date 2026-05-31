@@ -1,6 +1,6 @@
 # npm 发布清单
 
-这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，但发布需要维护者本人登录 npm 账号后执行。
+这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.4.0`，但发布需要维护者本人登录 npm 账号后执行。
 
 ## 当前包名状态
 
@@ -17,6 +17,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 ```bash
 npm install
 npm run test
+npm run templates:validate
 npm run pack:dry-run
 ```
 
@@ -36,6 +37,15 @@ npm pack --dry-run --cache /private/tmp/ai-devtools-cn-npm-cache
 - `templates/`
 - `scripts/template-cli.mjs`
 - `package.json`
+
+当前 CLI 应至少支持：
+
+```bash
+npm run templates:list
+npm run templates:new -- pr-review --output work/pr-review.md
+npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+npm run templates:validate
+```
 
 ## 登录 npm
 
@@ -60,6 +70,8 @@ npm publish --access public
 npm view ai-devtools-cn version
 npx ai-devtools-cn list
 npx ai-devtools-cn new pr-review --output work/pr-review.md
+npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
+npx ai-devtools-cn validate
 ```
 
 ## 发布后更新仓库
@@ -67,7 +79,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 发布成功后建议做这些维护动作：
 
 1. 在 README 顶部增加 npm 安装方式。
-2. 在 GitHub Release `v0.3.0` 中补充 npm 包链接。
+2. 在 GitHub Release `v0.4.0` 中补充 npm 包链接。
 3. 创建一个 issue 记录发布结果和后续下载量观察。
 4. 过 24 小时检查 npm 下载量。
 
