@@ -43,7 +43,7 @@ const closedIssues = getJson("gh", [
   "--limit",
   "100",
   "--json",
-  "number,title,closedAt,labels",
+  "number,title,closedAt,labels,author",
 ]);
 
 const openIssues = getJson("gh", [
@@ -56,7 +56,7 @@ const openIssues = getJson("gh", [
   "--limit",
   "100",
   "--json",
-  "number,title,labels",
+  "number,title,labels,author",
 ]);
 
 const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", "20"]);
@@ -72,6 +72,8 @@ const closedIssueItems = closedIssues.ok ? closedIssues.value : [];
 const openIssueItems = openIssues.ok ? openIssues.value : [];
 const feedbackIssues = [...closedIssueItems, ...openIssueItems]
   .filter((issue) => hasLabel(issue, "feedback"));
+const externalFeedbackIssues = feedbackIssues
+  .filter((issue) => isExternalHumanAuthor(issue.author));
 const externalMergedPrs = mergedPrItems
   .filter((pr) => isExternalHumanAuthor(pr.author));
 
@@ -92,6 +94,7 @@ const markdown = `# 项目指标快照
 | Closed issues | ${closedIssues.ok ? closedIssueItems.length : "unknown"} |
 | Open issues | ${openIssues.ok ? openIssueItems.length : "unknown"} |
 | Feedback-labeled issues | ${closedIssues.ok && openIssues.ok ? feedbackIssues.length : "unknown"} |
+| External feedback-labeled issues | ${closedIssues.ok && openIssues.ok ? externalFeedbackIssues.length : "unknown"} |
 | Releases | ${releaseRows.length || "unknown"} |
 | npm package | ${npmVersion.ok ? npmVersion.value.trim() : "not published or unavailable"} |
 
@@ -108,6 +111,10 @@ ${formatIssues(closedIssueItems.slice(0, 10), "closedAt")}
 Feedback-labeled issues:
 
 ${formatIssues(feedbackIssues.slice(0, 10), "closedAt", "- none yet")}
+
+External feedback-labeled issues:
+
+${formatIssues(externalFeedbackIssues.slice(0, 10), "closedAt", "- none yet")}
 
 External merged PRs:
 
@@ -156,10 +163,11 @@ function formatIssues(items, dateField, emptyText = "- unavailable") {
   return items
     .map((item) => {
       const date = item[dateField] ? item[dateField].slice(0, 10) : "open";
+      const author = item.author?.login ? ` by @${item.author.login}` : "";
       const labels = Array.isArray(item.labels) && item.labels.length > 0
         ? ` [${item.labels.map((label) => label.name).join(", ")}]`
         : "";
-      return `- #${item.number} ${item.title}${labels} (${date})`;
+      return `- #${item.number} ${item.title}${author}${labels} (${date})`;
     })
     .join("\n");
 }
