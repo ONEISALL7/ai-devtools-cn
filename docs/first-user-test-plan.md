@@ -84,6 +84,14 @@ npm run templates:recommend -- <任务关键词>
 
 例如 `ci`、`review`、`pytest`、`release`。
 
+如果维护者想集中一周推进外部反馈，可以生成冲刺包：
+
+```bash
+npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
+```
+
+这个目录会包含多渠道邀请文案、反馈记录表和外部贡献者邀请文案，方便把每一次真实反馈记录到 issue #51 和外部采用证据台账。
+
 ## 反馈 issue 建议格式
 
 ```text

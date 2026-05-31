@@ -52,6 +52,7 @@ npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
+npm run templates:adoption -- --template pr-review --output work/adoption-sprint
 npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:application -- --output work/openai-application.md
 ```
@@ -67,6 +68,7 @@ npx ai-devtools-cn publish-check
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
+npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
 npx ai-devtools-cn application --output work/openai-application.md
 ```

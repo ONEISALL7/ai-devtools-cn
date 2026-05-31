@@ -265,6 +265,29 @@ npx ai-devtools-cn outreach --template pr-review --channel x --scenario "review 
 
 这个命令适合收集第一批真实用户反馈。不要把维护者自己创建的测试 issue、占位 issue 或泛泛建议包装成外部用户反馈。
 
+## 生成一周外部试用冲刺包
+
+如果你准备集中一周邀请真实开发者试用，可以生成一份执行包：
+
+```bash
+npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn adoption --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
+```
+
+冲刺包会生成一个目录，包含：
+
+- `README.md`：7 天试用节奏、目标和安全边界
+- `outreach.md`：GitHub、X、V2EX、微信和私信渠道邀请文案
+- `feedback-log.md`：外部 feedback issue、公开提及和外部 PR 记录表
+- `contributor-invite.md`：邀请外部贡献者认领 good first issue 的文案
+
+这个命令用于把“找真实用户试用”变成可执行流程。它不会自动生成真实反馈，也不能把维护者自己的 issue 或 PR 计入外部采用证据。
+
 ## 生成外部采用证据台账
 
 当你开始发布 npm、邀请外部用户试用、收到 feedback issue 或合并外部 PR 后，可以生成一份证据台账：

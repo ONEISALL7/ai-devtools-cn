@@ -195,6 +195,54 @@ const outreachAliasOutput = run(["templates:outreach", "--channel", "wechat", "-
 assert.match(outreachAliasOutput, /已生成外部试用邀请包/);
 assert.equal(existsSync(outreachAliasPath), true);
 
+const adoptionPath = path.join(tempDir, "adoption-sprint");
+const adoptionOutput = run([
+  "adoption",
+  "--template",
+  "ci-troubleshooting",
+  "--scenario",
+  "debug a real CI failure",
+  "--output",
+  adoptionPath,
+]);
+assert.match(adoptionOutput, /已生成外部试用冲刺包/);
+assert.equal(existsSync(path.join(adoptionPath, "README.md")), true);
+assert.equal(existsSync(path.join(adoptionPath, "outreach.md")), true);
+assert.equal(existsSync(path.join(adoptionPath, "feedback-log.md")), true);
+assert.equal(existsSync(path.join(adoptionPath, "contributor-invite.md")), true);
+
+const adoptionReadme = readFileSync(path.join(adoptionPath, "README.md"), "utf8");
+assert.match(adoptionReadme, /一周外部试用冲刺包/);
+assert.match(adoptionReadme, /debug a real CI failure/);
+assert.match(adoptionReadme, /不要把维护者自建 issue/);
+
+const adoptionOutreach = readFileSync(path.join(adoptionPath, "outreach.md"), "utf8");
+assert.match(adoptionOutreach, /外部试用邀请文案/);
+assert.match(adoptionOutreach, /X \/ Twitter/);
+assert.match(adoptionOutreach, /template_feedback\.yml/);
+
+const adoptionLog = readFileSync(path.join(adoptionPath, "feedback-log.md"), "utf8");
+assert.match(adoptionLog, /外部反馈记录表/);
+assert.match(adoptionLog, /external PR/);
+assert.match(adoptionLog, /证据台账/);
+
+const contributorInvite = readFileSync(path.join(adoptionPath, "contributor-invite.md"), "utf8");
+assert.match(contributorInvite, /外部贡献者邀请/);
+assert.match(contributorInvite, /good first issue/);
+
+assert.throws(
+  () => run(["adoption", "--template", "ci-troubleshooting", "--output", adoptionPath]),
+  /输出文件已存在/
+);
+
+const forcedAdoptionOutput = run(["adoption", "--template", "ci-troubleshooting", "--output", adoptionPath, "--force"]);
+assert.match(forcedAdoptionOutput, /已生成外部试用冲刺包/);
+
+const adoptionAliasPath = path.join(tempDir, "adoption-sprint-alias");
+const adoptionAliasOutput = run(["templates:adoption", "--output", adoptionAliasPath]);
+assert.match(adoptionAliasOutput, /已生成外部试用冲刺包/);
+assert.equal(existsSync(path.join(adoptionAliasPath, "README.md")), true);
+
 const evidencePath = path.join(tempDir, "external-evidence.md");
 const evidenceOutput = run(["evidence", "--output", evidencePath]);
 assert.match(evidenceOutput, /已生成外部采用证据台账/);
@@ -267,6 +315,12 @@ const callerOutreachOutput = run(["outreach", "--output", "work/outreach.md"], {
 });
 assert.match(callerOutreachOutput, /work\/outreach\.md/);
 assert.equal(existsSync(path.join(callerDir, "work", "outreach.md")), true);
+
+const callerAdoptionOutput = run(["adoption", "--output", "work/adoption-sprint"], {
+  cwd: callerDir,
+});
+assert.match(callerAdoptionOutput, /work\/adoption-sprint/);
+assert.equal(existsSync(path.join(callerDir, "work", "adoption-sprint", "README.md")), true);
 
 const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidence.md"], {
   cwd: callerDir,
