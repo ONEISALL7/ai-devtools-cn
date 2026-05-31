@@ -1,6 +1,6 @@
 # npm 发布清单
 
-这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.9.0`，但发布需要维护者本人登录 npm 账号后执行。
+这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.10.0`，但发布需要维护者本人登录 npm 账号后执行。
 
 ## 当前包名状态
 
@@ -98,7 +98,7 @@ npx ai-devtools-cn validate
 发布成功后建议做这些维护动作：
 
 1. 在 README 顶部增加 npm 安装方式。
-2. 在 GitHub Release `v0.9.0` 中补充 npm 包链接。
+2. 在 GitHub Release `v0.10.0` 中补充 npm 包链接。
 3. 创建一个 issue 记录发布结果和后续下载量观察。
 4. 过 24 小时检查 npm 下载量。
 
