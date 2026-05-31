@@ -135,4 +135,42 @@ const callerFeedbackOutput = run(["feedback", "--output", "work/feedback.md"], {
 assert.match(callerFeedbackOutput, /work\/feedback\.md/);
 assert.equal(existsSync(path.join(callerDir, "work", "feedback.md")), true);
 
+const trialPath = path.join(tempDir, "trial-pack");
+const trialOutput = run([
+  "trial",
+  "--template",
+  "ci-troubleshooting",
+  "--scenario",
+  "debug a Node.js CI failure",
+  "--output",
+  trialPath,
+]);
+assert.match(trialOutput, /已生成试用包/);
+assert.equal(existsSync(path.join(trialPath, "README.md")), true);
+assert.equal(existsSync(path.join(trialPath, "ci-troubleshooting.md")), true);
+assert.equal(existsSync(path.join(trialPath, "feedback.md")), true);
+
+const trialReadme = readFileSync(path.join(trialPath, "README.md"), "utf8");
+assert.match(trialReadme, /15 分钟试用包/);
+assert.match(trialReadme, /debug a Node.js CI failure/);
+assert.match(trialReadme, /公开安全提醒/);
+
+const trialFeedback = readFileSync(path.join(trialPath, "feedback.md"), "utf8");
+assert.match(trialFeedback, /CI 排错模板/);
+assert.match(trialFeedback, /template_feedback\.yml/);
+
+assert.throws(
+  () => run(["trial", "--template", "ci-troubleshooting", "--output", trialPath]),
+  /输出文件已存在/
+);
+
+const forcedTrialOutput = run(["trial", "--template", "ci-troubleshooting", "--output", trialPath, "--force"]);
+assert.match(forcedTrialOutput, /已生成试用包/);
+
+const callerTrialOutput = run(["trial", "--output", "work/trial"], {
+  cwd: callerDir,
+});
+assert.match(callerTrialOutput, /work\/trial/);
+assert.equal(existsSync(path.join(callerDir, "work", "trial", "README.md")), true);
+
 console.log("template CLI tests passed");
