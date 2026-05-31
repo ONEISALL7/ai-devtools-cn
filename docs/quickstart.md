@@ -75,3 +75,11 @@
 - 对安全、权限、依赖升级和生产变更保持人工 review。
 - 把成功案例补充到 `examples/`，把通用流程补充到 `templates/`。
 - 如果模板不适合你的场景，请提交 issue 说明缺口。
+
+## 看完整案例
+
+如果你不确定模板如何落到真实维护流程，先看这些案例：
+
+- [PR review 案例](../examples/case-studies/pr-review-quickstart-release.md)
+- [CI 排错案例](../examples/case-studies/ci-markdownlint-md012.md)
+- [发版说明案例](../examples/case-studies/release-v020.md)
