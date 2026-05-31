@@ -32,16 +32,23 @@ https://github.com/ONEISALL7/ai-devtools-cn
 请完成这 4 步：
 
 1. 打开 README，判断你能不能在 1 分钟内理解项目是做什么的。
-2. 从模板目录选一个你会用到的场景，例如 PR review、issue triage、CI 排错或 release note。
-3. 如果你愿意跑 CLI，可以优先执行一条试用包命令：
+2. 先看示例和试用包，再用任务关键词推荐模板：
 
    npm install
    npm run templates:doctor
+   npm run templates:examples
+   npm run templates:recommend -- ci
+
+3. 如果你愿意跑 CLI，可以优先执行一条试用包命令：
+
    npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
+
+   如果你在排查 CI，可以改成：
+
+   npm run templates:trial -- --template ci-troubleshooting --scenario "debug a failing CI job" --output work/trial-ci
 
    如果你想分别体验命令，也可以执行：
 
-   npm install
    npm run templates:list
    npm run templates:new -- pr-review --output work/pr-review.md
    npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
@@ -68,6 +75,14 @@ https://github.com/ONEISALL7/ai-devtools-cn
 | 修 CI 的开发者 | 使用 CI 排错模板 | 是否能定位根因和最小修复 |
 | 发版负责人 | 使用 release note 模板 | 输出是否能放进 GitHub Release |
 | 团队负责人 | 使用 AI 工具导入清单 | 是否能形成团队规则 |
+
+如果用户不知道该选哪一类，先让对方运行：
+
+```bash
+npm run templates:recommend -- <任务关键词>
+```
+
+例如 `ci`、`review`、`pytest`、`release`。
 
 ## 反馈 issue 建议格式
 

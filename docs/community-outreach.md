@@ -54,7 +54,7 @@
 我做了一个中文开源模板库：
 PR Review、Issue 分流、CI 排错、Release Note、安全审查，全都能直接复制使用。
 
-现在还支持 CLI 生成工作稿。
+现在还支持 CLI 生成工作稿、列出案例和按任务推荐模板。
 
 https://github.com/ONEISALL7/ai-devtools-cn
 ```
@@ -76,10 +76,12 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
-v0.6.0 还补了：
+v0.10.0 还补了：
 - 开源维护者工作包
 - 反馈 issue 草稿生成命令
 - 模板注册校验命令
+- examples 命令：列出基础示例、真实维护案例和试用包
+- recommend 命令：按任务关键词推荐模板和案例
 - 真实维护案例
 - 用户反馈入口
 
@@ -99,7 +101,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例和 v0.6.0 release。
+现在有模板、CLI、真实案例和 v0.10.0 release。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -138,6 +140,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - dependency upgrade review
 - AI output evaluation
 - template CLI
+- examples / recommend / trial commands
 
 为什么做：
 我发现很多人会用 AI 写代码，但不知道怎么稳定用于 review、排错、发版和维护。这个项目把这些流程整理成可复制模板和案例。
@@ -157,10 +160,11 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.6.0` release 已存在
+- `v0.10.0` release 已存在
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
+- README 中展示 examples、recommend 和 trial 的最短路径
 - 不在文案中夸大 stars、下载量或用户数
 - 不承诺 AI 能替代维护者判断
 
