@@ -4,6 +4,8 @@
 
 目标不是刷 star 或制造活跃度，而是确认模板、CLI 和案例是否能帮助真实维护工作。
 
+如果对方第一次接触项目，可以先把 [外部试用者快速指南](external-tester-guide.md) 发给对方。那份指南是试用者视角，包含不安装依赖的试用方式、CLI 试用方式和公开安全边界。
+
 ## 适合邀请谁
 
 优先邀请这些用户：
@@ -62,6 +64,9 @@ https://github.com/ONEISALL7/ai-devtools-cn
    - 还缺什么模板或案例
 
 请不要提交 token、客户信息、内部日志、未公开源码或个人隐私。
+
+如果你第一次看到这个项目，可以先看：
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-tester-guide.md
 ```
 
 ## 试用任务选项
