@@ -265,6 +265,31 @@ npx ai-devtools-cn outreach --template pr-review --channel x --scenario "review 
 
 这个命令适合收集第一批真实用户反馈。不要把维护者自己创建的测试 issue、占位 issue 或泛泛建议包装成外部用户反馈。
 
+## 生成外部采用证据台账
+
+当你开始发布 npm、邀请外部用户试用、收到 feedback issue 或合并外部 PR 后，可以生成一份证据台账：
+
+```bash
+npm run templates:evidence -- --output work/external-evidence.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn evidence --output work/external-evidence.md
+```
+
+证据台账会包含：
+
+- 外部采用记录原则
+- 当前指标快照填写区
+- npm 发布、外部 feedback issue、外部 PR、公开提及和匿名案例记录表
+- 可计入申请材料的证据类型
+- 不应计入外部采用的内容
+- OpenAI Codex for Open Source 申请表述草稿
+
+这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：

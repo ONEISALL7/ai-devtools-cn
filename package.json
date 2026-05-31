@@ -55,6 +55,7 @@
     "templates:trial": "node scripts/template-cli.mjs trial",
     "templates:feedback": "node scripts/template-cli.mjs feedback",
     "templates:outreach": "node scripts/template-cli.mjs outreach",
+    "templates:evidence": "node scripts/template-cli.mjs evidence",
     "templates:doctor": "node scripts/template-cli.mjs doctor",
     "templates:publish-check": "node scripts/template-cli.mjs publish-check",
     "templates:validate": "node scripts/template-cli.mjs validate"

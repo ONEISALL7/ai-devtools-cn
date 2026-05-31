@@ -274,6 +274,7 @@ Usage:
   ai-devtools-cn trial --output <dir>
   ai-devtools-cn feedback --output <path>
   ai-devtools-cn outreach --output <path>
+  ai-devtools-cn evidence --output <path>
   ai-devtools-cn doctor
   ai-devtools-cn validate
   ai-devtools-cn publish-check
@@ -289,6 +290,7 @@ NPM scripts:
   npm run templates:trial -- --template <slug> --output <dir>
   npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
+  npm run templates:evidence -- --output <path>
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -304,6 +306,7 @@ Examples:
   npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
+  npx ai-devtools-cn evidence --output work/external-evidence.md
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
   npx ai-devtools-cn publish-check
@@ -318,6 +321,7 @@ Examples:
   npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
   npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
+  npm run templates:evidence -- --output work/external-evidence.md
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -571,6 +575,19 @@ function createOutreachPack(options) {
   console.log(`已生成外部试用邀请包：${formatDisplayPath(resolvedOutput)}`);
 }
 
+function createEvidenceLedger(options) {
+  const outputPath = options.output ?? path.join("work", "external-evidence.md");
+  const resolvedOutput = resolveOutputPath(outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatEvidenceLedger(), "utf8");
+  console.log(`已生成外部采用证据台账：${formatDisplayPath(resolvedOutput)}`);
+}
+
 function formatWorkingDraft(template) {
   return `# ${template.title}工作稿
 
@@ -592,6 +609,92 @@ function formatWorkingDraft(template) {
 ## 模板正文
 
 ${readTemplate(template).trim()}
+`;
+}
+
+function formatEvidenceLedger() {
+  return `# AI DevTools CN 外部采用证据台账
+
+这个台账用于记录可公开核验的外部采用信号，辅助维护复盘和 OpenAI Codex for Open Source 申请准备。它不是宣传稿，也不是用来包装维护者自建活动的材料。
+
+## 记录原则
+
+- 只记录可核验链接，例如 GitHub issue、PR、release、npm 页面、公开帖子或公开案例。
+- 区分维护者活动和外部采用信号。
+- 不把维护者自己创建的测试 issue、占位 issue、内部草稿或泛泛讨论写成外部反馈。
+- 不记录 API key、token、客户信息、内部日志、未公开源码、生产事故敏感细节或个人隐私。
+- 私聊反馈只有在对方明确允许匿名整理后，才记录为匿名案例。
+
+## 当前快照
+
+请先运行：
+
+\`\`\`bash
+npm run metrics:snapshot -- --output work/metrics.md
+\`\`\`
+
+然后把关键数字填到这里：
+
+\`\`\`text
+日期：
+GitHub stars：
+Forks：
+Merged PRs：
+External merged PRs：
+Closed issues：
+External feedback issues：
+Releases：
+npm package/version：
+npm downloads：
+\`\`\`
+
+## 证据记录表
+
+| 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
+| --- | --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD | npm publish |  | maintainer | yes | 首次发布 npm 包 | 24 小时后检查下载量 |
+| YYYY-MM-DD | external feedback issue |  | GitHub user | yes | 用户试用模板后的反馈 | 建立改进 issue |
+| YYYY-MM-DD | external PR |  | GitHub user | yes | 外部贡献者提交文档/案例 | review 并合并 |
+| YYYY-MM-DD | public mention |  | X/V2EX/blog | yes | 公开介绍或讨论项目 | 回复并邀请反馈 |
+| YYYY-MM-DD | anonymized case study |  | anonymous | partial | 经允许整理的匿名案例 | 沉淀到 examples |
+
+## 可计入申请材料的证据
+
+- npm package 已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
+- 外部用户提交的 feedback issue。
+- 外部贡献者提交并合并的 PR。
+- 公开帖子、博客、讨论或引用。
+- 经允许匿名化整理的真实使用案例。
+
+## 不应计入外部采用的内容
+
+- 维护者自己创建或关闭的 issue。
+- 维护者自己提交的 PR。
+- 仅用于测试 issue template 的占位 issue。
+- 没有链接、无法核验的截图或口头说法。
+- 未经允许的私聊内容。
+
+## 申请表述草稿
+
+当外部证据足够后，再把下面这段改成真实数字：
+
+\`\`\`text
+The project has public maintenance records, regular releases, a working CLI, npm availability, external feedback issues, and external contribution activity. We use the evidence ledger to separate maintainer activity from real external adoption signals and avoid overstating usage.
+\`\`\`
+
+如果外部证据仍不足，应如实写：
+
+\`\`\`text
+The project is early and actively maintained. Current strength is maintainer activity, releases, CI, templates, CLI tooling, and clear feedback channels. External adoption is still being collected through npm publishing, outreach, feedback issues, and good first issues.
+\`\`\`
+
+## 下一步
+
+1. 发布 npm 包并记录 npm 页面链接。
+2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
+3. 引导试用者提交 feedback issue。
+4. 邀请外部贡献者认领 good first issue。
+5. 根据外部反馈发布一个反馈驱动版本。
 `;
 }
 
@@ -865,6 +968,7 @@ function runPublishCheck() {
     "templates:doctor",
     "templates:validate",
     "templates:publish-check",
+    "templates:evidence",
   ];
 
   if (packageJson.name !== "ai-devtools-cn") {
@@ -1274,6 +1378,9 @@ switch (command) {
     break;
   case "outreach":
     createOutreachPack(parseOptions(args));
+    break;
+  case "evidence":
+    createEvidenceLedger(parseOptions(args));
     break;
   case "doctor":
     runDoctor();
