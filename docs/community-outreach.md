@@ -76,8 +76,9 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
-v0.5.0 还补了：
+v0.6.0 还补了：
 - 开源维护者工作包
+- 反馈 issue 草稿生成命令
 - 模板注册校验命令
 - 真实维护案例
 - 用户反馈入口
@@ -98,7 +99,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例和 v0.5.0 release。
+现在有模板、CLI、真实案例和 v0.6.0 release。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -156,7 +157,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.5.0` release 已存在
+- `v0.6.0` release 已存在
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
