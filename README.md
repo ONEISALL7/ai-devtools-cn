@@ -129,6 +129,8 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 
 开始前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+如果你已经使用过某个模板或 CLI，请阅读 [用户反馈](docs/feedback.md)，并通过 issue 反馈真实使用场景。反馈可以匿名化，不需要公开私有代码或敏感日志。
+
 ## 维护路线
 
 当前优先级：
