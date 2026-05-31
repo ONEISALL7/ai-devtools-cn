@@ -1,0 +1,43 @@
+name: Template request
+description: 请求新增或改进一个 AI 工程维护模板
+title: "[Template]: "
+labels: ["template", "enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请描述你需要的真实维护场景。不要提交密钥、客户数据、内部日志、未公开源码或隐私信息。
+  - type: textarea
+    id: workflow
+    attributes:
+      label: 维护场景
+      description: 这个模板会用于什么真实工作流？
+      placeholder: 例如：帮助维护者判断依赖升级是否需要 release note 和回滚方案。
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: 使用者需要提供哪些输入？
+      description: 例如 PR diff、CI 日志、issue 描述、release 目标、技术栈等。
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: 期望输出
+      description: 希望 AI 输出什么格式？最终沉淀到 issue、PR、docs 还是 release？
+    validations:
+      required: true
+  - type: textarea
+    id: existing
+    attributes:
+      label: 现有模板是否能扩展？
+      description: 如果已有模板接近你的需求，请说明它缺什么。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我确认没有提交密钥、账号、客户信息、未公开源码或隐私数据
+          required: true

@@ -1,0 +1,58 @@
+name: Case study contribution
+description: 提交或建议一个可匿名化的真实维护案例
+title: "[Case Study]: "
+labels: ["case-study", "documentation", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请只提交可公开、可匿名化的案例。不要粘贴私有代码、客户信息、内部日志或安全敏感内容。
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: 案例类型
+      options:
+        - PR review
+        - Issue triage
+        - CI debugging
+        - Release note
+        - Security review
+        - Dependency upgrade
+        - Documentation maintenance
+        - AI output evaluation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景
+      description: 请抽象描述项目类型、任务和约束。
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: 可复制输入
+      description: 如果可以，请提供匿名化后的提示词或输入结构。
+  - type: textarea
+    id: result
+    attributes:
+      label: 结果
+      description: 这个模板或案例带来了什么结果？是否能直接用于 issue、PR、CI 或 release？
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: 注意事项
+      description: 哪些地方需要人工 review？哪些信息不能公开？
+  - type: checkboxes
+    id: permission
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我确认这个案例已经去除密钥、客户信息、内部日志、未公开源码和隐私数据
+          required: true
+        - label: 我允许维护者将该案例匿名整理进 examples 或 docs
+          required: false
