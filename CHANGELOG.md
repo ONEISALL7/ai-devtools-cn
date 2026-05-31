@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-暂无。
+- 新增第一批用户试用包示例，展示 PR review 工作稿和 feedback 草稿
 
 ## 0.8.0 - 2026-05-31
 
