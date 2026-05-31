@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 新增用户反馈文档和模板使用反馈 issue 表单
+- 新增 OpenAI Codex for Open Source 申请证据和表单草稿文档
 
 ## 0.3.0 - 2026-05-31
 
