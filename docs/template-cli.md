@@ -232,6 +232,38 @@ npx ai-devtools-cn feedback --template pr-review --scenario "review a documentat
 npm run templates:feedback -- --output work/feedback.md
 ```
 
+## 生成外部试用邀请包
+
+如果你准备邀请真实开发者试用模板，可以生成一份可直接发送的邀请包：
+
+```bash
+npm run templates:outreach -- --template pr-review --channel x --scenario "review a documentation PR" --output work/outreach.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn outreach --template pr-review --channel x --scenario "review a documentation PR" --output work/outreach.md
+```
+
+支持的 `--channel` 包括：
+
+- `github`
+- `x`
+- `v2ex`
+- `wechat`
+- `email`
+
+生成的邀请包会包含：
+
+- 面向所选渠道的试用邀请文案
+- 试用前检查清单
+- 推荐试用命令和反馈草稿命令
+- GitHub feedback issue 入口
+- 维护者记录真实反馈的字段
+
+这个命令适合收集第一批真实用户反馈。不要把维护者自己创建的测试 issue、占位 issue 或泛泛建议包装成外部用户反馈。
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：
