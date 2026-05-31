@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { constants, existsSync, accessSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -141,6 +141,7 @@ Usage:
   ai-devtools-cn kit <slug> --output <dir>
   ai-devtools-cn trial --output <dir>
   ai-devtools-cn feedback --output <path>
+  ai-devtools-cn doctor
   ai-devtools-cn validate
 
 NPM scripts:
@@ -151,6 +152,7 @@ NPM scripts:
   npm run templates:kit -- <slug> --output <dir>
   npm run templates:trial -- --template <slug> --output <dir>
   npm run templates:feedback -- --template <slug> --output <path>
+  npm run templates:doctor
   npm run templates:validate
 
 Examples:
@@ -161,6 +163,7 @@ Examples:
   npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
   npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
+  npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
 
   npm run templates:list
@@ -170,6 +173,7 @@ Examples:
   npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
   npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
   npm run templates:feedback -- --template pr-review --output work/feedback.md
+  npm run templates:doctor
   npm run templates:validate
 
 Options:
@@ -474,6 +478,80 @@ ${kitTemplates.map((template) => `- [${template.slug}.md](${template.slug}.md)�
 }
 
 function validateTemplates() {
+  const { errors, templateFiles } = getTemplateValidationResult();
+
+  if (errors.length > 0) {
+    console.error("Template registry validation failed:");
+    for (const error of errors) {
+      console.error(`- ${error}`);
+    }
+    process.exit(1);
+  }
+
+  console.log("Template registry validation passed.");
+  console.log(`- ${templates.length} templates registered`);
+  console.log(`- ${templateFiles.length} template files checked`);
+}
+
+function runDoctor() {
+  const errors = [];
+  const warnings = [];
+  const packageJson = JSON.parse(readFileSync(path.resolve(packageRoot, "package.json"), "utf8"));
+  const nodeMajor = Number.parseInt(process.versions.node.split(".")[0], 10);
+  const validationResult = getTemplateValidationResult();
+
+  if (nodeMajor < 18) {
+    errors.push(`Node.js 版本过低：${process.versions.node}。本项目需要 Node.js >= 18。`);
+  }
+
+  try {
+    accessSync(invocationRoot, constants.W_OK);
+  } catch {
+    errors.push(`当前目录不可写：${invocationRoot}`);
+  }
+
+  if (validationResult.errors.length > 0) {
+    errors.push(...validationResult.errors);
+  }
+
+  if (packageRoot === invocationRoot) {
+    warnings.push("当前在 ai-devtools-cn 仓库内运行。外部项目试用时，建议在你的目标项目目录运行 CLI。");
+  }
+
+  console.log("AI DevTools CN doctor");
+  console.log("");
+  console.log(`Package: ${packageJson.name}@${packageJson.version}`);
+  console.log(`Package root: ${packageRoot}`);
+  console.log(`Current directory: ${invocationRoot}`);
+  console.log(`Node.js: ${process.versions.node}`);
+  console.log(`Templates: ${templates.length} registered, ${validationResult.templateFiles.length} files checked`);
+  console.log(`Kits: ${kits.length}`);
+  console.log("");
+  console.log("Recommended trial command:");
+  console.log("  npx ai-devtools-cn trial --template pr-review --output work/trial");
+
+  if (warnings.length > 0) {
+    console.log("");
+    console.log("Warnings:");
+    for (const warning of warnings) {
+      console.log(`- ${warning}`);
+    }
+  }
+
+  if (errors.length > 0) {
+    console.log("");
+    console.log("Doctor failed:");
+    for (const error of errors) {
+      console.log(`- ${error}`);
+    }
+    process.exit(1);
+  }
+
+  console.log("");
+  console.log("Doctor passed.");
+}
+
+function getTemplateValidationResult() {
   const errors = [];
   const slugs = new Set();
   const registeredFiles = new Set();
@@ -526,17 +604,7 @@ function validateTemplates() {
     }
   }
 
-  if (errors.length > 0) {
-    console.error("Template registry validation failed:");
-    for (const error of errors) {
-      console.error(`- ${error}`);
-    }
-    process.exit(1);
-  }
-
-  console.log("Template registry validation passed.");
-  console.log(`- ${templates.length} templates registered`);
-  console.log(`- ${templateFiles.length} template files checked`);
+  return { errors, templateFiles };
 }
 
 function readTemplate(template) {
@@ -651,6 +719,9 @@ switch (command) {
     break;
   case "feedback":
     createFeedbackDraft(parseOptions(args));
+    break;
+  case "doctor":
+    runDoctor();
     break;
   case "validate":
     validateTemplates();

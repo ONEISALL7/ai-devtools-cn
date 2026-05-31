@@ -30,6 +30,16 @@ assert.match(validateOutput, /templates registered/);
 const validateAliasOutput = run(["templates:validate"]);
 assert.match(validateAliasOutput, /template files checked/);
 
+const doctorOutput = run(["doctor"]);
+assert.match(doctorOutput, /AI DevTools CN doctor/);
+assert.match(doctorOutput, /Doctor passed/);
+assert.match(doctorOutput, /Templates: \d+ registered/);
+assert.match(doctorOutput, /Recommended trial command/);
+
+const doctorAliasOutput = run(["templates:doctor"]);
+assert.match(doctorAliasOutput, /Package: ai-devtools-cn@/);
+assert.match(doctorAliasOutput, /Node\.js:/);
+
 const kitListOutput = run(["kit"]);
 assert.match(kitListOutput, /oss-maintainer/);
 assert.match(kitListOutput, /pr-review/);
@@ -172,5 +182,11 @@ const callerTrialOutput = run(["trial", "--output", "work/trial"], {
 });
 assert.match(callerTrialOutput, /work\/trial/);
 assert.equal(existsSync(path.join(callerDir, "work", "trial", "README.md")), true);
+
+const callerDoctorOutput = run(["doctor"], {
+  cwd: callerDir,
+});
+assert.match(callerDoctorOutput, new RegExp(path.basename(callerDir)));
+assert.doesNotMatch(callerDoctorOutput, /当前在 ai-devtools-cn 仓库内运行/);
 
 console.log("template CLI tests passed");

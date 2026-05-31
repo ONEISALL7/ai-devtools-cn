@@ -43,6 +43,7 @@ examples/    示例工作流
 npm install
 npm run templates:list
 npm run templates:validate
+npm run templates:doctor
 npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
@@ -53,6 +54,7 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 
 ```bash
 npx ai-devtools-cn list
+npx ai-devtools-cn doctor
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 ```
