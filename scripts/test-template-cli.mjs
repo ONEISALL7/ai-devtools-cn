@@ -23,6 +23,15 @@ assert.match(listOutput, /ci-troubleshooting/);
 const aliasOutput = run(["templates:list"]);
 assert.match(aliasOutput, /release-note/);
 
+const examplesOutput = run(["examples"]);
+assert.match(examplesOutput, /基础示例/);
+assert.match(examplesOutput, /python-pytest-failure/);
+assert.match(examplesOutput, /examples\/trial-packs\/node-ci-failure\/README\.md/);
+
+const examplesAliasOutput = run(["templates:examples"]);
+assert.match(examplesAliasOutput, /真实维护案例/);
+assert.match(examplesAliasOutput, /template-registry-validation/);
+
 const validateOutput = run(["validate"]);
 assert.match(validateOutput, /Template registry validation passed/);
 assert.match(validateOutput, /templates registered/);
@@ -34,6 +43,7 @@ const doctorOutput = run(["doctor"]);
 assert.match(doctorOutput, /AI DevTools CN doctor/);
 assert.match(doctorOutput, /Doctor passed/);
 assert.match(doctorOutput, /Templates: \d+ registered/);
+assert.match(doctorOutput, /Examples: \d+/);
 assert.match(doctorOutput, /Recommended trial command/);
 
 const doctorAliasOutput = run(["templates:doctor"]);
