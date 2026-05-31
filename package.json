@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "ai-devtools-cn": "./scripts/template-cli.mjs"
+    "ai-devtools-cn": "scripts/template-cli.mjs"
   },
   "files": [
     "README.md",

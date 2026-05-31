@@ -12,6 +12,8 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 
 返回 404，说明 npm registry 当前没有找到 `ai-devtools-cn` 包。发布前仍建议重新确认一次。
 
+如果返回版本号，说明包名已经被发布。首次发布前应先确认这个包是否属于你，避免覆盖错误目标。
+
 ## 发布前检查
 
 ```bash
@@ -21,10 +23,19 @@ npm run templates:validate
 npm run pack:dry-run
 ```
 
+再执行一次 publish dry-run：
+
+```bash
+npm publish --dry-run --access public
+```
+
+dry-run 不会真正发布包，但能提前检查 npm publish 会打包哪些文件，以及当前 publish 流程是否能走通。
+
 如果本机 npm cache 有权限或证书问题，可以临时指定 cache：
 
 ```bash
 npm pack --dry-run --cache /private/tmp/ai-devtools-cn-npm-cache
+npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-cache
 ```
 
 检查 dry run 输出，确认包含这些文件：
@@ -56,6 +67,8 @@ npm whoami
 ```
 
 确认登录的是你准备发布包的 npm 账号。
+
+如果 `npm login` 报证书、cache 权限或本机 npm 配置问题，先不要发布。可以先用临时 cache 完成 dry-run，并在本机修复 npm 环境后再登录。
 
 ## 发布
 
@@ -102,3 +115,24 @@ npm 包发布后不能真正删除历史版本。遇到问题时优先：
 3. 如果必须撤回，参考 npm 官方 unpublish/deprecate 规则。
 
 不要把 token、私有日志、客户数据或未公开源码打包进 npm 包。发布前始终使用 `npm pack --dry-run` 检查文件列表。
+
+## 常见问题
+
+### npm view 返回 404
+
+这通常表示包名还没有发布，适合首次发布。发布前仍应确认拼写、账号和组织归属。
+
+### 默认 npm cache 报权限错误
+
+不要把 npm token 写进仓库，也不要在仓库里提交本地 npm 配置。可以临时使用：
+
+```bash
+npm pack --dry-run --cache /private/tmp/ai-devtools-cn-npm-cache
+npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-cache
+```
+
+如果要永久修复本机 npm cache，按 npm 输出的本机提示处理即可，这属于本地环境维护，不需要提交到仓库。
+
+### publish dry-run 提示需要登录
+
+这是正常提醒。dry-run 可以在未登录时检查打包内容，但真正发布仍需要维护者本人登录 npm 账号。
