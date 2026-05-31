@@ -42,6 +42,7 @@
     "test": "npm run test:cli && npm run lint:md",
     "test:cli": "node scripts/test-template-cli.mjs",
     "pack:dry-run": "npm pack --dry-run",
+    "metrics:snapshot": "node scripts/metrics-snapshot.mjs",
     "templates:help": "node scripts/template-cli.mjs help",
     "templates:list": "node scripts/template-cli.mjs list",
     "templates:search": "node scripts/template-cli.mjs search",
