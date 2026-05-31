@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -121,23 +121,27 @@ Usage:
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
+  ai-devtools-cn validate
 
 NPM scripts:
   npm run templates:list
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
+  npm run templates:validate
 
 Examples:
   npx ai-devtools-cn list
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
+  npx ai-devtools-cn validate
 
   npm run templates:list
   npm run templates:search -- ci
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
+  npm run templates:validate
 
 Options:
   --output <path>  Output path for the generated working draft
@@ -233,6 +237,72 @@ ${readTemplate(template).trim()}
   console.log(`已生成工作稿：${path.relative(repoRoot, resolvedOutput)}`);
 }
 
+function validateTemplates() {
+  const errors = [];
+  const slugs = new Set();
+  const registeredFiles = new Set();
+
+  for (const template of templates) {
+    for (const field of ["slug", "title", "file", "useCase", "output"]) {
+      if (!template[field] || template[field].trim() === "") {
+        errors.push(`${template.slug ?? "(missing slug)"} 缺少字段：${field}`);
+      }
+    }
+
+    if (slugs.has(template.slug)) {
+      errors.push(`重复 slug：${template.slug}`);
+    }
+    slugs.add(template.slug);
+
+    if (!template.file.startsWith("templates/") || !template.file.endsWith(".md")) {
+      errors.push(`${template.slug} 的文件路径必须指向 templates/*.md：${template.file}`);
+    }
+
+    if (registeredFiles.has(template.file)) {
+      errors.push(`重复注册模板文件：${template.file}`);
+    }
+    registeredFiles.add(template.file);
+
+    const fullPath = path.resolve(repoRoot, template.file);
+    if (!existsSync(fullPath)) {
+      errors.push(`${template.slug} 注册的文件不存在：${template.file}`);
+      continue;
+    }
+
+    const content = readFileSync(fullPath, "utf8");
+    if (!content.trim().startsWith("# ")) {
+      errors.push(`${template.file} 应该以一级标题开头`);
+    }
+    if (content.trim().length < 80) {
+      errors.push(`${template.file} 内容过短，可能不是可用模板`);
+    }
+  }
+
+  const templateDir = path.resolve(repoRoot, "templates");
+  const templateFiles = readdirSync(templateDir)
+    .filter((file) => file.endsWith(".md") && file !== "README.md")
+    .map((file) => `templates/${file}`)
+    .sort();
+
+  for (const file of templateFiles) {
+    if (!registeredFiles.has(file)) {
+      errors.push(`模板文件未注册到 CLI：${file}`);
+    }
+  }
+
+  if (errors.length > 0) {
+    console.error("Template registry validation failed:");
+    for (const error of errors) {
+      console.error(`- ${error}`);
+    }
+    process.exit(1);
+  }
+
+  console.log("Template registry validation passed.");
+  console.log(`- ${templates.length} templates registered`);
+  console.log(`- ${templateFiles.length} template files checked`);
+}
+
 function readTemplate(template) {
   const fullPath = path.resolve(repoRoot, template.file);
   return readFileSync(fullPath, "utf8");
@@ -291,6 +361,9 @@ switch (command) {
     break;
   case "new":
     createWorkingDraft(args[0], parseOptions(args.slice(1)));
+    break;
+  case "validate":
+    validateTemplates();
     break;
   default:
     fail(`未知命令：${command}\n运行 npm run templates:help 查看用法。`);

@@ -17,6 +17,12 @@ npm run templates:list
 npm run templates:new -- pr-review --output work/pr-review.md
 ```
 
+新增或调整模板后，可以运行：
+
+```bash
+npm run templates:validate
+```
+
 更多命令见 [模板 CLI](../docs/template-cli.md)。
 
 ## 模板总览

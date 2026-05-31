@@ -38,6 +38,7 @@ examples/    示例工作流
 ```bash
 npm install
 npm run templates:list
+npm run templates:validate
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 ```
 

@@ -85,6 +85,28 @@ npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md --force
 ```
 
+## 校验模板注册表
+
+维护者或贡献者新增模板后，可以运行：
+
+```bash
+npm run templates:validate
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn validate
+```
+
+这个命令会检查：
+
+- CLI 注册的模板 slug 是否重复
+- 注册字段是否为空
+- 注册的模板文件是否存在
+- `templates/` 下的模板文件是否已注册到 CLI
+- 模板文件是否以一级标题开头
+
 ## 推荐流程
 
 1. 运行 `npm run templates:list` 找到模板 slug。
@@ -99,6 +121,7 @@ npm run templates:new -- ci-troubleshooting --output work/ci-debug.md --force
 
 ```bash
 npm run test
+npm run templates:validate
 npm run pack:dry-run
 ```
 
