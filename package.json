@@ -1,10 +1,47 @@
 {
   "name": "ai-devtools-cn",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.3.0",
   "description": "Chinese AI developer tooling templates and maintenance workflows.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "ai-devtools-cn": "./scripts/template-cli.mjs"
+  },
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "docs",
+    "examples",
+    "templates",
+    "scripts/template-cli.mjs"
+  ],
+  "keywords": [
+    "ai",
+    "developer-tools",
+    "templates",
+    "open-source",
+    "maintenance",
+    "pr-review",
+    "issue-triage",
+    "ci"
+  ],
+  "homepage": "https://github.com/ONEISALL7/ai-devtools-cn#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ONEISALL7/ai-devtools-cn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ONEISALL7/ai-devtools-cn/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"!node_modules/**\" \"!work/**\"",
+    "test": "npm run test:cli && npm run lint:md",
+    "test:cli": "node scripts/test-template-cli.mjs",
+    "pack:dry-run": "npm pack --dry-run",
     "templates:help": "node scripts/template-cli.mjs help",
     "templates:list": "node scripts/template-cli.mjs list",
     "templates:search": "node scripts/template-cli.mjs search",

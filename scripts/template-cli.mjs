@@ -107,19 +107,33 @@ const templates = [
   },
 ];
 
-const command = process.argv[2] ?? "help";
+const rawCommand = process.argv[2] ?? "help";
+const command = rawCommand.startsWith("templates:")
+  ? rawCommand.slice("templates:".length)
+  : rawCommand;
 const args = process.argv.slice(3);
 
 function printHelp() {
   console.log(`AI DevTools CN template CLI
 
 Usage:
+  ai-devtools-cn list
+  ai-devtools-cn search <keyword>
+  ai-devtools-cn show <slug>
+  ai-devtools-cn new <slug> --output <path>
+
+NPM scripts:
   npm run templates:list
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
 
 Examples:
+  npx ai-devtools-cn list
+  npx ai-devtools-cn search ci
+  npx ai-devtools-cn show pr-review
+  npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
+
   npm run templates:list
   npm run templates:search -- ci
   npm run templates:show -- pr-review
