@@ -274,6 +274,7 @@ Usage:
   ai-devtools-cn trial --output <dir>
   ai-devtools-cn feedback --output <path>
   ai-devtools-cn outreach --output <path>
+  ai-devtools-cn adoption --output <dir>
   ai-devtools-cn evidence --output <path>
   ai-devtools-cn application --output <path>
   ai-devtools-cn doctor
@@ -291,6 +292,7 @@ NPM scripts:
   npm run templates:trial -- --template <slug> --output <dir>
   npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
+  npm run templates:adoption -- --template <slug> --output <dir>
   npm run templates:evidence -- --output <path>
   npm run templates:application -- --output <path>
   npm run templates:doctor
@@ -308,6 +310,7 @@ Examples:
   npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
+  npx ai-devtools-cn adoption --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npx ai-devtools-cn evidence --output work/external-evidence.md
   npx ai-devtools-cn application --output work/openai-application.md
   npx ai-devtools-cn doctor
@@ -324,6 +327,7 @@ Examples:
   npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
   npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
+  npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npm run templates:evidence -- --output work/external-evidence.md
   npm run templates:application -- --output work/openai-application.md
   npm run templates:doctor
@@ -579,6 +583,48 @@ function createOutreachPack(options) {
   console.log(`已生成外部试用邀请包：${formatDisplayPath(resolvedOutput)}`);
 }
 
+function createAdoptionSprint(options) {
+  const template = options.template ? requireTemplate(options.template) : requireTemplate("pr-review");
+  const outputPath = options.output ?? path.join("work", "ai-devtools-cn-adoption-sprint");
+  const resolvedOutput = resolveOutputPath(outputPath);
+  const files = [
+    {
+      name: "README.md",
+      content: formatAdoptionReadme(template, options),
+    },
+    {
+      name: "outreach.md",
+      content: formatAdoptionOutreach(template, options),
+    },
+    {
+      name: "feedback-log.md",
+      content: formatAdoptionFeedbackLog(template, options),
+    },
+    {
+      name: "contributor-invite.md",
+      content: formatContributorInvite(template, options),
+    },
+  ];
+
+  const conflicts = files
+    .map((file) => path.join(resolvedOutput, file.name))
+    .filter((filePath) => existsSync(filePath));
+
+  if (conflicts.length > 0 && !options.force) {
+    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${formatDisplayPath(filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(resolvedOutput, { recursive: true });
+  for (const file of files) {
+    writeFileSync(path.join(resolvedOutput, file.name), file.content, "utf8");
+  }
+
+  console.log(`已生成外部试用冲刺包：${formatDisplayPath(resolvedOutput)}`);
+  for (const file of files) {
+    console.log(`- ${path.join(formatDisplayPath(resolvedOutput), file.name)}`);
+  }
+}
+
 function createEvidenceLedger(options) {
   const outputPath = options.output ?? path.join("work", "external-evidence.md");
   const resolvedOutput = resolveOutputPath(outputPath);
@@ -828,6 +874,199 @@ The project is early and actively maintained. Current strength is maintainer act
 3. 引导试用者提交 feedback issue。
 4. 邀请外部贡献者认领 good first issue。
 5. 根据外部反馈发布一个反馈驱动版本。
+`;
+}
+
+function formatAdoptionReadme(template, options) {
+  const scenarioLine = options.scenario ?? template.useCase;
+  const scenarioArg = formatShellArg(scenarioLine);
+
+  return `# AI DevTools CN 一周外部试用冲刺包
+
+> 推荐模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这个目录用于组织一次 7 天外部试用冲刺。目标是邀请真实开发者完成一次可公开描述的试用，并把反馈、外部 PR 或公开提及记录成可核验证据。
+
+## 本周目标
+
+- 邀请 5-10 位有真实维护场景的开发者。
+- 获得 2-5 条外部 feedback issue。
+- 邀请至少 1 位外部贡献者认领 good first issue。
+- 把每条公开反馈记录到 \`feedback-log.md\`，不要把维护者自建 issue 写成外部采用。
+
+## 推荐命令
+
+\`\`\`bash
+npx ai-devtools-cn doctor
+npx ai-devtools-cn trial --template ${template.slug} --scenario ${scenarioArg} --output work/ai-devtools-cn-trial
+npx ai-devtools-cn feedback --template ${template.slug} --scenario ${scenarioArg} --output work/feedback.md
+npx ai-devtools-cn evidence --output work/external-evidence.md
+\`\`\`
+
+如果 npm 包尚未发布，可以在仓库内用对应 npm script 试跑：
+
+\`\`\`bash
+npm run templates:doctor
+npm run templates:trial -- --template ${template.slug} --scenario ${scenarioArg} --output work/ai-devtools-cn-trial
+npm run templates:feedback -- --template ${template.slug} --scenario ${scenarioArg} --output work/feedback.md
+\`\`\`
+
+## 7 天执行节奏
+
+| 日期 | 动作 | 产物 |
+| --- | --- | --- |
+| Day 0 | 检查 README、反馈入口、good first issue 和 npm 状态 | 可公开发送的仓库链接 |
+| Day 1 | 向熟悉的开源维护者或开发者发送 3 条一对一邀请 | 试用邀请记录 |
+| Day 2 | 在 X、V2EX、掘金或社群发布一条试用邀请 | 公开链接 |
+| Day 3 | 跟进已回复用户，帮助他们选择模板和试用命令 | 反馈 issue 草稿 |
+| Day 4 | 分流第一批反馈，创建修正文档或模板的 issue | triage 记录 |
+| Day 5 | 邀请 1 位外部贡献者认领 good first issue | 外部 PR 候选 |
+| Day 6 | 合并可验证改进，或记录为什么暂缓 | PR / issue 链接 |
+| Day 7 | 运行指标快照和证据台账，判断是否能做反馈驱动 release | metrics / evidence |
+
+## 文件说明
+
+- [outreach.md](outreach.md)：面向不同渠道的邀请文案。
+- [feedback-log.md](feedback-log.md)：记录外部反馈、公开提及和外部 PR。
+- [contributor-invite.md](contributor-invite.md)：邀请外部贡献者认领 good first issue 的文案和边界。
+
+## 不要做的事
+
+- 不要承诺 OpenAI 申请结果。
+- 不要把维护者自己的 issue、PR、测试反馈写成外部采用。
+- 不要要求用户公开私有代码、token、客户日志或敏感事故细节。
+- 不要购买 star、反馈或 PR。
+`;
+}
+
+function formatAdoptionOutreach(template, options) {
+  const scenarioLine = options.scenario ?? template.useCase;
+  const trialCommand = `npx ai-devtools-cn trial --template ${template.slug} --scenario ${formatShellArg(scenarioLine)} --output work/ai-devtools-cn-trial`;
+
+  return `# 外部试用邀请文案
+
+> 推荐模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这些文案用于邀请真实开发者试用。发送前请按渠道删改，不要夸大 stars、下载量、用户数或外部采用情况。
+
+## 推荐试用命令
+
+\`\`\`bash
+${trialCommand}
+\`\`\`
+
+## GitHub / Discussion
+
+${formatOutreachMessage(template, requireOutreachChannel("github"), scenarioLine)}
+
+## X / Twitter
+
+${formatOutreachMessage(template, requireOutreachChannel("x"), scenarioLine)}
+
+## V2EX / 中文社区
+
+${formatOutreachMessage(template, requireOutreachChannel("v2ex"), scenarioLine)}
+
+## 微信 / 私域社群
+
+${formatOutreachMessage(template, requireOutreachChannel("wechat"), scenarioLine)}
+
+## Email / 私信
+
+${formatOutreachMessage(template, requireOutreachChannel("email"), scenarioLine)}
+
+## 反馈入口
+
+- Feedback issue: https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+- Good first issues: https://github.com/ONEISALL7/ai-devtools-cn/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22
+- Repository: https://github.com/ONEISALL7/ai-devtools-cn
+`;
+}
+
+function formatAdoptionFeedbackLog(template, options) {
+  const scenarioLine = options.scenario ?? template.useCase;
+
+  return `# 外部反馈记录表
+
+> 推荐模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这个文件用于记录真实外部采用信号。只有可核验链接、经允许匿名整理的案例，或公开 issue / PR 才能进入申请材料。
+
+## 反馈记录
+
+| 日期 | 来源 | 链接 | 外部作者 | 试用模板/命令 | 是否公开可核验 | 后续动作 |
+| --- | --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD | feedback issue |  |  | ${template.slug} | yes | 创建改进 issue |
+| YYYY-MM-DD | external PR |  |  |  | yes | review 并合并 |
+| YYYY-MM-DD | public mention |  |  |  | yes | 回复并邀请 issue 反馈 |
+| YYYY-MM-DD | private feedback |  | anonymous | ${template.slug} | partial | 经允许后匿名整理 |
+
+## Triage checklist
+
+- [ ] 反馈来自真实试用，而不是维护者自建测试。
+- [ ] 反馈没有包含 token、客户信息、内部日志、未公开源码或个人隐私。
+- [ ] 已给 GitHub issue 加上合适标签，例如 \`feedback\`、\`template\`、\`cli\`、\`case-study\`。
+- [ ] 如果反馈能立即修复，已创建小 PR。
+- [ ] 如果反馈能沉淀成案例，已确认是否允许匿名整理。
+- [ ] 已把公开链接同步到 \`npm run templates:evidence\` 生成的证据台账。
+
+## 可进入申请材料的说法
+
+\`\`\`text
+We collected public feedback issues and external PRs through a documented one-week adoption sprint. Each signal is linked in the evidence ledger and separated from maintainer-created issues.
+\`\`\`
+
+只有当上面的记录确实存在时，才能使用这段话。
+`;
+}
+
+function formatContributorInvite(template, options) {
+  const scenarioLine = options.scenario ?? template.useCase;
+
+  return `# 外部贡献者邀请
+
+> 推荐模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这个文档用于邀请外部贡献者提交一个小而真实的 PR。目标是获得真实改进，不是制造空 PR 或无意义改动。
+
+## 可直接发送的邀请
+
+\`\`\`text
+我在维护 ai-devtools-cn，一个面向中文开发者的 AI 工程维护模板库。
+
+现在想找外部贡献者认领一个小任务：补充真实模板使用案例、修正文档不清楚的地方，或者改进某个 good first issue。
+
+Good first issues:
+https://github.com/ONEISALL7/ai-devtools-cn/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22
+
+你可以优先看这个场景：
+${scenarioLine}
+
+要求：
+- 不提交私有代码、token、客户日志或敏感信息。
+- PR 要说明使用了哪个模板、改了什么、为什么有用。
+- 小改动也可以，但必须能帮助真实开发者理解或使用项目。
+\`\`\`
+
+## 推荐 PR 范围
+
+- 给一个模板补充边界条件。
+- 给某个技术栈补充最小案例。
+- 改进 README 或 quickstart 中不清楚的步骤。
+- 把真实使用反馈整理成匿名案例。
+- 修复 CLI 文档和实际输出不一致的地方。
+
+## Review checklist
+
+- [ ] PR 作者不是维护者本人。
+- [ ] PR 有明确使用场景。
+- [ ] 改动没有包含敏感信息。
+- [ ] 改动能帮助新用户复制、试用或反馈。
+- [ ] 合并后记录到外部采用证据台账。
 `;
 }
 
@@ -1101,6 +1340,7 @@ function runPublishCheck() {
     "templates:doctor",
     "templates:validate",
     "templates:publish-check",
+    "templates:adoption",
     "templates:evidence",
     "templates:application",
   ];
@@ -1512,6 +1752,9 @@ switch (command) {
     break;
   case "outreach":
     createOutreachPack(parseOptions(args));
+    break;
+  case "adoption":
+    createAdoptionSprint(parseOptions(args));
     break;
   case "evidence":
     createEvidenceLedger(parseOptions(args));

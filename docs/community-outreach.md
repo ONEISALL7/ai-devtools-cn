@@ -31,6 +31,14 @@
 
 如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，再收集反馈。
 
+如果你想把这件事压缩成一周执行，可以先生成外部试用冲刺包：
+
+```bash
+npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
+```
+
+冲刺包会包含多渠道邀请文案、反馈记录表和外部贡献者邀请文案，适合记录 issue #51 这类真实推广任务。
+
 ## 推荐发布渠道
 
 | 渠道 | 目标 |
@@ -182,6 +190,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 如果已经有外部反馈、外部 PR 或公开提及，建议同步生成外部采用证据台账：
 
 ```bash
+npm run templates:adoption -- --output work/adoption-sprint
 npm run templates:evidence -- --output work/external-evidence.md
 ```
 
