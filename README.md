@@ -1,5 +1,9 @@
 # AI DevTools CN
 
+[![Markdown Check](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml/badge.svg)](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml)
+[![Latest Release](https://img.shields.io/github/v/release/ONEISALL7/ai-devtools-cn?label=release)](https://github.com/ONEISALL7/ai-devtools-cn/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 面向中文开发者的 AI 开发工具实践模板库，收集可复用的工作流、提示词模板、代码审查模板、issue 分流模板、发布说明模板和工具评估清单。
 
 这个项目的目标不是追逐工具榜单，而是帮助开发者把 AI 工具稳定地接入真实工程流程：需求澄清、代码生成、PR review、测试补全、文档维护、CI 排错和 release 管理。
