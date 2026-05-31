@@ -49,6 +49,7 @@ npm run templates:validate
 | [AI 工具导入检查清单](ai-tool-onboarding-checklist.md) | 团队引入 AI 工具 | 团队规则、试点范围 | onboarding 文档 |
 | [AI 输出质量评估模板](ai-output-evaluation-template.md) | 判断 AI 输出能否采用 | AI 输出、事实来源、验收标准 | review 记录 |
 | [维护者周检查清单](maintainer-weekly-checklist.md) | 周期性维护项目 | issue、PR、CI、release 状态 | maintainer log |
+| [外部贡献者引导模板](contributor-onboarding-template.md) | 邀请新贡献者提交第一个 PR | good first issue、验证命令、验收标准 | contributor guide、issue comment |
 
 ## 推荐起步组合
 
@@ -64,6 +65,7 @@ npm run templates:validate
 2. [CI 排错模板](ci-troubleshooting-template.md)
 3. [发布说明模板](release-note-template.md)
 4. [维护者周检查清单](maintainer-weekly-checklist.md)
+5. [外部贡献者引导模板](contributor-onboarding-template.md)
 
 ### 团队负责人
 

@@ -173,6 +173,7 @@ npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 - `ci-troubleshooting.md`
 - `release-note.md`
 - `maintainer-weekly-checklist.md`
+- `contributor-onboarding.md`
 - `ai-output-evaluation.md`
 
 如果输出目录里的文件已存在，命令会拒绝覆盖。确实需要覆盖时使用：

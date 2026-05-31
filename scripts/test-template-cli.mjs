@@ -19,6 +19,7 @@ function run(args, options = {}) {
 const listOutput = run(["list"]);
 assert.match(listOutput, /pr-review/);
 assert.match(listOutput, /ci-troubleshooting/);
+assert.match(listOutput, /contributor-onboarding/);
 
 const aliasOutput = run(["templates:list"]);
 assert.match(aliasOutput, /release-note/);
@@ -110,11 +111,13 @@ assert.equal(existsSync(path.join(kitPath, "issue-triage.md")), true);
 assert.equal(existsSync(path.join(kitPath, "ci-troubleshooting.md")), true);
 assert.equal(existsSync(path.join(kitPath, "release-note.md")), true);
 assert.equal(existsSync(path.join(kitPath, "maintainer-weekly-checklist.md")), true);
+assert.equal(existsSync(path.join(kitPath, "contributor-onboarding.md")), true);
 assert.equal(existsSync(path.join(kitPath, "ai-output-evaluation.md")), true);
 
 const kitReadme = readFileSync(path.join(kitPath, "README.md"), "utf8");
 assert.match(kitReadme, /开源维护者工作包/);
 assert.match(kitReadme, /推荐使用顺序/);
+assert.match(kitReadme, /contributor-onboarding\.md/);
 
 assert.throws(
   () => run(["kit", "oss-maintainer", "--output", kitPath]),
