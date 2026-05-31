@@ -51,6 +51,7 @@
     "templates:kit": "node scripts/template-cli.mjs kit",
     "templates:trial": "node scripts/template-cli.mjs trial",
     "templates:feedback": "node scripts/template-cli.mjs feedback",
+    "templates:doctor": "node scripts/template-cli.mjs doctor",
     "templates:validate": "node scripts/template-cli.mjs validate"
   },
   "devDependencies": {

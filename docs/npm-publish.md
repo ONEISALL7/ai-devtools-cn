@@ -53,6 +53,7 @@ npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-ca
 
 ```bash
 npm run templates:list
+npm run templates:doctor
 npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- pr-review --output work/pr-review.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
@@ -84,6 +85,7 @@ npm publish --access public
 ```bash
 npm view ai-devtools-cn version
 npx ai-devtools-cn list
+npx ai-devtools-cn doctor
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit

@@ -36,6 +36,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 3. 如果你愿意跑 CLI，可以优先执行一条试用包命令：
 
    npm install
+   npm run templates:doctor
    npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
 
    如果你想分别体验命令，也可以执行：

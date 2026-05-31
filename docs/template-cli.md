@@ -45,6 +45,28 @@ npx ai-devtools-cn search ci
 
 可以搜索 slug、标题、文件名、使用场景和输出位置。
 
+## 诊断本地环境
+
+如果 CLI 无法生成文件，或者你想确认当前目录是否适合试用，可以运行：
+
+```bash
+npm run templates:doctor
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn doctor
+```
+
+这个命令会检查：
+
+- 当前 `ai-devtools-cn` 包版本
+- Node.js 版本是否满足 `>=18`
+- 当前目录是否可写
+- 模板注册和模板文件是否一致
+- 当前可用模板和工作包数量
+
 ## 查看单个模板
 
 ```bash
