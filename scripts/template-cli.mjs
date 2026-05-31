@@ -124,6 +124,90 @@ const kits = [
   },
 ];
 
+const examples = [
+  {
+    group: "基础示例",
+    items: [
+      {
+        slug: "pr-review-example",
+        title: "PR Review 示例",
+        file: "examples/pr-review-example.md",
+        useCase: "学习如何输出 review 结论",
+      },
+      {
+        slug: "issue-triage-example",
+        title: "Issue Triage 示例",
+        file: "examples/issue-triage-example.md",
+        useCase: "学习如何分流 issue",
+      },
+      {
+        slug: "ci-troubleshooting-example",
+        title: "CI 排错示例",
+        file: "examples/ci-troubleshooting-example.md",
+        useCase: "学习如何处理失败日志",
+      },
+      {
+        slug: "release-note-example",
+        title: "Release note 示例",
+        file: "examples/release-note-example.md",
+        useCase: "学习如何写发版说明",
+      },
+    ],
+  },
+  {
+    group: "真实维护案例",
+    items: [
+      {
+        slug: "pr-review-quickstart-release",
+        title: "审查快速上手 PR",
+        file: "examples/case-studies/pr-review-quickstart-release.md",
+        useCase: "审查文档入口型 PR",
+      },
+      {
+        slug: "ci-markdownlint-md012",
+        title: "修复 markdownlint MD012",
+        file: "examples/case-studies/ci-markdownlint-md012.md",
+        useCase: "从 CI 日志定位最小修复",
+      },
+      {
+        slug: "release-v020",
+        title: "发布 v0.2.0",
+        file: "examples/case-studies/release-v020.md",
+        useCase: "把 PR 和 changelog 整理成 release note",
+      },
+      {
+        slug: "template-registry-validation",
+        title: "模板注册校验",
+        file: "examples/case-studies/template-registry-validation.md",
+        useCase: "为模板库增加 CLI 注册校验",
+      },
+    ],
+  },
+  {
+    group: "第一批用户试用包",
+    items: [
+      {
+        slug: "pr-review-docs",
+        title: "PR Review 文档改动试用包",
+        file: "examples/trial-packs/pr-review-docs/README.md",
+        useCase: "邀请外部 reviewer 试用模板并提交匿名化反馈",
+      },
+      {
+        slug: "node-ci-failure",
+        title: "Node.js CI 排错试用包",
+        file: "examples/trial-packs/node-ci-failure/README.md",
+        useCase: "邀请维护者用失败日志试用 CI 排错模板",
+      },
+      {
+        slug: "python-pytest-failure",
+        title: "Python pytest 失败试用包",
+        file: "examples/trial-packs/python-pytest-failure/README.md",
+        useCase: "邀请 Python 维护者排查 pytest 和依赖差异",
+      },
+    ],
+  },
+];
+
 const rawCommand = process.argv[2] ?? "help";
 const command = rawCommand.startsWith("templates:")
   ? rawCommand.slice("templates:".length)
@@ -135,6 +219,7 @@ function printHelp() {
 
 Usage:
   ai-devtools-cn list
+  ai-devtools-cn examples
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
@@ -146,6 +231,7 @@ Usage:
 
 NPM scripts:
   npm run templates:list
+  npm run templates:examples
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
@@ -157,6 +243,7 @@ NPM scripts:
 
 Examples:
   npx ai-devtools-cn list
+  npx ai-devtools-cn examples
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
@@ -167,6 +254,7 @@ Examples:
   npx ai-devtools-cn validate
 
   npm run templates:list
+  npm run templates:examples
   npm run templates:search -- ci
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
@@ -208,6 +296,18 @@ function listKits() {
   用途：${kit.description}
   模板：${kit.templateSlugs.join(", ")}
 `);
+  }
+}
+
+function listExamples() {
+  for (const group of examples) {
+    console.log(`${group.group}:`);
+    for (const item of group.items) {
+      console.log(`- ${item.slug}: ${item.title}
+  用途：${item.useCase}
+  文件：${item.file}
+`);
+    }
   }
 }
 
@@ -526,6 +626,7 @@ function runDoctor() {
   console.log(`Node.js: ${process.versions.node}`);
   console.log(`Templates: ${templates.length} registered, ${validationResult.templateFiles.length} files checked`);
   console.log(`Kits: ${kits.length}`);
+  console.log(`Examples: ${examples.reduce((total, group) => total + group.items.length, 0)}`);
   console.log("");
   console.log("Recommended trial command:");
   console.log("  npx ai-devtools-cn trial --template pr-review --output work/trial");
@@ -697,6 +798,9 @@ switch (command) {
     break;
   case "list":
     listTemplates();
+    break;
+  case "examples":
+    listExamples();
     break;
   case "search":
     searchTemplates(args[0]);

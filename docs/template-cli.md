@@ -31,6 +31,26 @@ npx ai-devtools-cn list
 - `use case`：适用场景
 - `file`：模板文件路径
 
+## 查看示例和试用包
+
+```bash
+npm run templates:examples
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn examples
+```
+
+输出会按分组展示：
+
+- 基础示例
+- 真实维护案例
+- 第一批用户试用包
+
+每条记录包含 slug、标题、适用场景和文件路径，适合第一次进入项目时快速找到可复制案例。
+
 ## 搜索模板
 
 ```bash
@@ -215,10 +235,11 @@ npx ai-devtools-cn validate
 ## 推荐流程
 
 1. 运行 `npm run templates:list` 找到模板 slug。
-2. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
-3. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
-4. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
-5. 把整理后的提示词复制到你的 AI 开发工具。
+2. 运行 `npm run templates:examples` 找到可复制案例或试用包。
+3. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
+4. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
+5. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
+6. 把整理后的提示词复制到你的 AI 开发工具。
 
 如果你是开源项目维护者，想先建立一整套基础流程，可以直接运行 `npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit`。
 
