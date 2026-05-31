@@ -21,7 +21,7 @@
 | External feedback issues | 0 |
 | 项目文件 | 71 个 tracked files |
 | CI | GitHub Actions Markdown Check |
-| CLI | `ai-devtools-cn` template CLI，支持 list、search、show、new、kit、feedback、validate |
+| CLI | `ai-devtools-cn` template CLI，支持 list、search、show、new、kit、trial、feedback、validate |
 
 这些数字是日期快照，不是实时指标；后续维护 PR 会继续增加这些数字。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据。
 
@@ -131,6 +131,7 @@ npm run templates:search -- ci
 npm run templates:show -- pr-review
 npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:validate
 ```
@@ -141,6 +142,7 @@ npm run templates:validate
 npx ai-devtools-cn list
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
+npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn validate
 ```

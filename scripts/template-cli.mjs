@@ -139,6 +139,7 @@ Usage:
   ai-devtools-cn show <slug>
   ai-devtools-cn new <slug> --output <path>
   ai-devtools-cn kit <slug> --output <dir>
+  ai-devtools-cn trial --output <dir>
   ai-devtools-cn feedback --output <path>
   ai-devtools-cn validate
 
@@ -148,6 +149,7 @@ NPM scripts:
   npm run templates:show -- <slug>
   npm run templates:new -- <slug> --output <path>
   npm run templates:kit -- <slug> --output <dir>
+  npm run templates:trial -- --template <slug> --output <dir>
   npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:validate
 
@@ -157,6 +159,7 @@ Examples:
   npx ai-devtools-cn show pr-review
   npx ai-devtools-cn new ci-troubleshooting --output work/ci-debug.md
   npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
+  npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn validate
 
@@ -165,6 +168,7 @@ Examples:
   npm run templates:show -- pr-review
   npm run templates:new -- ci-troubleshooting --output work/ci-debug.md
   npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+  npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
   npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:validate
 
@@ -289,6 +293,44 @@ function createKit(slug, options) {
   }
 }
 
+function createTrialPack(options) {
+  const template = options.template ? requireTemplate(options.template) : requireTemplate("pr-review");
+  const outputPath = options.output ?? path.join("work", "ai-devtools-cn-trial");
+  const resolvedOutput = resolveOutputPath(outputPath);
+  const files = [
+    {
+      name: "README.md",
+      content: formatTrialReadme(template, options),
+    },
+    {
+      name: `${template.slug}.md`,
+      content: formatWorkingDraft(template),
+    },
+    {
+      name: "feedback.md",
+      content: formatFeedbackDraft(template, options),
+    },
+  ];
+
+  const conflicts = files
+    .map((file) => path.join(resolvedOutput, file.name))
+    .filter((filePath) => existsSync(filePath));
+
+  if (conflicts.length > 0 && !options.force) {
+    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${formatDisplayPath(filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(resolvedOutput, { recursive: true });
+  for (const file of files) {
+    writeFileSync(path.join(resolvedOutput, file.name), file.content, "utf8");
+  }
+
+  console.log(`已生成试用包：${formatDisplayPath(resolvedOutput)}`);
+  for (const file of files) {
+    console.log(`- ${path.join(formatDisplayPath(resolvedOutput), file.name)}`);
+  }
+}
+
 function createFeedbackDraft(options) {
   const template = options.template ? requireTemplate(options.template) : null;
   const outputPath = options.output ?? path.join(
@@ -373,6 +415,37 @@ ${scenarioLine}
 
 是否愿意被匿名引用为使用案例：
 是 / 否
+`;
+}
+
+function formatTrialReadme(template, options) {
+  const scenarioLine = options.scenario ?? "请填写公开安全的试用场景";
+
+  return `# AI DevTools CN 15 分钟试用包
+
+> 模板：${template.slug} - ${template.title}
+> 试用场景：${scenarioLine}
+
+这个目录用于完成一次可公开反馈的短试用。目标不是测试 AI 是否能替代维护者，而是判断模板是否能帮助真实工程维护工作。
+
+## 文件
+
+- [${template.slug}.md](${template.slug}.md)：可填写的模板工作稿
+- [feedback.md](feedback.md)：可复制到 GitHub issue 的反馈草稿
+
+## 试用步骤
+
+1. 打开 \`${template.slug}.md\`。
+2. 填写项目背景、技术栈、当前任务、相关文件或日志、约束条件和期望输出格式。
+3. 把整理后的工作稿复制到你正在使用的 AI 开发工具。
+4. 判断输出是否能进入真实 PR、issue、CI、release 或文档流程。
+5. 打开 \`feedback.md\`，删除不适用内容后提交到 GitHub issue。
+
+## 公开安全提醒
+
+不要把 API key、token、客户信息、内部日志、未公开源码、生产事故敏感细节或个人隐私写入试用包或公开 issue。
+
+如果场景敏感，请改写成可公开的抽象描述。
 `;
 }
 
@@ -572,6 +645,9 @@ switch (command) {
     } else {
       createKit(args[0], parseOptions(args.slice(1)));
     }
+    break;
+  case "trial":
+    createTrialPack(parseOptions(args));
     break;
   case "feedback":
     createFeedbackDraft(parseOptions(args));

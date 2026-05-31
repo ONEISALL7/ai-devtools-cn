@@ -33,7 +33,12 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 1. 打开 README，判断你能不能在 1 分钟内理解项目是做什么的。
 2. 从模板目录选一个你会用到的场景，例如 PR review、issue triage、CI 排错或 release note。
-3. 如果你愿意跑 CLI，请执行：
+3. 如果你愿意跑 CLI，可以优先执行一条试用包命令：
+
+   npm install
+   npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
+
+   如果你想分别体验命令，也可以执行：
 
    npm install
    npm run templates:list

@@ -117,6 +117,28 @@ npx ai-devtools-cn kit oss-maintainer --output work/oss-maintainer-kit
 npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit --force
 ```
 
+## 生成 15 分钟试用包
+
+邀请第一批用户试用时，可以生成一个包含模板工作稿和反馈草稿的目录：
+
+```bash
+npm run templates:trial -- --template pr-review --scenario "review a documentation PR" --output work/trial
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn trial --template pr-review --scenario "review a documentation PR" --output work/trial
+```
+
+试用包会包含：
+
+- `README.md`：15 分钟试用步骤和公开安全提醒
+- `<template>.md`：可填写的模板工作稿
+- `feedback.md`：可复制到 GitHub issue 的反馈草稿
+
+如果不指定 `--template`，默认使用 `pr-review`。如果输出目录里的文件已存在，命令会拒绝覆盖；确实需要覆盖时使用 `--force`。
+
 ## 生成反馈 issue 草稿
 
 邀请试用者反馈时，可以先生成一份公开安全的 issue 草稿：

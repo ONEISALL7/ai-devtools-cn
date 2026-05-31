@@ -49,6 +49,7 @@
     "templates:show": "node scripts/template-cli.mjs show",
     "templates:new": "node scripts/template-cli.mjs new",
     "templates:kit": "node scripts/template-cli.mjs kit",
+    "templates:trial": "node scripts/template-cli.mjs trial",
     "templates:feedback": "node scripts/template-cli.mjs feedback",
     "templates:validate": "node scripts/template-cli.mjs validate"
   },
