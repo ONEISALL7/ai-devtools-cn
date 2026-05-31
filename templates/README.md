@@ -74,3 +74,5 @@ npm run templates:new -- pr-review --output work/pr-review.md
 ```
 
 更多要求见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
+
+如果你已经在真实项目中使用过某个模板，请通过 [用户反馈](../docs/feedback.md) 告诉维护者它是否有用、哪里不好用、还缺什么场景。
