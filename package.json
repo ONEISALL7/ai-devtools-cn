@@ -1,0 +1,12 @@
+{
+  "name": "ai-devtools-cn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chinese AI developer tooling templates and maintenance workflows.",
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"!node_modules/**\""
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.17.0"
+  }
+}

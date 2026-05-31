@@ -1,0 +1,19 @@
+name: Documentation
+description: 提出文档修复或补充
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 文档页面
+      placeholder: docs/ai-engineering-workflow.md
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: 建议修改
+      description: 请写清楚需要修复、补充或更新的内容。
+    validations:
+      required: true

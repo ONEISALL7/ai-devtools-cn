@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 安全问题
+    url: https://github.com/ONEISALL7/ai-devtools-cn/security/advisories/new
+    about: 请不要在公开 issue 中提交安全敏感信息。

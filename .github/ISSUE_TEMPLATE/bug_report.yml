@@ -1,0 +1,29 @@
+name: Bug report
+description: 报告文档、模板或示例中的错误
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题描述
+      description: 请说明哪里不正确或无法复现。
+    validations:
+      required: true
+  - type: input
+    id: file
+    attributes:
+      label: 相关文件
+      placeholder: docs/xxx.md 或 templates/xxx.md
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望修复
+      description: 你认为应该如何修改？
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我确认没有粘贴密钥、账号或私人信息
+          required: true

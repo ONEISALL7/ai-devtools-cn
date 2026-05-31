@@ -1,0 +1,24 @@
+name: Feature request
+description: 建议新增模板、文档或维护流程
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 这个模板或文档会用于什么真实工作流？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议内容
+      description: 请说明你希望新增或改进什么。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 备选方案
+      description: 是否有现有模板可以扩展？
