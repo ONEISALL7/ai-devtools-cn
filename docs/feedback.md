@@ -4,6 +4,12 @@
 
 如果你是第一批试用者，可以先按 [第一批用户试用计划](first-user-test-plan.md) 完成 15 分钟试用，再按本文格式提交反馈。
 
+也可以用 CLI 生成一份可复制到 GitHub issue 的反馈草稿：
+
+```bash
+npm run templates:feedback -- --template pr-review --output work/feedback.md
+```
+
 ## 可以反馈什么
 
 - 你使用了哪个模板

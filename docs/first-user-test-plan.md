@@ -39,6 +39,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
    npm run templates:list
    npm run templates:new -- pr-review --output work/pr-review.md
    npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
+   npm run templates:feedback -- --template pr-review --output work/feedback.md
 
 4. 提交一个 GitHub issue 反馈：
    - 你试了哪个模板或命令
