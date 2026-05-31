@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-暂无。
+- 规范 npm `bin` 路径并补充 npm 发布 dry-run 与 cache 排错说明
 
 ## 0.6.0 - 2026-05-31
 
