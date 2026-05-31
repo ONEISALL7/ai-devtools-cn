@@ -21,6 +21,14 @@
 | [用 CI 排错模板修复 markdownlint MD012](case-studies/ci-markdownlint-md012.md) | 如何从 CI 日志定位最小修复 |
 | [用 release note 模板发布 v0.2.0](case-studies/release-v020.md) | 如何把 PR 和 changelog 整理成 release note |
 
+## 第一批用户试用包
+
+试用包示例展示 `doctor`、`trial`、模板工作稿和 feedback 草稿如何组成一次 15 分钟外部试用。
+
+| 示例 | 你能学到什么 |
+| --- | --- |
+| [PR Review 文档改动试用包](trial-packs/pr-review-docs/README.md) | 如何邀请外部 reviewer 试用模板并提交匿名化反馈 |
+
 ## 怎么复用示例
 
 1. 找到和你任务最接近的示例。
