@@ -29,6 +29,8 @@
 - 外部贡献者 PR
 - 真实案例补充
 
+如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，再收集反馈。
+
 ## 推荐发布渠道
 
 | 渠道 | 目标 |
@@ -74,11 +76,11 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
-v0.4.0 还补了：
+v0.5.0 还补了：
+- 开源维护者工作包
 - 模板注册校验命令
 - 真实维护案例
 - 用户反馈入口
-- SUPPORT 支持入口
 
 https://github.com/ONEISALL7/ai-devtools-cn
 ```
@@ -96,7 +98,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例和 v0.4.0 release。
+现在有模板、CLI、真实案例和 v0.5.0 release。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -154,8 +156,9 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.4.0` release 已存在
+- `v0.5.0` release 已存在
 - issue 模板可用
+- [第一批用户试用计划](first-user-test-plan.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
 - 不在文案中夸大 stars、下载量或用户数
 - 不承诺 AI 能替代维护者判断
