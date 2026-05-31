@@ -22,17 +22,49 @@ examples/    示例工作流
 
 ## 快速开始
 
-1. 从 `templates/` 选择一个模板。
-2. 把项目背景、技术栈、约束条件和期望输出补完整。
-3. 在 AI 工具中执行模板，并保留关键决策记录。
-4. 如果模板有效，欢迎提交 PR 补充适用场景和注意事项。
+第一次使用建议从 [3 分钟快速上手](docs/quickstart.md) 开始。
 
-推荐先看：
+最短路径：
+
+1. 按场景从下面选择一个模板。
+2. 复制模板内容到你的 AI 开发工具。
+3. 替换项目背景、技术栈、约束条件和期望输出。
+4. 把有效结果沉淀到 issue、PR、文档或 release note。
+
+## 模板索引
+
+| 场景 | 直接复制 |
+| --- | --- |
+| PR review | [PR Review 模板](templates/pr-review-template.md) |
+| issue 分流 | [Issue Triage 模板](templates/issue-triage-template.md) |
+| CI 排错 | [CI 排错模板](templates/ci-troubleshooting-template.md) |
+| 测试补全 | [测试生成模板](templates/test-generation-template.md) |
+| 文档维护 | [文档更新模板](templates/documentation-update-template.md) |
+| README 改进 | [README 改进模板](templates/readme-improvement-template.md) |
+| release note | [发布说明模板](templates/release-note-template.md) |
+| 依赖升级评估 | [依赖升级风险模板](templates/dependency-upgrade-risk-template.md) |
+| 安全审查 | [安全审查模板](templates/security-review-template.md) |
+| 工具选型 | [工具评估清单](templates/tool-evaluation-template.md) |
+| 团队导入 | [AI 工具导入检查清单](templates/ai-tool-onboarding-checklist.md) |
+| 输出验收 | [AI 输出质量评估模板](templates/ai-output-evaluation-template.md) |
+
+## 示例
+
+| 场景 | 示例 |
+| --- | --- |
+| PR review | [PR Review 示例](examples/pr-review-example.md) |
+| issue 分流 | [Issue Triage 示例](examples/issue-triage-example.md) |
+| CI 排错 | [CI 排错示例](examples/ci-troubleshooting-example.md) |
+| release note | [Release note 示例](examples/release-note-example.md) |
+
+## 文档入口
 
 - [AI 工具接入工程流程](docs/ai-engineering-workflow.md)
-- [工具评估清单](templates/tool-evaluation-template.md)
-- [PR Review 模板](templates/pr-review-template.md)
-- [Issue Triage 模板](templates/issue-triage-template.md)
+- [团队导入 AI 工具指南](docs/team-ai-adoption-guide.md)
+- [模板质量评分卡](docs/template-quality-scorecard.md)
+- [FAQ](docs/faq.md)
+- [维护者成长计划](docs/maintainer-growth-plan.md)
+- [仓库检查清单](docs/repository-checklist.md)
 
 ## 设计原则
 
