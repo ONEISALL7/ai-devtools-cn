@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 更新社区推广文案和发布前检查清单
+- 在 README 增加 CI、release 和 license 状态徽章
 
 ## 0.4.0 - 2026-05-31
 
