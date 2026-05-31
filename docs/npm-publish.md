@@ -1,6 +1,6 @@
 # npm 发布清单
 
-这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.16.0`，但发布需要维护者本人登录 npm 账号后执行。
+这个文档用于发布 `ai-devtools-cn` npm 包。当前仓库已经准备好 npm CLI 结构，当前仓库版本是 `0.16.1`，但发布需要维护者本人登录 npm 账号后执行。
 
 ## 当前包名状态
 
@@ -16,7 +16,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 
 ## 当前 dry-run 结果
 
-截至 2026-06-01，`ai-devtools-cn@0.16.0` 已完成一次真实 npm publish dry-run：
+截至 2026-06-01，`ai-devtools-cn@0.16.1` 已完成一次真实 npm publish dry-run：
 
 ```bash
 npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
@@ -24,10 +24,10 @@ npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-ca
 
 结果摘要：
 
-- dry-run 输出 `+ ai-devtools-cn@0.16.0`
+- dry-run 输出 `+ ai-devtools-cn@0.16.1`
 - tarball 包含 61 个文件
-- package size 约 68.5 kB
-- unpacked size 约 219.4 kB
+- package size 约 69.2 kB
+- unpacked size 约 221.4 kB
 - npm 提示真实发布仍需要登录 npm 账号
 
 这说明打包内容和 publish 流程已经通过 dry-run。剩余阻塞是维护者本人 npm 登录、账号确认和可能的 2FA。
@@ -154,7 +154,7 @@ npx ai-devtools-cn validate
 发布成功后建议做这些维护动作：
 
 1. 在 README 顶部增加 npm 安装方式。
-2. 在 GitHub Release `v0.16.0` 中补充 npm 包链接。
+2. 在 GitHub Release `v0.16.1` 中补充 npm 包链接。
 3. 创建一个 issue 记录发布结果和后续下载量观察。
 4. 过 24 小时检查 npm 下载量。
 
