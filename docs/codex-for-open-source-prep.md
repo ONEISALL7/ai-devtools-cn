@@ -117,3 +117,13 @@ I can promote OpenAI.
 ```
 
 申请材料必须和公开仓库记录一致。
+
+## 生成申请包草稿
+
+提交前可以运行：
+
+```bash
+npm run templates:application -- --output work/openai-application.md
+```
+
+申请包草稿会整理表单字段、证据清单、短板提醒和不要提交的夸大表述。它只是本地草稿，不会提交表单，也不能替代真实外部采用证据。

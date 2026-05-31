@@ -275,6 +275,7 @@ Usage:
   ai-devtools-cn feedback --output <path>
   ai-devtools-cn outreach --output <path>
   ai-devtools-cn evidence --output <path>
+  ai-devtools-cn application --output <path>
   ai-devtools-cn doctor
   ai-devtools-cn validate
   ai-devtools-cn publish-check
@@ -291,6 +292,7 @@ NPM scripts:
   npm run templates:feedback -- --template <slug> --output <path>
   npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
   npm run templates:evidence -- --output <path>
+  npm run templates:application -- --output <path>
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -307,6 +309,7 @@ Examples:
   npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
   npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
   npx ai-devtools-cn evidence --output work/external-evidence.md
+  npx ai-devtools-cn application --output work/openai-application.md
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
   npx ai-devtools-cn publish-check
@@ -322,6 +325,7 @@ Examples:
   npm run templates:feedback -- --template pr-review --output work/feedback.md
   npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
   npm run templates:evidence -- --output work/external-evidence.md
+  npm run templates:application -- --output work/openai-application.md
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -588,6 +592,20 @@ function createEvidenceLedger(options) {
   console.log(`已生成外部采用证据台账：${formatDisplayPath(resolvedOutput)}`);
 }
 
+function createApplicationPack(options) {
+  const outputPath = options.output ?? path.join("work", "openai-codex-oss-application.md");
+  const resolvedOutput = resolveOutputPath(outputPath);
+  const packageJson = JSON.parse(readFileSync(path.resolve(packageRoot, "package.json"), "utf8"));
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatApplicationPack(packageJson), "utf8");
+  console.log(`已生成 OpenAI 申请包草稿：${formatDisplayPath(resolvedOutput)}`);
+}
+
 function formatWorkingDraft(template) {
   return `# ${template.title}工作稿
 
@@ -609,6 +627,121 @@ function formatWorkingDraft(template) {
 ## 模板正文
 
 ${readTemplate(template).trim()}
+`;
+}
+
+function formatApplicationPack(packageJson) {
+  return `# OpenAI Codex for Open Source 申请包草稿
+
+> 仓库：https://github.com/ONEISALL7/ai-devtools-cn
+> 当前 npm 候选版本：${packageJson.name}@${packageJson.version}
+
+这个文件用于申请前整理表单字段和公开证据。它不会自动提交申请，也不会替代真实外部采用证据。
+
+## 提交前必须刷新
+
+\`\`\`bash
+npm run metrics:snapshot -- --output work/metrics.md
+npm run templates:evidence -- --output work/external-evidence.md
+npm run templates:publish-check
+npm run pack:dry-run
+\`\`\`
+
+如果 npm 包已经发布，再补充：
+
+\`\`\`bash
+npm view ai-devtools-cn version
+npx ai-devtools-cn doctor
+\`\`\`
+
+## 表单字段草稿
+
+### GitHub username
+
+\`\`\`text
+ONEISALL7
+\`\`\`
+
+### Public repository URL
+
+\`\`\`text
+https://github.com/ONEISALL7/ai-devtools-cn
+\`\`\`
+
+### Describe your role
+
+\`\`\`text
+I am the primary maintainer of this public repository. I created and maintain the project, triage issues, manage releases, maintain CI, write documentation, add templates, and improve the CLI for AI-assisted open-source maintenance workflows.
+\`\`\`
+
+### Why does this repository qualify?
+
+提交前请先用 \`npm run metrics:snapshot\` 更新数字，再替换方括号内容。
+
+\`\`\`text
+ai-devtools-cn is a public Chinese AI developer tooling project focused on open-source maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and maintainer automation. It has active maintenance records, [merged PR count] merged PRs, [closed issue count] closed issues, [release count] releases, CI, a template CLI, and public feedback channels.
+\`\`\`
+
+如果外部采用仍不足，使用更保守版本：
+
+\`\`\`text
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a CLI for PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and evidence tracking. We are now collecting external usage through npm publishing, feedback issues, and good first issues.
+\`\`\`
+
+### How will you use API credits?
+
+\`\`\`text
+We will use API credits to support open-source maintenance workflows: PR review assistance, issue triage, CI log summarization, test generation, documentation updates, release note drafting, template quality checks, and feedback summarization. Credits would help validate real workflows, improve the CLI, and publish reusable examples for Chinese open-source maintainers.
+\`\`\`
+
+### Anything else we should know?
+
+\`\`\`text
+This project is early, so we do not want to overstate adoption. The current strength is active maintenance and clear OSS maintainer workflows: issues, PRs, releases, CI, CLI tooling, case studies, feedback channels, outreach tooling, contributor onboarding, and evidence tracking. Our next milestone is external usage: npm publishing, feedback issues, and external PRs.
+\`\`\`
+
+## 证据清单
+
+提交前把每一项链接补齐：
+
+- Repository: https://github.com/ONEISALL7/ai-devtools-cn
+- Latest release: https://github.com/ONEISALL7/ai-devtools-cn/releases
+- Metrics snapshot: \`work/metrics.md\`
+- External evidence ledger: \`work/external-evidence.md\`
+- npm package page:
+- External feedback issues:
+- External merged PRs:
+- Public mentions:
+- Feedback-driven release:
+
+## 当前必须如实承认的短板
+
+- npm 包如果还没发布，就不能写 npm downloads。
+- External feedback issues 如果仍为 0，就不能写已有真实用户反馈。
+- External merged PRs 如果仍为 0，就不能写已有外部贡献者。
+- stars、forks、下载量、用户数不能夸大。
+
+## 推荐申请判断
+
+可以早期申请，但更稳妥的申请时机是同时满足：
+
+- npm 包已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
+- 至少 3-5 条外部 feedback issue。
+- 至少 1 个外部贡献 PR。
+- 有一版基于真实反馈改进的 release。
+- \`work/external-evidence.md\` 中每条证据都有可核验链接。
+
+## 不要提交的表述
+
+\`\`\`text
+I want free ChatGPT Pro.
+I want to try Codex.
+This project is widely used.
+We have many users.
+External contributors are active.
+\`\`\`
+
+除非公开证据能证明，否则不要使用这些说法。
 `;
 }
 
@@ -969,6 +1102,7 @@ function runPublishCheck() {
     "templates:validate",
     "templates:publish-check",
     "templates:evidence",
+    "templates:application",
   ];
 
   if (packageJson.name !== "ai-devtools-cn") {
@@ -1381,6 +1515,9 @@ switch (command) {
     break;
   case "evidence":
     createEvidenceLedger(parseOptions(args));
+    break;
+  case "application":
+    createApplicationPack(parseOptions(args));
     break;
   case "doctor":
     runDoctor();

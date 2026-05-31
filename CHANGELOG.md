@@ -4,7 +4,7 @@
 
 ## Unreleased
 
-- 暂无
+- 新增 CLI `application` 命令，生成 OpenAI Codex for Open Source 申请包草稿
 
 ## 0.14.0 - 2026-06-01
 

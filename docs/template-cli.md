@@ -290,6 +290,33 @@ npx ai-devtools-cn evidence --output work/external-evidence.md
 
 这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。
 
+## 生成 OpenAI 申请包草稿
+
+准备申请 OpenAI Codex for Open Source 前，可以生成一份本地申请包草稿：
+
+```bash
+npm run templates:application -- --output work/openai-application.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn application --output work/openai-application.md
+```
+
+申请包会包含：
+
+- 提交前需要刷新的命令
+- 表单字段草稿
+- 项目资格说明的如实版本和保守版本
+- API credits 使用计划
+- 证据清单
+- 当前必须如实承认的短板
+- 推荐申请判断
+- 不要提交的夸大表述
+
+这个命令不会提交表单，也不会自动生成外部采用证据。提交前仍需要运行 `npm run metrics:snapshot`，并用 `npm run templates:evidence` 记录真实外部证据。
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：
