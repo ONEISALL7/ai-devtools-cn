@@ -151,8 +151,9 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 3. 收集 5-10 条真实反馈 issue。
 4. 根据反馈新增或修正模板。
 5. 邀请 1-2 位外部贡献者提交文档或案例 PR。
-6. 增加 CLI 测试到 GitHub Actions。
-7. 发布 `v0.4.0`，重点记录外部反馈和改进。
+6. 按 [项目指标追踪](metrics.md) 每周生成一次指标快照。
+7. 增加 CLI 测试到 GitHub Actions。
+8. 发布 `v0.4.0`，重点记录外部反馈和改进。
 
 ## 申请前自查
 

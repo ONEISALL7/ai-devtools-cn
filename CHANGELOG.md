@@ -8,6 +8,7 @@
 - 新增 OpenAI Codex for Open Source 申请证据和表单草稿文档
 - 新增 npm 发布清单和社区推广反馈收集 playbook
 - 同步 GitHub label 规范文档
+- 新增项目指标快照脚本和指标追踪文档
 
 ## 0.3.0 - 2026-05-31
 
