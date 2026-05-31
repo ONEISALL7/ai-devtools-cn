@@ -70,13 +70,13 @@ stars：20 个以上更有说服力
 
 ## 当前真实快照
 
-截至 2026-05-31，`ai-devtools-cn` 最新版本是 `v0.9.0`：
+截至 2026-05-31，`ai-devtools-cn` 最新版本是 `v0.10.0`：
 
 - GitHub stars：2
 - Forks：1
-- Merged PRs：53
-- Closed issues：52
-- Releases：10
+- Merged PRs：57
+- Closed issues：56
+- Releases：11
 - External merged PRs：0
 - External feedback issues：0
 - npm package：not published or unavailable
@@ -92,7 +92,7 @@ I am the primary maintainer of this repository. I maintain the documentation and
 ## Why does this repository qualify 草稿
 
 ```text
-This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 53 merged PRs, 52 closed issues, 10 releases, CI, a CLI, and public feedback channels.
+This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 57 merged PRs, 56 closed issues, 11 releases, CI, a CLI, and public feedback channels.
 ```
 
 提交前请把最后一句改成真实数据，例如：
