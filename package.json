@@ -1,6 +1,6 @@
 {
   "name": "ai-devtools-cn",
-  "version": "0.17.7",
+  "version": "0.18.0",
   "description": "Chinese AI developer tooling templates and maintenance workflows.",
   "license": "MIT",
   "type": "module",
@@ -49,6 +49,7 @@
     "templates:list": "node scripts/template-cli.mjs list",
     "templates:examples": "node scripts/template-cli.mjs examples",
     "templates:recipes": "node scripts/template-cli.mjs recipes",
+    "templates:pilot": "node scripts/template-cli.mjs pilot",
     "templates:contribute": "node scripts/template-cli.mjs contribute",
     "templates:launch": "node scripts/template-cli.mjs launch",
     "templates:handoff": "node scripts/template-cli.mjs handoff",

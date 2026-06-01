@@ -6,7 +6,7 @@
 
 ## 当前项目状态
 
-截至 2026-06-01，基于 `v0.17.7` GitHub release、`ai-devtools-cn@0.17.7` npm 发布验证和 `npm run metrics:snapshot` 的一次快照：
+截至 2026-06-01，基于 `v0.18.0` GitHub release、`ai-devtools-cn@0.18.0` npm 发布验证和 `npm run metrics:snapshot` 的一次快照：
 
 | 项目 | 当前状态 |
 | --- | --- |
@@ -14,17 +14,17 @@
 | 可见性 | Public |
 | GitHub stars | 3 |
 | Forks | 1 |
-| Releases | 27 个：`v0.1.0` 到 `v0.17.7` |
-| Merged PRs | 123+ 个，提交申请前应重新运行指标快照 |
+| Releases | 28 个：`v0.1.0` 到 `v0.18.0` |
+| Merged PRs | 125+ 个，提交申请前应重新运行指标快照 |
 | Closed issues | 108 个，最近一次完整快照统计到 issue #223 |
 | Open issues | 6+ 个，包含 #51 外部反馈收集和 #45-#49 外部贡献任务 |
 | External merged PRs | 0 |
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
-| npm package | [`ai-devtools-cn@0.17.7`](https://www.npmjs.com/package/ai-devtools-cn) |
+| npm package | [`ai-devtools-cn@0.18.0`](https://www.npmjs.com/package/ai-devtools-cn) |
 | npm monthly downloads | 当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验 |
 | 项目文件 | 94 个 tracked files |
 | CI | GitHub Actions Markdown Check；Node/CLI CI 在 Node.js 20 和 22 上运行 `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` |
-| CLI | GitHub `main` 与 npm 均同步到 `0.17.7`；已支持 list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate |
+| CLI | GitHub `main` 与 npm 均同步到 `0.18.0`；已支持 `pilot`、list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate |
 
 这些数字是日期快照，不是实时指标；后续维护 PR、npm 发布和下载量会继续变化。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据，并在网络可用时核验 npm downloads API。
 
@@ -38,10 +38,11 @@ npm run templates:application -- --output work/openai-application.md
 
 这份草稿用于整理表单字段、证据清单和短板提醒，不会自动提交申请，也不会替代真实外部采用证据。
 
-如果你要邀请外部贡献者提交第一个真实 PR，可以先让对方看 README 的“第一次外部 PR”章节，那里已经列出 #45-#49、建议 PR 标题和起步命令。npm 0.17.7 已经支持这些外部贡献入口，可以让对方直接运行：
+如果你要邀请外部贡献者提交第一个真实 PR，或邀请外部用户完成 30 分钟试用，可以先让对方看 README 的“第一次外部 PR”章节，那里已经列出 #45-#49、建议 PR 标题和起步命令。npm 0.18.0 已经支持这些外部贡献和试用入口，可以让对方直接运行：
 
 ```bash
 npx ai-devtools-cn@latest contribute
+npx ai-devtools-cn@latest pilot ci-failure --output work/pilot-ci
 npx ai-devtools-cn@latest pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn@latest claim 45 --output work/claim-45.md
 npx ai-devtools-cn@latest starter 45 --output work/starter-45.md
@@ -157,6 +158,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.17.5`：同步 npm 已发布状态，确认 `npx ai-devtools-cn@latest` 可用于外部试用和外部 PR 交接
 - `v0.17.6`：新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上验证 CLI、模板索引和 npm 打包内容
 - `v0.17.7`：同步 npm 发布状态，移除 `0.17.6` 待 2FA 发布提示，确保申请材料、社区发布包和 npm 发布清单与已发布包一致
+- `v0.18.0`：新增 `pilot` 30 分钟外部试用任务包入口，把单个外部用户的试用说明、反馈入口和维护者证据记录放到同一工作包
 
 ### CI 和质量控制
 

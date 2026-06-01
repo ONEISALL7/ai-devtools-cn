@@ -92,6 +92,26 @@ npx ai-devtools-cn recipes ci-failure
 
 完整说明见 [真实试用配方](usage-recipes.md)。
 
+## 生成 30 分钟外部试用任务包
+
+```bash
+npm run templates:pilot -- ci-failure --output work/pilot-ci
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
+```
+
+这个命令面向维护者邀请单个真实外部用户试用。它会生成：
+
+- `README.md`：30 分钟试用节奏和证据边界。
+- `tester-task.md`：可以直接发给外部试用者的任务说明。
+- `maintainer-evidence.md`：维护者记录 feedback issue、external PR 和后续动作的表格。
+
+`pilot` 使用真实试用配方 slug，例如 `ci-failure`、`pr-review-docs`、`issue-triage` 或 `release-note`。本地生成文件不能计为外部采用；只有外部用户提交的公开反馈 issue 或外部 PR 才能计入申请证据。
+
 ## 查看外部贡献任务
 
 ```bash
