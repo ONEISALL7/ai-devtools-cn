@@ -13,9 +13,12 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 ## 可以反馈什么
 
 - 你使用了哪个模板
+- 你是第一次外部试用者、外部维护者、外部贡献者，还是项目维护者自测
+- 你通过复制模板、clone 仓库、`npx`、试用配方还是外部 PR 路径完成试用
 - 用在什么场景，例如 PR review、CI 排错、release note、issue 分流
 - 模板是否节省了维护时间
 - 输出是否能直接放进 issue、PR 或 release
+- 是否有可公开核验的上下文链接，例如公开 PR、issue、review comment、release 或讨论
 - 哪些字段不清楚
 - 还缺哪些模板或案例
 - CLI 是否方便使用
@@ -37,6 +40,10 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 ```text
 使用的模板或功能：
 
+你和项目的关系：
+
+试用途径：
+
 使用场景：
 
 项目类型：
@@ -44,6 +51,8 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 是否解决问题：
 
 节省了什么工作：
+
+可公开核验的上下文链接：
 
 遇到的困难：
 
@@ -81,3 +90,5 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 | 涉及安全边界 | 更新安全审查或注意事项 |
 
 真实反馈会帮助项目判断哪些模板值得继续维护，也会帮助新用户更快找到适合自己的使用路径。
+
+维护者记录外部采用证据时，会优先使用带公开链接、能说明试用途径、且由非维护者账号提交的反馈。维护者自测、占位反馈或无法核验的私聊描述可以帮助改进项目，但不应写成外部采用证据。

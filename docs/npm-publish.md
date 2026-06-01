@@ -24,12 +24,12 @@ https://www.npmjs.com/package/ai-devtools-cn
 
 ## 当前待同步目标
 
-当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.3`。真实发布前必须确认：
+当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.4`。真实发布前必须确认：
 
-- GitHub 最新 release 是 `v0.17.3`
+- GitHub 最新 release 是 `v0.17.4`
 - `npm run templates:publish-status` 显示 source 不再领先最新 release tag
 - `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` 都通过
-- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.3`
+- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.4`
 
 真实 `npm publish` 仍需要包 owner 使用自己的 npm 账号和 2FA 完成。
 
