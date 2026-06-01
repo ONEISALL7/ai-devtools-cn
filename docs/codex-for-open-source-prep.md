@@ -80,6 +80,7 @@ stars：20 个以上更有说服力
 - External merged PRs：0
 - External feedback issues：1（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
 - npm package：[ai-devtools-cn@0.16.1](https://www.npmjs.com/package/ai-devtools-cn)
+- npm monthly downloads：当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验
 
 这些数字能证明维护活动和早期外部反馈，但还不能证明广泛采用。申请时必须把“活跃维护记录”和“外部采用证据”分开写。
 
