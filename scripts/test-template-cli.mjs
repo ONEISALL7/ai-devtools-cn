@@ -141,6 +141,30 @@ const publishCheckAliasOutput = run(["templates:publish-check"]);
 assert.match(publishCheckAliasOutput, /Package: ai-devtools-cn@/);
 assert.match(publishCheckAliasOutput, /Examples: \d+ files checked/);
 
+const publishStatusBehindOutput = run(["publish-status"], {
+  env: {
+    ...process.env,
+    AI_DEVTOOLS_CN_NPM_VERSION: "0.16.1",
+    AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.16.2",
+  },
+});
+assert.match(publishStatusBehindOutput, /AI DevTools CN publish status/);
+assert.match(publishStatusBehindOutput, /Local package\.json: 0\.16\.2/);
+assert.match(publishStatusBehindOutput, /npm package: 0\.16\.1/);
+assert.match(publishStatusBehindOutput, /GitHub latest release: v0\.16\.2/);
+assert.match(publishStatusBehindOutput, /Status: npm is behind local package\.json/);
+assert.match(publishStatusBehindOutput, /npm publish --access public/);
+
+const publishStatusSyncedOutput = run(["templates:publish-status"], {
+  env: {
+    ...process.env,
+    AI_DEVTOOLS_CN_NPM_VERSION: "0.16.2",
+    AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.16.2",
+  },
+});
+assert.match(publishStatusSyncedOutput, /Status: npm matches local package\.json/);
+assert.match(publishStatusSyncedOutput, /npx ai-devtools-cn doctor/);
+
 const doctorOutput = run(["doctor"]);
 assert.match(doctorOutput, /AI DevTools CN doctor/);
 assert.match(doctorOutput, /Doctor passed/);

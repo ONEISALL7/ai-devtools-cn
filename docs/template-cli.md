@@ -537,6 +537,31 @@ npx ai-devtools-cn application --output work/openai-application.md
 
 这个命令不会提交表单，也不会自动生成外部采用证据。提交前仍需要运行 `npm run metrics:snapshot`，并用 `npm run templates:evidence` 记录真实外部证据；外部反馈和外部 PR 不足时要如实说明。
 
+## 查看 npm 发布同步状态
+
+发布或对外发送 `npx` 命令前，可以检查本地版本、npm 公开版本和 GitHub 最新 release 是否一致：
+
+```bash
+npm run templates:publish-status
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn publish-status
+```
+
+输出会包含：
+
+- `package.json` 本地版本
+- npm 当前公开版本
+- GitHub 最新 release tag
+- npm 是否落后本地版本
+- 发布前验证命令
+- 发布后的 `npx` smoke check
+
+如果 npm 版本落后，不要把 GitHub `main` 上的新命令写成“外部用户已经能通过 npx 使用”。应先完成 npm 发布，或者让贡献者 clone 仓库后使用 `npm run templates:*` 命令。
+
 ## 校验模板注册表
 
 维护者或贡献者新增模板后，可以运行：
