@@ -6,6 +6,14 @@
 
 ## CLI 入口
 
+先确认 npm 当前已发布版本：
+
+```bash
+npm view ai-devtools-cn version
+```
+
+如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；可以先在仓库内用对应的 `npm run templates:*` 命令生成材料。
+
 如果你要快速生成一份可转发交接包，可以运行：
 
 ```bash

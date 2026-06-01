@@ -133,11 +133,14 @@ npm run templates:application -- --output work/openai-application.md
 如果要邀请真实外部贡献者提交第一个 PR，可以直接发：
 
 ```bash
+npm view ai-devtools-cn version
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 ```
+
+如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；先改用仓库内 `npm run templates:*` 命令或等待下一次 npm 发布。
 
 `claim` 和 `starter` 只生成本地草稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。

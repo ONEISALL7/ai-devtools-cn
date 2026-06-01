@@ -186,9 +186,10 @@ npm run templates:publish-check
 npm run templates:validate
 ```
 
-npm 已发布后支持：
+GitHub `main` 当前 CLI 支持；通过 `npx` 使用前必须以 `npm view ai-devtools-cn version` 确认 npm 已发布版本是否已经同步：
 
 ```bash
+npm view ai-devtools-cn version
 npx ai-devtools-cn list
 npx ai-devtools-cn examples
 npx ai-devtools-cn launch
@@ -203,6 +204,7 @@ npx ai-devtools-cn outreach --template pr-review --channel x --output work/outre
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn evidence --output work/external-evidence.md
@@ -210,6 +212,8 @@ npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-check
 npx ai-devtools-cn validate
 ```
+
+如果 `npx` 提示未知命令，说明 npm 包仍落后于 GitHub `main`；申请材料中应如实写 npm 当前版本，不要把 source-only 命令写成已发布 npm 能力。
 
 ## 当前短板
 

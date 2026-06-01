@@ -38,7 +38,15 @@ examples/    示例工作流
 3. 替换项目背景、技术栈、约束条件和期望输出。
 4. 把有效结果沉淀到 issue、PR、文档或 release note。
 
-最短路径二：用已发布的 npm CLI 生成工作稿
+最短路径二：用 npm CLI 或仓库内 CLI 生成工作稿
+
+运行 `npx` 前建议先确认 npm 当前已发布版本：
+
+```bash
+npm view ai-devtools-cn version
+```
+
+如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；可以先在仓库内使用对应的 `npm run templates:*` 命令，或等待下一次 npm 发布。
 
 无需克隆仓库，可以直接运行：
 
@@ -82,7 +90,7 @@ npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:application -- --output work/openai-application.md
 ```
 
-更多已发布 CLI 命令：
+本仓库当前 CLI 命令：
 
 ```bash
 npx ai-devtools-cn list

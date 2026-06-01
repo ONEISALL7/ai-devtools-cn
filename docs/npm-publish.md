@@ -22,6 +22,20 @@ npm 包页面：
 https://www.npmjs.com/package/ai-devtools-cn
 ```
 
+## npm 与 GitHub main 的版本边界
+
+GitHub `main` 可能包含尚未发布到 npm 的新 CLI 命令。对外邀请用户运行 `npx` 前，必须先执行：
+
+```bash
+npm view ai-devtools-cn version
+```
+
+如果 npm 当前版本落后于 `package.json` 或 GitHub 最新 release，不要把 `main` 上的新命令写成“已发布 npm CLI 能力”。可以选择：
+
+- 在仓库内用 `npm run templates:*` 命令生成材料。
+- 等维护者完成下一次 npm 发布后，再发送对应 `npx` 命令。
+- 对外说明“GitHub main 已支持，npm 发布待同步”，避免夸大。
+
 ## 首次发布结果
 
 截至 2026-06-01，`ai-devtools-cn@0.16.1` 已成功发布到 npm。
@@ -108,7 +122,15 @@ npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-ca
 
 ```bash
 npm run templates:list
+npm run templates:examples
 npm run templates:doctor
+npm run templates:launch
+npm run templates:contribute
+npm run templates:handoff -- --output work/external-pr-handoff.md
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/node-ci-starter.md
 npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:new -- pr-review --output work/pr-review.md
 npm run templates:new -- contributor-onboarding --output work/contributor-onboarding.md
@@ -154,7 +176,15 @@ npm publish --access public --cache /private/tmp/ai-devtools-cn-npm-cache --stri
 ```bash
 npm view ai-devtools-cn version
 npx ai-devtools-cn list
+npx ai-devtools-cn examples
 npx ai-devtools-cn doctor
+npx ai-devtools-cn launch
+npx ai-devtools-cn contribute
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn new contributor-onboarding --output work/contributor-onboarding.md

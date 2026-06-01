@@ -12,6 +12,14 @@ npm install
 
 CLI 会从本包读取模板，但把生成文件写入你运行命令时所在的当前目录。相对输出路径如 `work/ci-debug.md` 会落在当前项目下；绝对路径会按原路径写入。
 
+`npx` 可用命令以 npm 当前已发布版本为准。运行前可以先查：
+
+```bash
+npm view ai-devtools-cn version
+```
+
+如果 `npx ai-devtools-cn <command>` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；此时请在仓库内使用对应 `npm run templates:*` 命令，或等维护者完成下一次 npm 发布。
+
 ## 查看可用模板
 
 ```bash
