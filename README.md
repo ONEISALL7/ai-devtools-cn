@@ -1,6 +1,7 @@
 # AI DevTools CN
 
 [![Markdown Check](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml/badge.svg)](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/markdown-check.yml)
+[![CI](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/ci.yml/badge.svg)](https://github.com/ONEISALL7/ai-devtools-cn/actions/workflows/ci.yml)
 [![Latest Release](https://img.shields.io/github/v/release/ONEISALL7/ai-devtools-cn?label=release)](https://github.com/ONEISALL7/ai-devtools-cn/releases)
 [![npm version](https://img.shields.io/npm/v/ai-devtools-cn?label=npm)](https://www.npmjs.com/package/ai-devtools-cn)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)

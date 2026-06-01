@@ -23,7 +23,7 @@
 | npm package | [`ai-devtools-cn@0.17.5`](https://www.npmjs.com/package/ai-devtools-cn) |
 | npm monthly downloads | 当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验 |
 | 项目文件 | 93 个 tracked files |
-| CI | GitHub Actions Markdown Check |
+| CI | GitHub Actions Markdown Check；Node/CLI CI 在 Node.js 20 和 22 上运行 `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` |
 | CLI | GitHub `main` 和 npm `0.17.5` 支持 list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate |
 
 这些数字是日期快照，不是实时指标；后续维护 PR、npm 发布和下载量会继续变化。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据，并在网络可用时核验 npm downloads API。
@@ -159,6 +159,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 ### CI 和质量控制
 
 - GitHub Actions Markdown Check
+- GitHub Actions Node/CLI CI，覆盖 Node.js 20 和 22
 - `npm run lint:md`
 - `npm run test:cli`
 - `npm run test`
@@ -250,7 +251,7 @@ npx ai-devtools-cn validate
 3. 收集 5-10 条真实反馈 issue，并把公开链接记录到证据台账。
 4. 邀请 1-2 位外部贡献者用 `claim` 和 `starter` 提交文档或案例 PR。
 5. 按 [项目指标追踪](metrics.md) 每周生成一次指标快照。
-6. 增加 CLI 测试到 GitHub Actions。
+6. 持续保持 GitHub Actions Node/CLI CI 通过，避免 CLI、模板索引和 npm 打包内容在 PR 中回退。
 7. 发布一版基于真实反馈改进的 release。
 
 ## 申请前自查
