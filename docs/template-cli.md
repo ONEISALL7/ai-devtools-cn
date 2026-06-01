@@ -73,6 +73,30 @@ npx ai-devtools-cn contribute
 
 这个命令面向真实外部贡献者。维护者自己完成的 PR 不能写成 external merged PR。
 
+## 生成 good first issue 认领草稿
+
+```bash
+npm run templates:claim -- 45 --output work/claim-45.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+```
+
+这个命令会根据 Good First PR Briefs 生成一份本地草稿，包含：
+
+- issue 链接
+- brief 链接
+- 建议 PR 标题
+- 公开安全检查
+- 最小验证命令
+- PR 描述草稿
+- 维护者合并后记录 external merged PR 的字段
+
+当前支持 #45-#49。这个命令只帮助外部贡献者准备 PR，不会自动创建 PR，也不能把维护者自己生成的草稿计入 external merged PR。
+
 ## 查看社区发布入口
 
 ```bash
