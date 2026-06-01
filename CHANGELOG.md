@@ -5,6 +5,7 @@
 ## Unreleased
 
 - 更新 README 和 npm 发布清单，记录 `ai-devtools-cn@0.16.1` 已发布并通过 `npx` 验证
+- 刷新 OpenAI Codex for Open Source 申请材料和 CLI 申请包，纳入 npm 发布、`npx` 验证和外部反馈 #169 证据
 
 ## 0.16.1 - 2026-06-01
 
