@@ -10,10 +10,10 @@
 npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
 ```
 
-当时返回：
+当前返回：
 
 ```text
-0.16.1
+0.17.5
 ```
 
 npm 包页面：
@@ -24,12 +24,12 @@ https://www.npmjs.com/package/ai-devtools-cn
 
 ## 当前待同步目标
 
-当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.4`。真实发布前必须确认：
+当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.5`。真实发布前必须确认：
 
-- GitHub 最新 release 是 `v0.17.4`
+- GitHub 最新 release 是 `v0.17.5`
 - `npm run templates:publish-status` 显示 source 不再领先最新 release tag
 - `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` 都通过
-- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.4`
+- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.5`
 
 真实 `npm publish` 仍需要包 owner 使用自己的 npm 账号和 2FA 完成。
 
@@ -98,6 +98,21 @@ npx --yes --cache /private/tmp/ai-devtools-cn-npx-cache --strict-ssl=false ai-de
 - `npm view` 返回 `0.16.1`
 - `npx ai-devtools-cn doctor` 通过
 - `npx ai-devtools-cn adoption` 成功生成外部试用冲刺包
+
+## v0.17.4 同步结果
+
+截至 2026-06-01，`ai-devtools-cn@0.17.4` 已成功发布到 npm，并完成 `npx` smoke check。
+
+验证摘要：
+
+- `npm whoami --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false` 返回 `one777`
+- `npm publish --access public --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false` 输出 `+ ai-devtools-cn@0.17.4`
+- `npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false` 返回 `0.17.4`
+- `npm run templates:publish-status` 显示 npm、GitHub release 和 `package.json` 对齐到 `0.17.4`
+- `npx ai-devtools-cn@latest doctor` 通过
+- `npx ai-devtools-cn@latest contribute` 通过
+- `npx ai-devtools-cn@latest pr-pack 45` 通过
+- `npx ai-devtools-cn@latest recipes ci-failure` 通过
 
 ## 发布前检查
 
