@@ -76,6 +76,7 @@ npx ai-devtools-cn contribute
 - Good First PR Briefs 链接
 - 当前 #45-#49 可认领任务
 - 每个任务的 issue、brief 和建议 PR 标题
+- 每个任务可直接复制的 `handoff`、`claim` 和 `starter` 起步命令
 - 最小验证命令
 - 公开安全边界
 
