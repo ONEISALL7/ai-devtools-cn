@@ -1,0 +1,105 @@
+name: External pilot feedback
+description: 记录一次真实外部试用任务的公开安全反馈
+title: "[External Pilot]: "
+labels: ["feedback", "external-pilot", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你完成外部试用。这个表单用于记录可核验的真实使用反馈，帮助维护者改进项目。
+
+        请不要提交 token、API key、cookie、密码、客户信息、内部日志、未公开源码、私有仓库链接或个人隐私。
+  - type: dropdown
+    id: reporter_type
+    attributes:
+      label: 你和项目的关系
+      description: 这会帮助维护者区分真实外部反馈、已有贡献者反馈和维护者自测。
+      options:
+        - 第一次试用的外部用户
+        - 外部开源项目维护者
+        - 外部贡献者
+        - 团队技术负责人
+        - 项目维护者
+        - 已有贡献者
+        - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: pilot_recipe
+    attributes:
+      label: 试用配方
+      description: 如果你是通过 `npx ai-devtools-cn pilot ...` 开始的，请选择对应配方。
+      options:
+        - ci-failure
+        - pr-review-docs
+        - issue-triage
+        - release-note
+        - 其他
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: 你运行的命令
+      description: 可以粘贴不含敏感信息的 `npx ai-devtools-cn ...` 命令。
+      placeholder: npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 真实使用场景
+      description: 你把这个任务包用于什么工作？请抽象描述，不要粘贴敏感日志或私有代码。
+      placeholder: 例如：用 CI 排错模板整理一个公开 GitHub Actions 失败日志，并准备 issue 回复。
+    validations:
+      required: true
+  - type: dropdown
+    id: used_in_workflow
+    attributes:
+      label: 是否进入真实维护流程
+      description: 输出是否被用于真实 PR、issue、CI、release 或文档维护？
+      options:
+        - 是，已经用于公开 PR / issue / CI / release / 文档
+        - 部分使用，只用于本地判断或草稿
+        - 还没使用，只完成了试用
+        - 没有，流程不适合我的场景
+    validations:
+      required: true
+  - type: input
+    id: public_evidence
+    attributes:
+      label: 可公开核验链接（可选）
+      description: 可以填公开 PR、issue、review comment、release、讨论或文章链接。不要填私有仓库或敏感链接。
+      placeholder: https://github.com/owner/repo/issues/123
+  - type: textarea
+    id: value
+    attributes:
+      label: 最有用的地方
+      description: 哪一步节省了你的时间，或让维护流程更清楚？
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: 不好用或不清楚的地方
+      description: 哪些说明、命令、模板字段或证据边界让你卡住？
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 你建议补充什么
+      description: 可以是新模板、新配方、新案例、CLI 改进或文档修正。
+  - type: checkboxes
+    id: evidence_boundary
+    attributes:
+      label: 证据边界确认
+      options:
+        - label: 我确认这是一次真实试用反馈，不是维护者自测或占位反馈
+          required: true
+        - label: 我确认没有提交 token、账号、客户信息、内部日志、未公开源码或隐私数据
+          required: true
+        - label: 我允许维护者把这条公开 issue 作为 external feedback evidence 引用
+          required: true
+        - label: 如果反馈来自敏感场景，我已经做了公开安全抽象处理
+          required: false

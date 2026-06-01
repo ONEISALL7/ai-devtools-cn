@@ -37,6 +37,12 @@
 https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
 ```
 
+如果你是通过 `npx ai-devtools-cn pilot ...` 收到 30 分钟试用任务，请优先使用外部 pilot 反馈表单：
+
+```text
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml
+```
+
 ## 使用 CLI 的试用方式
 
 如果你愿意跑本地命令，可以先克隆仓库：

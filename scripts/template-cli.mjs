@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const invocationRoot = process.cwd();
 const repo = "ONEISALL7/ai-devtools-cn";
+const templateFeedbackUrl = "https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml";
+const externalPilotFeedbackUrl = "https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml";
 
 const templates = [
   {
@@ -628,7 +630,7 @@ Evidence to collect:
 ${recipe.evidence}
 
 反馈 issue:
-https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+${templateFeedbackUrl}
 
 Safety:
 - 不提交 token、API key、cookie、密码。
@@ -706,7 +708,7 @@ npm 同步后可改用 npx:
   npx ai-devtools-cn trial --template pr-review --output work/trial
 
 外部反馈入口:
-https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+${templateFeedbackUrl}
 
 Good First PR Briefs:
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
@@ -2063,7 +2065,7 @@ ${formatOutreachMessage(template, requireOutreachChannel("email"), scenarioLine)
 
 ## 反馈入口
 
-- Feedback issue: https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+- Feedback issue: ${templateFeedbackUrl}
 - Good first issues: https://github.com/ONEISALL7/ai-devtools-cn/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22
 - Repository: https://github.com/ONEISALL7/ai-devtools-cn
 `;
@@ -2191,7 +2193,7 @@ ${feedbackCommand}
 
 ## 推荐反馈入口
 
-https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+${externalPilotFeedbackUrl}
 
 ## 本目录文件
 
@@ -2235,7 +2237,7 @@ ${trialCommand}
 
 ## 反馈 issue
 
-https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+${externalPilotFeedbackUrl}
 
 ## 反馈时请写
 
@@ -2340,7 +2342,7 @@ ${feedbackCommand}
 
 ## 反馈入口
 
-- GitHub issue: https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+- GitHub issue: ${templateFeedbackUrl}
 - 快速上手：https://github.com/ONEISALL7/ai-devtools-cn#readme
 - 第一批用户试用计划：https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/first-user-test-plan.md
 
@@ -2419,14 +2421,14 @@ https://github.com/ONEISALL7/ai-devtools-cn`;
 你不需要公开任何私有代码或敏感日志。只需要用一个可公开描述的维护任务跑一遍模板，然后反馈它是否真的帮你完成了 review、triage、CI、release 或文档维护。
 
 仓库：https://github.com/ONEISALL7/ai-devtools-cn
-反馈入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+反馈入口：${templateFeedbackUrl}
 
 谢谢。`;
   }
 
   return `${baseLines.join("\n\n")}
 
-反馈入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml`;
+反馈入口：${templateFeedbackUrl}`;
 }
 
 function formatFeedbackDraft(template, options) {
@@ -2437,7 +2439,7 @@ function formatFeedbackDraft(template, options) {
 
   return `# Template usage feedback issue draft
 
-> 提交入口：https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+> 提交入口：${templateFeedbackUrl}
 > 你可以把下面内容复制到 GitHub issue 中，再按实际情况删改。
 
 ## Safety check

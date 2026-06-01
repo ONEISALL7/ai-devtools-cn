@@ -13,7 +13,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 当前返回：
 
 ```text
-0.18.0
+0.18.1
 ```
 
 npm 包页面：
@@ -24,14 +24,14 @@ https://www.npmjs.com/package/ai-devtools-cn
 
 ## 当前同步状态
 
-当前 GitHub release、`package.json` 和 npm 公开包已经同步到 `ai-devtools-cn@0.18.0`。
+当前 GitHub release、`package.json` 和 npm 公开包已经同步到 `ai-devtools-cn@0.18.1`。
 
 最新同步前应确认：
 
-- GitHub 最新 release 是 `v0.18.0`
+- GitHub 最新 release 是 `v0.18.1`
 - `npm run templates:publish-status` 显示 npm、GitHub release 和 `package.json` 对齐
 - `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` 都通过
-- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.18.0`
+- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.18.1`
 
 ## npm 与 GitHub main 的版本边界
 
