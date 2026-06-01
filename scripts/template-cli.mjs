@@ -412,6 +412,7 @@ Usage:
   ai-devtools-cn examples
   ai-devtools-cn recipes
   ai-devtools-cn recipes <slug>
+  ai-devtools-cn pilot <recipe-slug>
   ai-devtools-cn contribute
   ai-devtools-cn launch
   ai-devtools-cn handoff
@@ -441,6 +442,7 @@ NPM scripts:
   npm run templates:examples
   npm run templates:recipes
   npm run templates:recipes -- <slug>
+  npm run templates:pilot -- <recipe-slug>
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -469,6 +471,7 @@ Examples:
   npx ai-devtools-cn examples
   npx ai-devtools-cn recipes
   npx ai-devtools-cn recipes pr-review-docs
+  npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
   npx ai-devtools-cn handoff
@@ -498,6 +501,7 @@ Examples:
   npm run templates:examples
   npm run templates:recipes
   npm run templates:recipes -- ci-failure
+  npm run templates:pilot -- ci-failure --output work/pilot-ci
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -1571,6 +1575,45 @@ function createTrialPack(options) {
   }
 }
 
+function createPilotPack(recipeSlug, options) {
+  const recipe = recipeSlug ? requireRecipe(recipeSlug) : requireRecipe("ci-failure");
+  const template = requireTemplate(recipe.templateSlug);
+  const outputPath = options.output ?? path.join("work", `${recipe.slug}-external-pilot`);
+  const resolvedOutput = resolveOutputPath(outputPath);
+  const files = [
+    {
+      name: "README.md",
+      content: formatPilotReadme(recipe, template),
+    },
+    {
+      name: "tester-task.md",
+      content: formatPilotTesterTask(recipe, template),
+    },
+    {
+      name: "maintainer-evidence.md",
+      content: formatPilotMaintainerEvidence(recipe, template),
+    },
+  ];
+
+  const conflicts = files
+    .map((file) => path.join(resolvedOutput, file.name))
+    .filter((filePath) => existsSync(filePath));
+
+  if (conflicts.length > 0 && !options.force) {
+    fail(`输出文件已存在：\n${conflicts.map((filePath) => `- ${formatDisplayPath(filePath)}`).join("\n")}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(resolvedOutput, { recursive: true });
+  for (const file of files) {
+    writeFileSync(path.join(resolvedOutput, file.name), file.content, "utf8");
+  }
+
+  console.log(`已生成 30 分钟外部试用任务包：${formatDisplayPath(resolvedOutput)}`);
+  for (const file of files) {
+    console.log(`- ${path.join(formatDisplayPath(resolvedOutput), file.name)}`);
+  }
+}
+
 function createFeedbackDraft(options) {
   const template = options.template ? requireTemplate(options.template) : null;
   const outputPath = options.output ?? path.join(
@@ -2108,6 +2151,151 @@ ${scenarioLine}
 - [ ] 改动没有包含敏感信息。
 - [ ] 改动能帮助新用户复制、试用或反馈。
 - [ ] 合并后记录到外部采用证据台账。
+`;
+}
+
+function formatPilotReadme(recipe, template) {
+  const trialCommand = `npx ai-devtools-cn trial --template ${template.slug} --scenario ${formatShellArg(recipe.scenario)} --output work/ai-devtools-cn-trial`;
+  const feedbackCommand = `npx ai-devtools-cn feedback --template ${template.slug} --scenario ${formatShellArg(recipe.scenario)} --output work/feedback.md`;
+
+  return `# AI DevTools CN 30 分钟外部试用任务
+
+> 配方：${recipe.slug} - ${recipe.title}
+> 模板：${template.slug} - ${template.title}
+> 场景：${recipe.scenario}
+
+这个任务包用于邀请一个真实外部用户完成一次短试用。目标是获得可核验反馈，而不是刷 star、刷 issue 或制造虚假外部贡献。
+
+## 适合邀请谁
+
+- 正在维护开源项目的人。
+- 最近处理过 PR review、CI 失败、issue triage、release note 或文档维护的人。
+- 愿意把反馈写成公开安全 GitHub issue 的开发者。
+
+## 30 分钟流程
+
+| 时间 | 外部试用者动作 | 产物 |
+| --- | --- | --- |
+| 0-5 分钟 | 运行 doctor，确认 CLI 可用 | \`npx ai-devtools-cn doctor\` 输出 |
+| 5-10 分钟 | 生成试用包 | 本地 \`work/ai-devtools-cn-trial\` |
+| 10-25 分钟 | 用一个公开安全场景填模板 | 试用工作稿 |
+| 25-30 分钟 | 提交 feedback issue 或把反馈发给维护者整理 | 公开反馈链接 |
+
+## 给外部试用者的命令
+
+\`\`\`bash
+npx ai-devtools-cn doctor
+${trialCommand}
+${feedbackCommand}
+\`\`\`
+
+## 推荐反馈入口
+
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+
+## 本目录文件
+
+- [tester-task.md](tester-task.md)：可以直接发给外部试用者的任务说明。
+- [maintainer-evidence.md](maintainer-evidence.md)：维护者记录反馈证据和边界的表格。
+
+## 证据边界
+
+- 外部用户自己提交的 feedback issue 可以计为外部反馈。
+- 外部用户自己提交并合并的 PR 可以计为 external merged PR。
+- 维护者根据外部反馈完成的 PR 只能计为 feedback-driven PR。
+- 本地生成的试用包、claim、starter 或 pr-pack 不能计为外部 PR。
+- 不记录 token、API key、客户信息、内部日志、未公开源码或个人隐私。
+`;
+}
+
+function formatPilotTesterTask(recipe, template) {
+  const trialCommand = `npx ai-devtools-cn trial --template ${template.slug} --scenario ${formatShellArg(recipe.scenario)} --output work/ai-devtools-cn-trial`;
+
+  return `# 外部试用任务
+
+我在维护 ai-devtools-cn，一个面向中文开发者和开源维护者的 AI 工程维护模板库。
+
+想请你用 30 分钟试一下这个场景：
+
+> ${recipe.goal}
+
+## 你需要做什么
+
+1. 选择一个可以公开描述的小场景，例如公开 PR、公开 CI 失败日志、公开 issue 或匿名化后的维护场景。
+2. 运行下面命令生成试用包。
+3. 按试用包 README 填一份工作稿。
+4. 提交一条公开安全反馈 issue，说明哪里有用、哪里不清楚、是否能放进你的维护流程。
+
+## 命令
+
+\`\`\`bash
+npx ai-devtools-cn doctor
+${trialCommand}
+\`\`\`
+
+## 反馈 issue
+
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+
+## 反馈时请写
+
+- 你试用的是哪个场景：${recipe.scenario}
+- 你是否真的把输出用于 PR、issue、CI、release 或文档维护。
+- 哪一步最有用。
+- 哪一步不清楚或不能直接使用。
+- 你希望补充哪种模板、案例或命令。
+
+## 安全边界
+
+- 不要提交 token、API key、cookie、密码。
+- 不要提交客户信息、内部日志、未公开源码或个人隐私。
+- 敏感场景请改写成公开安全的抽象描述。
+`;
+}
+
+function formatPilotMaintainerEvidence(recipe, template) {
+  return `# 维护者证据记录
+
+> 配方：${recipe.slug} - ${recipe.title}
+> 模板：${template.slug} - ${template.title}
+> 场景：${recipe.scenario}
+
+这个文件只记录真实外部采用证据。没有公开链接、无法核验或未经允许的私聊反馈，不要写进申请材料。
+
+## 反馈记录
+
+| 日期 | 外部用户 | 链接 | 证据类型 | 可计入什么 | 后续动作 |
+| --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD | @username |  | feedback issue | external feedback | triage |
+| YYYY-MM-DD | @username |  | PR | external merged PR if merged | review |
+| YYYY-MM-DD | anonymous |  | private feedback | internal learning only | ask permission to anonymize |
+
+## 证据分类
+
+- \`external feedback\`：真实外部用户提交的公开反馈 issue。
+- \`external merged PR\`：外部用户用自己的 GitHub 账号提交并合并的 PR。
+- \`feedback-driven PR\`：维护者根据外部反馈完成的修复 PR，不能写成外部 PR。
+- \`private feedback\`：只能内部参考，除非对方允许匿名整理。
+
+## Review checklist
+
+- [ ] 反馈来自真实外部用户，不是维护者自测。
+- [ ] 链接公开可访问，或已明确标注为 private feedback。
+- [ ] 没有 token、客户信息、内部日志、未公开源码或个人隐私。
+- [ ] 如果反馈可执行，已创建 issue 或 PR。
+- [ ] 如果产生改进，已在 release note 或 changelog 里标明 feedback-driven。
+
+## 可复制到 #51 的记录
+
+\`\`\`text
+External pilot: ${recipe.slug}
+Tester:
+Feedback link:
+Used template: ${template.slug}
+Evidence type:
+Follow-up issue/PR:
+Safety checked: yes/no
+\`\`\`
 `;
 }
 
@@ -2844,6 +3032,9 @@ switch (command) {
     } else {
       showRecipe(args[0]);
     }
+    break;
+  case "pilot":
+    createPilotPack(args[0], parseOptions(args.slice(1)));
     break;
   case "contribute":
     listContributionBriefs();

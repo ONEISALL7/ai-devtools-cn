@@ -53,6 +53,41 @@ assert.throws(
   /未知使用配方/
 );
 
+const pilotPath = path.join(tempDir, "external-pilot");
+const pilotOutput = run(["pilot", "ci-failure", "--output", pilotPath]);
+assert.match(pilotOutput, /已生成 30 分钟外部试用任务包/);
+assert.equal(existsSync(path.join(pilotPath, "README.md")), true);
+assert.equal(existsSync(path.join(pilotPath, "tester-task.md")), true);
+assert.equal(existsSync(path.join(pilotPath, "maintainer-evidence.md")), true);
+
+const pilotReadme = readFileSync(path.join(pilotPath, "README.md"), "utf8");
+assert.match(pilotReadme, /30 分钟外部试用任务/);
+assert.match(pilotReadme, /debug a failing CI job/);
+assert.match(pilotReadme, /template_feedback\.yml/);
+
+const pilotTesterTask = readFileSync(path.join(pilotPath, "tester-task.md"), "utf8");
+assert.match(pilotTesterTask, /外部试用任务/);
+assert.match(pilotTesterTask, /npx ai-devtools-cn doctor/);
+assert.match(pilotTesterTask, /不要提交 token/);
+
+const pilotEvidence = readFileSync(path.join(pilotPath, "maintainer-evidence.md"), "utf8");
+assert.match(pilotEvidence, /维护者证据记录/);
+assert.match(pilotEvidence, /external merged PR/);
+assert.match(pilotEvidence, /feedback-driven PR/);
+
+assert.throws(
+  () => run(["pilot", "ci-failure", "--output", pilotPath]),
+  /输出文件已存在/
+);
+
+const forcedPilotOutput = run(["pilot", "ci-failure", "--output", pilotPath, "--force"]);
+assert.match(forcedPilotOutput, /已生成 30 分钟外部试用任务包/);
+
+const pilotAliasPath = path.join(tempDir, "external-pilot-alias");
+const pilotAliasOutput = run(["templates:pilot", "issue-triage", "--output", pilotAliasPath]);
+assert.match(pilotAliasOutput, /已生成 30 分钟外部试用任务包/);
+assert.equal(existsSync(path.join(pilotAliasPath, "tester-task.md")), true);
+
 const contributeOutput = run(["contribute"]);
 assert.match(contributeOutput, /Good First PR Briefs/);
 assert.match(contributeOutput, /#45/);

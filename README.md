@@ -58,16 +58,18 @@ npm install
 npm run templates:doctor
 npm run templates:launch
 npm run templates:recipes -- ci-failure
+npm run templates:pilot -- ci-failure --output work/pilot-ci
 npm run templates:contribute
 ```
 
-当 npm 版本已经同步到 `0.17.7` 或更高时，可以无需克隆仓库直接运行：
+当 npm 版本已经同步到 `0.18.0` 或更高时，可以无需克隆仓库直接运行：
 
 ```bash
 npx ai-devtools-cn doctor
 npx ai-devtools-cn launch
 npx ai-devtools-cn recipes
 npx ai-devtools-cn recipes ci-failure
+npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
@@ -172,7 +174,7 @@ npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-等 npm 版本同步到 `0.17.7` 或更高后，也可以改用：
+等 npm 版本同步到 `0.18.0` 或更高后，也可以改用：
 
 ```bash
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
@@ -189,6 +191,7 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 | --- | --- |
 | 第一次试用的外部用户 | 看 [外部试用者快速指南](docs/external-tester-guide.md)，完成一次 10-15 分钟试用 |
 | 想直接照着做一个场景的用户 | 看 [真实试用配方](docs/usage-recipes.md)，选择 `pr-review-docs`、`ci-failure`、`issue-triage` 或 `release-note` |
+| 想邀请一个外部用户试用 | 运行 `npx ai-devtools-cn pilot ci-failure --output work/pilot-ci`，把生成的 `tester-task.md` 发给对方 |
 | 个人开发者 | 用 [PR Review 模板](templates/pr-review-template.md) 检查一次改动 |
 | 开源维护者 | 用 [Issue Triage 模板](templates/issue-triage-template.md) 分流一个 issue |
 | 想邀请外部贡献者的维护者 | 用 [外部贡献者引导模板](templates/contributor-onboarding-template.md) 写清楚第一个 PR |
