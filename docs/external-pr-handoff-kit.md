@@ -26,10 +26,17 @@ npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
 ```
 
+如果你要给对方一份更具体的 PR 包，包含建议分支名、建议修改文件、可复制 PR 描述和维护者 review 清单，可以运行：
+
+```bash
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
+```
+
 只想在终端查看内容时运行：
 
 ```bash
 npx ai-devtools-cn handoff
+npx ai-devtools-cn pr-pack 45
 ```
 
 在仓库内开发时也可以运行：
@@ -66,6 +73,7 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/49
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
 
 如果你选定一个 issue，可以先运行：
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/starter-45.md
 

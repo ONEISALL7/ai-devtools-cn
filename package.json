@@ -51,6 +51,7 @@
     "templates:contribute": "node scripts/template-cli.mjs contribute",
     "templates:launch": "node scripts/template-cli.mjs launch",
     "templates:handoff": "node scripts/template-cli.mjs handoff",
+    "templates:pr-pack": "node scripts/template-cli.mjs pr-pack",
     "templates:review-pr": "node scripts/template-cli.mjs review-pr",
     "templates:claim": "node scripts/template-cli.mjs claim",
     "templates:starter": "node scripts/template-cli.mjs starter",
