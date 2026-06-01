@@ -222,6 +222,13 @@ const examples = [
         useCase: "邀请 Python 维护者排查 pytest 和依赖差异",
         templateSlug: "ci-troubleshooting",
       },
+      {
+        slug: "pnpm-workspace-ci",
+        title: "pnpm workspace CI 排错试用包",
+        file: "examples/trial-packs/pnpm-workspace-ci/README.md",
+        useCase: "回应外部反馈，排查 monorepo workspace 依赖构建问题",
+        templateSlug: "ci-troubleshooting",
+      },
     ],
   },
 ];

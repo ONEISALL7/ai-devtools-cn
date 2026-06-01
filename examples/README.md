@@ -30,6 +30,7 @@
 | [PR Review 文档改动试用包](trial-packs/pr-review-docs/README.md) | 如何邀请外部 reviewer 试用模板并提交匿名化反馈 |
 | [Node.js CI 排错试用包](trial-packs/node-ci-failure/README.md) | 如何邀请维护者用失败日志试用 CI 排错模板 |
 | [Python pytest 失败试用包](trial-packs/python-pytest-failure/README.md) | 如何邀请 Python 维护者排查 pytest 和依赖差异 |
+| [pnpm workspace CI 排错试用包](trial-packs/pnpm-workspace-ci/README.md) | 如何回应外部反馈并排查 monorepo workspace 依赖构建问题 |
 
 ## 怎么复用示例
 

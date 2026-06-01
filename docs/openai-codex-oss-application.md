@@ -112,6 +112,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - 1 个外部 feedback issue：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)
 - 每轮功能通过 issue 追踪，再通过 PR 合并
 - 已覆盖模板、案例、quickstart、CLI、npm 发布结构、用户反馈入口、issue 表单、第一批试用计划、试用包案例、外部试用邀请、证据台账和申请包草稿
+- 已基于外部反馈 #169 补充 pnpm workspace / monorepo CI 排错试用包
 
 ### Release
 
@@ -207,11 +208,10 @@ npx ai-devtools-cn validate
 1. 用 `npx ai-devtools-cn doctor` 和 `npx ai-devtools-cn adoption` 邀请真实开发者完成一次无 clone 试用。
 2. 使用 `npm run templates:outreach` 生成对外试用邀请文案，按 [第一批用户试用计划](first-user-test-plan.md) 和 [社区推广和反馈收集](community-outreach.md) 邀请开发者试用模板和 CLI。
 3. 收集 5-10 条真实反馈 issue，并把公开链接记录到证据台账。
-4. 根据 [#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) 反馈补充 pnpm workspace / monorepo CI 排错案例。
-5. 邀请 1-2 位外部贡献者提交文档或案例 PR。
-6. 按 [项目指标追踪](metrics.md) 每周生成一次指标快照。
-7. 增加 CLI 测试到 GitHub Actions。
-8. 发布一版基于真实反馈改进的 release。
+4. 邀请 1-2 位外部贡献者提交文档或案例 PR。
+5. 按 [项目指标追踪](metrics.md) 每周生成一次指标快照。
+6. 增加 CLI 测试到 GitHub Actions。
+7. 发布一版基于真实反馈改进的 release。
 
 ## 申请前自查
 
