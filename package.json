@@ -66,6 +66,7 @@
     "templates:adoption": "node scripts/template-cli.mjs adoption",
     "templates:evidence": "node scripts/template-cli.mjs evidence",
     "templates:application": "node scripts/template-cli.mjs application",
+    "templates:publish-status": "node scripts/template-cli.mjs publish-status",
     "templates:doctor": "node scripts/template-cli.mjs doctor",
     "templates:publish-check": "node scripts/template-cli.mjs publish-check",
     "templates:validate": "node scripts/template-cli.mjs validate"

@@ -63,6 +63,7 @@ npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
+npx ai-devtools-cn publish-status
 ```
 
 如果你在本仓库内开发或贡献，再使用 npm scripts：
@@ -88,6 +89,7 @@ npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
+npm run templates:publish-status
 npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:application -- --output work/openai-application.md
 ```
@@ -114,6 +116,7 @@ npx ai-devtools-cn outreach --template pr-review --channel x --output work/outre
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
 npx ai-devtools-cn application --output work/openai-application.md
+npx ai-devtools-cn publish-status
 ```
 
 更多命令见 [模板 CLI](docs/template-cli.md)。

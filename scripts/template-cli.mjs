@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+import { execFileSync } from "node:child_process";
 import { constants, existsSync, accessSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const invocationRoot = process.cwd();
+const repo = "ONEISALL7/ai-devtools-cn";
 
 const templates = [
   {
@@ -352,6 +354,7 @@ Usage:
   ai-devtools-cn adoption --output <dir>
   ai-devtools-cn evidence --output <path>
   ai-devtools-cn application --output <path>
+  ai-devtools-cn publish-status
   ai-devtools-cn doctor
   ai-devtools-cn validate
   ai-devtools-cn publish-check
@@ -377,6 +380,7 @@ NPM scripts:
   npm run templates:adoption -- --template <slug> --output <dir>
   npm run templates:evidence -- --output <path>
   npm run templates:application -- --output <path>
+  npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -404,6 +408,7 @@ Examples:
   npx ai-devtools-cn adoption --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npx ai-devtools-cn evidence --output work/external-evidence.md
   npx ai-devtools-cn application --output work/openai-application.md
+  npx ai-devtools-cn publish-status
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
   npx ai-devtools-cn publish-check
@@ -430,6 +435,7 @@ Examples:
   npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npm run templates:evidence -- --output work/external-evidence.md
   npm run templates:application -- --output work/openai-application.md
+  npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
   npm run templates:publish-check
@@ -556,6 +562,61 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/51
 - 外部贡献者提交并合并的 PR 才能计入 external merged PR
 - 维护者基于外部反馈完成的 PR 可以写成 feedback-driven PR，但不能写成外部 PR
 - 不记录 token、API key、客户信息、内部日志、未公开源码或个人隐私
+`);
+}
+
+function showPublishStatus() {
+  const manifest = readPackageManifest();
+  const localVersion = manifest.version;
+  const packageName = manifest.name;
+  const npmVersion = getVersionFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_NPM_VERSION",
+    "npm",
+    ["view", packageName, "version", "--strict-ssl=false"],
+  );
+  const releaseVersion = getVersionFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_RELEASE_VERSION",
+    "gh",
+    ["release", "view", "--repo", repo, "--json", "tagName", "-q", ".tagName"],
+  );
+  const npmValue = npmVersion.ok ? npmVersion.value : "unavailable";
+  const releaseValue = releaseVersion.ok ? releaseVersion.value : "unavailable";
+  const npmMatchesLocal = npmVersion.ok && npmValue === localVersion;
+  const releaseMatchesLocal = releaseVersion.ok && releaseValue.replace(/^v/, "") === localVersion;
+  const status = npmMatchesLocal
+    ? "npm matches local package.json"
+    : "npm is behind local package.json";
+
+  console.log(`AI DevTools CN publish status
+
+Local package.json: ${localVersion}
+npm package: ${npmValue}
+GitHub latest release: ${releaseValue}
+
+Status: ${status}
+
+Release alignment:
+- npm ${npmMatchesLocal ? "matches" : "does not match"} local package.json
+- GitHub latest release ${releaseMatchesLocal ? "matches" : "does not match"} local package.json
+
+Before sending npx commands to external users, npm package should match local package.json.
+
+Next commands if npm is behind:
+  npm run test
+  npm run templates:publish-check
+  npm run pack:dry-run
+  npm publish --dry-run --access public
+  npm publish --access public
+  npm view ${packageName} version
+
+Post-publish smoke checks:
+  npx ai-devtools-cn doctor
+  npx ai-devtools-cn contribute
+  npx ai-devtools-cn pr-pack 45
+
+Evidence note:
+- Record the final npm version, publish time, and smoke-check commands in the release or npm publish issue.
+- Do not claim new npx commands are publicly available until npm package matches local package.json.
 `);
 }
 
@@ -2404,6 +2465,27 @@ function readTemplate(template) {
   return readFileSync(fullPath, "utf8");
 }
 
+function readPackageManifest() {
+  return JSON.parse(readFileSync(path.resolve(packageRoot, "package.json"), "utf8"));
+}
+
+function getVersionFromEnvOrCommand(envName, command, commandArgs) {
+  const envValue = process.env[envName];
+  if (envValue) {
+    return { ok: true, value: envValue.trim() };
+  }
+
+  try {
+    const value = execFileSync(command, commandArgs, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    return { ok: true, value };
+  } catch (error) {
+    return { ok: false, error };
+  }
+}
+
 function resolveOutputPath(outputPath) {
   if (path.isAbsolute(outputPath)) {
     return outputPath;
@@ -2603,6 +2685,9 @@ switch (command) {
     break;
   case "application":
     createApplicationPack(parseOptions(args));
+    break;
+  case "publish-status":
+    showPublishStatus();
     break;
   case "doctor":
     runDoctor();
