@@ -313,6 +313,7 @@ Usage:
   ai-devtools-cn examples
   ai-devtools-cn contribute
   ai-devtools-cn launch
+  ai-devtools-cn claim <issue-number> --output <path>
   ai-devtools-cn recommend <keyword>
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
@@ -333,6 +334,7 @@ NPM scripts:
   npm run templates:examples
   npm run templates:contribute
   npm run templates:launch
+  npm run templates:claim -- <issue-number> --output <path>
   npm run templates:recommend -- <keyword>
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
@@ -353,6 +355,7 @@ Examples:
   npx ai-devtools-cn examples
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
+  npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn recommend ci
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
@@ -372,6 +375,7 @@ Examples:
   npm run templates:examples
   npm run templates:contribute
   npm run templates:launch
+  npm run templates:claim -- 45 --output work/claim-45.md
   npm run templates:recommend -- ci
   npm run templates:search -- ci
   npm run templates:show -- pr-review
@@ -501,6 +505,81 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/51
 - 维护者基于外部反馈完成的 PR 可以写成 feedback-driven PR，但不能写成外部 PR
 - 不记录 token、API key、客户信息、内部日志、未公开源码或个人隐私
 `);
+}
+
+function createClaimDraft(issueNumber, options) {
+  const brief = requireGoodFirstPrBrief(issueNumber);
+  const issueLabel = brief.issue.replace("#", "");
+  const outputPath = options.output ?? path.join("work", `claim-${issueLabel}.md`);
+  const resolvedOutput = resolveOutputPath(outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatClaimDraft(brief), "utf8");
+  console.log(`已生成认领草稿：${formatDisplayPath(resolvedOutput)}`);
+}
+
+function formatClaimDraft(brief) {
+  return `# ${brief.title} 认领草稿
+
+> Good First Issue ${brief.issue}
+> Issue: ${brief.url}
+> Brief: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+
+这个草稿用于外部贡献者准备一个小而真实的 PR。它不会自动创建 issue、branch 或 PR，也不能把这个草稿计入 external merged PR。
+
+## 建议 PR 标题
+
+\`\`\`text
+${brief.suggestedTitle}
+\`\`\`
+
+## 开始前检查
+
+- [ ] 我不是本仓库维护者本人，或者不会把这个维护者草稿计入 external merged PR。
+- [ ] 我会在 issue ${brief.issue} 下留言说明想认领。
+- [ ] 我不会提交 token、API key、cookie、客户信息、内部日志、未公开源码或个人隐私。
+- [ ] 如果使用真实经验，我会先匿名化项目名、服务名、日志和人员信息。
+
+## 推荐验证命令
+
+\`\`\`bash
+npm install
+npm run lint:md
+\`\`\`
+
+如果改动 CLI 注册表、示例索引或模板目录，也运行：
+
+\`\`\`bash
+npm run test
+npm run templates:publish-check
+\`\`\`
+
+## PR 描述草稿
+
+\`\`\`text
+Closes ${brief.issue}
+
+Summary:
+- [填写本次改动]
+
+Why this helps:
+- [填写对外部用户或维护者的帮助]
+
+Validation:
+- npm run lint:md
+\`\`\`
+
+## 提交后维护者记录
+
+- PR 作者是否为外部贡献者：
+- PR 链接：
+- 是否合并：
+- 是否可以记录为 external merged PR：
+`;
 }
 
 function showTemplate(slug) {
@@ -1796,6 +1875,20 @@ function requireOutreachChannel(slug) {
   return channel;
 }
 
+function requireGoodFirstPrBrief(issueNumber) {
+  if (!issueNumber) {
+    fail("请提供 good first issue 编号，例如：npm run templates:claim -- 45 --output work/claim-45.md");
+  }
+
+  const normalized = issueNumber.startsWith("#") ? issueNumber : `#${issueNumber}`;
+  const brief = goodFirstPrBriefs.find((item) => item.issue === normalized);
+  if (!brief) {
+    fail(`不支持的 good first issue：${issueNumber}\n当前支持：${goodFirstPrBriefs.map((item) => item.issue).join(", ")}`);
+  }
+
+  return brief;
+}
+
 function parseOptions(values) {
   const options = {};
   for (let index = 0; index < values.length; index += 1) {
@@ -1851,6 +1944,9 @@ switch (command) {
     break;
   case "launch":
     listLaunchChecklist();
+    break;
+  case "claim":
+    createClaimDraft(args[0], parseOptions(args.slice(1)));
     break;
   case "recommend":
     recommend(args[0]);

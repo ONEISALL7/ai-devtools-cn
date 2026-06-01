@@ -49,6 +49,7 @@
     "templates:examples": "node scripts/template-cli.mjs examples",
     "templates:contribute": "node scripts/template-cli.mjs contribute",
     "templates:launch": "node scripts/template-cli.mjs launch",
+    "templates:claim": "node scripts/template-cli.mjs claim",
     "templates:recommend": "node scripts/template-cli.mjs recommend",
     "templates:search": "node scripts/template-cli.mjs search",
     "templates:show": "node scripts/template-cli.mjs show",

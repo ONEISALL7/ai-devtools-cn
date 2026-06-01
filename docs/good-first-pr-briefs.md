@@ -30,9 +30,10 @@ npm run templates:publish-check
 
 ```bash
 npx ai-devtools-cn contribute
+npx ai-devtools-cn claim 45 --output work/claim-45.md
 ```
 
-这个命令会列出当前可认领任务、brief 链接、最小验证命令和公开安全边界。
+`contribute` 会列出当前可认领任务、brief 链接、最小验证命令和公开安全边界。`claim` 会为指定 issue 生成一份本地认领草稿，方便准备 issue 留言、PR 标题、验证记录和 PR 描述。
 
 ## 公开安全边界
 

@@ -107,6 +107,30 @@ assert.match(showOutput, /PR Review 模板/);
 assert.match(showOutput, /templates\/pr-review-template\.md/);
 
 const tempDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-"));
+
+const claimPath = path.join(tempDir, "claim-45.md");
+const claimOutput = run(["claim", "45", "--output", claimPath]);
+assert.match(claimOutput, /已生成认领草稿/);
+assert.equal(existsSync(claimPath), true);
+
+const claimDraft = readFileSync(claimPath, "utf8");
+assert.match(claimDraft, /Node\.js CI 排错示例/);
+assert.match(claimDraft, /Good First Issue #45/);
+assert.match(claimDraft, /Add Node\.js CI troubleshooting case study/);
+assert.match(claimDraft, /npm run lint:md/);
+assert.match(claimDraft, /Closes #45/);
+assert.match(claimDraft, /不能把这个草稿计入 external merged PR/);
+
+assert.throws(
+  () => run(["claim", "999", "--output", path.join(tempDir, "claim-999.md")]),
+  /不支持的 good first issue/
+);
+
+const claimAliasPath = path.join(tempDir, "claim-46.md");
+const claimAliasOutput = run(["templates:claim", "46", "--output", claimAliasPath]);
+assert.match(claimAliasOutput, /已生成认领草稿/);
+assert.equal(existsSync(claimAliasPath), true);
+
 const draftPath = path.join(tempDir, "ci-debug.md");
 const newOutput = run(["new", "ci-troubleshooting", "--output", draftPath]);
 assert.match(newOutput, /已生成工作稿/);
