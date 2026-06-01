@@ -15,8 +15,8 @@
 | GitHub stars | 3 |
 | Forks | 1 |
 | Releases | 19 个：`v0.1.0` 到 `v0.16.2` |
-| Merged PRs | 102 个，最近一次完整快照统计到 PR #210 |
-| Closed issues | 102 个，最近一次完整快照统计到 issue #209 |
+| Merged PRs | 106 个，最近一次完整快照统计到 PR #218 |
+| Closed issues | 106 个，最近一次完整快照统计到 issue #217 |
 | External merged PRs | 0 |
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
 | npm package | [`ai-devtools-cn@0.16.1`](https://www.npmjs.com/package/ai-devtools-cn) |
@@ -37,16 +37,18 @@ npm run templates:application -- --output work/openai-application.md
 
 这份草稿用于整理表单字段、证据清单和短板提醒，不会自动提交申请，也不会替代真实外部采用证据。
 
-如果你要邀请外部贡献者提交第一个真实 PR，可以把下面三条命令发给对方：
+如果你要邀请外部贡献者提交第一个真实 PR，可以先让对方看 README 的“第一次外部 PR”章节，那里已经列出 #45-#49、建议 PR 标题和起步命令。也可以把下面命令直接发给对方：
 
 ```bash
 npx ai-devtools-cn launch
+npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 ```
 
-`claim` 和 `starter` 只生成本地认领草稿和内容起稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能写成 external merged PR。
+`handoff`、`claim` 和 `starter` 只生成本地交接、认领草稿和内容起稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能写成 external merged PR。
 
 ## 项目定位
 
@@ -85,13 +87,13 @@ I am the primary maintainer of this public repository. I created and maintain th
 如实版本：
 
 ```text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 102 merged PRs, 102 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
+ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 106 merged PRs, 106 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
 ```
 
 更保守版本：
 
 ```text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 102 merged PRs, 102 closed issues, 19 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 106 merged PRs, 106 closed issues, 19 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
 ```
 
 ## API credits 使用计划
@@ -119,8 +121,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 ### Issue 和 PR
 
-- 102 个 merged PR，最近一次完整快照统计到 PR #210
-- 102 个 closed issues，最近一次完整快照统计到 issue #209
+- 106 个 merged PR，最近一次完整快照统计到 PR #218
+- 106 个 closed issues，最近一次完整快照统计到 issue #217
 - 1 个外部 feedback issue：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)
 - 每轮功能通过 issue 追踪，再通过 PR 合并
 - 已覆盖模板、案例、quickstart、CLI、npm 发布结构、用户反馈入口、issue 表单、第一批试用计划、试用包案例、外部试用邀请、证据台账和申请包草稿
@@ -147,7 +149,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.16.0`：一周外部试用冲刺包，帮助维护者邀请真实用户并记录反馈证据
 - `v0.16.1`：外部试用者快速指南和 npm 首次发布交接清单
 - `v0.16.2`：基于外部反馈 #169 的 pnpm workspace CI 排错试用包
-- `main`：新增 `launch`、`contribute`、`claim` 和 `starter` 外部贡献转化入口，帮助外部贡献者从 good first issue 进入真实 PR
+- `main`：新增 README“第一次外部 PR”路径，以及 `launch`、`contribute`、`handoff`、`claim`、`starter` 外部贡献转化入口，帮助外部贡献者从 good first issue 进入真实 PR
 
 ### CI 和质量控制
 
