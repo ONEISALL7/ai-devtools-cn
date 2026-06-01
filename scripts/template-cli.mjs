@@ -314,6 +314,7 @@ Usage:
   ai-devtools-cn contribute
   ai-devtools-cn launch
   ai-devtools-cn handoff
+  ai-devtools-cn handoff --issue <issue-number>
   ai-devtools-cn claim <issue-number> --output <path>
   ai-devtools-cn starter <issue-number> --output <path>
   ai-devtools-cn recommend <keyword>
@@ -361,6 +362,7 @@ Examples:
   npx ai-devtools-cn launch
   npx ai-devtools-cn handoff
   npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+  npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
   npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
   npx ai-devtools-cn recommend ci
@@ -384,6 +386,7 @@ Examples:
   npm run templates:launch
   npm run templates:handoff
   npm run templates:handoff -- --output work/external-pr-handoff.md
+  npm run templates:handoff -- --issue 45 --output work/handoff-45.md
   npm run templates:claim -- 45 --output work/claim-45.md
   npm run templates:starter -- 45 --output work/node-ci-starter.md
   npm run templates:recommend -- ci
@@ -406,6 +409,7 @@ Options:
   --template <slug> Template slug to prefill feedback context
   --scenario <text> Public-safe usage scenario to prefill feedback context
   --channel <slug> Outreach channel: github, x, v2ex, wechat, email
+  --issue <number> Good first issue number for a targeted handoff
   --force          Overwrite output file if it already exists
 `);
 }
@@ -518,7 +522,8 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/51
 }
 
 function showHandoffKit(options = {}) {
-  const content = formatHandoffKit();
+  const brief = options.issue ? requireGoodFirstPrBrief(options.issue) : null;
+  const content = brief ? formatIssueHandoffKit(brief) : formatHandoffKit();
 
   if (options.output) {
     const resolvedOutput = resolveOutputPath(options.output);
@@ -533,6 +538,79 @@ function showHandoffKit(options = {}) {
   }
 
   console.log(content);
+}
+
+function formatIssueHandoffKit(brief) {
+  const issueNumber = brief.issue.replace("#", "");
+
+  return `# 针对 ${brief.issue} 的外部 PR 交接包
+
+Issue:
+${brief.url}
+
+Brief:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+
+Suggested PR title:
+${brief.suggestedTitle}
+
+## 可直接发送的邀请
+
+\`\`\`text
+我在维护中文开源项目 AI DevTools CN，想邀请你帮忙提交一个很小的外部 PR。
+
+这次建议认领：${brief.issue} ${brief.title}
+Issue: ${brief.url}
+Brief: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+
+你可以先运行：
+npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
+npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
+
+提交前至少运行：
+npm run lint:md
+
+如果改动 CLI、模板索引或示例索引，也运行：
+npm run test
+npm run templates:publish-check
+
+请不要提交 token、客户信息、内部日志、未公开源码或个人隐私。
+\`\`\`
+
+## 贡献者步骤
+
+1. 在 ${brief.issue} 下留言说明想认领。
+2. Fork 仓库到自己的 GitHub 账号。
+3. 创建分支，例如 \`${formatBranchSlug(brief.suggestedTitle)}\`。
+4. 按 brief 完成一个小而可 review 的改动。
+5. 本地运行验证命令。
+6. 从自己的 fork 向 ONEISALL7/ai-devtools-cn:main 打开 PR。
+7. PR 描述写 \`Closes ${brief.issue}\`，并贴出验证命令。
+
+## PR 描述模板
+
+\`\`\`text
+Closes ${brief.issue}
+
+Summary:
+- Added ...
+
+Why this helps:
+- This makes ${brief.title} easier for real users to copy or validate.
+
+Validation:
+- npm run lint:md
+
+Safety:
+- No tokens, private logs, customer data, or unpublished source code are included.
+\`\`\`
+
+## Evidence boundary
+
+- 只有这个外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 External merged PRs。
+- 维护者本地生成的 claim、starter 或 handoff 草稿不能计入 external merged PR。
+- 如果对方只提交反馈 issue，可以记录为 external feedback issue，但不能写成外部 PR。
+`;
 }
 
 function formatHandoffKit() {
@@ -2100,6 +2178,13 @@ function formatShellArg(value) {
   return `'${value.replaceAll("'", "'\\''")}'`;
 }
 
+function formatBranchSlug(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function requireTemplate(slug) {
   if (!slug) {
     fail("请提供模板 slug。先运行 npm run templates:list 查看可用模板。");
@@ -2173,6 +2258,11 @@ function parseOptions(values) {
     }
     if (value === "--channel") {
       options.channel = values[index + 1];
+      index += 1;
+      continue;
+    }
+    if (value === "--issue") {
+      options.issue = values[index + 1];
       index += 1;
       continue;
     }

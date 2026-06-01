@@ -158,6 +158,12 @@ npm run templates:handoff -- --output work/external-pr-handoff.md
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 ```
 
+如果已经选定某个 good first issue，可以生成定向交接包：
+
+```bash
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+```
+
 如果不指定 `--output`，命令会直接在终端打印交接内容：
 
 ```bash
@@ -168,6 +174,7 @@ npx ai-devtools-cn handoff
 
 - 外部 PR 交接包和 Good First PR Briefs 链接
 - 可直接发送给外部贡献者的邀请
+- 可选的单 issue 定向邀请、issue 链接和建议 PR 标题
 - fork、认领、提交 PR 和验证步骤
 - PR 描述模板
 - 什么能算 external merged PR，什么不能算

@@ -12,6 +12,12 @@
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 ```
 
+如果对方已经选定一个 issue，可以生成定向交接包：
+
+```bash
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+```
+
 只想在终端查看内容时运行：
 
 ```bash
@@ -22,6 +28,7 @@ npx ai-devtools-cn handoff
 
 ```bash
 npm run templates:handoff -- --output work/external-pr-handoff.md
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
 ```
 
 这个命令只生成本地交接材料，不会创建 GitHub PR，也不会把维护者自己的草稿计入 external merged PR。

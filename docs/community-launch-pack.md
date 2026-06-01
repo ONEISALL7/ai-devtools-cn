@@ -82,6 +82,9 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 不用打开文档，也可以先生成一份本地交接包：
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 
+如果已经选定某个 issue，可以直接生成定向交接包：
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+
 外部 PR 交接包：
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-pr-handoff-kit.md
 
