@@ -470,10 +470,15 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 `);
 
   for (const item of goodFirstPrBriefs) {
+    const issueNumber = item.issue.replace("#", "");
     console.log(`${item.issue} ${item.title}
   Issue: ${item.url}
   Brief: ${item.brief}
   Suggested PR title: ${item.suggestedTitle}
+  Start commands:
+    npx ai-devtools-cn handoff --issue ${issueNumber} --output work/handoff-${issueNumber}.md
+    npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
+    npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
 `);
   }
 

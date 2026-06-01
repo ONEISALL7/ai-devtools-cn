@@ -39,6 +39,9 @@ assert.match(contributeOutput, /#45/);
 assert.match(contributeOutput, /#49/);
 assert.match(contributeOutput, /npm run lint:md/);
 assert.match(contributeOutput, /external merged PR/);
+assert.match(contributeOutput, /npx ai-devtools-cn handoff --issue 45/);
+assert.match(contributeOutput, /npx ai-devtools-cn claim 45/);
+assert.match(contributeOutput, /npx ai-devtools-cn starter 45/);
 
 const contributeAliasOutput = run(["templates:contribute"]);
 assert.match(contributeAliasOutput, /外部贡献者入口/);
