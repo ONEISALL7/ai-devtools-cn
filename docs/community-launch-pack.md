@@ -30,6 +30,7 @@ npm run templates:launch
 - GitHub 最新 release：`v0.16.2`
 - 外部反馈：已有 1 条公开 feedback issue，并已转化为 pnpm workspace CI 试用包
 - 外部 merged PR：目前仍为 0
+- npm 0.16.2 发布同步：见 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223)
 
 不要写：
 
@@ -82,13 +83,23 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 先确认 npm 当前已发布版本：
 npm view ai-devtools-cn version
 
-如果 npx 提示未知命令，说明 npm 包还没有同步到 GitHub main 的最新 CLI；可以先让对方看文档，或你在仓库内用 npm run templates:* 生成材料。
+当前 npm 公开版本仍是 0.16.1，GitHub main 和最新 release 是 0.16.2。0.16.2 发布前，请优先使用 clone 仓库路径。
+
+推荐先让对方选择 #45-#49 中的一个 issue，并在 issue 下留言认领。然后 clone 仓库后运行：
+
+npm install
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
+npm run lint:md
+
+把 45 替换成对方认领的 issue 编号。
 
 不用打开文档，也可以先生成一份本地交接包：
-npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npm run templates:handoff -- --output work/external-pr-handoff.md
 
 如果已经选定某个 issue，可以直接生成定向交接包：
-npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
 
 外部 PR 交接包：
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-pr-handoff-kit.md
@@ -98,10 +109,11 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 
 可以从 #45-#49 中选一个小任务，brief 里已经写好建议标题、建议文件、验证方式和 PR 描述模板。
 
-如果对方已经选定一个 issue，可以直接发：
+0.16.2 发布到 npm 并验证后，才把上面的命令换成 npx 路径：
 
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
 
 把 `45` 替换成 #45-#49 中对方认领的 issue 编号。生成的本地草稿不算 external merged PR，只有对方用自己的 GitHub 账号提交并合并的 PR 才能记录。
 ```
@@ -206,9 +218,12 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 如果你愿意贡献一个小 PR，可以看：
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
 
-选定任务后可以生成认领草稿和内容起稿：
-npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+当前 npm 包仍是 0.16.1；如果你要用最新 PR pack，请先 clone 仓库后运行：
+
+npm install
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
 
 请不要在公开 issue 里提交 token、客户信息、内部日志、未公开源码或个人隐私。
 ```
@@ -242,10 +257,18 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 
 里面把 #45-#49 拆成了可直接认领的小任务，每个都有建议 PR 标题、建议文件、验证方式和 PR 描述模板。
 
-认领前可以先生成本地草稿：
+当前 npm 公开版本仍是 0.16.1，最新 PR pack 命令要先通过 clone 仓库使用：
 
+npm install
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
+
+等 npm 0.16.2 发布并验证后，可以改用：
+
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
 
 把 45 换成你想认领的 issue 编号。本地草稿不算外部 PR；只有你用自己的 GitHub 账号提交并合并的 PR 才算 external merged PR。
 
