@@ -6,6 +6,8 @@ import { execFileSync } from "node:child_process";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
 const cliPath = path.join(repoRoot, "scripts", "template-cli.mjs");
+const packageJson = JSON.parse(readFileSync(path.join(repoRoot, "package.json"), "utf8"));
+const escapedPackageVersion = packageJson.version.replaceAll(".", "\\.");
 
 function run(args, options = {}) {
   return execFileSync(process.execPath, [cliPath, ...args], {
@@ -166,7 +168,7 @@ const publishStatusBehindOutput = run(["publish-status"], {
   },
 });
 assert.match(publishStatusBehindOutput, /AI DevTools CN publish status/);
-assert.match(publishStatusBehindOutput, /Local package\.json: 0\.17\.0/);
+assert.match(publishStatusBehindOutput, new RegExp(`Local package\\.json: ${escapedPackageVersion}`));
 assert.match(publishStatusBehindOutput, /npm package: 0\.16\.1/);
 assert.match(publishStatusBehindOutput, /GitHub latest release: v0\.16\.2/);
 assert.match(publishStatusBehindOutput, /Commits after latest release: 5/);
@@ -177,8 +179,8 @@ assert.match(publishStatusBehindOutput, /npm publish --access public/);
 const publishStatusSyncedOutput = run(["templates:publish-status"], {
   env: {
     ...process.env,
-    AI_DEVTOOLS_CN_NPM_VERSION: "0.17.0",
-    AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.17.0",
+    AI_DEVTOOLS_CN_NPM_VERSION: packageJson.version,
+    AI_DEVTOOLS_CN_RELEASE_VERSION: `v${packageJson.version}`,
     AI_DEVTOOLS_CN_COMMITS_AFTER_RELEASE: "0",
   },
 });

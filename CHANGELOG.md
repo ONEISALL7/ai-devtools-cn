@@ -4,6 +4,12 @@
 
 ## Unreleased
 
+## 0.17.1 - 2026-06-01
+
+- 更新 README、社区发布包和 OpenAI 申请准备文档，明确 npm 公开包仍落后时应优先使用 clone + `npm run templates:*` 路径
+- 将当前 source/release 边界整理为 `v0.17.1` patch release，避免把领先 release tag 的 `main` 当作旧版本直接发布到 npm
+- 刷新申请材料中的 PR、release 和 npm 同步目标，继续诚实区分维护者活动、外部反馈和外部 PR
+
 ## 0.17.0 - 2026-06-01
 
 - 更新 `evidence` 台账输出，预填 #169 外部反馈到 #173/v0.16.2 反馈驱动改进的可核验链路

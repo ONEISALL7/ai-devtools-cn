@@ -40,15 +40,27 @@ examples/    示例工作流
 
 最短路径二：用 npm CLI 或仓库内 CLI 生成工作稿
 
-运行 `npx` 前建议先确认 npm 当前已发布版本：
+运行 `npx` 前必须先确认 npm 当前已发布版本：
 
 ```bash
 npm view ai-devtools-cn version
 ```
 
-如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；可以先在仓库内使用对应的 `npm run templates:*` 命令，或等待下一次 npm 发布。
+如果 `npm view` 仍返回 `0.16.1`，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；请先 clone 仓库使用对应的 `npm run templates:*` 命令，或等待下一次 npm 发布。
 
-无需克隆仓库，可以直接运行：
+当前 npm 公开包落后时，推荐先用源码路径：
+
+```bash
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:doctor
+npm run templates:launch
+npm run templates:recipes -- ci-failure
+npm run templates:contribute
+```
+
+当 npm 版本已经同步到 `0.17.1` 或更高时，才可以无需克隆仓库直接运行：
 
 ```bash
 npx ai-devtools-cn doctor
