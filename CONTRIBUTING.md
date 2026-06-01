@@ -19,7 +19,7 @@
 
 如果你只是想确认该去哪里提问或反馈，先看 [支持入口](SUPPORT.md)。
 
-第一次贡献者可以先看 [Good First Issues](docs/first-issues.md) 和 [外部试用者快速指南](docs/external-tester-guide.md)。前者列出适合外部贡献者认领的小任务，后者说明如何用公开安全的方式试用模板并提交反馈。
+第一次贡献者可以先看 [Good First Issues](docs/first-issues.md)、[Good First PR Briefs](docs/good-first-pr-briefs.md) 和 [外部试用者快速指南](docs/external-tester-guide.md)。前两个页面列出适合外部贡献者认领的小任务和可复制 PR brief，后者说明如何用公开安全的方式试用模板并提交反馈。
 
 ## 不适合提交的内容
 
@@ -61,6 +61,8 @@ npm run lint:md
 3. 按模板补充文档或示例。
 4. 提交 PR，并在说明中写清楚修改原因、影响范围和验证方式。
 5. 根据 review 意见调整。
+
+如果你认领的是 `good first issue`，可以直接按 [Good First PR Briefs](docs/good-first-pr-briefs.md) 中的建议文件、完成标准和 PR 描述模板执行。
 
 ## 维护者职责
 
