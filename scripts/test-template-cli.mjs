@@ -76,6 +76,15 @@ assert.match(issueHandoffOutput, /npx ai-devtools-cn claim 45/);
 assert.match(issueHandoffOutput, /npx ai-devtools-cn starter 45/);
 assert.match(issueHandoffOutput, /docs\/good-first-pr-briefs\.md#45-nodejs-ci-排错示例/);
 
+const reviewPrOutput = run(["review-pr", "--pr", "123", "--author", "octocat", "--issue", "45"]);
+assert.match(reviewPrOutput, /外部 PR review 清单/);
+assert.match(reviewPrOutput, /PR: 123/);
+assert.match(reviewPrOutput, /Author: octocat/);
+assert.match(reviewPrOutput, /Related issue: #45/);
+assert.match(reviewPrOutput, /npm run test/);
+assert.match(reviewPrOutput, /External merged PRs/);
+assert.match(reviewPrOutput, /不能把维护者自己的 PR/);
+
 const recommendOutput = run(["recommend", "ci"]);
 assert.match(recommendOutput, /Recommended templates/);
 assert.match(recommendOutput, /ci-troubleshooting/);
@@ -438,6 +447,28 @@ const callerIssueHandoffDraft = readFileSync(path.join(callerDir, "work", "pytho
 assert.match(callerIssueHandoffDraft, /针对 #48 的外部 PR 交接包/);
 assert.match(callerIssueHandoffDraft, /Python 项目 PR review 示例/);
 assert.match(callerIssueHandoffDraft, /npx ai-devtools-cn claim 48/);
+
+const callerReviewPrOutput = run([
+  "review-pr",
+  "--pr",
+  "https://github.com/ONEISALL7/ai-devtools-cn/pull/321",
+  "--author",
+  "external-dev",
+  "--issue",
+  "49",
+  "--output",
+  "work/review-pr-321.md",
+], {
+  cwd: callerDir,
+});
+assert.match(callerReviewPrOutput, /work\/review-pr-321\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "review-pr-321.md")), true);
+
+const callerReviewPrDraft = readFileSync(path.join(callerDir, "work", "review-pr-321.md"), "utf8");
+assert.match(callerReviewPrDraft, /外部 PR review 清单/);
+assert.match(callerReviewPrDraft, /external-dev/);
+assert.match(callerReviewPrDraft, /#49/);
+assert.match(callerReviewPrDraft, /evidence ledger/);
 
 const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidence.md"], {
   cwd: callerDir,

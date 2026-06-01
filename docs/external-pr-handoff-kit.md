@@ -33,6 +33,12 @@ npm run templates:handoff -- --issue 45 --output work/handoff-45.md
 
 这个命令只生成本地交接材料，不会创建 GitHub PR，也不会把维护者自己的草稿计入 external merged PR。
 
+外部贡献者提交 PR 后，维护者可以生成 review 清单：
+
+```bash
+npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+```
+
 ## 可以直接转发的邀请
 
 ```text
