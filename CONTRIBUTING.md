@@ -21,6 +21,35 @@
 
 第一次贡献者可以先看 [Good First Issues](docs/first-issues.md)、[Good First PR Briefs](docs/good-first-pr-briefs.md) 和 [外部试用者快速指南](docs/external-tester-guide.md)。前两个页面列出适合外部贡献者认领的小任务和可复制 PR brief，后者说明如何用公开安全的方式试用模板并提交反馈。
 
+## 第一个外部 PR 快速路径
+
+如果你准备认领 `good first issue`，推荐先按这个顺序执行：
+
+1. 在 issue 下留言说明你想认领。
+2. Fork 仓库到自己的 GitHub 账号。
+3. 创建一个小分支，只做对应 issue 的范围。
+4. 按 [Good First PR Briefs](docs/good-first-pr-briefs.md) 中的建议文件和完成标准提交 PR。
+
+如果你想先生成本地草稿，可以运行：
+
+```bash
+npm view ai-devtools-cn version
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
+```
+
+把 `45` 替换成你认领的 issue 编号。`npx` 可用命令以 npm 当前已发布版本为准；如果提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI。此时可以 clone 仓库后使用：
+
+```bash
+npm install
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
+```
+
+这些草稿只帮助你准备 PR。只有你用自己的 GitHub 账号提交并被合并的 PR，才可能被维护者记录为 external merged PR。
+
 ## 不适合提交的内容
 
 - 仅用于营销的工具介绍
@@ -63,6 +92,8 @@ npm run lint:md
 5. 根据 review 意见调整。
 
 如果你认领的是 `good first issue`，可以直接按 [Good First PR Briefs](docs/good-first-pr-briefs.md) 中的建议文件、完成标准和 PR 描述模板执行。
+
+PR 合并前，维护者可能会用 `npx ai-devtools-cn review-pr --pr <number> --author <username> --issue <number>` 生成 review 清单，检查公开安全边界、验证命令和 external PR 记录条件。
 
 ## 维护者职责
 
