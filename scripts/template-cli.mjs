@@ -268,6 +268,11 @@ const goodFirstPrBriefs = [
     url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/45",
     brief: "docs/good-first-pr-briefs.md#45-nodejs-ci-排错示例",
     suggestedTitle: "Add Node.js CI troubleshooting case study",
+    files: [
+      "examples/case-studies/node-ci-troubleshooting.md",
+      "examples/case-studies/README.md",
+      "examples/README.md",
+    ],
   },
   {
     issue: "#46",
@@ -275,6 +280,10 @@ const goodFirstPrBriefs = [
     url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/46",
     brief: "docs/good-first-pr-briefs.md#46-依赖升级风险示例",
     suggestedTitle: "Add dependency upgrade risk example",
+    files: [
+      "examples/dependency-upgrade-risk-example.md",
+      "examples/README.md",
+    ],
   },
   {
     issue: "#47",
@@ -282,6 +291,11 @@ const goodFirstPrBriefs = [
     url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/47",
     brief: "docs/good-first-pr-briefs.md#47-用户反馈案例整理文档",
     suggestedTitle: "Add user feedback case documentation guide",
+    files: [
+      "docs/feedback-case-guide.md",
+      "docs/feedback.md",
+      "README.md",
+    ],
   },
   {
     issue: "#48",
@@ -289,6 +303,10 @@ const goodFirstPrBriefs = [
     url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/48",
     brief: "docs/good-first-pr-briefs.md#48-python-项目-pr-review-示例",
     suggestedTitle: "Add Python PR review example",
+    files: [
+      "examples/python-pr-review-example.md",
+      "examples/README.md",
+    ],
   },
   {
     issue: "#49",
@@ -296,6 +314,10 @@ const goodFirstPrBriefs = [
     url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/49",
     brief: "docs/good-first-pr-briefs.md#49-前端-readme-改进示例",
     suggestedTitle: "Add frontend README improvement example",
+    files: [
+      "examples/frontend-readme-improvement-example.md",
+      "examples/README.md",
+    ],
   },
 ];
 
@@ -315,6 +337,7 @@ Usage:
   ai-devtools-cn launch
   ai-devtools-cn handoff
   ai-devtools-cn handoff --issue <issue-number>
+  ai-devtools-cn pr-pack <issue-number>
   ai-devtools-cn review-pr --pr <number-or-url>
   ai-devtools-cn claim <issue-number> --output <path>
   ai-devtools-cn starter <issue-number> --output <path>
@@ -339,6 +362,7 @@ NPM scripts:
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
+  npm run templates:pr-pack -- <issue-number>
   npm run templates:review-pr -- --pr <number-or-url>
   npm run templates:claim -- <issue-number> --output <path>
   npm run templates:starter -- <issue-number> --output <path>
@@ -365,6 +389,7 @@ Examples:
   npx ai-devtools-cn handoff
   npx ai-devtools-cn handoff --output work/external-pr-handoff.md
   npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+  npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
   npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
@@ -390,6 +415,7 @@ Examples:
   npm run templates:handoff
   npm run templates:handoff -- --output work/external-pr-handoff.md
   npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+  npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
   npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npm run templates:claim -- 45 --output work/claim-45.md
   npm run templates:starter -- 45 --output work/node-ci-starter.md
@@ -477,6 +503,7 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
   Suggested PR title: ${item.suggestedTitle}
   Start commands:
     npx ai-devtools-cn handoff --issue ${issueNumber} --output work/handoff-${issueNumber}.md
+    npx ai-devtools-cn pr-pack ${issueNumber} --output work/pr-pack-${issueNumber}.md
     npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
     npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
 `);
@@ -549,6 +576,119 @@ function showHandoffKit(options = {}) {
   }
 
   console.log(content);
+}
+
+function createPrPackDraft(issueNumber, options = {}) {
+  const brief = requireGoodFirstPrBrief(options.issue ?? issueNumber);
+  const content = formatPrPackDraft(brief);
+
+  if (options.output) {
+    const resolvedOutput = resolveOutputPath(options.output);
+    if (existsSync(resolvedOutput) && !options.force) {
+      fail(`输出文件已存在：${options.output}\n如需覆盖，请加 --force。`);
+    }
+
+    mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+    writeFileSync(resolvedOutput, content, "utf8");
+    console.log(`已生成外部贡献者 PR 包：${formatDisplayPath(resolvedOutput)}`);
+    return;
+  }
+
+  console.log(content);
+}
+
+function formatPrPackDraft(brief) {
+  const issueNumber = brief.issue.replace("#", "");
+  const branchName = formatBranchSlug(brief.suggestedTitle);
+  const files = brief.files.map((file) => `- ${file}`).join("\n");
+
+  return `# 外部贡献者 PR 包：${brief.issue} ${brief.title}
+
+这个包用于发给一位真实外部贡献者，让对方用自己的 GitHub 账号理解任务、修改内容、运行验证并提交 PR。它不是代发补丁，也不能把维护者自己的草稿算成 external merged PR。
+
+Issue:
+${brief.url}
+
+Brief:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+
+Suggested PR title:
+${brief.suggestedTitle}
+
+Branch: ${branchName}
+
+## Files to change
+
+${files}
+
+## Message to send
+
+\`\`\`text
+我想邀请你帮 AI DevTools CN 提交一个很小的外部 PR。
+
+任务：${brief.issue} ${brief.title}
+Issue: ${brief.url}
+Brief: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+
+建议 PR 标题：
+${brief.suggestedTitle}
+
+建议分支名：
+${branchName}
+
+建议修改文件：
+${brief.files.map((file) => `- ${file}`).join("\n")}
+
+你可以先运行：
+npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
+npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
+
+提交前至少运行：
+npm run lint:md
+
+请不要提交 token、客户信息、内部日志、未公开源码或个人隐私。内容请用你理解后的版本提交，不要把别人写好的补丁原样代发。
+\`\`\`
+
+## Contributor steps
+
+1. 在 ${brief.issue} 下留言认领。
+2. Fork 仓库到自己的 GitHub 账号。
+3. 创建分支：\`${branchName}\`。
+4. 按 brief 和建议文件完成一个小而真实的改动。
+5. 运行验证命令。
+6. 从自己的 fork 向 \`ONEISALL7/ai-devtools-cn:main\` 打开 PR。
+7. 在 PR 描述里写 \`Closes ${brief.issue}\`，并贴出验证命令结果。
+
+## PR description to copy
+
+\`\`\`text
+Closes ${brief.issue}
+
+Summary:
+- Added ...
+- Updated ...
+
+Why this helps:
+- This makes ${brief.title} easier for real users to copy, review, or validate.
+
+Validation:
+- npm run lint:md
+
+Safety:
+- No tokens, private logs, customer data, or unpublished source code are included.
+\`\`\`
+
+## Maintainer review checklist
+
+- [ ] PR 作者不是维护者本人、备用账号或机器人。
+- [ ] PR 关联了 ${brief.issue}，并且改动内容与 issue 一致。
+- [ ] 贡献者能解释自己的改动，不是原样代发维护者补丁。
+- [ ] 内容没有 token、客户信息、内部日志、未公开源码或个人隐私。
+- [ ] PR 描述包含验证命令。
+- [ ] 合并后再记录为 External merged PRs。
+
+只能由外部贡献者用自己的 GitHub 账号提交、通过 review 并合并的 PR，才能记录为 External merged PRs。
+`;
 }
 
 function formatIssueHandoffKit(brief) {
@@ -2414,6 +2554,9 @@ switch (command) {
     break;
   case "handoff":
     showHandoffKit(parseOptions(args));
+    break;
+  case "pr-pack":
+    createPrPackDraft(args[0], parseOptions(args.slice(1)));
     break;
   case "review-pr":
     createExternalPrReviewChecklist(parseOptions(args));

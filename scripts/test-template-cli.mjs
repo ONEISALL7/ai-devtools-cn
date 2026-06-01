@@ -16,6 +16,8 @@ function run(args, options = {}) {
   });
 }
 
+const tempDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-"));
+
 const listOutput = run(["list"]);
 assert.match(listOutput, /pr-review/);
 assert.match(listOutput, /ci-troubleshooting/);
@@ -40,6 +42,7 @@ assert.match(contributeOutput, /#49/);
 assert.match(contributeOutput, /npm run lint:md/);
 assert.match(contributeOutput, /external merged PR/);
 assert.match(contributeOutput, /npx ai-devtools-cn handoff --issue 45/);
+assert.match(contributeOutput, /npx ai-devtools-cn pr-pack 45/);
 assert.match(contributeOutput, /npx ai-devtools-cn claim 45/);
 assert.match(contributeOutput, /npx ai-devtools-cn starter 45/);
 
@@ -78,6 +81,29 @@ assert.match(issueHandoffOutput, /add-node-js-ci-troubleshooting-case-study/);
 assert.match(issueHandoffOutput, /npx ai-devtools-cn claim 45/);
 assert.match(issueHandoffOutput, /npx ai-devtools-cn starter 45/);
 assert.match(issueHandoffOutput, /docs\/good-first-pr-briefs\.md#45-nodejs-ci-排错示例/);
+
+const prPackOutput = run(["pr-pack", "45"]);
+assert.match(prPackOutput, /外部贡献者 PR 包/);
+assert.match(prPackOutput, /#45 Node\.js CI 排错示例/);
+assert.match(prPackOutput, /Branch: add-node-js-ci-troubleshooting-case-study/);
+assert.match(prPackOutput, /examples\/case-studies\/node-ci-troubleshooting\.md/);
+assert.match(prPackOutput, /PR description to copy/);
+assert.match(prPackOutput, /npx ai-devtools-cn claim 45/);
+assert.match(prPackOutput, /只能由外部贡献者用自己的 GitHub 账号提交/);
+
+const prPackPath = path.join(tempDir, "pr-pack-49.md");
+const prPackFileOutput = run(["pr-pack", "49", "--output", prPackPath]);
+assert.match(prPackFileOutput, /已生成外部贡献者 PR 包/);
+assert.equal(existsSync(prPackPath), true);
+const prPackDraft = readFileSync(prPackPath, "utf8");
+assert.match(prPackDraft, /#49 前端 README 改进示例/);
+assert.match(prPackDraft, /examples\/frontend-readme-improvement-example\.md/);
+assert.match(prPackDraft, /Add frontend README improvement example/);
+
+assert.throws(
+  () => run(["pr-pack", "999", "--output", path.join(tempDir, "pr-pack-999.md")]),
+  /不支持的 good first issue/
+);
 
 const reviewPrOutput = run(["review-pr", "--pr", "123", "--author", "octocat", "--issue", "45"]);
 assert.match(reviewPrOutput, /外部 PR review 清单/);
@@ -137,8 +163,6 @@ assert.match(searchOutput, /release-checklist/);
 const showOutput = run(["show", "pr-review"]);
 assert.match(showOutput, /PR Review 模板/);
 assert.match(showOutput, /templates\/pr-review-template\.md/);
-
-const tempDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-"));
 
 const claimPath = path.join(tempDir, "claim-45.md");
 const claimOutput = run(["claim", "45", "--output", claimPath]);

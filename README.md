@@ -56,6 +56,7 @@ npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
@@ -73,6 +74,7 @@ npm run templates:examples
 npm run templates:launch
 npm run templates:contribute
 npm run templates:handoff
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
 npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
 npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/node-ci-starter.md
@@ -99,6 +101,7 @@ npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
@@ -138,6 +141,7 @@ CLI 生成的相对路径会写入你运行命令时所在的当前目录，适�
 
 ```bash
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/starter-45.md
 ```
@@ -148,6 +152,7 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 npm install
 npm run templates:contribute
 npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
 npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 ```

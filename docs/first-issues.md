@@ -9,6 +9,7 @@
 ```bash
 npm view ai-devtools-cn version
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/starter-45.md
 ```

@@ -76,7 +76,7 @@ npx ai-devtools-cn contribute
 - Good First PR Briefs 链接
 - 当前 #45-#49 可认领任务
 - 每个任务的 issue、brief 和建议 PR 标题
-- 每个任务可直接复制的 `handoff`、`claim` 和 `starter` 起步命令
+- 每个任务可直接复制的 `handoff`、`pr-pack`、`claim` 和 `starter` 起步命令
 - 最小验证命令
 - 公开安全边界
 
@@ -189,6 +189,37 @@ npx ai-devtools-cn handoff
 - 什么能算 external merged PR，什么不能算
 
 这个命令不会创建 GitHub PR，也不会把维护者自己的草稿计入外部贡献。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。
+
+## 生成外部贡献者 PR 包
+
+如果你已经选定一个 good first issue，可以生成一份更具体的 PR 包，直接发给外部贡献者：
+
+```bash
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
+```
+
+如果不指定 `--output`，命令会直接在终端打印内容：
+
+```bash
+npx ai-devtools-cn pr-pack 45
+```
+
+PR 包会包含：
+
+- issue、brief、建议 PR 标题和建议分支名
+- 建议修改文件清单
+- 可以直接发送给外部贡献者的邀请文案
+- 外部贡献者提交步骤
+- 可复制 PR 描述
+- 维护者 review 检查清单
+
+这个命令适合“请别人帮忙提交一个真实 PR”的场景，但它只负责准备说明材料。贡献者必须用自己的 GitHub 账号理解、修改、验证并提交 PR；维护者不能把自己生成的本地草稿或代发补丁计入 external merged PR。
 
 ## 生成外部 PR review 清单
 
