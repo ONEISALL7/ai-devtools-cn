@@ -55,8 +55,15 @@ npm run templates:evidence -- --output work/external-evidence.md
 
 - GitHub CLI：`gh`
 - npm
+- 能访问 `https://api.npmjs.org/downloads/point/last-month/ai-devtools-cn` 的网络环境，用于查询 npm monthly downloads
 
 如果 `gh` 未登录，部分指标会显示 `unknown` 或 `unavailable`。
+
+如果本机网络或 DNS 无法访问 npm downloads API，`npm monthly downloads` 会显示 `unavailable`。申请前应在正常网络下重新运行快照，或用下面命令单独核验 npm 下载量：
+
+```bash
+curl -L https://api.npmjs.org/downloads/point/last-month/ai-devtools-cn
+```
 
 脚本会把 `gh pr list` 和 `gh issue list` 的取数上限设为最近 1000 条，避免项目超过 100 条 PR 或 issue 后低估维护记录。这个快照仍然不是无限分页审计；当项目规模超过 1000 条相关记录时，应在申请前补充更完整的统计方式。
 
@@ -85,6 +92,7 @@ npm run metrics:snapshot -- --output work/metrics-YYYY-MM-DD.md
 - `External merged PRs`：作者不是仓库 owner 且不是 bot 的已合并 PR。
 - `Feedback-labeled issues`：带 `feedback` label 的 open 和 closed issue，不一定等同于外部用户反馈。
 - `External feedback-labeled issues`：作者不是仓库 owner 且不是 bot 的 feedback-labeled issue。
+- `npm monthly downloads`：npm downloads API 的 `last-month` point 结果；如果显示 `unavailable`，说明本次快照没有拿到可靠数字。
 
 这些字段只是初筛。申请材料中仍应人工确认来源，不要把维护者自己创建的反馈入口、测试 issue 或占位 issue 写成外部用户反馈。
 

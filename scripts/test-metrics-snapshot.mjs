@@ -16,12 +16,14 @@ try {
     encoding: "utf8",
     env: {
       ...process.env,
+      AI_DEVTOOLS_CN_NPM_DOWNLOADS_JSON: JSON.stringify({ downloads: 42 }),
       PATH: `${tempDir}:${process.env.PATH}`,
     },
   });
 
   assert.match(output, /\| Merged PRs \| 101 \|/);
   assert.match(output, /\| Closed issues \| 101 \|/);
+  assert.match(output, /\| npm monthly downloads \| 42 \|/);
 } finally {
   rmSync(tempDir, { force: true, recursive: true });
 }

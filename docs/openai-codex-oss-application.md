@@ -20,11 +20,12 @@
 | External merged PRs | 0 |
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
 | npm package | [`ai-devtools-cn@0.16.1`](https://www.npmjs.com/package/ai-devtools-cn) |
+| npm monthly downloads | 当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验 |
 | 项目文件 | 92 个 tracked files |
 | CI | GitHub Actions Markdown Check |
 | CLI | `ai-devtools-cn` template CLI，支持 list、examples、launch、contribute、handoff、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、doctor、publish-check、validate，可通过 `npx ai-devtools-cn` 使用 |
 
-这些数字是日期快照，不是实时指标；后续维护 PR 会继续增加这些数字。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据。
+这些数字是日期快照，不是实时指标；后续维护 PR、npm 发布和下载量会继续变化。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据，并在网络可用时核验 npm downloads API。
 
 这些数字不能替代真实用户采用证据。后续仍需要继续积累更多外部 issue、外部 PR、stars、forks、npm 下载量或使用案例。
 

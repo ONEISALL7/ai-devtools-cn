@@ -65,6 +65,7 @@ const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", "2
 const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl=false"], {
   allowFailure: true,
 });
+const npmDownloads = await getNpmDownloads(packageName);
 
 const releaseRows = releases.ok
   ? releases.value.trim().split("\n").filter(Boolean)
@@ -99,6 +100,7 @@ const markdown = `# 项目指标快照
 | External feedback-labeled issues | ${closedIssues.ok && openIssues.ok ? externalFeedbackIssues.length : "unknown"} |
 | Releases | ${releaseRows.length || "unknown"} |
 | npm package | ${npmVersion.ok ? npmVersion.value.trim() : "not published or unavailable"} |
+| npm monthly downloads | ${npmDownloads.ok ? npmDownloads.value.downloads : "unavailable"} |
 
 ## 最近 merged PR
 
@@ -130,6 +132,7 @@ ${releaseRows.length > 0 ? releaseRows.map((row) => `- ${row}`).join("\n") : "- 
 
 - 这个快照用于维护者复盘和申请材料准备。
 - npm 查询失败不一定代表包名不可用，可能是网络、证书或登录环境问题。
+- npm monthly downloads 来自 npm downloads API 的 last-month point 查询；网络失败时会显示 unavailable。
 - 不要手动夸大 stars、downloads、forks 或外部贡献数量。
 - GitHub PR/issue 列表当前最多抓取最近 ${githubListLimit} 条，用于避免早期快照在超过 100 条维护记录后低估指标。
 - 不要把维护者自己创建的 issue 包装成外部用户反馈；外部采用信号需要结合作者、上下文和来源人工判断。
@@ -212,6 +215,37 @@ function getText(command, commandArgs, { allowFailure = false } = {}) {
     if (!allowFailure) {
       throw error;
     }
+    return { ok: false, error };
+  }
+}
+
+async function getNpmDownloads(name) {
+  const override = process.env.AI_DEVTOOLS_CN_NPM_DOWNLOADS_JSON;
+  if (override) {
+    return parseNpmDownloadsJson(override);
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.npmjs.org/downloads/point/last-month/${encodeURIComponent(name)}`,
+    );
+    if (!response.ok) {
+      return { ok: false, error: new Error(`npm downloads API returned ${response.status}`) };
+    }
+    return parseNpmDownloadsJson(await response.text());
+  } catch (error) {
+    return { ok: false, error };
+  }
+}
+
+function parseNpmDownloadsJson(value) {
+  try {
+    const parsed = JSON.parse(value);
+    if (Number.isFinite(parsed.downloads)) {
+      return { ok: true, value: parsed };
+    }
+    return { ok: false, error: new Error("npm downloads response missing downloads") };
+  } catch (error) {
     return { ok: false, error };
   }
 }
