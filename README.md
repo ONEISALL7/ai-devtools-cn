@@ -117,6 +117,43 @@ npx ai-devtools-cn application --output work/openai-application.md
 
 CLI 生成的相对路径会写入你运行命令时所在的当前目录，适合在自己的项目里生成 `work/` 草稿。
 
+## 第一次外部 PR
+
+如果你想提交第一个小 PR，可以从下面这些 `good first issue` 开始：
+
+| Issue | 任务 | 建议 PR 标题 |
+| --- | --- | --- |
+| [#45](https://github.com/ONEISALL7/ai-devtools-cn/issues/45) | Node.js CI 排错示例 | Add Node.js CI troubleshooting case study |
+| [#46](https://github.com/ONEISALL7/ai-devtools-cn/issues/46) | 依赖升级风险示例 | Add dependency upgrade risk example |
+| [#47](https://github.com/ONEISALL7/ai-devtools-cn/issues/47) | 用户反馈案例整理文档 | Add user feedback case documentation guide |
+| [#48](https://github.com/ONEISALL7/ai-devtools-cn/issues/48) | Python 项目 PR review 示例 | Add Python PR review example |
+| [#49](https://github.com/ONEISALL7/ai-devtools-cn/issues/49) | 前端 README 改进示例 | Add frontend README improvement example |
+
+建议流程：
+
+1. 在对应 issue 下留言说明你想认领。
+2. Fork 仓库到自己的 GitHub 账号。
+3. 运行 `npx ai-devtools-cn contribute` 查看任务和起步命令。
+4. 以 #45 为例，生成本地草稿：
+
+```bash
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
+```
+
+如果 `npx` 版本还没有同步这些命令，可以 clone 本仓库后运行：
+
+```bash
+npm install
+npm run templates:contribute
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
+```
+
+这些本地草稿只帮助你准备 PR。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才可能被记录为 external merged PR。
+
 ## 按身份开始
 
 | 你是谁 | 第一步 |
