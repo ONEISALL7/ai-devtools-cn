@@ -15,12 +15,12 @@
 | GitHub stars | 3 |
 | Forks | 1 |
 | Releases | 19 个：`v0.1.0` 到 `v0.16.2` |
-| Merged PRs | 93 个，最近一次完整快照统计到 PR #192 |
-| Closed issues | 93 个，最近一次完整快照统计到 issue #191 |
+| Merged PRs | 102 个，最近一次完整快照统计到 PR #210 |
+| Closed issues | 102 个，最近一次完整快照统计到 issue #209 |
 | External merged PRs | 0 |
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
 | npm package | [`ai-devtools-cn@0.16.1`](https://www.npmjs.com/package/ai-devtools-cn) |
-| 项目文件 | 90 个 tracked files |
+| 项目文件 | 92 个 tracked files |
 | CI | GitHub Actions Markdown Check |
 | CLI | `ai-devtools-cn` template CLI，支持 list、examples、launch、contribute、handoff、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、doctor、publish-check、validate，可通过 `npx ai-devtools-cn` 使用 |
 
@@ -84,13 +84,13 @@ I am the primary maintainer of this public repository. I created and maintain th
 如实版本：
 
 ```text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 93 merged PRs, 93 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
+ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 102 merged PRs, 102 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
 ```
 
 更保守版本：
 
 ```text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 93 merged PRs, 93 closed issues, 19 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 102 merged PRs, 102 closed issues, 19 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
 ```
 
 ## API credits 使用计划
@@ -118,8 +118,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 ### Issue 和 PR
 
-- 93 个 merged PR，最近一次完整快照统计到 PR #192
-- 93 个 closed issues，最近一次完整快照统计到 issue #191
+- 102 个 merged PR，最近一次完整快照统计到 PR #210
+- 102 个 closed issues，最近一次完整快照统计到 issue #209
 - 1 个外部 feedback issue：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)
 - 每轮功能通过 issue 追踪，再通过 PR 合并
 - 已覆盖模板、案例、quickstart、CLI、npm 发布结构、用户反馈入口、issue 表单、第一批试用计划、试用包案例、外部试用邀请、证据台账和申请包草稿

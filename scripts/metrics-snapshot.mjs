@@ -8,6 +8,7 @@ import { formatSnapshotDate } from "./date-utils.mjs";
 const repo = "ONEISALL7/ai-devtools-cn";
 const repoOwner = "ONEISALL7";
 const packageName = "ai-devtools-cn";
+const githubListLimit = "1000";
 const args = process.argv.slice(2);
 
 const options = parseOptions(args);
@@ -29,7 +30,7 @@ const mergedPrs = getJson("gh", [
   "--state",
   "merged",
   "--limit",
-  "100",
+  githubListLimit,
   "--json",
   "number,title,mergedAt,author",
 ]);
@@ -42,7 +43,7 @@ const closedIssues = getJson("gh", [
   "--state",
   "closed",
   "--limit",
-  "100",
+  githubListLimit,
   "--json",
   "number,title,closedAt,labels,author",
 ]);
@@ -55,7 +56,7 @@ const openIssues = getJson("gh", [
   "--state",
   "open",
   "--limit",
-  "100",
+  githubListLimit,
   "--json",
   "number,title,labels,author",
 ]);
@@ -130,6 +131,7 @@ ${releaseRows.length > 0 ? releaseRows.map((row) => `- ${row}`).join("\n") : "- 
 - 这个快照用于维护者复盘和申请材料准备。
 - npm 查询失败不一定代表包名不可用，可能是网络、证书或登录环境问题。
 - 不要手动夸大 stars、downloads、forks 或外部贡献数量。
+- GitHub PR/issue 列表当前最多抓取最近 ${githubListLimit} 条，用于避免早期快照在超过 100 条维护记录后低估指标。
 - 不要把维护者自己创建的 issue 包装成外部用户反馈；外部采用信号需要结合作者、上下文和来源人工判断。
 `;
 
