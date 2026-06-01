@@ -4,6 +4,28 @@
 
 目标不是制造表面活跃度，而是降低第一个外部 PR 的门槛：任务要小、边界要清楚、验证要可复制、贡献记录要能公开核验。
 
+## CLI 入口
+
+如果你要快速生成一份可转发交接包，可以运行：
+
+```bash
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+```
+
+只想在终端查看内容时运行：
+
+```bash
+npx ai-devtools-cn handoff
+```
+
+在仓库内开发时也可以运行：
+
+```bash
+npm run templates:handoff -- --output work/external-pr-handoff.md
+```
+
+这个命令只生成本地交接材料，不会创建 GitHub PR，也不会把维护者自己的草稿计入 external merged PR。
+
 ## 可以直接转发的邀请
 
 ```text

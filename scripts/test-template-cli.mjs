@@ -56,6 +56,17 @@ const launchAliasOutput = run(["templates:launch"]);
 assert.match(launchAliasOutput, /#51/);
 assert.match(launchAliasOutput, /外部反馈/);
 
+const handoffOutput = run(["handoff"]);
+assert.match(handoffOutput, /外部 PR 交接包/);
+assert.match(handoffOutput, /docs\/external-pr-handoff-kit\.md/);
+assert.match(handoffOutput, /npx ai-devtools-cn claim 45/);
+assert.match(handoffOutput, /External merged PRs/);
+assert.match(handoffOutput, /不能把维护者自己的 PR/);
+
+const handoffAliasOutput = run(["templates:handoff"]);
+assert.match(handoffAliasOutput, /Fork 仓库/);
+assert.match(handoffAliasOutput, /Good First PR Briefs/);
+
 const recommendOutput = run(["recommend", "ci"]);
 assert.match(recommendOutput, /Recommended templates/);
 assert.match(recommendOutput, /ci-troubleshooting/);
@@ -396,6 +407,17 @@ const callerAdoptionOutput = run(["adoption", "--output", "work/adoption-sprint"
 });
 assert.match(callerAdoptionOutput, /work\/adoption-sprint/);
 assert.equal(existsSync(path.join(callerDir, "work", "adoption-sprint", "README.md")), true);
+
+const callerHandoffOutput = run(["handoff", "--output", "work/external-pr-handoff.md"], {
+  cwd: callerDir,
+});
+assert.match(callerHandoffOutput, /work\/external-pr-handoff\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "external-pr-handoff.md")), true);
+
+const callerHandoffDraft = readFileSync(path.join(callerDir, "work", "external-pr-handoff.md"), "utf8");
+assert.match(callerHandoffDraft, /外部 PR 交接包/);
+assert.match(callerHandoffDraft, /External PR/);
+assert.match(callerHandoffDraft, /不能把维护者自己/);
 
 const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidence.md"], {
   cwd: callerDir,

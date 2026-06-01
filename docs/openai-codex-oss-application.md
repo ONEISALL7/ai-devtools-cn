@@ -22,7 +22,7 @@
 | npm package | [`ai-devtools-cn@0.16.1`](https://www.npmjs.com/package/ai-devtools-cn) |
 | 项目文件 | 90 个 tracked files |
 | CI | GitHub Actions Markdown Check |
-| CLI | `ai-devtools-cn` template CLI，支持 list、examples、launch、contribute、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、doctor、publish-check、validate，可通过 `npx ai-devtools-cn` 使用 |
+| CLI | `ai-devtools-cn` template CLI，支持 list、examples、launch、contribute、handoff、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、doctor、publish-check、validate，可通过 `npx ai-devtools-cn` 使用 |
 
 这些数字是日期快照，不是实时指标；后续维护 PR 会继续增加这些数字。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据。
 
@@ -40,6 +40,7 @@ npm run templates:application -- --output work/openai-application.md
 
 ```bash
 npx ai-devtools-cn launch
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 ```
@@ -201,6 +202,7 @@ npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn contribute
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn evidence --output work/external-evidence.md

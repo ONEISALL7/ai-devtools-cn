@@ -135,6 +135,7 @@ npm run templates:application -- --output work/openai-application.md
 ```bash
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 ```

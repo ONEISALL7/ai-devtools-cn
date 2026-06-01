@@ -144,6 +144,36 @@ npx ai-devtools-cn launch
 
 这个命令面向准备发布项目、邀请真实试用者或邀请外部 PR 的维护者。它不会自动发布内容，也不会把维护者自己的 issue 或 PR 计入外部采用证据。
 
+## 生成外部 PR 交接包
+
+如果你要把一个小任务交给外部贡献者，可以先生成一份可转发交接包：
+
+```bash
+npm run templates:handoff -- --output work/external-pr-handoff.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+```
+
+如果不指定 `--output`，命令会直接在终端打印交接内容：
+
+```bash
+npx ai-devtools-cn handoff
+```
+
+交接包会包含：
+
+- 外部 PR 交接包和 Good First PR Briefs 链接
+- 可直接发送给外部贡献者的邀请
+- fork、认领、提交 PR 和验证步骤
+- PR 描述模板
+- 什么能算 external merged PR，什么不能算
+
+这个命令不会创建 GitHub PR，也不会把维护者自己的草稿计入外部贡献。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。
+
 ## 按任务推荐模板和案例
 
 ```bash

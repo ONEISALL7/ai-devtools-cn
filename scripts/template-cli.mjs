@@ -313,6 +313,7 @@ Usage:
   ai-devtools-cn examples
   ai-devtools-cn contribute
   ai-devtools-cn launch
+  ai-devtools-cn handoff
   ai-devtools-cn claim <issue-number> --output <path>
   ai-devtools-cn starter <issue-number> --output <path>
   ai-devtools-cn recommend <keyword>
@@ -335,6 +336,7 @@ NPM scripts:
   npm run templates:examples
   npm run templates:contribute
   npm run templates:launch
+  npm run templates:handoff
   npm run templates:claim -- <issue-number> --output <path>
   npm run templates:starter -- <issue-number> --output <path>
   npm run templates:recommend -- <keyword>
@@ -357,6 +359,8 @@ Examples:
   npx ai-devtools-cn examples
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
+  npx ai-devtools-cn handoff
+  npx ai-devtools-cn handoff --output work/external-pr-handoff.md
   npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
   npx ai-devtools-cn recommend ci
@@ -378,6 +382,8 @@ Examples:
   npm run templates:examples
   npm run templates:contribute
   npm run templates:launch
+  npm run templates:handoff
+  npm run templates:handoff -- --output work/external-pr-handoff.md
   npm run templates:claim -- 45 --output work/claim-45.md
   npm run templates:starter -- 45 --output work/node-ci-starter.md
   npm run templates:recommend -- ci
@@ -509,6 +515,118 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/51
 - 维护者基于外部反馈完成的 PR 可以写成 feedback-driven PR，但不能写成外部 PR
 - 不记录 token、API key、客户信息、内部日志、未公开源码或个人隐私
 `);
+}
+
+function showHandoffKit(options = {}) {
+  const content = formatHandoffKit();
+
+  if (options.output) {
+    const resolvedOutput = resolveOutputPath(options.output);
+    if (existsSync(resolvedOutput) && !options.force) {
+      fail(`输出文件已存在：${options.output}\n如需覆盖，请加 --force。`);
+    }
+
+    mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+    writeFileSync(resolvedOutput, content, "utf8");
+    console.log(`已生成外部 PR 交接包：${formatDisplayPath(resolvedOutput)}`);
+    return;
+  }
+
+  console.log(content);
+}
+
+function formatHandoffKit() {
+  return `# 外部 PR 交接包
+
+Document:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-pr-handoff-kit.md
+
+Good First PR Briefs:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
+
+## 可直接发送的邀请
+
+\`\`\`text
+我在维护一个中文开源项目 AI DevTools CN，想邀请你帮忙提交一个很小的外部 PR。
+
+项目地址：
+https://github.com/ONEISALL7/ai-devtools-cn
+
+你可以从 #45-#49 中任选一个 good first issue：
+https://github.com/ONEISALL7/ai-devtools-cn/issues/45
+https://github.com/ONEISALL7/ai-devtools-cn/issues/46
+https://github.com/ONEISALL7/ai-devtools-cn/issues/47
+https://github.com/ONEISALL7/ai-devtools-cn/issues/48
+https://github.com/ONEISALL7/ai-devtools-cn/issues/49
+
+选定 issue 后可以先运行：
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
+
+把 45 换成你认领的 issue 编号。提交前至少运行：
+npm run lint:md
+\`\`\`
+
+## 外部贡献者步骤
+
+1. 选择一个 good first issue。
+2. 在 issue 下留言说明想认领。
+3. Fork 仓库到自己的 GitHub 账号。
+4. 创建分支并按 brief 修改建议文件。
+5. 本地运行验证命令。
+6. 从自己的 fork 向 ONEISALL7/ai-devtools-cn:main 打开 PR。
+7. 在 PR 描述里写 Closes #issue-number，并贴出验证命令。
+
+## 验证命令
+
+\`\`\`bash
+npm install
+npm run lint:md
+\`\`\`
+
+如果改动 CLI、模板索引或示例索引，也运行：
+
+\`\`\`bash
+npm run test
+npm run templates:publish-check
+\`\`\`
+
+## Evidence boundary
+
+- External merged PRs 只能来自非维护者账号提交、review 后合并的真实 PR。
+- 不能把维护者自己的 PR、维护者生成的本地草稿、测试账号或代发补丁写成 external merged PR。
+- 反馈 issue 可以作为外部反馈，但不能自动算作外部 PR。
+- 不提交 token、API key、cookie、密码、客户信息、内部日志、未公开源码或个人隐私。
+
+## PR 描述模板
+
+\`\`\`text
+Closes #issue-number
+
+Summary:
+- Added ...
+- Updated ...
+
+Validation:
+- npm run lint:md
+
+Notes:
+- The example uses anonymized/public-safe details.
+- No tokens, private logs, customer data, or unpublished source code are included.
+\`\`\`
+
+## External PR 记录字段
+
+\`\`\`text
+External PR:
+- Contributor:
+- Issue:
+- PR:
+- Scope:
+- Validation:
+- Release:
+\`\`\`
+`;
 }
 
 function createClaimDraft(issueNumber, options) {
@@ -1021,6 +1139,7 @@ npm run pack:dry-run
 npm view ${packageJson.name} version
 npx ${packageJson.name} doctor
 npx ${packageJson.name} adoption --template pr-review --output work/adoption-sprint
+npx ${packageJson.name} handoff --output work/external-pr-handoff.md
 npx ${packageJson.name} claim 45 --output work/claim-45.md
 npx ${packageJson.name} starter 45 --output work/node-ci-starter.md
 \`\`\`
@@ -1062,7 +1181,7 @@ ai-devtools-cn is an early but actively maintained public OSS project for Chines
 ### External contribution pipeline
 
 \`\`\`text
-The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, claim, and starter. These commands help a real contributor choose #45-#49, draft a claim, generate a local starter file, and prepare a normal GitHub PR from their own account.
+The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, handoff, claim, and starter. These commands help a real contributor choose #45-#49, receive a copy-ready PR handoff, draft a claim, generate a local starter file, and prepare a normal GitHub PR from their own account.
 \`\`\`
 
 ### How will you use API credits?
@@ -1087,7 +1206,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - External evidence ledger: \`work/external-evidence.md\`
 - npm package page: https://www.npmjs.com/package/${packageJson.name}
 - Good First PR Briefs: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
-- External contribution commands: \`npx ai-devtools-cn claim 45\`, \`npx ai-devtools-cn starter 45\`
+- External contribution commands: \`npx ai-devtools-cn handoff\`, \`npx ai-devtools-cn claim 45\`, \`npx ai-devtools-cn starter 45\`
 - External feedback issues:
 - External merged PRs:
 - Public mentions:
@@ -1179,7 +1298,7 @@ npm downloads：
 - 外部用户提交的 feedback issue。
 - 基于外部 feedback issue 完成的维护者 PR 和 release，但要标明它不是外部 PR。
 - 外部贡献者提交并合并的 PR。
-- Good First PR Briefs、claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
+- Good First PR Briefs、handoff/claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
 - 公开帖子、博客、讨论或引用。
 - 经允许匿名化整理的真实使用案例。
 
@@ -1211,7 +1330,7 @@ The project is early and actively maintained. Current strength is maintainer act
 1. 记录 npm 页面链接、当前版本和 \`npx ai-devtools-cn doctor\` 验证结果。
 2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
 3. 引导试用者提交 feedback issue。
-4. 邀请外部贡献者认领 good first issue，并让他们用 \`npx ai-devtools-cn claim 45\` 和 \`npx ai-devtools-cn starter 45\` 准备真实 PR。
+4. 邀请外部贡献者认领 good first issue，并让他们用 \`npx ai-devtools-cn handoff\`、\`npx ai-devtools-cn claim 45\` 和 \`npx ai-devtools-cn starter 45\` 准备真实 PR。
 5. 根据外部反馈发布一个反馈驱动版本。
 `;
 }
@@ -1680,6 +1799,7 @@ function runPublishCheck() {
     "templates:validate",
     "templates:publish-check",
     "templates:adoption",
+    "templates:handoff",
     "templates:evidence",
     "templates:application",
   ];
@@ -2083,6 +2203,9 @@ switch (command) {
     break;
   case "launch":
     listLaunchChecklist();
+    break;
+  case "handoff":
+    showHandoffKit(parseOptions(args));
     break;
   case "claim":
     createClaimDraft(args[0], parseOptions(args.slice(1)));

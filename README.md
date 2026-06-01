@@ -46,6 +46,7 @@ examples/    示例工作流
 npx ai-devtools-cn doctor
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
+npx ai-devtools-cn handoff
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
@@ -61,6 +62,7 @@ npm run templates:list
 npm run templates:examples
 npm run templates:launch
 npm run templates:contribute
+npm run templates:handoff
 npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/node-ci-starter.md
 npm run templates:recommend -- ci
@@ -84,6 +86,7 @@ npx ai-devtools-cn list
 npx ai-devtools-cn examples
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
