@@ -6,7 +6,7 @@
 
 ## 当前项目状态
 
-截至 2026-06-01，基于 `v0.17.6` GitHub release、`ai-devtools-cn@0.17.6` npm 发布验证和 `npm run metrics:snapshot` 的一次快照：
+截至 2026-06-01，基于 `v0.17.6` GitHub release、`ai-devtools-cn@0.17.5` npm 发布验证和 `npm run metrics:snapshot` 的一次快照：
 
 | 项目 | 当前状态 |
 | --- | --- |
@@ -15,16 +15,16 @@
 | GitHub stars | 3 |
 | Forks | 1 |
 | Releases | 26 个：`v0.1.0` 到 `v0.17.6` |
-| Merged PRs | 121 个，最近一次完整快照统计到 PR #235 |
+| Merged PRs | 122 个，最近一次完整快照统计到 PR #236 |
 | Closed issues | 108 个，最近一次完整快照统计到 issue #223 |
 | Open issues | 6 个，包含 #51 外部反馈收集和 #45-#49 外部贡献任务 |
 | External merged PRs | 0 |
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
-| npm package | [`ai-devtools-cn@0.17.6`](https://www.npmjs.com/package/ai-devtools-cn) |
+| npm package | [`ai-devtools-cn@0.17.5`](https://www.npmjs.com/package/ai-devtools-cn)；`0.17.6` npm 发布待维护者完成 2FA |
 | npm monthly downloads | 当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验 |
 | 项目文件 | 94 个 tracked files |
 | CI | GitHub Actions Markdown Check；Node/CLI CI 在 Node.js 20 和 22 上运行 `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` |
-| CLI | GitHub `main` 和 npm `0.17.6` 支持 list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate |
+| CLI | GitHub `main` 为 `0.17.6`；npm `0.17.5` 已支持 list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate |
 
 这些数字是日期快照，不是实时指标；后续维护 PR、npm 发布和下载量会继续变化。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据，并在网络可用时核验 npm downloads API。
 
@@ -38,7 +38,7 @@ npm run templates:application -- --output work/openai-application.md
 
 这份草稿用于整理表单字段、证据清单和短板提醒，不会自动提交申请，也不会替代真实外部采用证据。
 
-如果你要邀请外部贡献者提交第一个真实 PR，可以先让对方看 README 的“第一次外部 PR”章节，那里已经列出 #45-#49、建议 PR 标题和起步命令。npm 0.17.6 发布后，可以让对方直接运行：
+如果你要邀请外部贡献者提交第一个真实 PR，可以先让对方看 README 的“第一次外部 PR”章节，那里已经列出 #45-#49、建议 PR 标题和起步命令。npm 0.17.5 已经支持这些外部贡献入口，可以让对方直接运行：
 
 ```bash
 npx ai-devtools-cn@latest contribute
@@ -86,13 +86,13 @@ I am the primary maintainer of this public repository. I created and maintain th
 如实版本：
 
 ```text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 121 merged PRs, 108 closed issues, 26 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
+ai-devtools-cn is a public Chinese AI developer tooling project focused on OSS maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, and maintainer automation. It has active maintenance records, 122 merged PRs, 108 closed issues, 26 releases, CI, a published npm CLI, and one external feedback issue. It serves Chinese developers who need reusable AI maintenance templates.
 ```
 
 更保守版本：
 
 ```text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 121 merged PRs, 108 closed issues, 26 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, and AI output evaluation. The repo has 122 merged PRs, 108 closed issues, 26 releases, CI, and feedback channels. We are now collecting more external usage and feedback.
 ```
 
 ## API credits 使用计划
@@ -120,7 +120,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 ### Issue 和 PR
 
-- 121 个 merged PR，最近一次完整快照统计到 PR #235
+- 122 个 merged PR，最近一次完整快照统计到 PR #236
 - 108 个 closed issues，最近一次完整快照统计到 issue #223
 - 6 个 open issues，包含 #51 外部反馈收集和 #45-#49 外部贡献任务
 - 1 个外部 feedback issue：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)
@@ -155,7 +155,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.17.3`：调整外部贡献者 CLI 输出和文档，让 npm 未同步时默认使用 clone + `npm run templates:*` 路径，降低真实外部 PR 起步失败率
 - `v0.17.4`：扩展 feedback issue 表单，记录反馈者关系、试用途径和公开证据链接，让外部反馈更容易被安全核验
 - `v0.17.5`：同步 npm 已发布状态，确认 `npx ai-devtools-cn@latest` 可用于外部试用和外部 PR 交接
-- `v0.17.6`：新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上验证 CLI、模板索引和 npm 打包内容
+- `v0.17.6`：新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上验证 CLI、模板索引和 npm 打包内容；npm `0.17.6` 发布仍待 2FA 完成
 
 ### CI 和质量控制
 

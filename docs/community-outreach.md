@@ -174,7 +174,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 - README 顶部能说明项目用途
 - `v0.17.6` release 已存在
-- npm 已同步到 `0.17.6`，`npx ai-devtools-cn@latest doctor` 可用
+- npm 已同步到 `0.17.5`，`npx ai-devtools-cn@latest doctor` 可用；`0.17.6` npm 发布待维护者完成 2FA
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 和 [外部试用者快速指南](external-tester-guide.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
