@@ -47,6 +47,7 @@ npx ai-devtools-cn doctor
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
@@ -61,6 +62,7 @@ npm run templates:examples
 npm run templates:launch
 npm run templates:contribute
 npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/node-ci-starter.md
 npm run templates:recommend -- ci
 npm run templates:validate
 npm run templates:doctor
@@ -83,6 +85,7 @@ npx ai-devtools-cn examples
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn doctor
 npx ai-devtools-cn publish-check

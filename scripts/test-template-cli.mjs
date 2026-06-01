@@ -131,6 +131,29 @@ const claimAliasOutput = run(["templates:claim", "46", "--output", claimAliasPat
 assert.match(claimAliasOutput, /已生成认领草稿/);
 assert.equal(existsSync(claimAliasPath), true);
 
+const starterPath = path.join(tempDir, "node-ci-starter.md");
+const starterOutput = run(["starter", "45", "--output", starterPath]);
+assert.match(starterOutput, /已生成贡献起稿/);
+assert.equal(existsSync(starterPath), true);
+
+const starterDraft = readFileSync(starterPath, "utf8");
+assert.match(starterDraft, /Node\.js CI 排错示例/);
+assert.match(starterDraft, /Good First Issue #45/);
+assert.match(starterDraft, /CI 排错模板/);
+assert.match(starterDraft, /失败日志片段/);
+assert.match(starterDraft, /npm run lint:md/);
+assert.match(starterDraft, /不是 external merged PR/);
+
+assert.throws(
+  () => run(["starter", "999", "--output", path.join(tempDir, "starter-999.md")]),
+  /不支持的 good first issue/
+);
+
+const starterAliasPath = path.join(tempDir, "dependency-starter.md");
+const starterAliasOutput = run(["templates:starter", "46", "--output", starterAliasPath]);
+assert.match(starterAliasOutput, /已生成贡献起稿/);
+assert.equal(existsSync(starterAliasPath), true);
+
 const draftPath = path.join(tempDir, "ci-debug.md");
 const newOutput = run(["new", "ci-troubleshooting", "--output", draftPath]);
 assert.match(newOutput, /已生成工作稿/);

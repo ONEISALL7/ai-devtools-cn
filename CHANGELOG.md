@@ -11,6 +11,7 @@
 - 新增 CLI `contribute` 命令，帮助外部贡献者通过 `npx` 找到 Good First PR Briefs 和可认领任务
 - 新增 CLI `launch` 命令，帮助维护者通过 `npx` 找到社区发布包、反馈入口和外部 PR 邀请入口
 - 新增 CLI `claim` 命令，为 #45-#49 good first issue 生成外部贡献者认领和 PR 描述草稿
+- 新增 CLI `starter` 命令，为 #45-#49 good first issue 生成可填写的案例或文档起稿
 
 ## 0.16.2 - 2026-06-01
 
