@@ -161,7 +161,7 @@ Add user feedback case documentation guide
 
 - 写一个把用户反馈整理成公开案例的流程。
 - 区分 external feedback issue、匿名化私聊反馈、维护者自建 issue。
-- 说明哪些反馈可以进入申请材料，哪些只能作为内部改进线索。
+- 说明哪些反馈可以进入公开证据台账，哪些只能作为内部改进线索。
 - 给出一份可复制的“反馈 -> 改进 issue -> PR -> release”记录模板。
 
 完成标准：

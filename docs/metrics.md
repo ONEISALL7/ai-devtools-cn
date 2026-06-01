@@ -1,10 +1,10 @@
 # 项目指标追踪
 
-这个文档说明如何定期记录 `ai-devtools-cn` 的公开项目指标，用于维护复盘、社区采用判断和 OpenAI OSS 申请材料准备。
+这个文档说明如何定期记录 `ai-devtools-cn` 的公开项目指标，用于维护复盘、社区采用判断和发布状态追踪。
 
 ## 为什么要记录指标
 
-Open-source 申请材料不能只写“项目有价值”，还需要逐步积累可验证信号：
+公开项目不能只写“项目有价值”，还需要逐步积累可验证信号：
 
 - stars
 - forks
@@ -94,7 +94,7 @@ npm run metrics:snapshot -- --output work/metrics-YYYY-MM-DD.md
 - `External feedback-labeled issues`：作者不是仓库 owner 且不是 bot 的 feedback-labeled issue。
 - `npm monthly downloads`：npm downloads API 的 `last-month` point 结果；如果显示 `unavailable`，说明本次快照没有拿到可靠数字。
 
-这些字段只是初筛。申请材料中仍应人工确认来源，不要把维护者自己创建的反馈入口、测试 issue 或占位 issue 写成外部用户反馈。
+这些字段只是初筛。公开证据台账中仍应人工确认来源，不要把维护者自己创建的反馈入口、测试 issue 或占位 issue 写成外部用户反馈。
 
 ## 使用原则
 
