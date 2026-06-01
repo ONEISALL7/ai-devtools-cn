@@ -315,6 +315,7 @@ Usage:
   ai-devtools-cn launch
   ai-devtools-cn handoff
   ai-devtools-cn handoff --issue <issue-number>
+  ai-devtools-cn review-pr --pr <number-or-url>
   ai-devtools-cn claim <issue-number> --output <path>
   ai-devtools-cn starter <issue-number> --output <path>
   ai-devtools-cn recommend <keyword>
@@ -338,6 +339,7 @@ NPM scripts:
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
+  npm run templates:review-pr -- --pr <number-or-url>
   npm run templates:claim -- <issue-number> --output <path>
   npm run templates:starter -- <issue-number> --output <path>
   npm run templates:recommend -- <keyword>
@@ -363,6 +365,7 @@ Examples:
   npx ai-devtools-cn handoff
   npx ai-devtools-cn handoff --output work/external-pr-handoff.md
   npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+  npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
   npx ai-devtools-cn recommend ci
@@ -387,6 +390,7 @@ Examples:
   npm run templates:handoff
   npm run templates:handoff -- --output work/external-pr-handoff.md
   npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+  npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npm run templates:claim -- 45 --output work/claim-45.md
   npm run templates:starter -- 45 --output work/node-ci-starter.md
   npm run templates:recommend -- ci
@@ -410,6 +414,8 @@ Options:
   --scenario <text> Public-safe usage scenario to prefill feedback context
   --channel <slug> Outreach channel: github, x, v2ex, wechat, email
   --issue <number> Good first issue number for a targeted handoff
+  --pr <number-or-url> Pull request number or URL for review-pr
+  --author <username> Pull request author for review-pr
   --force          Overwrite output file if it already exists
 `);
 }
@@ -704,6 +710,103 @@ External PR:
 - Validation:
 - Release:
 \`\`\`
+`;
+}
+
+function createExternalPrReviewChecklist(options) {
+  const content = formatExternalPrReviewChecklist(options);
+
+  if (options.output) {
+    const resolvedOutput = resolveOutputPath(options.output);
+    if (existsSync(resolvedOutput) && !options.force) {
+      fail(`输出文件已存在：${options.output}\n如需覆盖，请加 --force。`);
+    }
+
+    mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+    writeFileSync(resolvedOutput, content, "utf8");
+    console.log(`已生成外部 PR review 清单：${formatDisplayPath(resolvedOutput)}`);
+    return;
+  }
+
+  console.log(content);
+}
+
+function formatExternalPrReviewChecklist(options) {
+  const prValue = options.pr ?? "请填写 PR 编号或链接";
+  const authorValue = options.author ?? "请填写贡献者 GitHub 用户名";
+  const issueValue = options.issue
+    ? (options.issue.startsWith("#") ? options.issue : `#${options.issue}`)
+    : "请填写关联 issue";
+
+  return `# 外部 PR review 清单
+
+PR: ${prValue}
+Author: ${authorValue}
+Related issue: ${issueValue}
+
+这个清单用于 review 真实外部贡献者提交的 PR，并判断它能否记录为 External merged PRs。它不会自动调用 GitHub API，也不会把维护者自己的 PR 变成外部贡献。
+
+## 真实性检查
+
+- [ ] PR 作者不是本仓库维护者本人或维护者控制的备用账号。
+- [ ] PR 有明确改动内容，不是空提交、格式噪音或代发补丁。
+- [ ] PR 关联公开 issue、brief、反馈 issue 或清楚的贡献背景。
+- [ ] 贡献者理解改动内容，能回应 review 反馈。
+- [ ] 如果 PR 来自私聊协助，已确认没有把维护者本地补丁原样代发。
+
+## 公开安全检查
+
+- [ ] 没有 token、API key、cookie、密码或登录信息。
+- [ ] 没有客户名称、内部域名、私有仓库链接或未公开源码。
+- [ ] 日志、路径、服务名和人员信息已经匿名化。
+- [ ] 示例或文档能帮助其他开发者复制到自己的维护场景。
+
+## 验证命令
+
+\`\`\`bash
+npm install
+npm run lint:md
+\`\`\`
+
+如果改动 CLI、模板索引、示例索引或 npm 包内容，也运行：
+
+\`\`\`bash
+npm run test
+npm run templates:publish-check
+npm run pack:dry-run
+\`\`\`
+
+## Review 决策
+
+- [ ] Request changes：需要修正准确性、安全边界、链接或验证。
+- [ ] Comment：只需要非阻塞建议。
+- [ ] Approve：内容可公开、验证通过、对用户有实际帮助。
+- [ ] Merge：合并后关闭关联 issue，并在必要时加入 release note。
+
+## 可复制 review 评论
+
+\`\`\`text
+Thanks for the contribution. I checked the scope, public safety boundary, and validation commands.
+
+Please confirm:
+- The example does not include tokens, private logs, customer data, or unpublished source code.
+- The validation commands listed in the PR were run locally.
+- The PR is based on your own contribution, not a maintainer-authored patch.
+\`\`\`
+
+## evidence ledger 记录
+
+\`\`\`text
+External PR:
+- Contributor: ${authorValue}
+- Issue: ${issueValue}
+- PR: ${prValue}
+- Scope:
+- Validation:
+- Release:
+\`\`\`
+
+只有合并后的真实外部 PR 才能记录为 External merged PRs。不能把维护者自己的 PR、未合并 PR、反馈 issue、claim/starter/handoff 草稿写成 external merged PR。
 `;
 }
 
@@ -2266,6 +2369,16 @@ function parseOptions(values) {
       index += 1;
       continue;
     }
+    if (value === "--pr") {
+      options.pr = values[index + 1];
+      index += 1;
+      continue;
+    }
+    if (value === "--author") {
+      options.author = values[index + 1];
+      index += 1;
+      continue;
+    }
     fail(`未知参数：${value}`);
   }
   return options;
@@ -2296,6 +2409,9 @@ switch (command) {
     break;
   case "handoff":
     showHandoffKit(parseOptions(args));
+    break;
+  case "review-pr":
+    createExternalPrReviewChecklist(parseOptions(args));
     break;
   case "claim":
     createClaimDraft(args[0], parseOptions(args.slice(1)));

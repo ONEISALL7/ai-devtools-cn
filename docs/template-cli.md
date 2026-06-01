@@ -181,6 +181,32 @@ npx ai-devtools-cn handoff
 
 这个命令不会创建 GitHub PR，也不会把维护者自己的草稿计入外部贡献。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。
 
+## 生成外部 PR review 清单
+
+真实外部贡献者提交 PR 后，维护者可以生成 review 和证据记录清单：
+
+```bash
+npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+```
+
+清单会包含：
+
+- PR、作者和关联 issue 字段
+- 外部贡献真实性检查
+- 公开安全检查
+- 本地验证命令
+- review 决策字段
+- 可复制 review 评论
+- evidence ledger 记录格式
+
+这个命令不会自动读取 GitHub，也不会自动把 PR 记为 external merged PR。只有真实外部贡献者提交、通过 review 并合并的 PR，才能进入 External merged PRs。
+
 ## 按任务推荐模板和案例
 
 ```bash
