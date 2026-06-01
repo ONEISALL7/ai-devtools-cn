@@ -31,7 +31,7 @@
 
 如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，并把 [外部试用者快速指南](external-tester-guide.md) 发给对方，再收集反馈。
 
-如果要直接复制发布文案、私信邀请和外部 PR 邀请，使用 [社区发布包](community-launch-pack.md)。它会汇总当前可公开状态、`npx` 试用路径、feedback issue 入口和 Good First PR Briefs 入口。
+如果要直接复制发布文案、私信邀请和外部 PR 邀请，使用 [社区发布包](community-launch-pack.md)。它会汇总当前可公开状态、npm 发布边界、clone 试用路径、feedback issue 入口和 Good First PR Briefs 入口。
 
 如果你想把这件事压缩成一周执行，可以先生成外部试用冲刺包：
 
@@ -86,12 +86,14 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
-v0.10.0 还补了：
+v0.17.0 还补了：
 - 开源维护者工作包
 - 反馈 issue 草稿生成命令
 - 模板注册校验命令
 - examples 命令：列出基础示例、真实维护案例和试用包
 - recommend 命令：按任务关键词推荐模板和案例
+- recipes 命令：按真实维护场景给出 10-20 分钟试用步骤
+- pr-pack / claim / starter：帮助外部贡献者从 good first issue 开始提交 PR
 - 真实维护案例
 - 用户反馈入口
 
@@ -111,7 +113,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例和 v0.10.0 release。
+现在有模板、CLI、真实案例和 GitHub v0.17.0 release；npm 0.17.0 同步中。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -151,6 +153,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - AI output evaluation
 - template CLI
 - examples / recommend / trial commands
+- recipes / pr-pack / review-pr commands
 
 为什么做：
 我发现很多人会用 AI 写代码，但不知道怎么稳定用于 review、排错、发版和维护。这个项目把这些流程整理成可复制模板和案例。
@@ -170,7 +173,8 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.10.0` release 已存在
+- `v0.17.0` release 已存在
+- npm 是否已经同步到 `0.17.0`；未同步时，对外文案优先使用 clone + `npm run templates:*`
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 和 [外部试用者快速指南](external-tester-guide.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
