@@ -680,7 +680,8 @@ function formatApplicationPack(packageJson) {
   return `# OpenAI Codex for Open Source 申请包草稿
 
 > 仓库：https://github.com/ONEISALL7/ai-devtools-cn
-> 当前 npm 候选版本：${packageJson.name}@${packageJson.version}
+> npm 包：https://www.npmjs.com/package/${packageJson.name}
+> 当前 npm 发布版本：${packageJson.name}@${packageJson.version}
 
 这个文件用于申请前整理表单字段和公开证据。它不会自动提交申请，也不会替代真实外部采用证据。
 
@@ -691,13 +692,9 @@ npm run metrics:snapshot -- --output work/metrics.md
 npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:publish-check
 npm run pack:dry-run
-\`\`\`
-
-如果 npm 包已经发布，再补充：
-
-\`\`\`bash
-npm view ai-devtools-cn version
-npx ai-devtools-cn doctor
+npm view ${packageJson.name} version
+npx ${packageJson.name} doctor
+npx ${packageJson.name} adoption --template pr-review --output work/adoption-sprint
 \`\`\`
 
 ## 表单字段草稿
@@ -725,13 +722,13 @@ I am the primary maintainer of this public repository. I created and maintain th
 提交前请先用 \`npm run metrics:snapshot\` 更新数字，再替换方括号内容。
 
 \`\`\`text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on open-source maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and maintainer automation. It has active maintenance records, [merged PR count] merged PRs, [closed issue count] closed issues, [release count] releases, CI, a template CLI, and public feedback channels.
+ai-devtools-cn is a public Chinese AI developer tooling project focused on open-source maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and maintainer automation. It has active maintenance records, [merged PR count] merged PRs, [closed issue count] closed issues, [release count] releases, CI, a published npm CLI, and public feedback channels.
 \`\`\`
 
 如果外部采用仍不足，使用更保守版本：
 
 \`\`\`text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a CLI for PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and evidence tracking. We are now collecting external usage through npm publishing, feedback issues, and good first issues.
+ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and evidence tracking. We are now collecting external usage through feedback issues, good first issues, and real-world case studies.
 \`\`\`
 
 ### How will you use API credits?
@@ -743,7 +740,7 @@ We will use API credits to support open-source maintenance workflows: PR review 
 ### Anything else we should know?
 
 \`\`\`text
-This project is early, so we do not want to overstate adoption. The current strength is active maintenance and clear OSS maintainer workflows: issues, PRs, releases, CI, CLI tooling, case studies, feedback channels, outreach tooling, contributor onboarding, and evidence tracking. Our next milestone is external usage: npm publishing, feedback issues, and external PRs.
+This project is early, so we do not want to overstate adoption. The current strength is active maintenance and clear OSS maintainer workflows: issues, PRs, releases, CI, published npm CLI, case studies, feedback channels, outreach tooling, contributor onboarding, and evidence tracking. Our next milestone is more external feedback issues, external PRs, and feedback-driven releases.
 \`\`\`
 
 ## 证据清单
@@ -754,7 +751,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - Latest release: https://github.com/ONEISALL7/ai-devtools-cn/releases
 - Metrics snapshot: \`work/metrics.md\`
 - External evidence ledger: \`work/external-evidence.md\`
-- npm package page:
+- npm package page: https://www.npmjs.com/package/${packageJson.name}
 - External feedback issues:
 - External merged PRs:
 - Public mentions:
@@ -762,8 +759,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 ## 当前必须如实承认的短板
 
-- npm 包如果还没发布，就不能写 npm downloads。
-- External feedback issues 如果仍为 0，就不能写已有真实用户反馈。
+- npm 包已发布，但不能写 npm downloads，除非有可核验下载量。
+- External feedback issues 数量不足时，只能写早期反馈，不能写稳定采用。
 - External merged PRs 如果仍为 0，就不能写已有外部贡献者。
 - stars、forks、下载量、用户数不能夸大。
 
@@ -831,7 +828,7 @@ npm downloads：
 
 | 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
 | --- | --- | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | npm publish |  | maintainer | yes | 首次发布 npm 包 | 24 小时后检查下载量 |
+| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 后续检查下载量 |
 | YYYY-MM-DD | external feedback issue |  | GitHub user | yes | 用户试用模板后的反馈 | 建立改进 issue |
 | YYYY-MM-DD | external PR |  | GitHub user | yes | 外部贡献者提交文档/案例 | review 并合并 |
 | YYYY-MM-DD | public mention |  | X/V2EX/blog | yes | 公开介绍或讨论项目 | 回复并邀请反馈 |
@@ -864,12 +861,12 @@ The project has public maintenance records, regular releases, a working CLI, npm
 如果外部证据仍不足，应如实写：
 
 \`\`\`text
-The project is early and actively maintained. Current strength is maintainer activity, releases, CI, templates, CLI tooling, and clear feedback channels. External adoption is still being collected through npm publishing, outreach, feedback issues, and good first issues.
+The project is early and actively maintained. Current strength is maintainer activity, releases, CI, templates, a published npm CLI, and clear feedback channels. External adoption is still being collected through outreach, feedback issues, good first issues, and real-world case studies.
 \`\`\`
 
 ## 下一步
 
-1. 发布 npm 包并记录 npm 页面链接。
+1. 记录 npm 页面链接、当前版本和 \`npx ai-devtools-cn doctor\` 验证结果。
 2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
 3. 引导试用者提交 feedback issue。
 4. 邀请外部贡献者认领 good first issue。

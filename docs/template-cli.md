@@ -334,11 +334,12 @@ npx ai-devtools-cn application --output work/openai-application.md
 - 项目资格说明的如实版本和保守版本
 - API credits 使用计划
 - 证据清单
+- npm package 链接和 `npx ai-devtools-cn doctor` 验证提醒
 - 当前必须如实承认的短板
 - 推荐申请判断
 - 不要提交的夸大表述
 
-这个命令不会提交表单，也不会自动生成外部采用证据。提交前仍需要运行 `npm run metrics:snapshot`，并用 `npm run templates:evidence` 记录真实外部证据。
+这个命令不会提交表单，也不会自动生成外部采用证据。提交前仍需要运行 `npm run metrics:snapshot`，并用 `npm run templates:evidence` 记录真实外部证据；外部反馈和外部 PR 不足时要如实说明。
 
 ## 校验模板注册表
 
