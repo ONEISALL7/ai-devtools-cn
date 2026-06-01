@@ -1021,6 +1021,8 @@ npm run pack:dry-run
 npm view ${packageJson.name} version
 npx ${packageJson.name} doctor
 npx ${packageJson.name} adoption --template pr-review --output work/adoption-sprint
+npx ${packageJson.name} claim 45 --output work/claim-45.md
+npx ${packageJson.name} starter 45 --output work/node-ci-starter.md
 \`\`\`
 
 ## 表单字段草稿
@@ -1057,6 +1059,12 @@ ai-devtools-cn is a public Chinese AI developer tooling project focused on open-
 ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and evidence tracking. We are now collecting external usage through feedback issues, good first issues, and real-world case studies.
 \`\`\`
 
+### External contribution pipeline
+
+\`\`\`text
+The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, claim, and starter. These commands help a real contributor choose #45-#49, draft a claim, generate a local starter file, and prepare a normal GitHub PR from their own account.
+\`\`\`
+
 ### How will you use API credits?
 
 \`\`\`text
@@ -1078,6 +1086,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 - Metrics snapshot: \`work/metrics.md\`
 - External evidence ledger: \`work/external-evidence.md\`
 - npm package page: https://www.npmjs.com/package/${packageJson.name}
+- Good First PR Briefs: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
+- External contribution commands: \`npx ai-devtools-cn claim 45\`, \`npx ai-devtools-cn starter 45\`
 - External feedback issues:
 - External merged PRs:
 - Public mentions:
@@ -1169,6 +1179,7 @@ npm downloads：
 - 外部用户提交的 feedback issue。
 - 基于外部 feedback issue 完成的维护者 PR 和 release，但要标明它不是外部 PR。
 - 外部贡献者提交并合并的 PR。
+- Good First PR Briefs、claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
 - 公开帖子、博客、讨论或引用。
 - 经允许匿名化整理的真实使用案例。
 
@@ -1176,6 +1187,7 @@ npm downloads：
 
 - 维护者自己创建或关闭的 issue。
 - 维护者自己提交的 PR。
+- 维护者或 CLI 生成的 claim/starter 本地草稿；generated local drafts are not external merged PRs。
 - 仅用于测试 issue template 的占位 issue。
 - 没有链接、无法核验的截图或口头说法。
 - 未经允许的私聊内容。
@@ -1199,7 +1211,7 @@ The project is early and actively maintained. Current strength is maintainer act
 1. 记录 npm 页面链接、当前版本和 \`npx ai-devtools-cn doctor\` 验证结果。
 2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
 3. 引导试用者提交 feedback issue。
-4. 邀请外部贡献者认领 good first issue。
+4. 邀请外部贡献者认领 good first issue，并让他们用 \`npx ai-devtools-cn claim 45\` 和 \`npx ai-devtools-cn starter 45\` 准备真实 PR。
 5. 根据外部反馈发布一个反馈驱动版本。
 `;
 }
