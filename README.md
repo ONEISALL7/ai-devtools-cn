@@ -44,6 +44,7 @@ examples/    示例工作流
 
 ```bash
 npx ai-devtools-cn doctor
+npx ai-devtools-cn contribute
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
@@ -55,6 +56,7 @@ npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npm install
 npm run templates:list
 npm run templates:examples
+npm run templates:contribute
 npm run templates:recommend -- ci
 npm run templates:validate
 npm run templates:doctor
@@ -74,6 +76,7 @@ npm run templates:application -- --output work/openai-application.md
 ```bash
 npx ai-devtools-cn list
 npx ai-devtools-cn examples
+npx ai-devtools-cn contribute
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn doctor
 npx ai-devtools-cn publish-check

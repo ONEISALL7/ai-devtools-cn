@@ -26,6 +26,14 @@ npm run test
 npm run templates:publish-check
 ```
 
+如果你通过 npm/npx 第一次发现本项目，也可以先运行：
+
+```bash
+npx ai-devtools-cn contribute
+```
+
+这个命令会列出当前可认领任务、brief 链接、最小验证命令和公开安全边界。
+
 ## 公开安全边界
 
 不要提交：

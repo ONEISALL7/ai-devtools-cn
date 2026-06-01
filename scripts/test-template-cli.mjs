@@ -33,6 +33,17 @@ const examplesAliasOutput = run(["templates:examples"]);
 assert.match(examplesAliasOutput, /真实维护案例/);
 assert.match(examplesAliasOutput, /template-registry-validation/);
 
+const contributeOutput = run(["contribute"]);
+assert.match(contributeOutput, /Good First PR Briefs/);
+assert.match(contributeOutput, /#45/);
+assert.match(contributeOutput, /#49/);
+assert.match(contributeOutput, /npm run lint:md/);
+assert.match(contributeOutput, /external merged PR/);
+
+const contributeAliasOutput = run(["templates:contribute"]);
+assert.match(contributeAliasOutput, /外部贡献者入口/);
+assert.match(contributeAliasOutput, /docs\/good-first-pr-briefs\.md/);
+
 const recommendOutput = run(["recommend", "ci"]);
 assert.match(recommendOutput, /Recommended templates/);
 assert.match(recommendOutput, /ci-troubleshooting/);

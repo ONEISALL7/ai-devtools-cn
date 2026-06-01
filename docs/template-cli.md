@@ -51,6 +51,28 @@ npx ai-devtools-cn examples
 
 每条记录包含 slug、标题、适用场景、关联模板和文件路径，适合第一次进入项目时快速找到可复制案例。
 
+## 查看外部贡献任务
+
+```bash
+npm run templates:contribute
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn contribute
+```
+
+这个命令会列出：
+
+- Good First PR Briefs 链接
+- 当前 #45-#49 可认领任务
+- 每个任务的 issue、brief 和建议 PR 标题
+- 最小验证命令
+- 公开安全边界
+
+这个命令面向真实外部贡献者。维护者自己完成的 PR 不能写成 external merged PR。
+
 ## 按任务推荐模板和案例
 
 ```bash

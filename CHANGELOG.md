@@ -8,6 +8,7 @@
 - 优化 PR 模板和 issue 新建页入口，帮助第一次外部贡献者找到试用指南、Good First Issues 和支持入口
 - 新增 Good First PR Briefs，把 #45-#49 拆成外部贡献者可直接认领的小型 PR brief
 - 新增社区发布包，提供 X/V2EX/私信/外部 PR 邀请文案和 #51 发布后记录格式
+- 新增 CLI `contribute` 命令，帮助外部贡献者通过 `npx` 找到 Good First PR Briefs 和可认领任务
 
 ## 0.16.2 - 2026-06-01
 

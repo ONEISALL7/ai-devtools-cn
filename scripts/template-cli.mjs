@@ -261,6 +261,44 @@ const outreachChannels = [
   },
 ];
 
+const goodFirstPrBriefs = [
+  {
+    issue: "#45",
+    title: "Node.js CI 排错示例",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/45",
+    brief: "docs/good-first-pr-briefs.md#45-nodejs-ci-排错示例",
+    suggestedTitle: "Add Node.js CI troubleshooting case study",
+  },
+  {
+    issue: "#46",
+    title: "依赖升级风险示例",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/46",
+    brief: "docs/good-first-pr-briefs.md#46-依赖升级风险示例",
+    suggestedTitle: "Add dependency upgrade risk example",
+  },
+  {
+    issue: "#47",
+    title: "用户反馈案例整理文档",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/47",
+    brief: "docs/good-first-pr-briefs.md#47-用户反馈案例整理文档",
+    suggestedTitle: "Add user feedback case documentation guide",
+  },
+  {
+    issue: "#48",
+    title: "Python 项目 PR review 示例",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/48",
+    brief: "docs/good-first-pr-briefs.md#48-python-项目-pr-review-示例",
+    suggestedTitle: "Add Python PR review example",
+  },
+  {
+    issue: "#49",
+    title: "前端 README 改进示例",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn/issues/49",
+    brief: "docs/good-first-pr-briefs.md#49-前端-readme-改进示例",
+    suggestedTitle: "Add frontend README improvement example",
+  },
+];
+
 const rawCommand = process.argv[2] ?? "help";
 const command = rawCommand.startsWith("templates:")
   ? rawCommand.slice("templates:".length)
@@ -273,6 +311,7 @@ function printHelp() {
 Usage:
   ai-devtools-cn list
   ai-devtools-cn examples
+  ai-devtools-cn contribute
   ai-devtools-cn recommend <keyword>
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
@@ -291,6 +330,7 @@ Usage:
 NPM scripts:
   npm run templates:list
   npm run templates:examples
+  npm run templates:contribute
   npm run templates:recommend -- <keyword>
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
@@ -309,6 +349,7 @@ NPM scripts:
 Examples:
   npx ai-devtools-cn list
   npx ai-devtools-cn examples
+  npx ai-devtools-cn contribute
   npx ai-devtools-cn recommend ci
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
@@ -326,6 +367,7 @@ Examples:
 
   npm run templates:list
   npm run templates:examples
+  npm run templates:contribute
   npm run templates:recommend -- ci
   npm run templates:search -- ci
   npm run templates:show -- pr-review
@@ -388,6 +430,38 @@ function listExamples() {
 `);
     }
   }
+}
+
+function listContributionBriefs() {
+  console.log(`外部贡献者入口
+
+Good First PR Briefs:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
+
+这些任务面向真实外部贡献者。维护者自己完成的 PR 不能写成 external merged PR。
+`);
+
+  for (const item of goodFirstPrBriefs) {
+    console.log(`${item.issue} ${item.title}
+  Issue: ${item.url}
+  Brief: ${item.brief}
+  Suggested PR title: ${item.suggestedTitle}
+`);
+  }
+
+  console.log(`最小验证命令:
+  npm install
+  npm run lint:md
+
+如果改动 CLI 注册表、示例索引或模板目录，也运行:
+  npm run test
+  npm run templates:publish-check
+
+公开安全边界:
+- 不提交 token、API key、cookie、密码
+- 不提交客户信息、内部日志、未公开源码或个人隐私
+- 真实经验请匿名化后再写进示例或文档
+`);
 }
 
 function showTemplate(slug) {
@@ -1732,6 +1806,9 @@ switch (command) {
     break;
   case "examples":
     listExamples();
+    break;
+  case "contribute":
+    listContributionBriefs();
     break;
   case "recommend":
     recommend(args[0]);
