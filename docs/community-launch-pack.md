@@ -79,6 +79,11 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 如果对方想贡献 PR，发这个入口：
 
 ```text
+先确认 npm 当前已发布版本：
+npm view ai-devtools-cn version
+
+如果 npx 提示未知命令，说明 npm 包还没有同步到 GitHub main 的最新 CLI；可以先让对方看文档，或你在仓库内用 npm run templates:* 生成材料。
+
 不用打开文档，也可以先生成一份本地交接包：
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
 
