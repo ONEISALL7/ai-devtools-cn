@@ -53,6 +53,8 @@ npm view ai-devtools-cn version
 ```bash
 npx ai-devtools-cn doctor
 npx ai-devtools-cn launch
+npx ai-devtools-cn recipes
+npx ai-devtools-cn recipes ci-failure
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
@@ -72,6 +74,8 @@ npx ai-devtools-cn publish-status
 npm install
 npm run templates:list
 npm run templates:examples
+npm run templates:recipes
+npm run templates:recipes -- ci-failure
 npm run templates:launch
 npm run templates:contribute
 npm run templates:handoff
@@ -99,6 +103,8 @@ npm run templates:application -- --output work/openai-application.md
 ```bash
 npx ai-devtools-cn list
 npx ai-devtools-cn examples
+npx ai-devtools-cn recipes
+npx ai-devtools-cn recipes pr-review-docs
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
 npx ai-devtools-cn handoff --output work/external-pr-handoff.md
@@ -167,6 +173,7 @@ npm run templates:starter -- 45 --output work/starter-45.md
 | 你是谁 | 第一步 |
 | --- | --- |
 | 第一次试用的外部用户 | 看 [外部试用者快速指南](docs/external-tester-guide.md)，完成一次 10-15 分钟试用 |
+| 想直接照着做一个场景的用户 | 看 [真实试用配方](docs/usage-recipes.md)，选择 `pr-review-docs`、`ci-failure`、`issue-triage` 或 `release-note` |
 | 个人开发者 | 用 [PR Review 模板](templates/pr-review-template.md) 检查一次改动 |
 | 开源维护者 | 用 [Issue Triage 模板](templates/issue-triage-template.md) 分流一个 issue |
 | 想邀请外部贡献者的维护者 | 用 [外部贡献者引导模板](templates/contributor-onboarding-template.md) 写清楚第一个 PR |
@@ -227,6 +234,7 @@ npm run templates:starter -- 45 --output work/starter-45.md
 - [社区推广和反馈收集](docs/community-outreach.md)
 - [社区发布包](docs/community-launch-pack.md)
 - [外部试用者快速指南](docs/external-tester-guide.md)
+- [真实试用配方](docs/usage-recipes.md)
 - [第一批用户试用计划](docs/first-user-test-plan.md)
 - [外部 PR 交接包](docs/external-pr-handoff-kit.md)
 - [支持入口](SUPPORT.md)

@@ -35,6 +35,22 @@ const examplesAliasOutput = run(["templates:examples"]);
 assert.match(examplesAliasOutput, /真实维护案例/);
 assert.match(examplesAliasOutput, /template-registry-validation/);
 
+const recipesOutput = run(["recipes"]);
+assert.match(recipesOutput, /真实试用配方/);
+assert.match(recipesOutput, /pr-review-docs/);
+assert.match(recipesOutput, /ci-failure/);
+assert.match(recipesOutput, /ai-devtools-cn recipes pr-review-docs/);
+
+const recipeOutput = run(["recipes", "ci-failure"]);
+assert.match(recipeOutput, /CI 失败排查/);
+assert.match(recipeOutput, /npx ai-devtools-cn trial --template ci-troubleshooting/);
+assert.match(recipeOutput, /反馈 issue/);
+
+assert.throws(
+  () => run(["recipes", "unknown-recipe"]),
+  /未知使用配方/
+);
+
 const contributeOutput = run(["contribute"]);
 assert.match(contributeOutput, /Good First PR Briefs/);
 assert.match(contributeOutput, /#45/);

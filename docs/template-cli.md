@@ -59,6 +59,39 @@ npx ai-devtools-cn examples
 
 每条记录包含 slug、标题、适用场景、关联模板和文件路径，适合第一次进入项目时快速找到可复制案例。
 
+## 查看真实试用配方
+
+```bash
+npm run templates:recipes
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn recipes
+```
+
+如果已经知道配方 slug，可以展开具体步骤：
+
+```bash
+npm run templates:recipes -- ci-failure
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn recipes ci-failure
+```
+
+配方会把模板、命令、步骤和可记录证据放在一起，适合外部试用者用 10-20 分钟完成一个公开安全的小场景。当前包含：
+
+- `pr-review-docs`
+- `ci-failure`
+- `issue-triage`
+- `release-note`
+
+完整说明见 [真实试用配方](usage-recipes.md)。
+
 ## 查看外部贡献任务
 
 ```bash
@@ -613,11 +646,12 @@ npx ai-devtools-cn publish-check
 
 1. 运行 `npm run templates:list` 找到模板 slug。
 2. 运行 `npm run templates:examples` 找到可复制案例或试用包。
-3. 不确定时运行 `npm run templates:recommend -- <keyword>` 获取推荐。
-4. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
-5. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
-6. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
-7. 把整理后的提示词复制到你的 AI 开发工具。
+3. 如果想直接照着真实场景试用，运行 `npm run templates:recipes` 查看配方。
+4. 不确定时运行 `npm run templates:recommend -- <keyword>` 获取推荐。
+5. 运行 `npm run templates:show -- <slug>` 确认是否适合当前任务。
+6. 运行 `npm run templates:new -- <slug> --output work/<task>.md` 生成工作稿。
+7. 补齐工作稿中的项目背景、技术栈、日志、约束条件和期望输出。
+8. 把整理后的提示词复制到你的 AI 开发工具。
 
 如果你是开源项目维护者，想先建立一整套基础流程，可以直接运行 `npm run templates:kit -- oss-maintainer --output work/oss-maintainer-kit`。
 

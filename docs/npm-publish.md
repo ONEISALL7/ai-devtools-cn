@@ -125,6 +125,8 @@ npm publish --dry-run --access public --cache /private/tmp/ai-devtools-cn-npm-ca
 ```bash
 npm run templates:list
 npm run templates:examples
+npm run templates:recipes
+npm run templates:recipes -- ci-failure
 npm run templates:doctor
 npm run templates:launch
 npm run templates:contribute
@@ -181,6 +183,8 @@ npm publish --access public --cache /private/tmp/ai-devtools-cn-npm-cache --stri
 npm view ai-devtools-cn version
 npx ai-devtools-cn list
 npx ai-devtools-cn examples
+npx ai-devtools-cn recipes
+npx ai-devtools-cn recipes ci-failure
 npx ai-devtools-cn doctor
 npx ai-devtools-cn launch
 npx ai-devtools-cn contribute
