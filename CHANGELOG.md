@@ -14,6 +14,7 @@
 - 新增 CLI `starter` 命令，为 #45-#49 good first issue 生成可填写的案例或文档起稿
 - 刷新 OpenAI 申请包、证据台账和社区发布包，纳入 `claim`/`starter` 外部贡献转化管线
 - 刷新 OpenAI 申请准备静态指标，更新 PR、issue、release、tracked files 和 CLI 能力概览
+- 刷新 Codex for Open Source 准备文档，移除旧 PR/issue/release 快照并补充外部贡献转化入口
 
 ## 0.16.2 - 2026-06-01
 
