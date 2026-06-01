@@ -1845,7 +1845,7 @@ npm downloads：
 
 | 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 继续同步 0.16.2 并检查下载量 |
+| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 继续同步当前 release 并检查下载量 |
 | 2026-05-31 | external feedback issue | https://github.com/ONEISALL7/ai-devtools-cn/issues/169 | @oneshots | yes | 用户反馈 CI 排错模板缺少 pnpm workspace / monorepo 示例 | 已通过 #173 和 v0.16.2 回应 |
 | 2026-06-01 | feedback-driven PR | https://github.com/ONEISALL7/ai-devtools-cn/pull/173 | maintainer | yes | 基于 #169 新增 pnpm workspace CI 排错试用包 | 不计为 external merged PR |
 | 2026-06-01 | feedback-driven release | https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.2 | maintainer | yes | 发布反馈驱动的 pnpm workspace CI 试用包版本 | npm 0.16.2 仍需完成 2FA 发布 |

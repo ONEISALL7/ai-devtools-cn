@@ -166,7 +166,7 @@ const publishStatusBehindOutput = run(["publish-status"], {
   },
 });
 assert.match(publishStatusBehindOutput, /AI DevTools CN publish status/);
-assert.match(publishStatusBehindOutput, /Local package\.json: 0\.16\.2/);
+assert.match(publishStatusBehindOutput, /Local package\.json: 0\.17\.0/);
 assert.match(publishStatusBehindOutput, /npm package: 0\.16\.1/);
 assert.match(publishStatusBehindOutput, /GitHub latest release: v0\.16\.2/);
 assert.match(publishStatusBehindOutput, /Commits after latest release: 5/);
@@ -177,8 +177,8 @@ assert.match(publishStatusBehindOutput, /npm publish --access public/);
 const publishStatusSyncedOutput = run(["templates:publish-status"], {
   env: {
     ...process.env,
-    AI_DEVTOOLS_CN_NPM_VERSION: "0.16.2",
-    AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.16.2",
+    AI_DEVTOOLS_CN_NPM_VERSION: "0.17.0",
+    AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.17.0",
     AI_DEVTOOLS_CN_COMMITS_AFTER_RELEASE: "0",
   },
 });

@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.17.0 - 2026-06-01
+
 - 更新 `evidence` 台账输出，预填 #169 外部反馈到 #173/v0.16.2 反馈驱动改进的可核验链路
 - 优化 PR 模板和 issue 新建页入口，帮助第一次外部贡献者找到试用指南、Good First Issues 和支持入口
 - 新增 Good First PR Briefs，把 #45-#49 拆成外部贡献者可直接认领的小型 PR brief
@@ -12,9 +14,13 @@
 - 新增 CLI `launch` 命令，帮助维护者通过 `npx` 找到社区发布包、反馈入口和外部 PR 邀请入口
 - 新增 CLI `claim` 命令，为 #45-#49 good first issue 生成外部贡献者认领和 PR 描述草稿
 - 新增 CLI `starter` 命令，为 #45-#49 good first issue 生成可填写的案例或文档起稿
+- 新增 CLI `handoff`、`pr-pack` 和 `review-pr` 命令，帮助维护者邀请真实外部贡献者并审查外部 PR 证据边界
+- 新增 CLI `publish-status` 命令，检查 npm 公开版本、GitHub release、`package.json` 和 source/release 边界
+- 新增 CLI `recipes` 命令和真实试用配方文档，帮助外部用户用 10-20 分钟完成 PR review、CI 排错、issue triage 或 release note 试用
 - 刷新 OpenAI 申请包、证据台账和社区发布包，纳入 `claim`/`starter` 外部贡献转化管线
 - 刷新 OpenAI 申请准备静态指标，更新 PR、issue、release、tracked files 和 CLI 能力概览
 - 刷新 Codex for Open Source 准备文档，移除旧 PR/issue/release 快照并补充外部贡献转化入口
+- 更新 npm 发布清单，明确当前 source 领先最新 release tag 时需要先创建新 release 或切回已验证 tag
 
 ## 0.16.2 - 2026-06-01
 
