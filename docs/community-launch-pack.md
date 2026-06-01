@@ -44,6 +44,7 @@ AI DevTools CN 是一个面向中文开发者和开源维护者的 AI 工程维�
 不用 clone 仓库，可以直接试：
 
 npx ai-devtools-cn doctor
+npx ai-devtools-cn contribute
 npx ai-devtools-cn examples
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
@@ -95,6 +96,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 不用 clone，直接跑：
 
 npx ai-devtools-cn doctor
+npx ai-devtools-cn contribute
 npx ai-devtools-cn examples
 npx ai-devtools-cn trial --template pr-review --output work/trial
 
