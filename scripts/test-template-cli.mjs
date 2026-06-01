@@ -430,8 +430,11 @@ assert.match(applicationDraft, /ONEISALL7/);
 assert.match(applicationDraft, /Why does this repository qualify/);
 assert.match(applicationDraft, /不要提交的表述/);
 assert.match(applicationDraft, /Good First PR Briefs/);
-assert.match(applicationDraft, /npx ai-devtools-cn claim 45/);
-assert.match(applicationDraft, /npx ai-devtools-cn starter 45/);
+assert.match(applicationDraft, /本地 package\.json 版本/);
+assert.match(applicationDraft, /npm run templates:publish-status/);
+assert.match(applicationDraft, /npm run templates:pr-pack -- 45/);
+assert.match(applicationDraft, /npm run templates:claim -- 45/);
+assert.match(applicationDraft, /npm run templates:starter -- 45/);
 
 assert.throws(
   () => run(["application", "--output", applicationPath]),

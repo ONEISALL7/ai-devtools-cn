@@ -74,8 +74,9 @@ stars：20 个以上更有说服力
 
 - GitHub stars：3
 - Forks：1
-- Merged PRs：106
-- Closed issues：106
+- Merged PRs：110
+- Closed issues：107
+- Open issues：7（包含 npm 0.16.2 发布同步 #223 和 #45-#49 外部贡献任务）
 - Releases：19
 - External merged PRs：0
 - External feedback issues：1（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
@@ -93,7 +94,7 @@ I am the primary maintainer of this repository. I maintain the documentation and
 ## Why does this repository qualify 草稿
 
 ```text
-This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 106 merged PRs, 106 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue.
+This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 110 merged PRs, 107 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue.
 ```
 
 提交前请把最后一句改成真实数据，例如：
@@ -135,14 +136,13 @@ npm run templates:application -- --output work/openai-application.md
 
 ```bash
 npm view ai-devtools-cn version
-npx ai-devtools-cn launch
-npx ai-devtools-cn contribute
-npx ai-devtools-cn handoff --output work/external-pr-handoff.md
-npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
-npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+npm install
+npm run templates:contribute
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；先改用仓库内 `npm run templates:*` 命令或等待下一次 npm 发布。
+当前 npm 公开包仍是 `0.16.1`，GitHub `main` 和最新 release 是 `0.16.2`。`pr-pack` 的 npx 路径需要等 #223 完成并验证后再对外使用。
 
-`handoff`、`claim` 和 `starter` 只生成本地草稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。
+`pr-pack`、`claim` 和 `starter` 只生成本地草稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。

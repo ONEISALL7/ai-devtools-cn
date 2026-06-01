@@ -1512,7 +1512,7 @@ function formatApplicationPack(packageJson) {
 
 > 仓库：https://github.com/ONEISALL7/ai-devtools-cn
 > npm 包：https://www.npmjs.com/package/${packageJson.name}
-> 当前 npm 发布版本：${packageJson.name}@${packageJson.version}
+> 本地 package.json 版本：${packageJson.name}@${packageJson.version}
 
 这个文件用于申请前整理表单字段和公开证据。它不会自动提交申请，也不会替代真实外部采用证据。
 
@@ -1521,15 +1521,20 @@ function formatApplicationPack(packageJson) {
 \`\`\`bash
 npm run metrics:snapshot -- --output work/metrics.md
 npm run templates:evidence -- --output work/external-evidence.md
+npm run templates:publish-status
 npm run templates:publish-check
 npm run pack:dry-run
 npm view ${packageJson.name} version
-npx ${packageJson.name} doctor
-npx ${packageJson.name} adoption --template pr-review --output work/adoption-sprint
-npx ${packageJson.name} handoff --output work/external-pr-handoff.md
-npx ${packageJson.name} claim 45 --output work/claim-45.md
-npx ${packageJson.name} starter 45 --output work/node-ci-starter.md
+npm run templates:doctor
+npm run templates:adoption -- --template pr-review --output work/adoption-sprint
+npm run templates:contribute
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/node-ci-starter.md
 \`\`\`
+
+如果 \`npm view ${packageJson.name} version\` 低于本地 \`package.json\` 版本，申请材料里要写清 npm 尚未同步，不要把 source-only CLI 能力写成已发布 npm 能力。
 
 ## 表单字段草稿
 
@@ -1568,7 +1573,7 @@ ai-devtools-cn is an early but actively maintained public OSS project for Chines
 ### External contribution pipeline
 
 \`\`\`text
-The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, handoff, claim, and starter. These commands help a real contributor choose #45-#49, receive a copy-ready PR handoff, draft a claim, generate a local starter file, and prepare a normal GitHub PR from their own account.
+The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, handoff, pr-pack, review-pr, claim, and starter. These commands help a real contributor choose #45-#49, receive a copy-ready PR pack, draft a claim, generate a local starter file, prepare a normal GitHub PR from their own account, and give maintainers a review checklist for deciding whether the merged PR can count as an external contribution.
 \`\`\`
 
 ### How will you use API credits?
@@ -1593,7 +1598,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 - External evidence ledger: \`work/external-evidence.md\`
 - npm package page: https://www.npmjs.com/package/${packageJson.name}
 - Good First PR Briefs: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
-- External contribution commands: \`npx ai-devtools-cn handoff\`, \`npx ai-devtools-cn claim 45\`, \`npx ai-devtools-cn starter 45\`
+- External contribution commands: \`npm run templates:pr-pack -- 45\`, \`npm run templates:claim -- 45\`, \`npm run templates:starter -- 45\`, \`npm run templates:review-pr -- --pr 123 --author external-dev --issue 45\`
+- npm publish sync status: \`npm run templates:publish-status\`
 - External feedback issues:
 - External merged PRs:
 - Public mentions:
@@ -1602,6 +1608,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 ## 当前必须如实承认的短板
 
 - npm 包已发布，但不能写 npm downloads，除非有可核验下载量。
+- 如果 npm 已发布版本低于 GitHub release，要如实写版本差异。
 - External feedback issues 数量不足时，只能写早期反馈，不能写稳定采用。
 - External merged PRs 如果仍为 0，就不能写已有外部贡献者。
 - stars、forks、下载量、用户数不能夸大。
@@ -1610,7 +1617,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 
 可以早期申请，但更稳妥的申请时机是同时满足：
 
-- npm 包已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
+- npm 包已发布，并能通过 \`npm run templates:publish-status\` 或 \`npx ai-devtools-cn publish-status\` 验证。
 - 至少 3-5 条外部 feedback issue。
 - 至少 1 个外部贡献 PR。
 - 有一版基于真实反馈改进的 release。
@@ -1670,7 +1677,7 @@ npm downloads：
 
 | 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 后续检查下载量 |
+| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 继续同步 0.16.2 并检查下载量 |
 | 2026-05-31 | external feedback issue | https://github.com/ONEISALL7/ai-devtools-cn/issues/169 | @oneshots | yes | 用户反馈 CI 排错模板缺少 pnpm workspace / monorepo 示例 | 已通过 #173 和 v0.16.2 回应 |
 | 2026-06-01 | feedback-driven PR | https://github.com/ONEISALL7/ai-devtools-cn/pull/173 | maintainer | yes | 基于 #169 新增 pnpm workspace CI 排错试用包 | 不计为 external merged PR |
 | 2026-06-01 | feedback-driven release | https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.2 | maintainer | yes | 发布反馈驱动的 pnpm workspace CI 试用包版本 | npm 0.16.2 仍需完成 2FA 发布 |
@@ -1685,7 +1692,7 @@ npm downloads：
 - 外部用户提交的 feedback issue。
 - 基于外部 feedback issue 完成的维护者 PR 和 release，但要标明它不是外部 PR。
 - 外部贡献者提交并合并的 PR。
-- Good First PR Briefs、handoff/claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
+- Good First PR Briefs、handoff/pr-pack/review-pr/claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
 - 公开帖子、博客、讨论或引用。
 - 经允许匿名化整理的真实使用案例。
 
@@ -1717,7 +1724,7 @@ The project is early and actively maintained. Current strength is maintainer act
 1. 记录 npm 页面链接、当前版本和 \`npx ai-devtools-cn doctor\` 验证结果。
 2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
 3. 引导试用者提交 feedback issue。
-4. 邀请外部贡献者认领 good first issue，并让他们用 \`npx ai-devtools-cn handoff\`、\`npx ai-devtools-cn claim 45\` 和 \`npx ai-devtools-cn starter 45\` 准备真实 PR。
+4. 邀请外部贡献者认领 good first issue，并让他们先 clone 仓库，再用 \`npm run templates:pr-pack -- 45\`、\`npm run templates:claim -- 45\` 和 \`npm run templates:starter -- 45\` 准备真实 PR；npm 同步后再改用 npx 路径。
 5. 根据外部反馈发布一个反馈驱动版本。
 `;
 }
