@@ -162,13 +162,16 @@ const publishStatusBehindOutput = run(["publish-status"], {
     ...process.env,
     AI_DEVTOOLS_CN_NPM_VERSION: "0.16.1",
     AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.16.2",
+    AI_DEVTOOLS_CN_COMMITS_AFTER_RELEASE: "5",
   },
 });
 assert.match(publishStatusBehindOutput, /AI DevTools CN publish status/);
 assert.match(publishStatusBehindOutput, /Local package\.json: 0\.16\.2/);
 assert.match(publishStatusBehindOutput, /npm package: 0\.16\.1/);
 assert.match(publishStatusBehindOutput, /GitHub latest release: v0\.16\.2/);
+assert.match(publishStatusBehindOutput, /Commits after latest release: 5/);
 assert.match(publishStatusBehindOutput, /Status: npm is behind local package\.json/);
+assert.match(publishStatusBehindOutput, /source is ahead of latest release tag/);
 assert.match(publishStatusBehindOutput, /npm publish --access public/);
 
 const publishStatusSyncedOutput = run(["templates:publish-status"], {
@@ -176,9 +179,11 @@ const publishStatusSyncedOutput = run(["templates:publish-status"], {
     ...process.env,
     AI_DEVTOOLS_CN_NPM_VERSION: "0.16.2",
     AI_DEVTOOLS_CN_RELEASE_VERSION: "v0.16.2",
+    AI_DEVTOOLS_CN_COMMITS_AFTER_RELEASE: "0",
   },
 });
 assert.match(publishStatusSyncedOutput, /Status: npm matches local package\.json/);
+assert.match(publishStatusSyncedOutput, /Commits after latest release: 0/);
 assert.match(publishStatusSyncedOutput, /npx ai-devtools-cn doctor/);
 
 const doctorOutput = run(["doctor"]);

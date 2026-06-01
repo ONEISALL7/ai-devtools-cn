@@ -589,11 +589,14 @@ npx ai-devtools-cn publish-status
 - `package.json` 本地版本
 - npm 当前公开版本
 - GitHub 最新 release tag
+- 当前源码是否领先最新 release tag
 - npm 是否落后本地版本
 - 发布前验证命令
 - 发布后的 `npx` smoke check
 
 如果 npm 版本落后，不要把 GitHub `main` 上的新命令写成“外部用户已经能通过 npx 使用”。应先完成 npm 发布，或者让贡献者 clone 仓库后使用 `npm run templates:*` 命令。
+
+如果输出显示 `source is ahead of latest release tag`，说明当前 `main` 已经包含最新 GitHub release 没有覆盖的提交。此时不要直接把当前 `main` 当成旧 release 发布；要么从已验证的 release tag 发布旧版本内容，要么先创建新的 GitHub release，再发布当前 `main`。
 
 ## 校验模板注册表
 
