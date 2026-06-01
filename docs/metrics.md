@@ -58,6 +58,8 @@ npm run templates:evidence -- --output work/external-evidence.md
 
 如果 `gh` 未登录，部分指标会显示 `unknown` 或 `unavailable`。
 
+脚本会把 `gh pr list` 和 `gh issue list` 的取数上限设为最近 1000 条，避免项目超过 100 条 PR 或 issue 后低估维护记录。这个快照仍然不是无限分页审计；当项目规模超过 1000 条相关记录时，应在申请前补充更完整的统计方式。
+
 ## 建议频率
 
 每周记录一次：

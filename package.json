@@ -39,9 +39,10 @@
   },
   "scripts": {
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"!node_modules/**\" \"!work/**\"",
-    "test": "npm run test:cli && npm run test:date && npm run lint:md",
+    "test": "npm run test:cli && npm run test:date && npm run test:metrics && npm run lint:md",
     "test:cli": "node scripts/test-template-cli.mjs",
     "test:date": "node scripts/test-date-utils.mjs",
+    "test:metrics": "node scripts/test-metrics-snapshot.mjs",
     "pack:dry-run": "npm pack --dry-run",
     "metrics:snapshot": "node scripts/metrics-snapshot.mjs",
     "templates:help": "node scripts/template-cli.mjs help",

@@ -74,8 +74,8 @@ stars：20 个以上更有说服力
 
 - GitHub stars：3
 - Forks：1
-- Merged PRs：94
-- Closed issues：94
+- Merged PRs：102
+- Closed issues：102
 - Releases：19
 - External merged PRs：0
 - External feedback issues：1（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
@@ -92,7 +92,7 @@ I am the primary maintainer of this repository. I maintain the documentation and
 ## Why does this repository qualify 草稿
 
 ```text
-This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 94 merged PRs, 94 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue.
+This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 102 merged PRs, 102 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue.
 ```
 
 提交前请把最后一句改成真实数据，例如：
