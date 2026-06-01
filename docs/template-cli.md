@@ -118,6 +118,30 @@ npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
 https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml
 ```
 
+## 生成外部 pilot 邀请包
+
+如果你准备同时邀请 2-3 位真实外部开发者试用，可以先生成一份可复制邀请和跟进表：
+
+```bash
+npm run templates:pilot-invite -- --output work/pilot-invites.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn pilot-invite --output work/pilot-invites.md
+```
+
+这个命令会生成：
+
+- 一对一邀请文案，适合发给认识的开发者或开源维护者。
+- 公开渠道邀请文案，适合 X、V2EX、微信群或技术社群。
+- 推荐的 `pilot` recipe 和本地生成命令。
+- 维护者跟进表，用于记录邀请对象、feedback issue 和后续动作。
+- 证据边界，明确 feedback issue、external merged PR 和 feedback-driven PR 的区别。
+
+`pilot-invite` 不会自动发送消息，也不会创建 GitHub issue。它的价值是把“找真实外部用户试用”变成可执行的复制文本和记录表，避免后续申请材料混淆维护者自测与真实外部反馈。
+
 ## 查看外部贡献任务
 
 ```bash

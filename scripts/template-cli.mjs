@@ -312,6 +312,12 @@ const recipes = [
   },
 ];
 
+const pilotInviteRecipeSlugs = [
+  "ci-failure",
+  "pr-review-docs",
+  "issue-triage",
+];
+
 const outreachChannels = [
   {
     slug: "github",
@@ -415,6 +421,7 @@ Usage:
   ai-devtools-cn recipes
   ai-devtools-cn recipes <slug>
   ai-devtools-cn pilot <recipe-slug>
+  ai-devtools-cn pilot-invite
   ai-devtools-cn contribute
   ai-devtools-cn launch
   ai-devtools-cn handoff
@@ -445,6 +452,7 @@ NPM scripts:
   npm run templates:recipes
   npm run templates:recipes -- <slug>
   npm run templates:pilot -- <recipe-slug>
+  npm run templates:pilot-invite
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -474,6 +482,7 @@ Examples:
   npx ai-devtools-cn recipes
   npx ai-devtools-cn recipes pr-review-docs
   npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
+  npx ai-devtools-cn pilot-invite --output work/pilot-invites.md
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
   npx ai-devtools-cn handoff
@@ -504,6 +513,7 @@ Examples:
   npm run templates:recipes
   npm run templates:recipes -- ci-failure
   npm run templates:pilot -- ci-failure --output work/pilot-ci
+  npm run templates:pilot-invite -- --output work/pilot-invites.md
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -1616,6 +1626,25 @@ function createPilotPack(recipeSlug, options) {
   }
 }
 
+function createPilotInvitePack(options = {}) {
+  const inviteRecipes = pilotInviteRecipeSlugs.map((slug) => requireRecipe(slug));
+  const content = formatPilotInvitePack(inviteRecipes);
+
+  if (options.output) {
+    const resolvedOutput = resolveOutputPath(options.output);
+    if (existsSync(resolvedOutput) && !options.force) {
+      fail(`输出文件已存在：${options.output}\n如需覆盖，请加 --force。`);
+    }
+
+    mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+    writeFileSync(resolvedOutput, content, "utf8");
+    console.log(`已生成外部试用邀请包：${formatDisplayPath(resolvedOutput)}`);
+    return;
+  }
+
+  console.log(content);
+}
+
 function createFeedbackDraft(options) {
   const template = options.template ? requireTemplate(options.template) : null;
   const outputPath = options.output ?? path.join(
@@ -2156,6 +2185,118 @@ ${scenarioLine}
 `;
 }
 
+function formatPilotInvitePack(inviteRecipes) {
+  const recipeRows = inviteRecipes
+    .map((recipe) => {
+      const outputDir = `work/pilot-${recipe.slug}`;
+      return `| ${recipe.slug} | ${recipe.title} | ${recipe.scenario} | \`npx ai-devtools-cn pilot ${recipe.slug} --output ${outputDir} --force\` |`;
+    })
+    .join("\n");
+  const commandList = inviteRecipes
+    .map((recipe) => `npx ai-devtools-cn pilot ${recipe.slug} --output work/pilot-${recipe.slug} --force`)
+    .join("\n");
+  const selectedRecipe = inviteRecipes[0];
+
+  return `# AI DevTools CN 外部试用邀请包
+
+这个文件用于维护者邀请 2-3 位真实外部开发者完成 30 分钟 pilot 试用，并把反馈沉淀成可公开核验的 GitHub issue。它不是宣传稿，也不能把维护者自测写成外部采用。
+
+## 适合邀请的人
+
+- 近期处理过 PR review、issue triage、CI 排错、release note 或文档维护的人。
+- 愿意用公开安全的小场景试用模板，并提交 GitHub feedback issue 的开发者。
+- 可以说清楚哪里有用、哪里不清楚、是否能进入真实维护流程的人。
+
+## 推荐先生成的 pilot 包
+
+| Recipe | 用途 | 场景 | 生成命令 |
+| --- | --- | --- | --- |
+${recipeRows}
+
+一次只发给一个人一个 recipe，不要让外部试用者同时跑太多任务。维护者可以先在本地生成任务包，检查里面的 \`tester-task.md\`，再复制给对方。
+
+\`\`\`bash
+${commandList}
+\`\`\`
+
+## 一对一邀请文案
+
+\`\`\`text
+我在维护一个中文开源项目 AI DevTools CN，想请你帮忙做一次 30 分钟外部试用。
+
+项目地址：
+https://github.com/ONEISALL7/ai-devtools-cn
+
+这次建议试用：${selectedRecipe.slug} - ${selectedRecipe.title}
+目标：${selectedRecipe.goal}
+
+你可以运行：
+npx ai-devtools-cn doctor
+npx ai-devtools-cn pilot ${selectedRecipe.slug} --output work/pilot-${selectedRecipe.slug} --force
+
+然后打开：
+work/pilot-${selectedRecipe.slug}/tester-task.md
+
+请用一个可以公开描述的小场景试用，不要提交 token、客户信息、内部日志、未公开源码或个人隐私。试完后请通过任务包里的 GitHub issue 链接提交反馈。
+\`\`\`
+
+## 公开渠道邀请文案
+
+\`\`\`text
+我在维护 AI DevTools CN，一个面向中文开发者和开源维护者的 AI 工程维护模板库。
+
+现在想找 2-3 位真实开发者做 30 分钟 pilot：
+- PR review
+- CI failure debugging
+- issue triage
+- release note drafting
+
+不是刷 star，也不是抽奖。只想验证这些模板和 CLI 能不能进入真实维护流程。
+
+试用命令：
+npx ai-devtools-cn pilot ci-failure --output work/pilot-ci-failure --force
+
+反馈入口会在生成的 tester-task.md 里。请不要提交 token、客户信息、内部日志、未公开源码或个人隐私。
+
+https://github.com/ONEISALL7/ai-devtools-cn
+\`\`\`
+
+## 维护者跟进表
+
+| 日期 | 邀请对象 | Recipe | 是否回复 | Feedback issue | 后续动作 |
+| --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD | @username | ci-failure | yes/no |  | triage |
+| YYYY-MM-DD | @username | pr-review-docs | yes/no |  | triage |
+| YYYY-MM-DD | @username | issue-triage | yes/no |  | triage |
+
+## 反馈入口
+
+外部 pilot 任务包会指向这个结构化表单：
+
+${externalPilotFeedbackUrl}
+
+如果对方只是快速复制模板试用，没有使用 pilot 包，也可以走通用反馈表单：
+
+${templateFeedbackUrl}
+
+## 证据边界
+
+- 外部用户自己提交的 feedback issue 可以记录为 external feedback。
+- 外部用户用自己的 GitHub 账号提交并合并的 PR 才能记录为 external merged PR。
+- 维护者根据外部反馈完成的 PR 是 feedback-driven PR，不能写成外部 PR。
+- 私聊反馈只有在对方允许匿名整理后，才能作为匿名案例。
+- 不要购买 star、反馈或 PR，不要让别人原样代发维护者写好的补丁。
+
+## 收到反馈后的维护动作
+
+1. 给 feedback issue 加上 \`feedback\`、\`external-pilot\` 和相关场景 label。
+2. 判断反馈是否能转成小 issue、文档修正、模板补充或 CLI 改进。
+3. 如果改进进入 PR，在 PR 描述里引用 feedback issue。
+4. 合并后在 release note 或 changelog 中标明 feedback-driven。
+5. 更新 #51 或 \`npm run templates:evidence\` 生成的证据台账。
+`;
+}
+
 function formatPilotReadme(recipe, template) {
   const trialCommand = `npx ai-devtools-cn trial --template ${template.slug} --scenario ${formatShellArg(recipe.scenario)} --output work/ai-devtools-cn-trial`;
   const feedbackCommand = `npx ai-devtools-cn feedback --template ${template.slug} --scenario ${formatShellArg(recipe.scenario)} --output work/feedback.md`;
@@ -2572,6 +2713,7 @@ function runPublishCheck() {
     "templates:validate",
     "templates:publish-check",
     "templates:recipes",
+    "templates:pilot-invite",
     "templates:adoption",
     "templates:handoff",
     "templates:evidence",
@@ -3037,6 +3179,9 @@ switch (command) {
     break;
   case "pilot":
     createPilotPack(args[0], parseOptions(args.slice(1)));
+    break;
+  case "pilot-invite":
+    createPilotInvitePack(parseOptions(args));
     break;
   case "contribute":
     listContributionBriefs();
