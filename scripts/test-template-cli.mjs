@@ -67,6 +67,15 @@ const handoffAliasOutput = run(["templates:handoff"]);
 assert.match(handoffAliasOutput, /Fork 仓库/);
 assert.match(handoffAliasOutput, /Good First PR Briefs/);
 
+const issueHandoffOutput = run(["handoff", "--issue", "45"]);
+assert.match(issueHandoffOutput, /针对 #45 的外部 PR 交接包/);
+assert.match(issueHandoffOutput, /Node\.js CI 排错示例/);
+assert.match(issueHandoffOutput, /Add Node\.js CI troubleshooting case study/);
+assert.match(issueHandoffOutput, /add-node-js-ci-troubleshooting-case-study/);
+assert.match(issueHandoffOutput, /npx ai-devtools-cn claim 45/);
+assert.match(issueHandoffOutput, /npx ai-devtools-cn starter 45/);
+assert.match(issueHandoffOutput, /docs\/good-first-pr-briefs\.md#45-nodejs-ci-排错示例/);
+
 const recommendOutput = run(["recommend", "ci"]);
 assert.match(recommendOutput, /Recommended templates/);
 assert.match(recommendOutput, /ci-troubleshooting/);
@@ -418,6 +427,17 @@ const callerHandoffDraft = readFileSync(path.join(callerDir, "work", "external-p
 assert.match(callerHandoffDraft, /外部 PR 交接包/);
 assert.match(callerHandoffDraft, /External PR/);
 assert.match(callerHandoffDraft, /不能把维护者自己/);
+
+const callerIssueHandoffOutput = run(["handoff", "--issue", "48", "--output", "work/python-handoff.md"], {
+  cwd: callerDir,
+});
+assert.match(callerIssueHandoffOutput, /work\/python-handoff\.md/);
+assert.equal(existsSync(path.join(callerDir, "work", "python-handoff.md")), true);
+
+const callerIssueHandoffDraft = readFileSync(path.join(callerDir, "work", "python-handoff.md"), "utf8");
+assert.match(callerIssueHandoffDraft, /针对 #48 的外部 PR 交接包/);
+assert.match(callerIssueHandoffDraft, /Python 项目 PR review 示例/);
+assert.match(callerIssueHandoffDraft, /npx ai-devtools-cn claim 48/);
 
 const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidence.md"], {
   cwd: callerDir,
