@@ -179,7 +179,6 @@ npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
 npm run templates:evidence -- --output work/external-evidence.md
-npm run templates:application -- --output work/openai-application.md
 npm run templates:publish-status
 npm run templates:publish-check
 npm run templates:validate
@@ -238,7 +237,6 @@ npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
-npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-status
 npx ai-devtools-cn publish-check
 npx ai-devtools-cn validate

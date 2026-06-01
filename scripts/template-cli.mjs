@@ -440,7 +440,6 @@ Usage:
   ai-devtools-cn outreach --output <path>
   ai-devtools-cn adoption --output <dir>
   ai-devtools-cn evidence --output <path>
-  ai-devtools-cn application --output <path>
   ai-devtools-cn publish-status
   ai-devtools-cn doctor
   ai-devtools-cn validate
@@ -470,7 +469,6 @@ NPM scripts:
   npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
   npm run templates:adoption -- --template <slug> --output <dir>
   npm run templates:evidence -- --output <path>
-  npm run templates:application -- --output <path>
   npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
@@ -502,7 +500,6 @@ Examples:
   npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
   npx ai-devtools-cn adoption --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npx ai-devtools-cn evidence --output work/external-evidence.md
-  npx ai-devtools-cn application --output work/openai-application.md
   npx ai-devtools-cn publish-status
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
@@ -533,7 +530,6 @@ Examples:
   npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
   npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npm run templates:evidence -- --output work/external-evidence.md
-  npm run templates:application -- --output work/openai-application.md
   npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
@@ -1732,20 +1728,6 @@ function createEvidenceLedger(options) {
   console.log(`已生成外部采用证据台账：${formatDisplayPath(resolvedOutput)}`);
 }
 
-function createApplicationPack(options) {
-  const outputPath = options.output ?? path.join("work", "openai-codex-oss-application.md");
-  const resolvedOutput = resolveOutputPath(outputPath);
-  const packageJson = JSON.parse(readFileSync(path.resolve(packageRoot, "package.json"), "utf8"));
-
-  if (existsSync(resolvedOutput) && !options.force) {
-    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
-  }
-
-  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
-  writeFileSync(resolvedOutput, formatApplicationPack(packageJson), "utf8");
-  console.log(`已生成 OpenAI 申请包草稿：${formatDisplayPath(resolvedOutput)}`);
-}
-
 function formatWorkingDraft(template) {
   return `# ${template.title}工作稿
 
@@ -1770,140 +1752,10 @@ ${readTemplate(template).trim()}
 `;
 }
 
-function formatApplicationPack(packageJson) {
-  return `# OpenAI Codex for Open Source 申请包草稿
-
-> 仓库：https://github.com/ONEISALL7/ai-devtools-cn
-> npm 包：https://www.npmjs.com/package/${packageJson.name}
-> 本地 package.json 版本：${packageJson.name}@${packageJson.version}
-
-这个文件用于申请前整理表单字段和公开证据。它不会自动提交申请，也不会替代真实外部采用证据。
-
-## 提交前必须刷新
-
-\`\`\`bash
-npm run metrics:snapshot -- --output work/metrics.md
-npm run templates:evidence -- --output work/external-evidence.md
-npm run templates:publish-status
-npm run templates:publish-check
-npm run pack:dry-run
-npm view ${packageJson.name} version
-npm run templates:doctor
-npm run templates:adoption -- --template pr-review --output work/adoption-sprint
-npm run templates:contribute
-npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
-npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
-npm run templates:claim -- 45 --output work/claim-45.md
-npm run templates:starter -- 45 --output work/node-ci-starter.md
-\`\`\`
-
-如果 \`npm view ${packageJson.name} version\` 低于本地 \`package.json\` 版本，申请材料里要写清 npm 尚未同步，不要把 source-only CLI 能力写成已发布 npm 能力。
-
-## 表单字段草稿
-
-### GitHub username
-
-\`\`\`text
-ONEISALL7
-\`\`\`
-
-### Public repository URL
-
-\`\`\`text
-https://github.com/ONEISALL7/ai-devtools-cn
-\`\`\`
-
-### Describe your role
-
-\`\`\`text
-I am the primary maintainer of this public repository. I created and maintain the project, triage issues, manage releases, maintain CI, write documentation, add templates, and improve the CLI for AI-assisted open-source maintenance workflows.
-\`\`\`
-
-### Why does this repository qualify?
-
-提交前请先用 \`npm run metrics:snapshot\` 更新数字，再替换方括号内容。
-
-\`\`\`text
-ai-devtools-cn is a public Chinese AI developer tooling project focused on open-source maintenance workflows: PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and maintainer automation. It has active maintenance records, [merged PR count] merged PRs, [closed issue count] closed issues, [release count] releases, CI, a published npm CLI, and public feedback channels.
-\`\`\`
-
-如果外部采用仍不足，使用更保守版本：
-
-\`\`\`text
-ai-devtools-cn is an early but actively maintained public OSS project for Chinese developers. It provides reusable AI maintenance templates and a published npm CLI for PR review, issue triage, CI debugging, release notes, security review, contributor onboarding, and evidence tracking. We are now collecting external usage through feedback issues, good first issues, and real-world case studies.
-\`\`\`
-
-### External contribution pipeline
-
-\`\`\`text
-The repository has Good First PR Briefs and CLI commands for external contributors: launch, contribute, handoff, pr-pack, review-pr, claim, and starter. These commands help a real contributor choose #45-#49, receive a copy-ready PR pack, draft a claim, generate a local starter file, prepare a normal GitHub PR from their own account, and give maintainers a review checklist for deciding whether the merged PR can count as an external contribution.
-\`\`\`
-
-### How will you use API credits?
-
-\`\`\`text
-We will use API credits to support open-source maintenance workflows: PR review assistance, issue triage, CI log summarization, test generation, documentation updates, release note drafting, template quality checks, and feedback summarization. Credits would help validate real workflows, improve the CLI, and publish reusable examples for Chinese open-source maintainers.
-\`\`\`
-
-### Anything else we should know?
-
-\`\`\`text
-This project is early, so we do not want to overstate adoption. The current strength is active maintenance and clear OSS maintainer workflows: issues, PRs, releases, CI, published npm CLI, case studies, feedback channels, outreach tooling, contributor onboarding, and evidence tracking. Our next milestone is more external feedback issues, external PRs, and feedback-driven releases.
-\`\`\`
-
-## 证据清单
-
-提交前把每一项链接补齐：
-
-- Repository: https://github.com/ONEISALL7/ai-devtools-cn
-- Latest release: https://github.com/ONEISALL7/ai-devtools-cn/releases
-- Metrics snapshot: \`work/metrics.md\`
-- External evidence ledger: \`work/external-evidence.md\`
-- npm package page: https://www.npmjs.com/package/${packageJson.name}
-- Good First PR Briefs: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
-- External contribution commands: \`npm run templates:pr-pack -- 45\`, \`npm run templates:claim -- 45\`, \`npm run templates:starter -- 45\`, \`npm run templates:review-pr -- --pr 123 --author external-dev --issue 45\`
-- npm publish sync status: \`npm run templates:publish-status\`
-- External feedback issues:
-- External merged PRs:
-- Public mentions:
-- Feedback-driven release:
-
-## 当前必须如实承认的短板
-
-- npm 包已发布，但不能写 npm downloads，除非有可核验下载量。
-- 如果 npm 已发布版本低于 GitHub release，要如实写版本差异。
-- External feedback issues 数量不足时，只能写早期反馈，不能写稳定采用。
-- External merged PRs 如果仍为 0，就不能写已有外部贡献者。
-- stars、forks、下载量、用户数不能夸大。
-
-## 推荐申请判断
-
-可以早期申请，但更稳妥的申请时机是同时满足：
-
-- npm 包已发布，并能通过 \`npm run templates:publish-status\` 或 \`npx ai-devtools-cn publish-status\` 验证。
-- 至少 3-5 条外部 feedback issue。
-- 至少 1 个外部贡献 PR。
-- 有一版基于真实反馈改进的 release。
-- \`work/external-evidence.md\` 中每条证据都有可核验链接。
-
-## 不要提交的表述
-
-\`\`\`text
-I want free ChatGPT Pro.
-I want to try Codex.
-This project is widely used.
-We have many users.
-External contributors are active.
-\`\`\`
-
-除非公开证据能证明，否则不要使用这些说法。
-`;
-}
-
 function formatEvidenceLedger() {
   return `# AI DevTools CN 外部采用证据台账
 
-这个台账用于记录可公开核验的外部采用信号，辅助维护复盘和 OpenAI Codex for Open Source 申请准备。它不是宣传稿，也不是用来包装维护者自建活动的材料。
+这个台账用于记录可公开核验的外部采用信号，辅助维护复盘和公开项目运营。它不是宣传稿，也不是用来包装维护者自建活动的材料。
 
 ## 记录原则
 
@@ -1949,7 +1801,7 @@ npm downloads：
 | YYYY-MM-DD | public mention |  | X/V2EX/blog | yes | 公开介绍或讨论项目 | 回复并邀请反馈 |
 | YYYY-MM-DD | anonymized case study |  | anonymous | partial | 经允许整理的匿名案例 | 沉淀到 examples |
 
-## 可计入申请材料的证据
+## 可计入公开证据台账的内容
 
 - npm package 已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
 - 外部用户提交的 feedback issue。
@@ -2048,7 +1900,7 @@ npm run templates:feedback -- --template ${template.slug} --scenario ${scenarioA
 
 ## 不要做的事
 
-- 不要承诺 OpenAI 申请结果。
+- 不要承诺任何外部项目、权益或合作结果。
 - 不要把维护者自己的 issue、PR、测试反馈写成外部采用。
 - 不要要求用户公开私有代码、token、客户日志或敏感事故细节。
 - 不要购买 star、反馈或 PR。
@@ -2108,7 +1960,7 @@ function formatAdoptionFeedbackLog(template, options) {
 > 推荐模板：${template.slug} - ${template.title}
 > 试用场景：${scenarioLine}
 
-这个文件用于记录真实外部采用信号。只有可核验链接、经允许匿名整理的案例，或公开 issue / PR 才能进入申请材料。
+这个文件用于记录真实外部采用信号。只有可核验链接、经允许匿名整理的案例，或公开 issue / PR 才能进入公开证据台账。
 
 ## 反馈记录
 
@@ -2128,7 +1980,7 @@ function formatAdoptionFeedbackLog(template, options) {
 - [ ] 如果反馈能沉淀成案例，已确认是否允许匿名整理。
 - [ ] 已把公开链接同步到 \`npm run templates:evidence\` 生成的证据台账。
 
-## 可进入申请材料的说法
+## 可进入公开复盘的说法
 
 \`\`\`text
 We collected public feedback issues and external PRs through a documented one-week adoption sprint. Each signal is linked in the evidence ledger and separated from maintainer-created issues.
@@ -2403,7 +2255,7 @@ function formatPilotMaintainerEvidence(recipe, template) {
 > 模板：${template.slug} - ${template.title}
 > 场景：${recipe.scenario}
 
-这个文件只记录真实外部采用证据。没有公开链接、无法核验或未经允许的私聊反馈，不要写进申请材料。
+这个文件只记录真实外部采用证据。没有公开链接、无法核验或未经允许的私聊反馈，不要写进公开证据台账。
 
 ## 反馈记录
 
@@ -2462,7 +2314,7 @@ function formatOutreachPack(template, channel, options) {
 - [ ] 仓库 README 能说明项目用途和快速开始
 - [ ] 已确认反馈入口可访问
 - [ ] 邀请对象确实有 PR review、CI、issue、release 或文档维护场景
-- [ ] 文案没有夸大 stars、下载量、用户数或 OpenAI 申请结果
+- [ ] 文案没有夸大 stars、下载量、用户数或任何外部项目结果
 - [ ] 已说明不要公开 API key、token、客户信息、内部日志或未公开源码
 
 ## 可直接发送的邀请文案
@@ -2717,7 +2569,6 @@ function runPublishCheck() {
     "templates:adoption",
     "templates:handoff",
     "templates:evidence",
-    "templates:application",
   ];
 
   if (packageJson.name !== "ai-devtools-cn") {
@@ -3237,9 +3088,6 @@ switch (command) {
     break;
   case "evidence":
     createEvidenceLedger(parseOptions(args));
-    break;
-  case "application":
-    createApplicationPack(parseOptions(args));
     break;
   case "publish-status":
     showPublishStatus();

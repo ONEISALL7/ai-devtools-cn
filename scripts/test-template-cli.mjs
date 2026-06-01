@@ -493,36 +493,6 @@ const evidenceAliasOutput = run(["templates:evidence", "--output", evidenceAlias
 assert.match(evidenceAliasOutput, /已生成外部采用证据台账/);
 assert.equal(existsSync(evidenceAliasPath), true);
 
-const applicationPath = path.join(tempDir, "openai-application.md");
-const applicationOutput = run(["application", "--output", applicationPath]);
-assert.match(applicationOutput, /已生成 OpenAI 申请包草稿/);
-assert.equal(existsSync(applicationPath), true);
-
-const applicationDraft = readFileSync(applicationPath, "utf8");
-assert.match(applicationDraft, /OpenAI Codex for Open Source 申请包草稿/);
-assert.match(applicationDraft, /ONEISALL7/);
-assert.match(applicationDraft, /Why does this repository qualify/);
-assert.match(applicationDraft, /不要提交的表述/);
-assert.match(applicationDraft, /Good First PR Briefs/);
-assert.match(applicationDraft, /本地 package\.json 版本/);
-assert.match(applicationDraft, /npm run templates:publish-status/);
-assert.match(applicationDraft, /npm run templates:pr-pack -- 45/);
-assert.match(applicationDraft, /npm run templates:claim -- 45/);
-assert.match(applicationDraft, /npm run templates:starter -- 45/);
-
-assert.throws(
-  () => run(["application", "--output", applicationPath]),
-  /输出文件已存在/
-);
-
-const forcedApplicationOutput = run(["application", "--output", applicationPath, "--force"]);
-assert.match(forcedApplicationOutput, /已生成 OpenAI 申请包草稿/);
-
-const applicationAliasPath = path.join(tempDir, "openai-application-alias.md");
-const applicationAliasOutput = run(["templates:application", "--output", applicationAliasPath]);
-assert.match(applicationAliasOutput, /已生成 OpenAI 申请包草稿/);
-assert.equal(existsSync(applicationAliasPath), true);
-
 const callerDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-caller-"));
 const callerDraftOutput = run(["new", "pr-review", "--output", "work/pr-review.md"], {
   cwd: callerDir,
@@ -603,12 +573,6 @@ const callerEvidenceOutput = run(["evidence", "--output", "work/external-evidenc
 });
 assert.match(callerEvidenceOutput, /work\/external-evidence\.md/);
 assert.equal(existsSync(path.join(callerDir, "work", "external-evidence.md")), true);
-
-const callerApplicationOutput = run(["application", "--output", "work/openai-application.md"], {
-  cwd: callerDir,
-});
-assert.match(callerApplicationOutput, /work\/openai-application\.md/);
-assert.equal(existsSync(path.join(callerDir, "work", "openai-application.md")), true);
 
 const trialPath = path.join(tempDir, "trial-pack");
 const trialOutput = run([

@@ -4,12 +4,12 @@
 
 ## Unreleased
 
-- 暂无
+- 移除公开仓库中的非项目使用文档和生成命令入口，避免项目首页和文档暴露与项目使用价值无关的准备材料
 
 ## 0.18.2 - 2026-06-01
 
 - 新增 `pilot-invite` 命令，生成面向 2-3 位真实外部试用者的一对一邀请、公开渠道文案、pilot recipe 命令、维护者跟进表和证据边界
-- 更新 README、社区发布包、CLI 文档和申请准备材料，补充通过 `pilot-invite` 获取真实外部反馈的下一步路径
+- 更新 README、社区发布包和 CLI 文档，补充通过 `pilot-invite` 获取真实外部反馈的下一步路径
 
 ## 0.18.1 - 2026-06-01
 
@@ -24,19 +24,19 @@
 ## 0.17.7 - 2026-06-01
 
 - 同步 npm 发布状态，记录 `ai-devtools-cn@0.17.6` 已完成发布和 `0.17.7` 文档同步发布边界
-- 更新申请准备、社区发布包和 npm 发布清单，移除 `0.17.6` 待 2FA 发布提示
-- 刷新 OpenAI 申请材料中的 npm、release 和 CLI 状态，避免对外材料继续引用旧发布状态
+- 更新社区发布包和 npm 发布清单，移除 `0.17.6` 待 2FA 发布提示
+- 刷新公开发布材料中的 npm、release 和 CLI 状态，避免对外材料继续引用旧发布状态
 
 ## 0.17.6 - 2026-06-01
 
 - 新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上运行测试、发布准备检查和打包预检
-- 在 README 和申请准备材料中补充 CI badge 与 CLI 自动化验证证据
+- 在 README 和公开证据材料中补充 CI badge 与 CLI 自动化验证证据
 
 ## 0.17.5 - 2026-06-01
 
-- 同步 npm 已发布状态，更新 README、社区发布包和申请材料中的 `npx` 使用边界
+- 同步 npm 已发布状态，更新 README、社区发布包和公开材料中的 `npx` 使用边界
 - 记录 `ai-devtools-cn@0.17.4` 已完成 npm 发布和 smoke check，避免公开材料继续引用旧版 npm 状态
-- 刷新申请准备文档中的 issue、PR、release 和 npm package 快照
+- 刷新公开指标文档中的 issue、PR、release 和 npm package 快照
 
 ## 0.17.4 - 2026-06-01
 
@@ -56,9 +56,9 @@
 
 ## 0.17.1 - 2026-06-01
 
-- 更新 README、社区发布包和 OpenAI 申请准备文档，明确 npm 公开包仍落后时应优先使用 clone + `npm run templates:*` 路径
+- 更新 README 和社区发布包，明确 npm 公开包仍落后时应优先使用 clone + `npm run templates:*` 路径
 - 将当前 source/release 边界整理为 `v0.17.1` patch release，避免把领先 release tag 的 `main` 当作旧版本直接发布到 npm
-- 刷新申请材料中的 PR、release 和 npm 同步目标，继续诚实区分维护者活动、外部反馈和外部 PR
+- 刷新公开证据中的 PR、release 和 npm 同步目标，继续诚实区分维护者活动、外部反馈和外部 PR
 
 ## 0.17.0 - 2026-06-01
 
@@ -73,15 +73,14 @@
 - 新增 CLI `handoff`、`pr-pack` 和 `review-pr` 命令，帮助维护者邀请真实外部贡献者并审查外部 PR 证据边界
 - 新增 CLI `publish-status` 命令，检查 npm 公开版本、GitHub release、`package.json` 和 source/release 边界
 - 新增 CLI `recipes` 命令和真实试用配方文档，帮助外部用户用 10-20 分钟完成 PR review、CI 排错、issue triage 或 release note 试用
-- 刷新 OpenAI 申请包、证据台账和社区发布包，纳入 `claim`/`starter` 外部贡献转化管线
-- 刷新 OpenAI 申请准备静态指标，更新 PR、issue、release、tracked files 和 CLI 能力概览
-- 刷新 Codex for Open Source 准备文档，移除旧 PR/issue/release 快照并补充外部贡献转化入口
+- 刷新证据台账和社区发布包，纳入 `claim`/`starter` 外部贡献转化管线
+- 刷新公开指标快照，更新 PR、issue、release、tracked files 和 CLI 能力概览
 - 更新 npm 发布清单，明确当前 source 领先最新 release tag 时需要先创建新 release 或切回已验证 tag
 
 ## 0.16.2 - 2026-06-01
 
 - 更新 README 和 npm 发布清单，记录 `ai-devtools-cn@0.16.1` 已发布并通过 `npx` 验证
-- 刷新 OpenAI Codex for Open Source 申请材料和 CLI 申请包，纳入 npm 发布、`npx` 验证和外部反馈 #169 证据
+- 刷新公开证据材料，纳入 npm 发布、`npx` 验证和外部反馈 #169 证据
 - 基于外部反馈 #169 新增 pnpm workspace CI 排错试用包，覆盖 monorepo filtered test 和 workspace 依赖构建场景
 
 ## 0.16.1 - 2026-06-01
@@ -95,7 +94,7 @@
 
 ## 0.15.0 - 2026-06-01
 
-- 新增 CLI `application` 命令，生成 OpenAI Codex for Open Source 申请包草稿
+- 新增本地证据整理命令；该公开入口后续已移除
 
 ## 0.14.0 - 2026-06-01
 
@@ -154,7 +153,6 @@
 ## 0.4.0 - 2026-05-31
 
 - 新增用户反馈文档和模板使用反馈 issue 表单
-- 新增 OpenAI Codex for Open Source 申请证据和表单草稿文档
 - 新增 npm 发布清单和社区推广反馈收集 playbook
 - 同步 GitHub label 规范文档
 - 新增项目指标快照脚本和指标追踪文档

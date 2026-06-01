@@ -111,7 +111,6 @@ npm run templates:outreach -- --template pr-review --channel x --output work/out
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
 npm run templates:publish-status
 npm run templates:evidence -- --output work/external-evidence.md
-npm run templates:application -- --output work/openai-application.md
 ```
 
 本仓库当前 CLI 命令：
@@ -138,7 +137,6 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
-npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-status
 ```
 
@@ -250,7 +248,6 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 
 - [如何选择模板](docs/choose-template.md)
 - [模板 CLI](docs/template-cli.md)
-- [OpenAI Codex for Open Source 申请准备](docs/openai-codex-oss-application.md)
 - [npm 发布清单](docs/npm-publish.md)
 - [社区推广和反馈收集](docs/community-outreach.md)
 - [社区发布包](docs/community-launch-pack.md)

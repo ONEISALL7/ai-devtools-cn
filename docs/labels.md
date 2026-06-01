@@ -28,7 +28,6 @@
 | `release` | 发版计划、release note 或版本准备 |
 | `npm` | npm 包、发布和下载量相关工作 |
 | `community` | 社区推广、外部反馈和采用情况 |
-| `application` | OpenAI OSS 申请准备 |
 | `security-review` | 安全审查模板或流程 |
 | `external-pilot` | 通过 30 分钟外部试用任务包提交的结构化反馈 |
 
@@ -40,7 +39,6 @@
 - 用户使用反馈加 `feedback`。
 - 真实工作流案例加 `case-study`。
 - npm 发布、下载量和包结构加 `npm`。
-- OpenAI 申请准备加 `application`。
 - 社区推广和外部采用加 `community`。
 - 通过 `pilot` 任务包提交的反馈加 `external-pilot`。
 - 安全边界相关内容加 `security-review`，不要要求用户公开敏感信息。
@@ -56,7 +54,6 @@
 | 发版准备 | `release`, `needs-triage` |
 | npm 发布 | `npm`, `release`, `needs-triage` |
 | 真实案例 | `case-study`, `documentation` |
-| 申请材料 | `application`, `documentation` |
 | 外部 pilot 反馈 | `feedback`, `external-pilot`, `needs-triage` |
 
 ## 维护建议

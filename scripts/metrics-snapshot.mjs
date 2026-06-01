@@ -130,7 +130,7 @@ ${releaseRows.length > 0 ? releaseRows.map((row) => `- ${row}`).join("\n") : "- 
 
 ## 备注
 
-- 这个快照用于维护者复盘和申请材料准备。
+- 这个快照用于维护者复盘和公开证据追踪。
 - npm 查询失败不一定代表包名不可用，可能是网络、证书或登录环境问题。
 - npm monthly downloads 来自 npm downloads API 的 last-month point 查询；网络失败时会显示 unavailable。
 - 不要手动夸大 stars、downloads、forks 或外部贡献数量。

@@ -140,7 +140,7 @@ npx ai-devtools-cn pilot-invite --output work/pilot-invites.md
 - 维护者跟进表，用于记录邀请对象、feedback issue 和后续动作。
 - 证据边界，明确 feedback issue、external merged PR 和 feedback-driven PR 的区别。
 
-`pilot-invite` 不会自动发送消息，也不会创建 GitHub issue。它的价值是把“找真实外部用户试用”变成可执行的复制文本和记录表，避免后续申请材料混淆维护者自测与真实外部反馈。
+`pilot-invite` 不会自动发送消息，也不会创建 GitHub issue。它的价值是把“找真实外部用户试用”变成可执行的复制文本和记录表，避免后续公开证据混淆维护者自测与真实外部反馈。
 
 ## 查看外部贡献任务
 
@@ -586,39 +586,10 @@ npx ai-devtools-cn evidence --output work/external-evidence.md
 - 外部采用记录原则
 - 当前指标快照填写区
 - npm 发布、外部 feedback issue、反馈驱动 PR/release、外部 PR、公开提及和匿名案例记录表
-- 可计入申请材料的证据类型
+- 可公开核验的外部采用证据类型
 - 不应计入外部采用的内容
-- OpenAI Codex for Open Source 申请表述草稿
 
 这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。维护者基于外部反馈完成的 PR/release 可以作为反馈驱动改进证据，但不能写成 external merged PR。
-
-## 生成 OpenAI 申请包草稿
-
-准备申请 OpenAI Codex for Open Source 前，可以生成一份本地申请包草稿：
-
-```bash
-npm run templates:application -- --output work/openai-application.md
-```
-
-等价的 npx 用法：
-
-```bash
-npx ai-devtools-cn application --output work/openai-application.md
-```
-
-申请包会包含：
-
-- 提交前需要刷新的命令
-- 表单字段草稿
-- 项目资格说明的如实版本和保守版本
-- API credits 使用计划
-- 证据清单
-- npm package 链接和 `npx ai-devtools-cn doctor` 验证提醒
-- 当前必须如实承认的短板
-- 推荐申请判断
-- 不要提交的夸大表述
-
-这个命令不会提交表单，也不会自动生成外部采用证据。提交前仍需要运行 `npm run metrics:snapshot`，并用 `npm run templates:evidence` 记录真实外部证据；外部反馈和外部 PR 不足时要如实说明。
 
 ## 查看 npm 发布同步状态
 

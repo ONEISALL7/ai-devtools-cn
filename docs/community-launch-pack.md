@@ -287,9 +287,9 @@ npx ai-devtools-cn@latest starter 45 --output work/starter-45.md
    npm run templates:evidence -- --output work/external-evidence.md
    ```
 
-## 申请材料边界
+## 公开证据边界
 
-可以写进申请材料：
+可以写进公开证据台账：
 
 - 公开 feedback issue 链接
 - 公开外部 PR 链接
@@ -297,7 +297,7 @@ npx ai-devtools-cn@latest starter 45 --output work/starter-45.md
 - 公开帖子、博客、讨论链接
 - 经允许匿名化的真实使用案例
 
-不能写进申请材料：
+不能写进公开证据台账：
 
 - 维护者自己创建的 issue 伪装成外部反馈
 - 维护者自己提交的 PR 伪装成外部 PR
