@@ -27,10 +27,10 @@ npm run templates:launch
 - 仓库：<https://github.com/ONEISALL7/ai-devtools-cn>
 - npm 包：<https://www.npmjs.com/package/ai-devtools-cn>
 - npm 当前发布版本：`0.16.1`
-- GitHub 最新 release：`v0.16.2`
+- GitHub 当前准备版本：`v0.17.0`
 - 外部反馈：已有 1 条公开 feedback issue，并已转化为 pnpm workspace CI 试用包
 - 外部 merged PR：目前仍为 0
-- npm 0.16.2 发布同步：见 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223)
+- npm 0.17.0 发布同步：见 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223)
 
 不要写：
 
@@ -83,7 +83,7 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 先确认 npm 当前已发布版本：
 npm view ai-devtools-cn version
 
-当前 npm 公开版本仍是 0.16.1，GitHub main 和最新 release 是 0.16.2。0.16.2 发布前，请优先使用 clone 仓库路径。
+当前 npm 公开版本仍是 0.16.1，GitHub main 正在准备 0.17.0 发布。0.17.0 发布前，请优先使用 clone 仓库路径。
 
 推荐先让对方选择 #45-#49 中的一个 issue，并在 issue 下留言认领。然后 clone 仓库后运行：
 
@@ -109,7 +109,7 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 
 可以从 #45-#49 中选一个小任务，brief 里已经写好建议标题、建议文件、验证方式和 PR 描述模板。
 
-0.16.2 发布到 npm 并验证后，才把上面的命令换成 npx 路径：
+0.17.0 发布到 npm 并验证后，才把上面的命令换成 npx 路径：
 
 npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
@@ -264,7 +264,7 @@ npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
 npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 
-等 npm 0.16.2 发布并验证后，可以改用：
+等 npm 0.17.0 发布并验证后，可以改用：
 
 npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 npx ai-devtools-cn claim 45 --output work/claim-45.md
