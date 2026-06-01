@@ -70,13 +70,13 @@ stars：20 个以上更有说服力
 
 ## 当前真实快照
 
-截至 2026-06-01，`ai-devtools-cn` 最新版本是 `v0.16.1`，npm 已发布版本是 `ai-devtools-cn@0.16.1`：
+截至 2026-06-01，`ai-devtools-cn` GitHub 最新 release 是 `v0.16.2`，npm 已发布版本是 `ai-devtools-cn@0.16.1`：
 
-- GitHub stars：2
+- GitHub stars：3
 - Forks：1
-- Merged PRs：81
-- Closed issues：80
-- Releases：18
+- Merged PRs：94
+- Closed issues：94
+- Releases：19
 - External merged PRs：0
 - External feedback issues：1（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
 - npm package：[ai-devtools-cn@0.16.1](https://www.npmjs.com/package/ai-devtools-cn)
@@ -92,7 +92,7 @@ I am the primary maintainer of this repository. I maintain the documentation and
 ## Why does this repository qualify 草稿
 
 ```text
-This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 81 merged PRs, 80 closed issues, 18 releases, CI, a published npm CLI, and one external feedback issue.
+This public OSS project provides Chinese AI developer workflow templates for PR review, issue triage, test generation, documentation, releases, and tool evaluation. It helps developers and maintainers adopt AI tools safely and consistently. The project has 94 merged PRs, 94 closed issues, 19 releases, CI, a published npm CLI, and one external feedback issue.
 ```
 
 提交前请把最后一句改成真实数据，例如：
@@ -127,3 +127,16 @@ npm run templates:application -- --output work/openai-application.md
 ```
 
 申请包草稿会整理表单字段、证据清单、短板提醒和不要提交的夸大表述。它只是本地草稿，不会提交表单，也不能替代真实外部采用证据。
+
+## 外部贡献转化入口
+
+如果要邀请真实外部贡献者提交第一个 PR，可以直接发：
+
+```bash
+npx ai-devtools-cn launch
+npx ai-devtools-cn contribute
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+```
+
+`claim` 和 `starter` 只生成本地草稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。
