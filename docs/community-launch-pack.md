@@ -13,7 +13,7 @@ npm install
 npm run templates:launch
 ```
 
-npm 已发布版本同步到 `0.17.5` 后，可以改用：
+npm 已发布版本同步到 `0.17.6` 后，可以改用：
 
 ```bash
 npx ai-devtools-cn launch
@@ -27,11 +27,11 @@ npx ai-devtools-cn launch
 
 - 仓库：<https://github.com/ONEISALL7/ai-devtools-cn>
 - npm 包：<https://www.npmjs.com/package/ai-devtools-cn>
-- npm 当前发布版本：`0.17.5`
-- GitHub 最新 release：`v0.17.5`
+- npm 当前发布版本：`0.17.6`
+- GitHub 最新 release：`v0.17.6`
 - 外部反馈：已有 1 条公开 feedback issue，并已转化为 pnpm workspace CI 试用包
 - 外部 merged PR：目前仍为 0
-- npm 发布同步：`0.17.5` 已发布并通过 `npx` smoke check
+- npm 发布同步：`0.17.6` 已发布并通过 `npx` smoke check
 
 不要写：
 
