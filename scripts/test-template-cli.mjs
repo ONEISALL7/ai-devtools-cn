@@ -88,6 +88,21 @@ const pilotAliasOutput = run(["templates:pilot", "issue-triage", "--output", pil
 assert.match(pilotAliasOutput, /已生成 30 分钟外部试用任务包/);
 assert.equal(existsSync(path.join(pilotAliasPath, "tester-task.md")), true);
 
+const pilotInviteOutput = run(["pilot-invite"]);
+assert.match(pilotInviteOutput, /外部试用邀请包/);
+assert.match(pilotInviteOutput, /npx ai-devtools-cn pilot ci-failure/);
+assert.match(pilotInviteOutput, /external_pilot_feedback\.yml/);
+assert.match(pilotInviteOutput, /external-pilot/);
+
+const pilotInvitePath = path.join(tempDir, "pilot-invites.md");
+const pilotInviteFileOutput = run(["templates:pilot-invite", "--output", pilotInvitePath]);
+assert.match(pilotInviteFileOutput, /已生成外部试用邀请包/);
+assert.equal(existsSync(pilotInvitePath), true);
+const pilotInviteDraft = readFileSync(pilotInvitePath, "utf8");
+assert.match(pilotInviteDraft, /维护者跟进表/);
+assert.match(pilotInviteDraft, /pr-review-docs/);
+assert.match(pilotInviteDraft, /issue-triage/);
+
 const contributeOutput = run(["contribute"]);
 assert.match(contributeOutput, /Good First PR Briefs/);
 assert.match(contributeOutput, /#45/);
