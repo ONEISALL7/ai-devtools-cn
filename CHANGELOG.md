@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+## 0.17.2 - 2026-06-01
+
+- 修复 `metrics:snapshot` release 统计只读取 20 条的问题，避免 release 数超过 20 后申请指标被低估
+- 增加 release 计数回归测试，确保 GitHub release 列表按更高上限读取
+
 ## 0.17.1 - 2026-06-01
 
 - 更新 README、社区发布包和 OpenAI 申请准备文档，明确 npm 公开包仍落后时应优先使用 clone + `npm run templates:*` 路径

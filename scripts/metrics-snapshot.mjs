@@ -61,7 +61,7 @@ const openIssues = getJson("gh", [
   "number,title,labels,author",
 ]);
 
-const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", "20"]);
+const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", githubListLimit]);
 const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl=false"], {
   allowFailure: true,
 });

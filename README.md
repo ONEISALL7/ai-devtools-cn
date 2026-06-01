@@ -60,7 +60,7 @@ npm run templates:recipes -- ci-failure
 npm run templates:contribute
 ```
 
-当 npm 版本已经同步到 `0.17.1` 或更高时，才可以无需克隆仓库直接运行：
+当 npm 版本已经同步到 `0.17.2` 或更高时，才可以无需克隆仓库直接运行：
 
 ```bash
 npx ai-devtools-cn doctor
