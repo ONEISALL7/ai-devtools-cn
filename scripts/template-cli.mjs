@@ -722,6 +722,9 @@ function showPublishStatus() {
   );
   const npmValue = npmVersion.ok ? npmVersion.value : "unavailable";
   const releaseValue = releaseVersion.ok ? releaseVersion.value : "unavailable";
+  const commitsAfterRelease = getCommitsAfterRelease(releaseValue);
+  const commitsAfterReleaseValue = commitsAfterRelease.ok ? commitsAfterRelease.value : "unavailable";
+  const sourceAheadOfRelease = commitsAfterRelease.ok && Number.parseInt(commitsAfterRelease.value, 10) > 0;
   const npmMatchesLocal = npmVersion.ok && npmValue === localVersion;
   const releaseMatchesLocal = releaseVersion.ok && releaseValue.replace(/^v/, "") === localVersion;
   const status = npmMatchesLocal
@@ -733,14 +736,17 @@ function showPublishStatus() {
 Local package.json: ${localVersion}
 npm package: ${npmValue}
 GitHub latest release: ${releaseValue}
+Commits after latest release: ${commitsAfterReleaseValue}
 
 Status: ${status}
 
 Release alignment:
 - npm ${npmMatchesLocal ? "matches" : "does not match"} local package.json
 - GitHub latest release ${releaseMatchesLocal ? "matches" : "does not match"} local package.json
+- source ${sourceAheadOfRelease ? "is ahead of latest release tag" : "is not ahead of latest release tag"}
 
 Before sending npx commands to external users, npm package should match local package.json.
+If source is ahead of the latest release tag, create a new release before publishing current main to npm.
 
 Next commands if npm is behind:
   npm run test
@@ -754,11 +760,32 @@ Post-publish smoke checks:
   npx ai-devtools-cn doctor
   npx ai-devtools-cn contribute
   npx ai-devtools-cn pr-pack 45
+  npx ai-devtools-cn recipes ci-failure
 
 Evidence note:
 - Record the final npm version, publish time, and smoke-check commands in the release or npm publish issue.
 - Do not claim new npx commands are publicly available until npm package matches local package.json.
 `);
+}
+
+function getCommitsAfterRelease(releaseValue) {
+  const envValue = process.env.AI_DEVTOOLS_CN_COMMITS_AFTER_RELEASE;
+  if (envValue) {
+    return { ok: true, value: envValue.trim() };
+  }
+  if (!releaseValue || releaseValue === "unavailable") {
+    return { ok: false };
+  }
+
+  try {
+    const value = execFileSync("git", ["-C", packageRoot, "rev-list", "--count", `${releaseValue}..HEAD`], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    return { ok: true, value };
+  } catch (error) {
+    return { ok: false, error };
+  }
 }
 
 function showHandoffKit(options = {}) {

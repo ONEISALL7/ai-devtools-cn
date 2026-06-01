@@ -37,6 +37,13 @@ npm run templates:publish-status
 - 等维护者完成下一次 npm 发布后，再发送对应 `npx` 命令。
 - 对外说明“GitHub main 已支持，npm 发布待同步”，避免夸大。
 
+如果 `npm run templates:publish-status` 显示 `source is ahead of latest release tag`，说明当前 `main` 已经领先最新 GitHub release。此时必须先决定发布边界：
+
+- 发布已验证 release tag 对应的旧版本内容。
+- 或者先为当前 `main` 创建新的 GitHub release，再发布这个新版本到 npm。
+
+不要在 source 已领先 release tag 时，把当前 `main` 当成旧 release 直接发布。
+
 ## 首次发布结果
 
 截至 2026-06-01，`ai-devtools-cn@0.16.1` 已成功发布到 npm。
@@ -210,18 +217,20 @@ npx ai-devtools-cn validate
 
 ## 维护者交接清单
 
-真正发布时，维护者按这个顺序执行并把结果记录到 issue #52：
+真正发布时，维护者按这个顺序执行并把结果记录到当前 npm 发布同步 issue，例如 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223)：
 
 1. 确认当前分支是 `main`，并且 `git status --short --branch` 干净。
-2. 确认 `package.json` 版本与 GitHub Release 最新版本一致。
-3. 运行 `npm view ai-devtools-cn version`，确认包名仍未被他人发布；如果返回版本号，先停下来确认所有权。
-4. 运行 `npm login` 和 `npm whoami`，确认 npm 账号无误。
-5. 运行 `npm publish --access public`。
-6. 运行 `npm view ai-devtools-cn version`，确认版本可见。
-7. 运行 `npx ai-devtools-cn publish-status`、`npx ai-devtools-cn doctor` 和 `npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint`。
-8. 在 issue #52 记录 npm 包链接、发布版本、发布时间和验证命令结果。
-9. 在 GitHub Release 中补充 npm 包链接。
-10. 过 24 小时后检查 npm 下载量，并同步到外部采用证据台账。
+2. 运行 `npm run templates:publish-status`，确认 npm、GitHub release、`package.json` 和 source/release 边界。
+3. 如果 source 领先最新 release tag，先创建新的 GitHub release 或切回已验证 release tag。
+4. 确认 `package.json` 版本与准备发布的 GitHub Release 版本一致。
+5. 运行 `npm view ai-devtools-cn version`，确认包名仍未被他人发布；如果返回版本号，先停下来确认所有权。
+6. 运行 `npm login` 和 `npm whoami`，确认 npm 账号无误。
+7. 运行 `npm publish --access public`。
+8. 运行 `npm view ai-devtools-cn version`，确认版本可见。
+9. 运行 `npx ai-devtools-cn publish-status`、`npx ai-devtools-cn doctor`、`npx ai-devtools-cn recipes ci-failure` 和 `npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint`。
+10. 在 npm 发布同步 issue 记录 npm 包链接、发布版本、发布时间和验证命令结果。
+11. 在 GitHub Release 中补充 npm 包链接。
+12. 过 24 小时后检查 npm 下载量，并同步到外部采用证据台账。
 
 ## 发布后更新仓库
 
