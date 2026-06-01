@@ -31,6 +31,8 @@
 
 如果是第一次对外发布，建议先按 [第一批用户试用计划](first-user-test-plan.md) 邀请 5-10 位开发者完成固定试用任务，并把 [外部试用者快速指南](external-tester-guide.md) 发给对方，再收集反馈。
 
+如果要直接复制发布文案、私信邀请和外部 PR 邀请，使用 [社区发布包](community-launch-pack.md)。它会汇总当前可公开状态、`npx` 试用路径、feedback issue 入口和 Good First PR Briefs 入口。
+
 如果你想把这件事压缩成一周执行，可以先生成外部试用冲刺包：
 
 ```bash
