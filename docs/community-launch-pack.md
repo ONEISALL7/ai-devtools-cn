@@ -4,6 +4,22 @@
 
 目标不是刷 star，也不是制造虚假活跃度。目标是找到真的会做 PR review、issue triage、CI 排错、release note 或文档维护的人，让他们用一个小场景试用模板或 CLI，再留下可核验反馈。
 
+## CLI 入口
+
+如果你要快速查看本发布包、反馈入口和外部 PR 邀请入口，可以运行：
+
+```bash
+npx ai-devtools-cn launch
+```
+
+在仓库本地开发时也可以运行：
+
+```bash
+npm run templates:launch
+```
+
+这个命令只打印公开链接、试用命令和记录原则，不会自动发布帖子，也不会把维护者自己的 issue 或 PR 计入外部采用证据。
+
 ## 当前可公开状态
 
 发布时可以如实写：

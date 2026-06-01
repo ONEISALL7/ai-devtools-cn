@@ -44,6 +44,18 @@ const contributeAliasOutput = run(["templates:contribute"]);
 assert.match(contributeAliasOutput, /外部贡献者入口/);
 assert.match(contributeAliasOutput, /docs\/good-first-pr-briefs\.md/);
 
+const launchOutput = run(["launch"]);
+assert.match(launchOutput, /社区发布入口/);
+assert.match(launchOutput, /docs\/community-launch-pack\.md/);
+assert.match(launchOutput, /npx ai-devtools-cn doctor/);
+assert.match(launchOutput, /template_feedback\.yml/);
+assert.match(launchOutput, /Good First PR Briefs/);
+assert.match(launchOutput, /external merged PR/);
+
+const launchAliasOutput = run(["templates:launch"]);
+assert.match(launchAliasOutput, /#51/);
+assert.match(launchAliasOutput, /外部反馈/);
+
 const recommendOutput = run(["recommend", "ci"]);
 assert.match(recommendOutput, /Recommended templates/);
 assert.match(recommendOutput, /ci-troubleshooting/);

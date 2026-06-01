@@ -73,6 +73,29 @@ npx ai-devtools-cn contribute
 
 这个命令面向真实外部贡献者。维护者自己完成的 PR 不能写成 external merged PR。
 
+## 查看社区发布入口
+
+```bash
+npm run templates:launch
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn launch
+```
+
+这个命令会列出：
+
+- 社区发布包链接
+- 当前可公开状态
+- 不用 clone 的试用命令
+- 反馈 issue 入口
+- Good First PR Briefs 链接
+- issue #51 发布后记录入口
+
+这个命令面向准备发布项目、邀请真实试用者或邀请外部 PR 的维护者。它不会自动发布内容，也不会把维护者自己的 issue 或 PR 计入外部采用证据。
+
 ## 按任务推荐模板和案例
 
 ```bash

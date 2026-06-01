@@ -312,6 +312,7 @@ Usage:
   ai-devtools-cn list
   ai-devtools-cn examples
   ai-devtools-cn contribute
+  ai-devtools-cn launch
   ai-devtools-cn recommend <keyword>
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
@@ -331,6 +332,7 @@ NPM scripts:
   npm run templates:list
   npm run templates:examples
   npm run templates:contribute
+  npm run templates:launch
   npm run templates:recommend -- <keyword>
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
@@ -350,6 +352,7 @@ Examples:
   npx ai-devtools-cn list
   npx ai-devtools-cn examples
   npx ai-devtools-cn contribute
+  npx ai-devtools-cn launch
   npx ai-devtools-cn recommend ci
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
@@ -368,6 +371,7 @@ Examples:
   npm run templates:list
   npm run templates:examples
   npm run templates:contribute
+  npm run templates:launch
   npm run templates:recommend -- ci
   npm run templates:search -- ci
   npm run templates:show -- pr-review
@@ -461,6 +465,41 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 - 不提交 token、API key、cookie、密码
 - 不提交客户信息、内部日志、未公开源码或个人隐私
 - 真实经验请匿名化后再写进示例或文档
+`);
+}
+
+function listLaunchChecklist() {
+  console.log(`社区发布入口
+
+Community Launch Pack:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/community-launch-pack.md
+
+当前可公开状态:
+- npm package: https://www.npmjs.com/package/ai-devtools-cn
+- GitHub latest release: https://github.com/ONEISALL7/ai-devtools-cn/releases
+- 外部反馈: 已有 1 条公开 feedback issue，并已转化为反馈驱动改进
+- external merged PR: 目前仍为 0，不能把维护者自己的 PR 写成 external merged PR
+
+不用 clone 的试用命令:
+  npx ai-devtools-cn doctor
+  npx ai-devtools-cn examples
+  npx ai-devtools-cn recommend ci
+  npx ai-devtools-cn trial --template pr-review --output work/trial
+
+外部反馈入口:
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+
+Good First PR Briefs:
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
+
+#51 发布后记录:
+https://github.com/ONEISALL7/ai-devtools-cn/issues/51
+
+记录原则:
+- 真实试用者提交的 feedback issue 可以计入外部反馈
+- 外部贡献者提交并合并的 PR 才能计入 external merged PR
+- 维护者基于外部反馈完成的 PR 可以写成 feedback-driven PR，但不能写成外部 PR
+- 不记录 token、API key、客户信息、内部日志、未公开源码或个人隐私
 `);
 }
 
@@ -1809,6 +1848,9 @@ switch (command) {
     break;
   case "contribute":
     listContributionBriefs();
+    break;
+  case "launch":
+    listLaunchChecklist();
     break;
   case "recommend":
     recommend(args[0]);
