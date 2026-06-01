@@ -4,6 +4,17 @@
 
 如果你想直接开始写 PR，请先看 [Good First PR Briefs](good-first-pr-briefs.md)。那里把每个任务拆成了建议标题、文件、步骤、验证命令和 PR 描述模板。
 
+如果你想先生成本地认领草稿，可以运行：
+
+```bash
+npm view ai-devtools-cn version
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/starter-45.md
+```
+
+把 `45` 替换成你认领的 issue 编号。`npx` 可用命令以 npm 当前已发布版本为准；如果提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI。此时请 clone 仓库后使用对应的 `npm run templates:*` 命令。
+
 ## 当前推荐任务
 
 | Issue | 方向 | 适合贡献者 |
@@ -37,6 +48,9 @@
 5. 生成工作稿或试用包，整理你的示例输入和期望输出：
 
    ```bash
+   npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+   npm run templates:claim -- 45 --output work/claim-45.md
+   npm run templates:starter -- 45 --output work/starter-45.md
    npm run templates:new -- pr-review --output work/pr-review.md
    npm run templates:trial -- --template ci-troubleshooting --scenario "debug a failing CI job" --output work/trial-ci
    ```
@@ -56,6 +70,8 @@ PR 描述建议包含：
 - 新增或修改的文件
 - 使用了哪个模板或案例作为参考
 - 本地验证结果，例如 `npm run lint:md`
+
+如果 PR 是外部贡献者提交并合并，维护者可以把它记录为 external merged PR。维护者自己生成的 handoff、claim 或 starter 草稿不能计入 external merged PR。
 
 更完整的可复制 PR brief 见 [Good First PR Briefs](good-first-pr-briefs.md)。
 
