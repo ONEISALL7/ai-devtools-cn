@@ -836,6 +836,9 @@ npm downloads：
 | 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 后续检查下载量 |
+| 2026-05-31 | external feedback issue | https://github.com/ONEISALL7/ai-devtools-cn/issues/169 | @oneshots | yes | 用户反馈 CI 排错模板缺少 pnpm workspace / monorepo 示例 | 已通过 #173 和 v0.16.2 回应 |
+| 2026-06-01 | feedback-driven PR | https://github.com/ONEISALL7/ai-devtools-cn/pull/173 | maintainer | yes | 基于 #169 新增 pnpm workspace CI 排错试用包 | 不计为 external merged PR |
+| 2026-06-01 | feedback-driven release | https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.2 | maintainer | yes | 发布反馈驱动的 pnpm workspace CI 试用包版本 | npm 0.16.2 仍需完成 2FA 发布 |
 | YYYY-MM-DD | external feedback issue |  | GitHub user | yes | 用户试用模板后的反馈 | 建立改进 issue |
 | YYYY-MM-DD | external PR |  | GitHub user | yes | 外部贡献者提交文档/案例 | review 并合并 |
 | YYYY-MM-DD | public mention |  | X/V2EX/blog | yes | 公开介绍或讨论项目 | 回复并邀请反馈 |
@@ -845,6 +848,7 @@ npm downloads：
 
 - npm package 已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
 - 外部用户提交的 feedback issue。
+- 基于外部 feedback issue 完成的维护者 PR 和 release，但要标明它不是外部 PR。
 - 外部贡献者提交并合并的 PR。
 - 公开帖子、博客、讨论或引用。
 - 经允许匿名化整理的真实使用案例。
