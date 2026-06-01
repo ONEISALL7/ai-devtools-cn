@@ -97,6 +97,30 @@ npx ai-devtools-cn claim 45 --output work/claim-45.md
 
 当前支持 #45-#49。这个命令只帮助外部贡献者准备 PR，不会自动创建 PR，也不能把维护者自己生成的草稿计入 external merged PR。
 
+## 生成 good first issue 内容起稿
+
+```bash
+npm run templates:starter -- 45 --output work/node-ci-starter.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+```
+
+这个命令会为指定 good first issue 生成一份可填写的案例或文档骨架，包含：
+
+- 推荐模板和目标产物位置
+- 场景背景填写提示
+- 输入材料填写提示
+- 建议输出结构
+- 公开安全检查
+- 本地验证命令
+- PR checklist
+
+当前支持 #45-#49。生成的文件默认建议放在 `work/` 下，适合作为本地草稿；只有真实外部贡献者把内容整理成 PR 并被合并后，才能计入 external merged PR。
+
 ## 查看社区发布入口
 
 ```bash

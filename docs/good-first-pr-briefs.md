@@ -31,9 +31,10 @@ npm run templates:publish-check
 ```bash
 npx ai-devtools-cn contribute
 npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 ```
 
-`contribute` 会列出当前可认领任务、brief 链接、最小验证命令和公开安全边界。`claim` 会为指定 issue 生成一份本地认领草稿，方便准备 issue 留言、PR 标题、验证记录和 PR 描述。
+`contribute` 会列出当前可认领任务、brief 链接、最小验证命令和公开安全边界。`claim` 会为指定 issue 生成一份本地认领草稿，方便准备 issue 留言、PR 标题、验证记录和 PR 描述。`starter` 会生成一份可填写的案例或文档骨架，帮助贡献者从本地草稿开始，而不是从空白文件开始。
 
 ## 公开安全边界
 

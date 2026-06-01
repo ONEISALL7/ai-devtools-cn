@@ -314,6 +314,7 @@ Usage:
   ai-devtools-cn contribute
   ai-devtools-cn launch
   ai-devtools-cn claim <issue-number> --output <path>
+  ai-devtools-cn starter <issue-number> --output <path>
   ai-devtools-cn recommend <keyword>
   ai-devtools-cn search <keyword>
   ai-devtools-cn show <slug>
@@ -335,6 +336,7 @@ NPM scripts:
   npm run templates:contribute
   npm run templates:launch
   npm run templates:claim -- <issue-number> --output <path>
+  npm run templates:starter -- <issue-number> --output <path>
   npm run templates:recommend -- <keyword>
   npm run templates:search -- <keyword>
   npm run templates:show -- <slug>
@@ -356,6 +358,7 @@ Examples:
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
   npx ai-devtools-cn claim 45 --output work/claim-45.md
+  npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
   npx ai-devtools-cn recommend ci
   npx ai-devtools-cn search ci
   npx ai-devtools-cn show pr-review
@@ -376,6 +379,7 @@ Examples:
   npm run templates:contribute
   npm run templates:launch
   npm run templates:claim -- 45 --output work/claim-45.md
+  npm run templates:starter -- 45 --output work/node-ci-starter.md
   npm run templates:recommend -- ci
   npm run templates:search -- ci
   npm run templates:show -- pr-review
@@ -522,6 +526,21 @@ function createClaimDraft(issueNumber, options) {
   console.log(`已生成认领草稿：${formatDisplayPath(resolvedOutput)}`);
 }
 
+function createStarterDraft(issueNumber, options) {
+  const brief = requireGoodFirstPrBrief(issueNumber);
+  const issueLabel = brief.issue.replace("#", "");
+  const outputPath = options.output ?? path.join("work", `starter-${issueLabel}.md`);
+  const resolvedOutput = resolveOutputPath(outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
+  }
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(resolvedOutput, formatStarterDraft(brief), "utf8");
+  console.log(`已生成贡献起稿：${formatDisplayPath(resolvedOutput)}`);
+}
+
 function formatClaimDraft(brief) {
   return `# ${brief.title} 认领草稿
 
@@ -580,6 +599,114 @@ Validation:
 - 是否合并：
 - 是否可以记录为 external merged PR：
 `;
+}
+
+function formatStarterDraft(brief) {
+  const profile = getStarterProfile(brief.issue);
+
+  return `# ${brief.title}
+
+> Good First Issue ${brief.issue}
+> Issue: ${brief.url}
+> Brief: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
+> Suggested PR title: ${brief.suggestedTitle}
+
+这个文件是给外部贡献者的本地起稿骨架。它不是 external merged PR；只有真实外部贡献者提交并合并的 GitHub PR 才能计入 external merged PR。
+
+## 使用模板
+
+- 推荐模板：${profile.templateName}
+- 模板路径：${profile.templatePath}
+- 目标产物：${profile.outputTarget}
+
+## 场景背景
+
+${profile.contextPrompt}
+
+## 输入材料
+
+${profile.inputPrompt}
+
+## 建议输出结构
+
+${profile.outputPrompt}
+
+## 公开安全检查
+
+- [ ] 没有 token、API key、cookie、密码或登录信息。
+- [ ] 没有客户名称、内部域名、私有仓库链接或未公开源码。
+- [ ] 日志、路径、服务名和人员信息已经匿名化。
+- [ ] 示例能帮助其他开发者复制到自己的维护场景。
+
+## 本地验证
+
+\`\`\`bash
+npm install
+npm run lint:md
+\`\`\`
+
+如果改动 CLI 注册表、示例索引或模板目录，也运行：
+
+\`\`\`bash
+npm run test
+npm run templates:publish-check
+\`\`\`
+
+## PR checklist
+
+- [ ] 在 ${brief.issue} 下留言说明认领。
+- [ ] PR 标题使用或接近：${brief.suggestedTitle}
+- [ ] PR 描述写明 \`Closes ${brief.issue}\`。
+- [ ] PR 描述列出实际验证命令。
+- [ ] 如果使用真实经验，已完成匿名化。
+`;
+}
+
+function getStarterProfile(issue) {
+  const profiles = {
+    "#45": {
+      templateName: "CI 排错模板",
+      templatePath: "templates/ci-troubleshooting-template.md",
+      outputTarget: "examples/case-studies/node-ci-troubleshooting.md",
+      contextPrompt: "写清楚项目类型、Node.js/npm/pnpm 版本、CI 平台、失败发生在 install、lint、test、build 还是 release 阶段。",
+      inputPrompt: "粘贴公开安全的失败日志片段，至少包含错误行、相关命令和本地复现结果。不要粘贴 token、内部仓库地址或客户日志。",
+      outputPrompt: "建议包含：失败日志片段、初步判断、最小修复方案、验证命令、为什么不能用跳过 CI 或删除检查绕过问题。",
+    },
+    "#46": {
+      templateName: "依赖升级风险模板",
+      templatePath: "templates/dependency-upgrade-risk-template.md",
+      outputTarget: "examples/dependency-upgrade-risk-example.md",
+      contextPrompt: "写清楚依赖名称、当前版本、目标版本、升级原因，以及它影响运行时依赖还是开发依赖。",
+      inputPrompt: "列出 changelog、breaking changes、lockfile 变化、测试范围和回滚方式。不要包含私有包名或内部 registry token。",
+      outputPrompt: "建议包含：升级背景、风险点、验证计划、回滚方案、release 注意事项和是否建议合并。",
+    },
+    "#47": {
+      templateName: "用户反馈整理模板",
+      templatePath: "docs/feedback.md",
+      outputTarget: "docs/user-feedback-case-guide.md",
+      contextPrompt: "写清楚反馈来源、使用的模板或 CLI 命令、用户角色，以及反馈是否公开可核验。",
+      inputPrompt: "整理匿名化后的反馈摘要、对应 issue/PR 链接、后续改进动作和不能公开的信息边界。",
+      outputPrompt: "建议包含：反馈记录格式、可计入外部反馈的条件、不能计入的内容、维护者 triage checklist。",
+    },
+    "#48": {
+      templateName: "PR Review 模板",
+      templatePath: "templates/pr-review-template.md",
+      outputTarget: "examples/case-studies/python-pr-review.md",
+      contextPrompt: "写清楚 Python 项目类型、改动范围、测试工具、目标 review 重点，例如 API 兼容性、异常处理或测试覆盖。",
+      inputPrompt: "提供公开安全的 diff 摘要、文件类型、测试结果和约束。不要包含私有源码或真实客户数据。",
+      outputPrompt: "建议包含：review 关注点、必须修改项、建议修改项、验证命令和可直接放进 PR 的 review 评论。",
+    },
+    "#49": {
+      templateName: "README 改进模板",
+      templatePath: "templates/readme-improvement-template.md",
+      outputTarget: "examples/case-studies/frontend-readme-improvement.md",
+      contextPrompt: "写清楚前端项目类型、安装方式、启动命令、目标用户和当前 README 的主要缺口。",
+      inputPrompt: "列出现有 README 片段、缺失步骤、常见失败点和期望新用户完成的第一个动作。",
+      outputPrompt: "建议包含：新的快速开始结构、环境要求、常见问题、验证方式和 README 改进前后对比。",
+    },
+  };
+
+  return profiles[issue];
 }
 
 function showTemplate(slug) {
@@ -1947,6 +2074,9 @@ switch (command) {
     break;
   case "claim":
     createClaimDraft(args[0], parseOptions(args.slice(1)));
+    break;
+  case "starter":
+    createStarterDraft(args[0], parseOptions(args.slice(1)));
     break;
   case "recommend":
     recommend(args[0]);
