@@ -13,7 +13,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 当前返回：
 
 ```text
-0.17.6
+0.17.5
 ```
 
 npm 包页面：
@@ -24,7 +24,7 @@ https://www.npmjs.com/package/ai-devtools-cn
 
 ## 当前待同步目标
 
-当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.6`。真实发布前必须确认：
+当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.6`。上一轮真实发布因 npm 2FA/EOTP 停在认证环节，继续发布前必须确认：
 
 - GitHub 最新 release 是 `v0.17.6`
 - `npm run templates:publish-status` 显示 source 不再领先最新 release tag
@@ -32,6 +32,13 @@ https://www.npmjs.com/package/ai-devtools-cn
 - `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.6`
 
 真实 `npm publish` 仍需要包 owner 使用自己的 npm 账号和 2FA 完成。
+
+当前状态：
+
+- GitHub release `v0.17.6` 已创建。
+- npm 公开版本仍为 `0.17.5`。
+- `npm publish --dry-run --access public` 已验证 `0.17.6` 打包内容。
+- 真实 `npm publish --access public` 返回 `EOTP`，需要维护者输入 npm authenticator 的一次性验证码。
 
 ## npm 与 GitHub main 的版本边界
 

@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- 修正申请准备和社区发布材料中的 npm 状态，明确 `v0.17.6` GitHub release 已发布但 npm `0.17.6` 仍待 2FA 发布
+
 ## 0.17.6 - 2026-06-01
 
 - 新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上运行测试、发布准备检查和打包预检
