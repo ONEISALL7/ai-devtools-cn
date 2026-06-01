@@ -649,10 +649,13 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
   Brief: ${item.brief}
   Suggested PR title: ${item.suggestedTitle}
   Start commands:
-    npx ai-devtools-cn handoff --issue ${issueNumber} --output work/handoff-${issueNumber}.md
-    npx ai-devtools-cn pr-pack ${issueNumber} --output work/pr-pack-${issueNumber}.md
-    npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
-    npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
+    git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+    cd ai-devtools-cn
+    npm install
+    npm run templates:handoff -- --issue ${issueNumber} --output work/handoff-${issueNumber}.md
+    npm run templates:pr-pack -- ${issueNumber} --output work/pr-pack-${issueNumber}.md
+    npm run templates:claim -- ${issueNumber} --output work/claim-${issueNumber}.md
+    npm run templates:starter -- ${issueNumber} --output work/starter-${issueNumber}.md
 `);
   }
 
@@ -683,7 +686,16 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/community-launch-pack
 - 外部反馈: 已有 1 条公开 feedback issue，并已转化为反馈驱动改进
 - external merged PR: 目前仍为 0，不能把维护者自己的 PR 写成 external merged PR
 
-不用 clone 的试用命令:
+当前 npm 包未同步时，先用 clone 路径:
+  git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+  cd ai-devtools-cn
+  npm install
+  npm run templates:doctor
+  npm run templates:examples
+  npm run templates:recommend -- ci
+  npm run templates:trial -- --template pr-review --output work/trial
+
+npm 同步后可改用 npx:
   npx ai-devtools-cn doctor
   npx ai-devtools-cn examples
   npx ai-devtools-cn recommend ci
@@ -869,8 +881,11 @@ ${branchName}
 ${brief.files.map((file) => `- ${file}`).join("\n")}
 
 你可以先运行：
-npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
-npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:claim -- ${issueNumber} --output work/claim-${issueNumber}.md
+npm run templates:starter -- ${issueNumber} --output work/starter-${issueNumber}.md
 
 提交前至少运行：
 npm run lint:md
@@ -944,8 +959,11 @@ Issue: ${brief.url}
 Brief: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/${brief.brief}
 
 你可以先运行：
-npx ai-devtools-cn claim ${issueNumber} --output work/claim-${issueNumber}.md
-npx ai-devtools-cn starter ${issueNumber} --output work/starter-${issueNumber}.md
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:claim -- ${issueNumber} --output work/claim-${issueNumber}.md
+npm run templates:starter -- ${issueNumber} --output work/starter-${issueNumber}.md
 
 提交前至少运行：
 npm run lint:md
@@ -1018,8 +1036,11 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/48
 https://github.com/ONEISALL7/ai-devtools-cn/issues/49
 
 选定 issue 后可以先运行：
-npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/starter-45.md
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
 
 把 45 换成你认领的 issue 编号。提交前至少运行：
 npm run lint:md

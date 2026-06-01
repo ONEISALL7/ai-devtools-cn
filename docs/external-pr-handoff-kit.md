@@ -14,36 +14,38 @@ npm view ai-devtools-cn version
 
 如果 `npx` 提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；可以先在仓库内用对应的 `npm run templates:*` 命令生成材料。
 
-如果你要快速生成一份可转发交接包，可以运行：
+当前 npm 公开包如果还没同步到最新 release，先用仓库内命令生成材料：
 
 ```bash
-npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npm install
+npm run templates:handoff -- --output work/external-pr-handoff.md
 ```
 
 如果对方已经选定一个 issue，可以生成定向交接包：
 
 ```bash
-npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
 ```
 
 如果你要给对方一份更具体的 PR 包，包含建议分支名、建议修改文件、可复制 PR 描述和维护者 review 清单，可以运行：
 
 ```bash
-npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
 ```
 
 只想在终端查看内容时运行：
 
 ```bash
-npx ai-devtools-cn handoff
-npx ai-devtools-cn pr-pack 45
+npm run templates:handoff
+npm run templates:pr-pack -- 45
 ```
 
-在仓库内开发时也可以运行：
+等 npm 版本同步到当前 release 后，可以改用 npx：
 
 ```bash
-npm run templates:handoff -- --output work/external-pr-handoff.md
-npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn handoff --output work/external-pr-handoff.md
+npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
+npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
 ```
 
 这个命令只生成本地交接材料，不会创建 GitHub PR，也不会把维护者自己的草稿计入 external merged PR。
@@ -51,7 +53,7 @@ npm run templates:handoff -- --issue 45 --output work/handoff-45.md
 外部贡献者提交 PR 后，维护者可以生成 review 清单：
 
 ```bash
-npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
+npm run templates:review-pr -- --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
 ```
 
 ## 可以直接转发的邀请
@@ -73,9 +75,12 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/49
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
 
 如果你选定一个 issue，可以先运行：
-npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
-npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/starter-45.md
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
 
 把 45 换成你认领的 issue 编号。生成的草稿只在你本地，方便你准备 issue 留言和 PR 描述。
 

@@ -7,14 +7,16 @@
 如果你想先生成本地认领草稿，可以运行：
 
 ```bash
-npm view ai-devtools-cn version
-npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
-npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
-npx ai-devtools-cn claim 45 --output work/claim-45.md
-npx ai-devtools-cn starter 45 --output work/starter-45.md
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-把 `45` 替换成你认领的 issue 编号。`npx` 可用命令以 npm 当前已发布版本为准；如果提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI。此时请 clone 仓库后使用对应的 `npm run templates:*` 命令。
+把 `45` 替换成你认领的 issue 编号。等 npm 版本同步到当前 release 后，也可以改用对应的 `npx ai-devtools-cn ...` 命令。
 
 ## 当前推荐任务
 
