@@ -38,6 +38,13 @@ npm install
 npm run templates:new -- pr-review --output work/pr-review.md
 ```
 
+如果你想直接照着一个真实小场景试用，可以先看配方：
+
+```bash
+npm run templates:recipes
+npm run templates:recipes -- ci-failure
+```
+
 更多命令见 [模板 CLI](template-cli.md)。
 
 ## 第 3 分钟：把结果落到工程记录

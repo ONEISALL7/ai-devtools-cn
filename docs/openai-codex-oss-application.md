@@ -22,9 +22,9 @@
 | External feedback issues | 1 个：[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169) |
 | npm package | [`ai-devtools-cn@0.16.1`](https://www.npmjs.com/package/ai-devtools-cn) |
 | npm monthly downloads | 当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验 |
-| 项目文件 | 92 个 tracked files |
+| 项目文件 | 93 个 tracked files |
 | CI | GitHub Actions Markdown Check |
-| CLI | GitHub `main` 支持 list、examples、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate；npm 公开包仍是 `0.16.1`，0.16.2 发布同步见 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223) |
+| CLI | GitHub `main` 支持 list、examples、recipes、launch、contribute、handoff、pr-pack、review-pr、claim、starter、recommend、search、show、new、kit、trial、feedback、outreach、adoption、evidence、application、publish-status、doctor、publish-check、validate；npm 公开包仍是 `0.16.1`，0.16.2 发布同步见 [#223](https://github.com/ONEISALL7/ai-devtools-cn/issues/223) |
 
 这些数字是日期快照，不是实时指标；后续维护 PR、npm 发布和下载量会继续变化。提交申请前应重新运行 `npm run metrics:snapshot` 更新数据，并在网络可用时核验 npm downloads API。
 
@@ -151,7 +151,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.16.0`：一周外部试用冲刺包，帮助维护者邀请真实用户并记录反馈证据
 - `v0.16.1`：外部试用者快速指南和 npm 首次发布交接清单
 - `v0.16.2`：基于外部反馈 #169 的 pnpm workspace CI 排错试用包
-- `main`：新增 README“第一次外部 PR”路径，以及 `launch`、`contribute`、`handoff`、`pr-pack`、`claim`、`starter`、`review-pr`、`publish-status` 外部贡献和发布同步入口；更新社区发布包，把 npm 0.16.2 未同步边界和 clone + `pr-pack` 路径写清楚
+- `main`：新增 README“第一次外部 PR”路径，以及 `recipes`、`launch`、`contribute`、`handoff`、`pr-pack`、`claim`、`starter`、`review-pr`、`publish-status` 外部试用、外部贡献和发布同步入口；更新社区发布包，把 npm 0.16.2 未同步边界和 clone + `pr-pack` 路径写清楚
 
 ### CI 和质量控制
 
@@ -170,6 +170,8 @@ This project is early, so we do not want to overstate adoption. The current stre
 ```bash
 npm run templates:list
 npm run templates:examples
+npm run templates:recipes
+npm run templates:recipes -- ci-failure
 npm run templates:launch
 npm run templates:recommend -- ci
 npm run templates:search -- ci
@@ -197,6 +199,8 @@ GitHub `main` 当前 CLI 支持；通过 `npx` 使用前必须以 `npm view ai-d
 npm view ai-devtools-cn version
 npx ai-devtools-cn list
 npx ai-devtools-cn examples
+npx ai-devtools-cn recipes
+npx ai-devtools-cn recipes ci-failure
 npx ai-devtools-cn launch
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn doctor

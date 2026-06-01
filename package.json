@@ -48,6 +48,7 @@
     "templates:help": "node scripts/template-cli.mjs help",
     "templates:list": "node scripts/template-cli.mjs list",
     "templates:examples": "node scripts/template-cli.mjs examples",
+    "templates:recipes": "node scripts/template-cli.mjs recipes",
     "templates:contribute": "node scripts/template-cli.mjs contribute",
     "templates:launch": "node scripts/template-cli.mjs launch",
     "templates:handoff": "node scripts/template-cli.mjs handoff",

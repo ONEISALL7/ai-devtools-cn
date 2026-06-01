@@ -19,6 +19,8 @@
 
 如果你不知道选哪个，先用 `ci`、`review`、`release`、`pytest` 这类关键词搜索或推荐。
 
+如果你想直接照着完整步骤试用，可以先看 [真实试用配方](usage-recipes.md)。配方会把模板、命令、步骤和可记录证据放在一起。
+
 ## 不安装依赖的试用方式
 
 如果你只想快速判断模板是否有用：
@@ -50,7 +52,14 @@ npm run templates:doctor
 
 ```bash
 npm run templates:examples
+npm run templates:recipes
 npm run templates:recommend -- ci
+```
+
+展开一个具体试用配方：
+
+```bash
+npm run templates:recipes -- ci-failure
 ```
 
 生成一个 15 分钟试用包：

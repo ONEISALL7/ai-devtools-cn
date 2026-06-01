@@ -235,6 +235,81 @@ const examples = [
   },
 ];
 
+const recipes = [
+  {
+    slug: "pr-review-docs",
+    title: "文档 PR review",
+    templateSlug: "pr-review",
+    scenario: "review a README or docs PR",
+    goal: "把一次文档或 README 改动转成可提交的 review comment。",
+    commands: [
+      "npx ai-devtools-cn new pr-review --output work/pr-review.md",
+      "npx ai-devtools-cn feedback --template pr-review --scenario \"review a documentation PR\" --output work/pr-review-feedback.md",
+    ],
+    steps: [
+      "选择一个公开仓库中的文档或 README PR。",
+      "把 PR 背景、改动摘要和需要重点检查的风险填进工作稿。",
+      "让 AI 输出 review 结论，再人工删掉不准确或无法验证的内容。",
+      "把有用结论整理成 PR comment 或 feedback issue。",
+    ],
+    evidence: "PR comment、review 截图摘要或公开 feedback issue。",
+  },
+  {
+    slug: "ci-failure",
+    title: "CI 失败排查",
+    templateSlug: "ci-troubleshooting",
+    scenario: "debug a failing CI job",
+    goal: "把一次 CI 失败日志转成最小修复计划和验证清单。",
+    commands: [
+      "npx ai-devtools-cn trial --template ci-troubleshooting --scenario \"debug a failing CI job\" --output work/trial-ci",
+      "npx ai-devtools-cn feedback --template ci-troubleshooting --scenario \"debug a failing CI job\" --output work/ci-feedback.md",
+    ],
+    steps: [
+      "复制可公开的失败命令、关键报错和环境信息。",
+      "填入试用包里的 CI 排错工作稿。",
+      "要求 AI 区分直接原因、可能原因、最小修复和验证命令。",
+      "把结果用于 issue 评论、PR 描述或反馈 issue。",
+    ],
+    evidence: "CI 修复 PR、issue 评论或反馈 issue。",
+  },
+  {
+    slug: "issue-triage",
+    title: "分流一个 issue",
+    templateSlug: "issue-triage",
+    scenario: "triage a bug or feature issue",
+    goal: "把一个模糊 issue 分成类型、优先级、缺失信息和下一步回复。",
+    commands: [
+      "npx ai-devtools-cn new issue-triage --output work/issue-triage.md",
+      "npx ai-devtools-cn feedback --template issue-triage --scenario \"triage a bug or feature issue\" --output work/triage-feedback.md",
+    ],
+    steps: [
+      "选择一个可以公开描述的 bug、feature 或 question issue。",
+      "填入用户描述、复现信息、相关版本和维护约束。",
+      "让 AI 生成 label 建议、追问列表和下一步动作。",
+      "人工确认后，把结果整理成 issue 回复或反馈 issue。",
+    ],
+    evidence: "issue 回复、label 变更记录或反馈 issue。",
+  },
+  {
+    slug: "release-note",
+    title: "整理 release note",
+    templateSlug: "release-note",
+    scenario: "draft release notes from merged PRs",
+    goal: "把一组 merged PR 或 changelog 摘要转成可发布的 release note。",
+    commands: [
+      "npx ai-devtools-cn new release-note --output work/release-note.md",
+      "npx ai-devtools-cn feedback --template release-note --scenario \"draft release notes\" --output work/release-feedback.md",
+    ],
+    steps: [
+      "收集一个小版本的 PR 标题、issue 链接和用户可见变化。",
+      "填入 breaking changes、migration notes 和验证结果。",
+      "让 AI 生成面向用户的 release note 草稿。",
+      "人工核对每条变更，删除无法公开或无法验证的内容。",
+    ],
+    evidence: "GitHub release、CHANGELOG PR 或反馈 issue。",
+  },
+];
+
 const outreachChannels = [
   {
     slug: "github",
@@ -335,6 +410,8 @@ function printHelp() {
 Usage:
   ai-devtools-cn list
   ai-devtools-cn examples
+  ai-devtools-cn recipes
+  ai-devtools-cn recipes <slug>
   ai-devtools-cn contribute
   ai-devtools-cn launch
   ai-devtools-cn handoff
@@ -362,6 +439,8 @@ Usage:
 NPM scripts:
   npm run templates:list
   npm run templates:examples
+  npm run templates:recipes
+  npm run templates:recipes -- <slug>
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -388,6 +467,8 @@ NPM scripts:
 Examples:
   npx ai-devtools-cn list
   npx ai-devtools-cn examples
+  npx ai-devtools-cn recipes
+  npx ai-devtools-cn recipes pr-review-docs
   npx ai-devtools-cn contribute
   npx ai-devtools-cn launch
   npx ai-devtools-cn handoff
@@ -415,6 +496,8 @@ Examples:
 
   npm run templates:list
   npm run templates:examples
+  npm run templates:recipes
+  npm run templates:recipes -- ci-failure
   npm run templates:contribute
   npm run templates:launch
   npm run templates:handoff
@@ -460,6 +543,10 @@ function findKit(slug) {
   return kits.find((kit) => kit.slug === slug);
 }
 
+function findRecipe(slug) {
+  return recipes.find((recipe) => recipe.slug === slug);
+}
+
 function listTemplates(items = templates) {
   for (const template of items) {
     console.log(`- ${template.slug}: ${template.title}
@@ -490,6 +577,60 @@ function listExamples() {
 `);
     }
   }
+}
+
+function listRecipes() {
+  console.log(`真实试用配方
+
+这些配方把模板、CLI 命令、试用步骤和反馈证据连在一起，适合第一次外部试用者在 10-20 分钟内完成一个公开安全的小场景。
+`);
+
+  for (const recipe of recipes) {
+    const template = findTemplate(recipe.templateSlug);
+    console.log(`- ${recipe.slug}: ${recipe.title}
+  场景：${recipe.scenario}
+  目标：${recipe.goal}
+  模板：${template?.title ?? recipe.templateSlug}
+  展开：npx ai-devtools-cn recipes ${recipe.slug}
+`);
+  }
+}
+
+function showRecipe(slug) {
+  const recipe = requireRecipe(slug);
+  const template = requireTemplate(recipe.templateSlug);
+
+  console.log(`# ${recipe.title}
+
+Slug:
+${recipe.slug}
+
+Scenario:
+${recipe.scenario}
+
+Goal:
+${recipe.goal}
+
+Template:
+- ${template.title}: ${template.file}
+
+Commands:
+${recipe.commands.map((command) => `- ${command}`).join("\n")}
+
+Steps:
+${recipe.steps.map((step, index) => `${index + 1}. ${step}`).join("\n")}
+
+Evidence to collect:
+${recipe.evidence}
+
+反馈 issue:
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml
+
+Safety:
+- 不提交 token、API key、cookie、密码。
+- 不提交客户信息、内部日志、未公开源码或个人隐私。
+- 敏感场景请改写成公开安全的抽象描述。
+`);
 }
 
 function listContributionBriefs() {
@@ -2192,6 +2333,7 @@ function runPublishCheck() {
     "templates:doctor",
     "templates:validate",
     "templates:publish-check",
+    "templates:recipes",
     "templates:adoption",
     "templates:handoff",
     "templates:evidence",
@@ -2556,6 +2698,19 @@ function requireOutreachChannel(slug) {
   return channel;
 }
 
+function requireRecipe(slug) {
+  if (!slug) {
+    fail("请提供使用配方 slug。先运行 npm run templates:recipes 查看可用配方。");
+  }
+
+  const recipe = findRecipe(slug);
+  if (!recipe) {
+    fail(`未知使用配方：${slug}\n当前支持：${recipes.map((item) => item.slug).join(", ")}`);
+  }
+
+  return recipe;
+}
+
 function requireGoodFirstPrBrief(issueNumber) {
   if (!issueNumber) {
     fail("请提供 good first issue 编号，例如：npm run templates:claim -- 45 --output work/claim-45.md");
@@ -2634,6 +2789,13 @@ switch (command) {
     break;
   case "examples":
     listExamples();
+    break;
+  case "recipes":
+    if (args.length === 0) {
+      listRecipes();
+    } else {
+      showRecipe(args[0]);
+    }
     break;
   case "contribute":
     listContributionBriefs();
