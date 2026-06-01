@@ -119,6 +119,14 @@ npm run templates:trial -- --template ci-troubleshooting --scenario "debug a fai
 一个 README 改动需要 reviewer 检查是否清楚。
 ```
 
+如果你不确定内容能不能公开，可以先生成一份脱敏检查工作稿：
+
+```bash
+npm run templates:new -- public-safety-redaction --output work/public-safety-redaction.md
+```
+
+用它把日志、反馈或案例改写成可公开版本后，再提交 issue、PR 或反馈。
+
 ## 想贡献一个小 PR
 
 如果你愿意贡献，优先看这些入口：

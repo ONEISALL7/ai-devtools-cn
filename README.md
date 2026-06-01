@@ -215,6 +215,7 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 | release note | [发布说明模板](templates/release-note-template.md) |
 | 依赖升级评估 | [依赖升级风险模板](templates/dependency-upgrade-risk-template.md) |
 | 安全审查 | [安全审查模板](templates/security-review-template.md) |
+| 公开前脱敏 | [公开安全脱敏模板](templates/public-safety-redaction-template.md) |
 | 工具选型 | [工具评估清单](templates/tool-evaluation-template.md) |
 | 团队导入 | [AI 工具导入检查清单](templates/ai-tool-onboarding-checklist.md) |
 | 输出验收 | [AI 输出质量评估模板](templates/ai-output-evaluation-template.md) |
