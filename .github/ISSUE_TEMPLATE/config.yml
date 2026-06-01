@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
+  - name: 30 分钟外部试用反馈
+    url: https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml
+    about: 如果你是通过 pilot 任务包试用项目，请优先使用这个结构化反馈表单。
   - name: 外部试用者快速指南
     url: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-tester-guide.md
     about: 第一次试用项目时，先用 10-15 分钟完成一个公开安全的小场景。

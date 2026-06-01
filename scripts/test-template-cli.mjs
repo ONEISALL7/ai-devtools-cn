@@ -63,7 +63,7 @@ assert.equal(existsSync(path.join(pilotPath, "maintainer-evidence.md")), true);
 const pilotReadme = readFileSync(path.join(pilotPath, "README.md"), "utf8");
 assert.match(pilotReadme, /30 分钟外部试用任务/);
 assert.match(pilotReadme, /debug a failing CI job/);
-assert.match(pilotReadme, /template_feedback\.yml/);
+assert.match(pilotReadme, /external_pilot_feedback\.yml/);
 
 const pilotTesterTask = readFileSync(path.join(pilotPath, "tester-task.md"), "utf8");
 assert.match(pilotTesterTask, /外部试用任务/);

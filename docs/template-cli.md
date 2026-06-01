@@ -112,6 +112,12 @@ npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
 
 `pilot` 使用真实试用配方 slug，例如 `ci-failure`、`pr-review-docs`、`issue-triage` 或 `release-note`。本地生成文件不能计为外部采用；只有外部用户提交的公开反馈 issue 或外部 PR 才能计入申请证据。
 
+`pilot` 任务包会指向专用反馈表单：
+
+```text
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml
+```
+
 ## 查看外部贡献任务
 
 ```bash

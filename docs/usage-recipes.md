@@ -37,6 +37,12 @@ npx ai-devtools-cn pilot ci-failure --output work/pilot-ci
 
 这个任务包会生成可直接转发给外部用户的 `tester-task.md`，以及维护者记录公开反馈链接的 `maintainer-evidence.md`。只有真实外部用户提交的反馈 issue 或 PR 才能计入外部采用证据。
 
+通过 `pilot` 任务包完成试用后，优先使用结构化反馈表单：
+
+```text
+https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml
+```
+
 ## 推荐从这四个场景开始
 
 | 配方 | 适合场景 | 输出证据 |

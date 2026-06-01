@@ -70,17 +70,17 @@ stars：20 个以上更有说服力
 
 ## 当前真实快照
 
-截至 2026-06-01，`ai-devtools-cn` 最新发布边界已同步到 `v0.18.0` / `ai-devtools-cn@0.18.0`：
+截至 2026-06-01，`ai-devtools-cn` 最新发布边界已同步到 `v0.18.1` / `ai-devtools-cn@0.18.1`：
 
 - GitHub stars：3
 - Forks：1
-- Merged PRs：125+
+- Merged PRs：126+
 - Closed issues：108
 - Open issues：6+（包含 #51 外部反馈收集和 #45-#49 外部贡献任务；提交申请前应重新核验）
-- Releases：28
+- Releases：29
 - External merged PRs：0
 - External feedback issues：1（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
-- npm package：[ai-devtools-cn@0.18.0](https://www.npmjs.com/package/ai-devtools-cn)
+- npm package：[ai-devtools-cn@0.18.1](https://www.npmjs.com/package/ai-devtools-cn)
 - npm monthly downloads：当前 npm API `last-month` 返回 0；周期为 2026-04-30 到 2026-05-29，提交申请前应重新核验
 
 这些数字能证明维护活动和早期外部反馈，但还不能证明广泛采用。申请时必须把“活跃维护记录”和“外部采用证据”分开写。
@@ -144,6 +144,6 @@ npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-当前 npm 公开包已同步到 `0.18.0`，已经包含外部贡献和真实试用所需 CLI。对外邀请真实贡献者或试用者时，可以直接使用 `npx ai-devtools-cn@latest pilot ci-failure`、`npx ai-devtools-cn@latest pr-pack 45`、`npx ai-devtools-cn@latest recipes ci-failure` 等命令；如果对方网络环境无法访问 npm，再退回 clone + `npm run templates:*` 路径。
+当前 npm 公开包已同步到 `0.18.1`，已经包含外部贡献和真实试用所需 CLI。对外邀请真实贡献者或试用者时，可以直接使用 `npx ai-devtools-cn@latest pilot ci-failure`、`npx ai-devtools-cn@latest pr-pack 45`、`npx ai-devtools-cn@latest recipes ci-failure` 等命令；如果对方网络环境无法访问 npm，再退回 clone + `npm run templates:*` 路径。
 
 `pr-pack`、`claim` 和 `starter` 只生成本地草稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能记录为 external merged PR。

@@ -62,7 +62,7 @@ npm run templates:pilot -- ci-failure --output work/pilot-ci
 npm run templates:contribute
 ```
 
-当 npm 版本已经同步到 `0.18.0` 或更高时，可以无需克隆仓库直接运行：
+当 npm 版本已经同步到 `0.18.1` 或更高时，可以无需克隆仓库直接运行：
 
 ```bash
 npx ai-devtools-cn doctor
@@ -174,7 +174,7 @@ npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-等 npm 版本同步到 `0.18.0` 或更高后，也可以改用：
+等 npm 版本同步到 `0.18.1` 或更高后，也可以改用：
 
 ```bash
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
