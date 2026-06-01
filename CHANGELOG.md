@@ -4,6 +4,12 @@
 
 ## Unreleased
 
+## 0.17.5 - 2026-06-01
+
+- 同步 npm 已发布状态，更新 README、社区发布包和申请材料中的 `npx` 使用边界
+- 记录 `ai-devtools-cn@0.17.4` 已完成 npm 发布和 smoke check，避免公开材料继续引用旧版 npm 状态
+- 刷新申请准备文档中的 issue、PR、release 和 npm package 快照
+
 ## 0.17.4 - 2026-06-01
 
 - 调整贡献指南的第一个外部 PR 快速路径，npm 未同步时优先推荐 clone + `npm run templates:*`

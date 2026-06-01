@@ -46,9 +46,9 @@ examples/    示例工作流
 npm view ai-devtools-cn version
 ```
 
-如果 `npm view` 仍返回 `0.16.1`，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；请先 clone 仓库使用对应的 `npm run templates:*` 命令，或等待下一次 npm 发布。
+如果 `npm view` 返回的版本低于 README 中的最新 release，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI；请先 clone 仓库使用对应的 `npm run templates:*` 命令，或等待下一次 npm 发布。
 
-当前 npm 公开包落后时，推荐先用源码路径：
+如果 npm 公开包落后，推荐先用源码路径：
 
 ```bash
 git clone https://github.com/ONEISALL7/ai-devtools-cn.git
@@ -60,7 +60,7 @@ npm run templates:recipes -- ci-failure
 npm run templates:contribute
 ```
 
-当 npm 版本已经同步到 `0.17.4` 或更高时，才可以无需克隆仓库直接运行：
+当 npm 版本已经同步到 `0.17.5` 或更高时，可以无需克隆仓库直接运行：
 
 ```bash
 npx ai-devtools-cn doctor
@@ -171,7 +171,7 @@ npm run templates:claim -- 45 --output work/claim-45.md
 npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
-等 npm 版本同步到 `0.17.4` 或更高后，也可以改用：
+等 npm 版本同步到 `0.17.5` 或更高后，也可以改用：
 
 ```bash
 npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
