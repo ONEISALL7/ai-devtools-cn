@@ -95,6 +95,8 @@ npm run lint:md
 
 PR 合并前，维护者可能会用 `npx ai-devtools-cn review-pr --pr <number> --author <username> --issue <number>` 生成 review 清单，检查公开安全边界、验证命令和 external PR 记录条件。
 
+提交 PR 时请尽量补齐 PR 模板里的“外部贡献信息”部分。它会帮助维护者判断 PR 是否来自真实外部贡献者、是否关联公开 issue，以及合并后能否进入 external merged PR 证据记录。
+
 ## 维护者职责
 
 维护者会优先处理：
