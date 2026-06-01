@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+## 0.17.3 - 2026-06-01
+
+- 调整外部贡献者 CLI 输出和文档，npm 未同步时默认推荐 clone + `npm run templates:*` 路径
+- 修正 Good First PR、handoff 和 README 中的外部 PR 起步命令，避免外部贡献者因 npm 公开包落后而试用失败
+
 ## 0.17.2 - 2026-06-01
 
 - 修复 `metrics:snapshot` release 统计只读取 20 条的问题，避免 release 数超过 20 后申请指标被低估

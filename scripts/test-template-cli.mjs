@@ -59,10 +59,11 @@ assert.match(contributeOutput, /#45/);
 assert.match(contributeOutput, /#49/);
 assert.match(contributeOutput, /npm run lint:md/);
 assert.match(contributeOutput, /external merged PR/);
-assert.match(contributeOutput, /npx ai-devtools-cn handoff --issue 45/);
-assert.match(contributeOutput, /npx ai-devtools-cn pr-pack 45/);
-assert.match(contributeOutput, /npx ai-devtools-cn claim 45/);
-assert.match(contributeOutput, /npx ai-devtools-cn starter 45/);
+assert.match(contributeOutput, /git clone https:\/\/github\.com\/ONEISALL7\/ai-devtools-cn\.git/);
+assert.match(contributeOutput, /npm run templates:handoff -- --issue 45/);
+assert.match(contributeOutput, /npm run templates:pr-pack -- 45/);
+assert.match(contributeOutput, /npm run templates:claim -- 45/);
+assert.match(contributeOutput, /npm run templates:starter -- 45/);
 
 const contributeAliasOutput = run(["templates:contribute"]);
 assert.match(contributeAliasOutput, /外部贡献者入口/);
@@ -83,7 +84,7 @@ assert.match(launchAliasOutput, /外部反馈/);
 const handoffOutput = run(["handoff"]);
 assert.match(handoffOutput, /外部 PR 交接包/);
 assert.match(handoffOutput, /docs\/external-pr-handoff-kit\.md/);
-assert.match(handoffOutput, /npx ai-devtools-cn claim 45/);
+assert.match(handoffOutput, /npm run templates:claim -- 45/);
 assert.match(handoffOutput, /External merged PRs/);
 assert.match(handoffOutput, /不能把维护者自己的 PR/);
 
@@ -96,8 +97,8 @@ assert.match(issueHandoffOutput, /针对 #45 的外部 PR 交接包/);
 assert.match(issueHandoffOutput, /Node\.js CI 排错示例/);
 assert.match(issueHandoffOutput, /Add Node\.js CI troubleshooting case study/);
 assert.match(issueHandoffOutput, /add-node-js-ci-troubleshooting-case-study/);
-assert.match(issueHandoffOutput, /npx ai-devtools-cn claim 45/);
-assert.match(issueHandoffOutput, /npx ai-devtools-cn starter 45/);
+assert.match(issueHandoffOutput, /npm run templates:claim -- 45/);
+assert.match(issueHandoffOutput, /npm run templates:starter -- 45/);
 assert.match(issueHandoffOutput, /docs\/good-first-pr-briefs\.md#45-nodejs-ci-排错示例/);
 
 const prPackOutput = run(["pr-pack", "45"]);
@@ -106,7 +107,7 @@ assert.match(prPackOutput, /#45 Node\.js CI 排错示例/);
 assert.match(prPackOutput, /Branch: add-node-js-ci-troubleshooting-case-study/);
 assert.match(prPackOutput, /examples\/case-studies\/node-ci-troubleshooting\.md/);
 assert.match(prPackOutput, /PR description to copy/);
-assert.match(prPackOutput, /npx ai-devtools-cn claim 45/);
+assert.match(prPackOutput, /npm run templates:claim -- 45/);
 assert.match(prPackOutput, /只能由外部贡献者用自己的 GitHub 账号提交/);
 
 const prPackPath = path.join(tempDir, "pr-pack-49.md");
@@ -523,7 +524,7 @@ assert.equal(existsSync(path.join(callerDir, "work", "python-handoff.md")), true
 const callerIssueHandoffDraft = readFileSync(path.join(callerDir, "work", "python-handoff.md"), "utf8");
 assert.match(callerIssueHandoffDraft, /针对 #48 的外部 PR 交接包/);
 assert.match(callerIssueHandoffDraft, /Python 项目 PR review 示例/);
-assert.match(callerIssueHandoffDraft, /npx ai-devtools-cn claim 48/);
+assert.match(callerIssueHandoffDraft, /npm run templates:claim -- 48/);
 
 const callerReviewPrOutput = run([
   "review-pr",

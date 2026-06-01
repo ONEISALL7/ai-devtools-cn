@@ -26,7 +26,19 @@ npm run test
 npm run templates:publish-check
 ```
 
-如果你通过 npm/npx 第一次发现本项目，也可以先运行：
+当前 npm 公开包如果还没同步到最新 release，先用 clone 路径：
+
+```bash
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:contribute
+npm run templates:pr-pack -- 45 --output work/pr-pack-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/node-ci-starter.md
+```
+
+等 npm 版本同步到当前 release 后，也可以改用：
 
 ```bash
 npx ai-devtools-cn contribute
