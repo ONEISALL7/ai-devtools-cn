@@ -24,6 +24,7 @@ const listOutput = run(["list"]);
 assert.match(listOutput, /pr-review/);
 assert.match(listOutput, /ci-troubleshooting/);
 assert.match(listOutput, /contributor-onboarding/);
+assert.match(listOutput, /public-safety-redaction/);
 
 const aliasOutput = run(["templates:list"]);
 assert.match(aliasOutput, /release-note/);
@@ -194,6 +195,10 @@ const recommendAliasOutput = run(["templates:recommend", "pytest"]);
 assert.match(recommendAliasOutput, /python-pytest-failure/);
 assert.match(recommendAliasOutput, /ci-troubleshooting/);
 
+const redactionRecommendOutput = run(["recommend", "脱敏"]);
+assert.match(redactionRecommendOutput, /public-safety-redaction/);
+assert.match(redactionRecommendOutput, /公开安全脱敏模板/);
+
 const validateOutput = run(["validate"]);
 assert.match(validateOutput, /Template registry validation passed/);
 assert.match(validateOutput, /templates registered/);
@@ -326,6 +331,16 @@ assert.throws(
 const forcedOutput = run(["new", "ci-troubleshooting", "--output", draftPath, "--force"]);
 assert.match(forcedOutput, /已生成工作稿/);
 
+const redactionDraftPath = path.join(tempDir, "public-safety-redaction.md");
+const redactionDraftOutput = run(["new", "public-safety-redaction", "--output", redactionDraftPath]);
+assert.match(redactionDraftOutput, /已生成工作稿/);
+assert.equal(existsSync(redactionDraftPath), true);
+
+const redactionDraft = readFileSync(redactionDraftPath, "utf8");
+assert.match(redactionDraft, /公开安全脱敏模板工作稿/);
+assert.match(redactionDraft, /<api-token>/);
+assert.match(redactionDraft, /发布建议/);
+
 const kitPath = path.join(tempDir, "oss-maintainer-kit");
 const kitOutput = run(["kit", "oss-maintainer", "--output", kitPath]);
 assert.match(kitOutput, /已生成工作包/);
@@ -336,12 +351,14 @@ assert.equal(existsSync(path.join(kitPath, "ci-troubleshooting.md")), true);
 assert.equal(existsSync(path.join(kitPath, "release-note.md")), true);
 assert.equal(existsSync(path.join(kitPath, "maintainer-weekly-checklist.md")), true);
 assert.equal(existsSync(path.join(kitPath, "contributor-onboarding.md")), true);
+assert.equal(existsSync(path.join(kitPath, "public-safety-redaction.md")), true);
 assert.equal(existsSync(path.join(kitPath, "ai-output-evaluation.md")), true);
 
 const kitReadme = readFileSync(path.join(kitPath, "README.md"), "utf8");
 assert.match(kitReadme, /开源维护者工作包/);
 assert.match(kitReadme, /推荐使用顺序/);
 assert.match(kitReadme, /contributor-onboarding\.md/);
+assert.match(kitReadme, /public-safety-redaction\.md/);
 
 assert.throws(
   () => run(["kit", "oss-maintainer", "--output", kitPath]),

@@ -12,6 +12,7 @@
 | 技术负责人 | [AI 工具导入检查清单](../templates/ai-tool-onboarding-checklist.md) | 给团队设定 AI 使用边界 |
 | 文档维护者 | [文档更新模板](../templates/documentation-update-template.md) | 把 AI 输出落到可维护文档 |
 | 发版负责人 | [发布说明模板](../templates/release-note-template.md) | 写面向用户的 release note |
+| 任何公开发布前 | [公开安全脱敏模板](../templates/public-safety-redaction-template.md) | 检查日志、反馈、案例或帖子是否能公开 |
 
 ## 按任务选择
 
@@ -26,6 +27,7 @@
 | 升级依赖 | [依赖升级风险模板](../templates/dependency-upgrade-risk-template.md) | [安全审查模板](../templates/security-review-template.md) |
 | 评估 AI 输出是否可信 | [AI 输出质量评估模板](../templates/ai-output-evaluation-template.md) | [模板质量评分卡](template-quality-scorecard.md) |
 | 给团队引入 AI 工具 | [AI 工具导入检查清单](../templates/ai-tool-onboarding-checklist.md) | [团队导入 AI 工具指南](team-ai-adoption-guide.md) |
+| 公开日志、反馈或案例前脱敏 | [公开安全脱敏模板](../templates/public-safety-redaction-template.md) | [安全审查模板](../templates/security-review-template.md) |
 
 ## 使用前准备
 

@@ -83,6 +83,13 @@ const templates = [
     output: "PR review",
   },
   {
+    slug: "public-safety-redaction",
+    title: "公开安全脱敏模板",
+    file: "templates/public-safety-redaction-template.md",
+    useCase: "公开 issue、PR、日志、反馈或案例前检查敏感信息",
+    output: "脱敏后的公开文本、安全检查清单",
+  },
+  {
     slug: "tool-evaluation",
     title: "工具评估清单",
     file: "templates/tool-evaluation-template.md",
@@ -131,6 +138,7 @@ const kits = [
       "release-note",
       "maintainer-weekly-checklist",
       "contributor-onboarding",
+      "public-safety-redaction",
       "ai-output-evaluation",
     ],
   },

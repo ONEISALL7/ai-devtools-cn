@@ -45,6 +45,7 @@ npm run templates:validate
 | [Release Checklist](release-checklist.md) | 发版前检查 | 版本号、tag、CI 状态 | release issue |
 | [依赖升级风险模板](dependency-upgrade-risk-template.md) | 升级依赖前评估 | 依赖名、版本差异、测试范围 | PR 描述 |
 | [安全审查模板](security-review-template.md) | 检查安全风险 | diff、权限变化、敏感数据路径 | PR review |
+| [公开安全脱敏模板](public-safety-redaction-template.md) | 公开日志、反馈或案例前脱敏 | 准备公开的文本、发布位置、敏感边界 | 脱敏后的公开文本、安全检查清单 |
 | [工具评估清单](tool-evaluation-template.md) | 选择 AI 工具 | 使用场景、成本、风险 | 团队文档 |
 | [AI 工具导入检查清单](ai-tool-onboarding-checklist.md) | 团队引入 AI 工具 | 团队规则、试点范围 | onboarding 文档 |
 | [AI 输出质量评估模板](ai-output-evaluation-template.md) | 判断 AI 输出能否采用 | AI 输出、事实来源、验收标准 | review 记录 |
@@ -66,12 +67,14 @@ npm run templates:validate
 3. [发布说明模板](release-note-template.md)
 4. [维护者周检查清单](maintainer-weekly-checklist.md)
 5. [外部贡献者引导模板](contributor-onboarding-template.md)
+6. [公开安全脱敏模板](public-safety-redaction-template.md)
 
 ### 团队负责人
 
 1. [工具评估清单](tool-evaluation-template.md)
 2. [AI 工具导入检查清单](ai-tool-onboarding-checklist.md)
 3. [安全审查模板](security-review-template.md)
+4. [公开安全脱敏模板](public-safety-redaction-template.md)
 
 ## 贡献新模板
 
