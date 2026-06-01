@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+- 新增 GitHub Actions Node/CLI CI，在 Node.js 20 和 22 上运行测试、发布准备检查和打包预检
+- 在 README 和申请准备材料中补充 CI badge 与 CLI 自动化验证证据
+
 ## 0.17.5 - 2026-06-01
 
 - 同步 npm 已发布状态，更新 README、社区发布包和申请材料中的 `npx` 使用边界
