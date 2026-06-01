@@ -323,6 +323,8 @@ assert.match(evidenceLedger, /外部采用证据台账/);
 assert.match(evidenceLedger, /External merged PRs/);
 assert.match(evidenceLedger, /external feedback issue/);
 assert.match(evidenceLedger, /不应计入外部采用/);
+assert.match(evidenceLedger, /claim\/starter/);
+assert.match(evidenceLedger, /generated local drafts are not external merged PRs/);
 
 assert.throws(
   () => run(["evidence", "--output", evidencePath]),
@@ -347,6 +349,9 @@ assert.match(applicationDraft, /OpenAI Codex for Open Source 申请包草稿/);
 assert.match(applicationDraft, /ONEISALL7/);
 assert.match(applicationDraft, /Why does this repository qualify/);
 assert.match(applicationDraft, /不要提交的表述/);
+assert.match(applicationDraft, /Good First PR Briefs/);
+assert.match(applicationDraft, /npx ai-devtools-cn claim 45/);
+assert.match(applicationDraft, /npx ai-devtools-cn starter 45/);
 
 assert.throws(
   () => run(["application", "--output", applicationPath]),

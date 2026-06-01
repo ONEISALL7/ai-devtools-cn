@@ -36,6 +36,16 @@ npm run templates:application -- --output work/openai-application.md
 
 这份草稿用于整理表单字段、证据清单和短板提醒，不会自动提交申请，也不会替代真实外部采用证据。
 
+如果你要邀请外部贡献者提交第一个真实 PR，可以把下面三条命令发给对方：
+
+```bash
+npx ai-devtools-cn launch
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
+```
+
+`claim` 和 `starter` 只生成本地认领草稿和内容起稿。只有外部贡献者用自己的 GitHub 账号提交并合并的 PR，才能写成 external merged PR。
+
 ## 项目定位
 
 `ai-devtools-cn` 是面向中文开发者和开源维护者的 AI 工程维护模板库与 CLI 工具。
@@ -134,6 +144,7 @@ This project is early, so we do not want to overstate adoption. The current stre
 - `v0.15.0`：OpenAI Codex for Open Source 申请包草稿生成命令
 - `v0.16.0`：一周外部试用冲刺包，帮助维护者邀请真实用户并记录反馈证据
 - `v0.16.1`：外部试用者快速指南和 npm 首次发布交接清单
+- `main`：新增 `launch`、`contribute`、`claim` 和 `starter` 外部贡献转化入口，帮助外部贡献者从 good first issue 进入真实 PR
 
 ### CI 和质量控制
 
@@ -163,6 +174,9 @@ npm run templates:trial -- --template pr-review --output work/trial
 npm run templates:feedback -- --template pr-review --output work/feedback.md
 npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
+npm run templates:contribute
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/node-ci-starter.md
 npm run templates:evidence -- --output work/external-evidence.md
 npm run templates:application -- --output work/openai-application.md
 npm run templates:publish-check
@@ -183,6 +197,9 @@ npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn feedback --template pr-review --output work/feedback.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
+npx ai-devtools-cn contribute
+npx ai-devtools-cn claim 45 --output work/claim-45.md
+npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn evidence --output work/external-evidence.md
 npx ai-devtools-cn application --output work/openai-application.md
 npx ai-devtools-cn publish-check

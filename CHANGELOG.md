@@ -12,6 +12,7 @@
 - 新增 CLI `launch` 命令，帮助维护者通过 `npx` 找到社区发布包、反馈入口和外部 PR 邀请入口
 - 新增 CLI `claim` 命令，为 #45-#49 good first issue 生成外部贡献者认领和 PR 描述草稿
 - 新增 CLI `starter` 命令，为 #45-#49 good first issue 生成可填写的案例或文档起稿
+- 刷新 OpenAI 申请包、证据台账和社区发布包，纳入 `claim`/`starter` 外部贡献转化管线
 
 ## 0.16.2 - 2026-06-01
 
