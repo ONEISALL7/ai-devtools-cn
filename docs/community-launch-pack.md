@@ -79,6 +79,9 @@ https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedbac
 如果对方想贡献 PR，发这个入口：
 
 ```text
+外部 PR 交接包：
+https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-pr-handoff-kit.md
+
 Good First PR Briefs:
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.md
 
