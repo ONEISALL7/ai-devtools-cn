@@ -1,5 +1,14 @@
 blank_issues_enabled: true
 contact_links:
+  - name: 外部试用者快速指南
+    url: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/external-tester-guide.md
+    about: 第一次试用项目时，先用 10-15 分钟完成一个公开安全的小场景。
+  - name: Good First Issues
+    url: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/first-issues.md
+    about: 想提交第一个 PR 时，先从适合外部贡献者的小任务开始。
+  - name: 支持入口
+    url: https://github.com/ONEISALL7/ai-devtools-cn/blob/main/SUPPORT.md
+    about: 不确定该用哪个 issue 表单，或只想先问问题时，请先看支持入口。
   - name: 安全问题
     url: https://github.com/ONEISALL7/ai-devtools-cn/security/advisories/new
     about: 请不要在公开 issue 中提交安全敏感信息。
