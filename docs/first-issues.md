@@ -2,6 +2,8 @@
 
 这个页面记录适合外部贡献者参与的小任务。它们不要求访问私有代码，也不要求了解完整项目历史。
 
+如果你想直接开始写 PR，请先看 [Good First PR Briefs](good-first-pr-briefs.md)。那里把每个任务拆成了建议标题、文件、步骤、验证命令和 PR 描述模板。
+
 ## 当前推荐任务
 
 | Issue | 方向 | 适合贡献者 |
@@ -54,6 +56,8 @@ PR 描述建议包含：
 - 新增或修改的文件
 - 使用了哪个模板或案例作为参考
 - 本地验证结果，例如 `npm run lint:md`
+
+更完整的可复制 PR brief 见 [Good First PR Briefs](good-first-pr-briefs.md)。
 
 ## 内容要求
 
