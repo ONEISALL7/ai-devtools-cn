@@ -23,6 +23,7 @@ try {
 
   assert.match(output, /\| Merged PRs \| 101 \|/);
   assert.match(output, /\| Closed issues \| 101 \|/);
+  assert.match(output, /\| Releases \| 101 \|/);
   assert.match(output, /\| npm monthly downloads \| 42 \|/);
 } finally {
   rmSync(tempDir, { force: true, recursive: true });
@@ -47,7 +48,11 @@ if (args[0] === "repo" && args[1] === "view") {
 }
 
 if (args[0] === "release" && args[1] === "list") {
-  console.log("v0.16.2\\\\tLatest\\\\tv0.16.2\\\\t2026-06-01T02:19:10Z");
+  const limit = Number(args[args.indexOf("--limit") + 1]);
+  console.log(Array.from({ length: Math.min(limit, 101) }, (_, index) => {
+    const version = "v0." + (101 - index) + ".0";
+    return version + "\\\\t" + (index === 0 ? "Latest" : "") + "\\\\t" + version + "\\\\t2026-06-01T00:00:00Z";
+  }).join("\\n"));
   process.exit(0);
 }
 
