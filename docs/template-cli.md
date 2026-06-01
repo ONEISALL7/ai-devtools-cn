@@ -306,12 +306,12 @@ npx ai-devtools-cn evidence --output work/external-evidence.md
 
 - 外部采用记录原则
 - 当前指标快照填写区
-- npm 发布、外部 feedback issue、外部 PR、公开提及和匿名案例记录表
+- npm 发布、外部 feedback issue、反馈驱动 PR/release、外部 PR、公开提及和匿名案例记录表
 - 可计入申请材料的证据类型
 - 不应计入外部采用的内容
 - OpenAI Codex for Open Source 申请表述草稿
 
-这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。
+这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。维护者基于外部反馈完成的 PR/release 可以作为反馈驱动改进证据，但不能写成 external merged PR。
 
 ## 生成 OpenAI 申请包草稿
 
