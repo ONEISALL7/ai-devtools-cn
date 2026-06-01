@@ -13,7 +13,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 当前返回：
 
 ```text
-0.17.5
+0.17.7
 ```
 
 npm 包页面：
@@ -22,23 +22,16 @@ npm 包页面：
 https://www.npmjs.com/package/ai-devtools-cn
 ```
 
-## 当前待同步目标
+## 当前同步状态
 
-当前 GitHub source 的下一次 npm 同步目标是 `ai-devtools-cn@0.17.6`。上一轮真实发布因 npm 2FA/EOTP 停在认证环节，继续发布前必须确认：
+当前 GitHub release、`package.json` 和 npm 公开包已经同步到 `ai-devtools-cn@0.17.7`。
 
-- GitHub 最新 release 是 `v0.17.6`
-- `npm run templates:publish-status` 显示 source 不再领先最新 release tag
+最新同步前应确认：
+
+- GitHub 最新 release 是 `v0.17.7`
+- `npm run templates:publish-status` 显示 npm、GitHub release 和 `package.json` 对齐
 - `npm run test`、`npm run templates:publish-check` 和 `npm run pack:dry-run` 都通过
-- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.6`
-
-真实 `npm publish` 仍需要包 owner 使用自己的 npm 账号和 2FA 完成。
-
-当前状态：
-
-- GitHub release `v0.17.6` 已创建。
-- npm 公开版本仍为 `0.17.5`。
-- `npm publish --dry-run --access public` 已验证 `0.17.6` 打包内容。
-- 真实 `npm publish --access public` 返回 `EOTP`，需要维护者输入 npm authenticator 的一次性验证码。
+- `npm publish --dry-run --access public` 输出目标版本为 `ai-devtools-cn@0.17.7`
 
 ## npm 与 GitHub main 的版本边界
 
@@ -54,6 +47,8 @@ npm run templates:publish-status
 - 在仓库内用 `npm run templates:*` 命令生成材料。
 - 等维护者完成下一次 npm 发布后，再发送对应 `npx` 命令。
 - 对外说明“GitHub main 已支持，npm 发布待同步”，避免夸大。
+
+如果 npm、GitHub release 和 `package.json` 已对齐，可以直接对外发送对应 `npx ai-devtools-cn@latest ...` 命令。
 
 如果 `npm run templates:publish-status` 显示 `source is ahead of latest release tag`，说明当前 `main` 已经领先最新 GitHub release。此时必须先决定发布边界：
 
