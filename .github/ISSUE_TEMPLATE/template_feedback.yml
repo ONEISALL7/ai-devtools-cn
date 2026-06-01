@@ -25,6 +25,33 @@ body:
         - 其他
     validations:
       required: true
+  - type: dropdown
+    id: reporter_type
+    attributes:
+      label: 你和项目的关系
+      description: 这会帮助维护者区分外部反馈、维护者自测和已有贡献者反馈。
+      options:
+        - 第一次试用的外部用户
+        - 外部开源项目维护者
+        - 外部贡献者
+        - 项目维护者
+        - 已有贡献者
+        - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: trial_path
+    attributes:
+      label: 你的试用途径
+      options:
+        - 直接复制模板
+        - Clone 仓库后运行 npm run templates:*
+        - 使用 npx ai-devtools-cn
+        - 跟随真实试用配方
+        - 准备或提交外部 PR
+        - 其他
+    validations:
+      required: true
   - type: textarea
     id: scenario
     attributes:
@@ -49,6 +76,12 @@ body:
     attributes:
       label: 它帮你节省了什么工作？
       description: 可以写节省的时间、减少的重复步骤、输出是否能直接用于 issue/PR/release。
+  - type: input
+    id: public_evidence
+    attributes:
+      label: 可公开核验的上下文链接（可选）
+      description: 可以填公开 PR、issue、review comment、release、试用记录或相关讨论链接；不要填私有仓库、内部日志或敏感链接。
+      placeholder: https://github.com/owner/repo/pull/123
   - type: textarea
     id: pain
     attributes:

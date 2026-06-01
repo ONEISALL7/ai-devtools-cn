@@ -30,7 +30,18 @@
 3. 创建一个小分支，只做对应 issue 的范围。
 4. 按 [Good First PR Briefs](docs/good-first-pr-briefs.md) 中的建议文件和完成标准提交 PR。
 
-如果你想先生成本地草稿，可以运行：
+如果你想先生成本地草稿，当前优先使用源码路径：
+
+```bash
+git clone https://github.com/ONEISALL7/ai-devtools-cn.git
+cd ai-devtools-cn
+npm install
+npm run templates:handoff -- --issue 45 --output work/handoff-45.md
+npm run templates:claim -- 45 --output work/claim-45.md
+npm run templates:starter -- 45 --output work/starter-45.md
+```
+
+把 `45` 替换成你认领的 issue 编号。npm 公开包同步到 GitHub 最新 release 后，也可以改用：
 
 ```bash
 npm view ai-devtools-cn version
@@ -39,14 +50,7 @@ npx ai-devtools-cn claim 45 --output work/claim-45.md
 npx ai-devtools-cn starter 45 --output work/starter-45.md
 ```
 
-把 `45` 替换成你认领的 issue 编号。`npx` 可用命令以 npm 当前已发布版本为准；如果提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI。此时可以 clone 仓库后使用：
-
-```bash
-npm install
-npm run templates:handoff -- --issue 45 --output work/handoff-45.md
-npm run templates:claim -- 45 --output work/claim-45.md
-npm run templates:starter -- 45 --output work/starter-45.md
-```
+`npx` 可用命令以 npm 当前已发布版本为准；如果提示未知命令，说明 npm 包还没有同步到 GitHub `main` 的最新 CLI，请继续使用上面的 clone + `npm run templates:*` 路径。
 
 这些草稿只帮助你准备 PR。只有你用自己的 GitHub 账号提交并被合并的 PR，才可能被维护者记录为 external merged PR。
 

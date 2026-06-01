@@ -113,7 +113,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例和 GitHub v0.17.3 release；npm 0.17.3 同步中。
+现在有模板、CLI、真实案例和 GitHub v0.17.4 release；npm 0.17.4 同步中。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -173,8 +173,8 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.17.3` release 已存在
-- npm 是否已经同步到 `0.17.3`；未同步时，对外文案优先使用 clone + `npm run templates:*`
+- `v0.17.4` release 已存在
+- npm 是否已经同步到 `0.17.4`；未同步时，对外文案优先使用 clone + `npm run templates:*`
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 和 [外部试用者快速指南](external-tester-guide.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问

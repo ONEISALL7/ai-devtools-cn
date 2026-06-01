@@ -85,8 +85,11 @@ npm run templates:trial -- --template ci-troubleshooting --scenario "debug a fai
 提交 feedback issue 时，尽量回答：
 
 - 你试用了哪个模板、示例或 CLI 命令？
+- 你是第一次外部试用者、外部维护者、外部贡献者，还是已有贡献者？
+- 你通过复制模板、clone 仓库、`npx`、真实试用配方还是外部 PR 路径完成试用？
 - 你的场景是什么？可以用公开安全的抽象描述。
 - 输出是否能直接用于 PR、issue、CI、release 或文档维护？
+- 是否有可公开核验的上下文链接，例如公开 PR、issue、review comment、release 或讨论？
 - 哪个字段最有用？
 - 哪个步骤不清楚？
 - 还缺哪个技术栈、模板、案例或 CLI 能力？
