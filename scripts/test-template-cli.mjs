@@ -510,6 +510,99 @@ const evidenceAliasOutput = run(["templates:evidence", "--output", evidenceAlias
 assert.match(evidenceAliasOutput, /已生成外部采用证据台账/);
 assert.equal(existsSync(evidenceAliasPath), true);
 
+const readinessPath = path.join(tempDir, "openai-readiness.md");
+const readinessEnv = {
+  AI_DEVTOOLS_CN_REPO_INFO_JSON: JSON.stringify({
+    stargazerCount: 123,
+    forkCount: 10,
+    visibility: "public",
+    url: "https://github.com/ONEISALL7/ai-devtools-cn",
+  }),
+  AI_DEVTOOLS_CN_MERGED_PRS_JSON: JSON.stringify([
+    {
+      number: 101,
+      title: "Add release note template",
+      author: {
+        login: "maintainer-user",
+        is_bot: false,
+      },
+      mergedAt: "2026-06-01T00:00:00Z",
+    },
+    {
+      number: 102,
+      title: "Add external case study",
+      author: {
+        login: "external-user",
+        is_bot: false,
+      },
+      mergedAt: "2026-06-01T01:00:00Z",
+    },
+  ]),
+  AI_DEVTOOLS_CN_CLOSED_ISSUES_JSON: JSON.stringify([
+    {
+      number: 201,
+      title: "closed issue",
+      labels: [{ name: "feedback" }],
+      author: {
+        login: "external-user",
+      },
+      closedAt: "2026-05-30T00:00:00Z",
+    },
+  ]),
+  AI_DEVTOOLS_CN_OPEN_ISSUES_JSON: JSON.stringify([
+    {
+      number: 202,
+      title: "open issue",
+      labels: [{ name: "feedback" }],
+      author: {
+        login: "maintainer-user",
+      },
+      createdAt: "2026-06-01T00:00:00Z",
+    },
+    {
+      number: 203,
+      title: "open non-feedback issue",
+      labels: [],
+      author: {
+        login: "another-user",
+      },
+      createdAt: "2026-06-01T01:00:00Z",
+    },
+  ]),
+  AI_DEVTOOLS_CN_RELEASES_JSON: JSON.stringify([
+    {
+      tagName: "v0.18.3",
+      name: "v0.18.3",
+      publishedAt: "2026-06-02T00:00:00Z",
+    },
+  ]),
+  AI_DEVTOOLS_CN_NPM_VERSION: "0.18.3",
+  AI_DEVTOOLS_CN_NPM_DOWNLOADS_JSON: JSON.stringify({ downloads: 456 }),
+};
+
+const readinessOutput = run(["templates:readiness", "--output", readinessPath], { env: { ...process.env, ...readinessEnv } });
+assert.match(readinessOutput, /已生成 OpenAI Codex for Open Source 资格申请材料/);
+assert.equal(existsSync(readinessPath), true);
+
+const readinessDraft = readFileSync(readinessPath, "utf8");
+assert.match(readinessDraft, /# OpenAI Codex for Open Source 资格申请材料（AI DevTools CN）/);
+assert.match(readinessDraft, /项目：`ai-devtools-cn`/);
+assert.match(readinessDraft, /Stars \| 123/);
+assert.match(readinessDraft, /External merged PRs/);
+assert.match(readinessDraft, /Describe your role/);
+assert.match(readinessDraft, /How will you use API credits\?/);
+assert.match(readinessDraft, /I am the primary maintainer of this public repository ai-devtools-cn/);
+
+assert.throws(
+  () => run(["readiness", "--output", readinessPath], { env: { ...process.env, ...readinessEnv } }),
+  /输出文件已存在/
+);
+
+const forcedReadinessOutput = run(["readiness", "--output", readinessPath, "--force"], {
+  env: { ...process.env, ...readinessEnv },
+});
+assert.match(forcedReadinessOutput, /已生成 OpenAI Codex for Open Source 资格申请材料/);
+
 const callerDir = mkdtempSync(path.join(tmpdir(), "ai-devtools-cn-caller-"));
 const callerDraftOutput = run(["new", "pr-review", "--output", "work/pr-review.md"], {
   cwd: callerDir,

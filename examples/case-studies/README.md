@@ -16,6 +16,10 @@
 | CI 排错 | [用 CI 排错模板修复 markdownlint MD012](ci-markdownlint-md012.md) |
 | 发版说明 | [用 release note 模板发布 v0.2.0](release-v020.md) |
 | CLI 维护 | [为模板库增加 CLI 注册校验](template-registry-validation.md) |
+| CI 排错 | [Node.js CI 依赖安装失败排查](node-ci-troubleshooting.md) |
+| PR review | [Python PR Review：签名变更与兼容性验证](python-pr-review-example.md) |
+| 依赖管理 | [依赖升级风险评估](dependency-upgrade-risk-example.md) |
+| 文档维护 | [前端 README 改进：从“看得懂”到“能跑起来”](frontend-readme-improvement-example.md) |
 
 ## 使用方式
 

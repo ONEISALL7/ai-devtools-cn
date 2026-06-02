@@ -81,6 +81,7 @@ npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
+npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
 npx ai-devtools-cn publish-status
 ```
 
@@ -111,6 +112,7 @@ npm run templates:outreach -- --template pr-review --channel x --output work/out
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
 npm run templates:publish-status
 npm run templates:evidence -- --output work/external-evidence.md
+npm run templates:readiness -- --output work/openai-readiness-2026-06-02.md
 ```
 
 本仓库当前 CLI 命令：
@@ -137,6 +139,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
+npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
 npx ai-devtools-cn publish-status
 ```
 
@@ -244,6 +247,10 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 - [用 CI 排错模板修复 markdownlint MD012](examples/case-studies/ci-markdownlint-md012.md)
 - [用 release note 模板发布 v0.2.0](examples/case-studies/release-v020.md)
 - [为模板库增加 CLI 注册校验](examples/case-studies/template-registry-validation.md)
+- [Node.js CI 依赖安装失败排查](examples/case-studies/node-ci-troubleshooting.md)
+- [Python PR review 示例：函数签名变更与兼容性验证](examples/case-studies/python-pr-review-example.md)
+- [依赖升级风险评估场景](examples/case-studies/dependency-upgrade-risk-example.md)
+- [前端 README 改进案例](examples/case-studies/frontend-readme-improvement-example.md)
 
 ## 文档入口
 
@@ -266,6 +273,8 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 - [FAQ](docs/faq.md)
 - [维护者成长计划](docs/maintainer-growth-plan.md)
 - [仓库检查清单](docs/repository-checklist.md)
+- [OpenAI 申请材料包](docs/openai-codex-application-packet.md)
+- [外部采用与资格申请快速资料包](docs/open-source-readiness-pack.md)
 
 ## 设计原则
 

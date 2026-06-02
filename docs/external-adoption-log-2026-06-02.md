@@ -28,7 +28,7 @@
 
 ## 未完成项（继续进行）
 
-- External merged PR：`0`
+- External merged PR：`1`（[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
 - 外部 feedback issue：目标 2-3 条，本轮先期采集 `1`
 - 真实试用反馈需继续补齐（特别是 PR review / CI troubleshooting 场景）
 
@@ -59,10 +59,10 @@
   - `GitHub release`：v0.18.3
   - `npm run templates:publish-status`：npm 落后于 package/release
 - 缺口：
-  - external PR 仍为 0
+  - external PR 缺口：当前目标是稳定形成持续外部反馈，而不是只计 1 条 PR。
   - 外部反馈 issue 仍为 1 条（待补齐到 2-3 条）
 - 本地核验日志：
-  - `npm run metrics:snapshot` 已执行（外部 merged PR：0，external feedback-labeled：1）
+  - `npm run metrics:snapshot` 已执行（外部 merged PR：1，external feedback-labeled：1）
   - `npm run test` 已执行（通过）
   - `work/pilot-invites-2026-06-02.md` 已生成并留痕
   - `work/external-evidence-auto-2026-06-02.md` 已生成（含指标与可复用字段模板）

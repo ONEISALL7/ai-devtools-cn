@@ -591,6 +591,37 @@ npx ai-devtools-cn evidence --output work/external-evidence.md
 
 这个命令不会自动抓取外部数据，也不会把维护者自己的 issue 包装成外部反馈。它的用途是帮助维护者在真实外部信号出现后，用可核验链接记录下来。维护者基于外部反馈完成的 PR/release 可以作为反馈驱动改进证据，但不能写成 external merged PR。
 
+## 生成 OpenAI Codex 资格申请材料
+
+如果你准备提交 OpenAI Codex for Open Source 申请，这个命令会直接生成一份可提交的材料草稿：
+
+```bash
+npm run templates:readiness -- --output work/openai-readiness-2026-06-02.md
+```
+
+等价的 npx 用法：
+
+```bash
+npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
+```
+
+默认输出到：
+
+- `work/openai-readiness-YYYY-MM-DD.md`
+
+命令会生成一份包含以下内容的材料：
+
+- 项目定位和仓库状态
+- 核验文件清单（README、CONTRIBUTING、SECURITY、MAINTAINERS、CHANGELOG、LICENSE）
+- GitHub / npm 可核验指标（stars、forks、merged PRs、external merged PRs、feedback、releases 等）
+- 直接可粘贴到 OpenAI 表单的三段英文文本：
+  - Describe your role
+  - Why does this repository qualify?
+  - How will you use API credits?
+- 外部反馈 / PR 边界说明（防止把 maintainer 自测当作外部采用）
+
+命令优先使用环境变量快照（例如 `AI_DEVTOOLS_CN_REPO_INFO_JSON`），如未设置则尝试读取本地 GitHub / npm 命令与 npm 下载 API。若仍无法获取则显示 `unknown/unavailable`。文件有冲突时可加 `--force` 覆盖。
+
 ## 查看 npm 发布同步状态
 
 发布或对外发送 `npx` 命令前，可以检查本地版本、npm 公开版本和 GitHub 最新 release 是否一致：

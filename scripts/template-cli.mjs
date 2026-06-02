@@ -4,10 +4,12 @@ import { execFileSync } from "node:child_process";
 import { constants, existsSync, accessSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatSnapshotDate } from "./date-utils.mjs";
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const invocationRoot = process.cwd();
 const repo = "ONEISALL7/ai-devtools-cn";
+const repoOwner = "ONEISALL7";
 const templateFeedbackUrl = "https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=template_feedback.yml";
 const externalPilotFeedbackUrl = "https://github.com/ONEISALL7/ai-devtools-cn/issues/new?template=external_pilot_feedback.yml";
 
@@ -126,6 +128,26 @@ const templates = [
   },
 ];
 
+const openaiReadinessRequiredFiles = [
+  "README.md",
+  "CONTRIBUTING.md",
+  "SECURITY.md",
+  "MAINTAINERS.md",
+  "CHANGELOG.md",
+  "LICENSE",
+  "docs/open-source-readiness-pack.md",
+  "docs/openai-codex-application-packet.md",
+];
+
+const readinessTemplate = {
+  roleText:
+    "I am the primary maintainer of this public repository ai-devtools-cn. I review and merge PRs, triage issues, maintain releases, and curate templates and case studies used by Chinese OSS maintainers for real maintenance workflows such as PR review, issue triage, CI troubleshooting, and release documentation.",
+  qualifyText:
+    "This repository is a public OSS project that provides reusable maintenance templates and CLI workflows for real maintainer tasks. It includes PR review, issue triage, CI troubleshooting, release note drafting, and quality evaluation content with concrete examples. The project is actively maintained with releases, issue/PR history, and feedback pathways for external users.",
+  creditsText:
+    "I will use API credits to speed up maintainer workloads: review note drafting, issue triage, CI failure triage, dependency risk analysis, release note preparation, and external feedback conversion into reviewable, high-quality maintainer artifacts.",
+};
+
 const kits = [
   {
     slug: "oss-maintainer",
@@ -207,6 +229,34 @@ const examples = [
         title: "模板注册校验",
         file: "examples/case-studies/template-registry-validation.md",
         useCase: "为模板库增加 CLI 注册校验",
+      },
+      {
+        slug: "node-ci-troubleshooting",
+        title: "Node.js CI 依赖安装失败",
+        file: "examples/case-studies/node-ci-troubleshooting.md",
+        useCase: "快速复现并修复 npm ci lockfile 不一致场景",
+        templateSlug: "ci-troubleshooting",
+      },
+      {
+        slug: "dependency-upgrade-risk-example",
+        title: "依赖升级风险评估",
+        file: "examples/dependency-upgrade-risk-example.md",
+        useCase: "判断 major 更新、兼容性风险与回滚方案",
+        templateSlug: "dependency-upgrade-risk",
+      },
+      {
+        slug: "python-pr-review-example",
+        title: "Python PR Review 示例",
+        file: "examples/python-pr-review-example.md",
+        useCase: "识别 API 变更阻塞项和验证边界",
+        templateSlug: "pr-review",
+      },
+      {
+        slug: "frontend-readme-improvement-example",
+        title: "前端 README 改进",
+        file: "examples/frontend-readme-improvement-example.md",
+        useCase: "从介绍页到可运行步骤的快速可用改进",
+        templateSlug: "readme-improvement",
       },
     ],
   },
@@ -448,6 +498,7 @@ Usage:
   ai-devtools-cn outreach --output <path>
   ai-devtools-cn adoption --output <dir>
   ai-devtools-cn evidence --output <path>
+  ai-devtools-cn readiness --output <path>
   ai-devtools-cn publish-status
   ai-devtools-cn doctor
   ai-devtools-cn validate
@@ -477,6 +528,7 @@ NPM scripts:
   npm run templates:outreach -- --template <slug> --channel <channel> --output <path>
   npm run templates:adoption -- --template <slug> --output <dir>
   npm run templates:evidence -- --output <path>
+  npm run templates:readiness -- --output <path>
   npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
@@ -495,6 +547,8 @@ Examples:
   npx ai-devtools-cn handoff --output work/external-pr-handoff.md
   npx ai-devtools-cn handoff --issue 45 --output work/handoff-45.md
   npx ai-devtools-cn pr-pack 45 --output work/pr-pack-45.md
+  npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
+  npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npx ai-devtools-cn review-pr --pr 123 --author external-dev --issue 45 --output work/review-pr-123.md
   npx ai-devtools-cn claim 45 --output work/claim-45.md
   npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
@@ -508,6 +562,7 @@ Examples:
   npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
   npx ai-devtools-cn adoption --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npx ai-devtools-cn evidence --output work/external-evidence.md
+  npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
   npx ai-devtools-cn publish-status
   npx ai-devtools-cn doctor
   npx ai-devtools-cn validate
@@ -538,6 +593,7 @@ Examples:
   npm run templates:outreach -- --template pr-review --channel x --output work/outreach.md
   npm run templates:adoption -- --template pr-review --scenario "review a documentation PR" --output work/adoption-sprint
   npm run templates:evidence -- --output work/external-evidence.md
+  npm run templates:readiness -- --output work/openai-readiness-2026-06-02.md
   npm run templates:publish-status
   npm run templates:doctor
   npm run templates:validate
@@ -1397,7 +1453,7 @@ function getStarterProfile(issue) {
     "#47": {
       templateName: "用户反馈整理模板",
       templatePath: "docs/feedback.md",
-      outputTarget: "docs/user-feedback-case-guide.md",
+      outputTarget: "docs/feedback-case-guide.md",
       contextPrompt: "写清楚反馈来源、使用的模板或 CLI 命令、用户角色，以及反馈是否公开可核验。",
       inputPrompt: "整理匿名化后的反馈摘要、对应 issue/PR 链接、后续改进动作和不能公开的信息边界。",
       outputPrompt: "建议包含：反馈记录格式、可计入外部反馈的条件、不能计入的内容、维护者 triage checklist。",
@@ -1405,7 +1461,7 @@ function getStarterProfile(issue) {
     "#48": {
       templateName: "PR Review 模板",
       templatePath: "templates/pr-review-template.md",
-      outputTarget: "examples/case-studies/python-pr-review.md",
+      outputTarget: "examples/python-pr-review-example.md",
       contextPrompt: "写清楚 Python 项目类型、改动范围、测试工具、目标 review 重点，例如 API 兼容性、异常处理或测试覆盖。",
       inputPrompt: "提供公开安全的 diff 摘要、文件类型、测试结果和约束。不要包含私有源码或真实客户数据。",
       outputPrompt: "建议包含：review 关注点、必须修改项、建议修改项、验证命令和可直接放进 PR 的 review 评论。",
@@ -1413,7 +1469,7 @@ function getStarterProfile(issue) {
     "#49": {
       templateName: "README 改进模板",
       templatePath: "templates/readme-improvement-template.md",
-      outputTarget: "examples/case-studies/frontend-readme-improvement.md",
+      outputTarget: "examples/frontend-readme-improvement-example.md",
       contextPrompt: "写清楚前端项目类型、安装方式、启动命令、目标用户和当前 README 的主要缺口。",
       inputPrompt: "列出现有 README 片段、缺失步骤、常见失败点和期望新用户完成的第一个动作。",
       outputPrompt: "建议包含：新的快速开始结构、环境要求、常见问题、验证方式和 README 改进前后对比。",
@@ -1588,6 +1644,260 @@ function createTrialPack(options) {
   console.log(`已生成试用包：${formatDisplayPath(resolvedOutput)}`);
   for (const file of files) {
     console.log(`- ${path.join(formatDisplayPath(resolvedOutput), file.name)}`);
+  }
+}
+
+function createOpenAICodexReadiness(options = {}) {
+  const outputPath = options.output ?? path.join("work", `openai-readiness-${formatSnapshotDate()}.md`);
+  const resolvedOutput = resolveOutputPath(outputPath);
+
+  if (existsSync(resolvedOutput) && !options.force) {
+    fail(`输出文件已存在：${formatDisplayPath(resolvedOutput)}\n如需覆盖，请加 --force。`);
+  }
+
+  const packageJson = readPackageManifest();
+  const metricSnapshot = collectOpenSourceMetrics();
+  const requiredFileReport = collectRequiredFileReport(openaiReadinessRequiredFiles);
+
+  mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+  writeFileSync(
+    resolvedOutput,
+    formatOpenAICodexReadiness({
+      packageName: packageJson.name,
+      packageVersion: packageJson.version,
+      metricSnapshot,
+      requiredFileReport,
+      date: formatSnapshotDate(),
+    }),
+    "utf8",
+  );
+
+  console.log(`已生成 OpenAI Codex for Open Source 资格申请材料：${formatDisplayPath(resolvedOutput)}`);
+}
+
+function formatOpenAICodexReadiness({
+  packageName,
+  packageVersion,
+  metricSnapshot,
+  requiredFileReport,
+  date,
+}) {
+  const requiredRows = requiredFileReport
+    .map((item) => `- ${item.file}：${item.exists ? "✅" : "❌"}`)
+    .join("\n");
+  const allFilesPresent = requiredFileReport.every((item) => item.exists);
+  const isPublic = metricSnapshot.repoVisibility === "public";
+  const readinessTip = allFilesPresent && isPublic
+    ? "✅ 可满足申请材料基础条件（文件与公开状态）"
+    : "⚠️ 基础条件仍需补齐（请确认缺失项后再提交）";
+
+  return `# OpenAI Codex for Open Source 资格申请材料（AI DevTools CN）
+
+生成日期：${date}
+
+## 一、项目定位（可直接放进申请）
+
+- 项目：\`ai-devtools-cn\`
+- 仓库：${metricSnapshot.repoUrl}
+- 发布：\`${packageName}@${packageVersion}\`
+- 公开仓库状态：${metricSnapshot.repoVisibility}
+
+## 二、资格自检
+
+${readinessTip}
+
+### 必备文件
+
+${requiredRows}
+
+### 当前可核验指标（用于周更和申请核对）
+
+| 指标 | 值 |
+| --- | --- |
+| Stars | ${metricSnapshot.stars} |
+| Forks | ${metricSnapshot.forks} |
+| Merged PRs | ${metricSnapshot.mergedPrsKnown ? metricSnapshot.mergedPrs : "unknown"} |
+| External merged PRs（非 maintainer） | ${metricSnapshot.externalMergedPrsKnown ? metricSnapshot.externalMergedPrs : "unknown"} |
+| Open issues | ${metricSnapshot.openIssues} |
+| Closed issues | ${metricSnapshot.closedIssues} |
+| Feedback-labeled issues（全部） | ${metricSnapshot.feedbackIssuesKnown ? metricSnapshot.feedbackIssues : "unknown"} |
+| External feedback issues（非 maintainer） | ${metricSnapshot.feedbackIssuesKnown ? metricSnapshot.externalFeedbackIssues : "unknown"} |
+| Releases（已发布） | ${metricSnapshot.releasesKnown ? metricSnapshot.releases : "unknown"} |
+| npm package | ${metricSnapshot.npmVersion} |
+| npm monthly downloads | ${metricSnapshot.npmDownloads} |
+
+> 说明：若某项显示 unknown，请重跑并在网络可用时补齐。
+
+## 三、申请文本（可直接复制）
+
+### Describe your role
+
+\`\`\`text
+${readinessTemplate.roleText}
+\`\`\`
+
+### Why does this repository qualify?
+
+\`\`\`text
+${readinessTemplate.qualifyText}
+\`\`\`
+
+### How will you use API credits?
+
+\`\`\`text
+${readinessTemplate.creditsText}
+\`\`\`
+
+## 四、外部证据边界（请勿把 maintainer 自测当作外部采用）
+
+- 外部反馈需为非 maintainer 账号在公开场景提交的 issue/comment/PR。
+- external merged PR 只算非 maintainer 作者提交并合并的 PR。
+- 外部反馈驱动的 maintainer 维护行动可计入反馈驱动改进，但不能替代 external merged PR。
+- 本地草稿（claim/starter/new/trial/feedback/outreach）仅用于准备，不应直接计入外部 PR。
+
+## 五、下一步
+
+1. 运行 \`npm run metrics:snapshot -- --output work/metrics-${date}.md\`。
+2. 运行 \`npm run templates:evidence -- --output work/external-evidence-${date}.md\`。
+3. 邀请真实用户提交至少 2 条外部 feedback issue 并记录来源链接。
+4. 邀请真实用户认领 good first issue，争取 ≥1 条 external merged PR。`;
+}
+
+function collectOpenSourceMetrics() {
+  const repoInfo = getJsonFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_REPO_INFO_JSON",
+    "gh",
+    ["repo", "view", repo, "--json", "stargazerCount,forkCount,isPrivate,visibility,url,description"],
+  );
+  const mergedPrs = getJsonFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_MERGED_PRS_JSON",
+    "gh",
+    ["pr", "list", "--repo", repo, "--state", "merged", "--limit", "1000", "--json", "number,title,author,mergedAt"],
+  );
+  const closedIssues = getJsonFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_CLOSED_ISSUES_JSON",
+    "gh",
+    ["issue", "list", "--repo", repo, "--state", "closed", "--limit", "1000", "--json", "number,title,labels,author,closedAt"],
+  );
+  const openIssues = getJsonFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_OPEN_ISSUES_JSON",
+    "gh",
+    ["issue", "list", "--repo", repo, "--state", "open", "--limit", "1000", "--json", "number,title,labels,author,createdAt"],
+  );
+  const releases = getJsonFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_RELEASES_JSON",
+    "gh",
+    ["release", "list", "--repo", repo, "--limit", "1000", "--json", "tagName,name,publishedAt"],
+  );
+  const npmVersion = getVersionFromEnvOrCommand(
+    "AI_DEVTOOLS_CN_NPM_VERSION",
+    "npm",
+    ["view", "ai-devtools-cn", "version", "--strict-ssl=false"],
+  );
+  const npmDownloads = getNpmDownloadsForReadiness();
+
+  const mergedPrItems = mergedPrs.ok ? mergedPrs.value : [];
+  const closedIssueItems = closedIssues.ok ? closedIssues.value : [];
+  const openIssueItems = openIssues.ok ? openIssues.value : [];
+  const allIssues = [...closedIssueItems, ...openIssueItems];
+  const feedbackIssues = allIssues.filter((issue) => hasLabel(issue, "feedback"));
+  const externalFeedbackIssues = feedbackIssues.filter((issue) => isExternalHumanAuthor(issue.author));
+  const externalMergedPrs = mergedPrItems.filter((pr) => isExternalHumanAuthor(pr.author));
+
+  return {
+    stars: repoInfo.ok ? toSafeValue(repoInfo.value?.stargazerCount) : "unknown",
+    forks: repoInfo.ok ? toSafeValue(repoInfo.value?.forkCount) : "unknown",
+    repoVisibility: repoInfo.ok ? toSafeValue(repoInfo.value?.visibility, "unknown") : "unknown",
+    repoUrl: repoInfo.ok ? toSafeValue(repoInfo.value?.url, `https://github.com/${repo}`) : `https://github.com/${repo}`,
+    mergedPrs: mergedPrItems.length,
+    mergedPrsKnown: mergedPrs.ok,
+    externalMergedPrs: externalMergedPrs.length,
+    externalMergedPrsKnown: mergedPrs.ok,
+    openIssues: openIssueItems.length,
+    closedIssues: closedIssueItems.length,
+    feedbackIssues: feedbackIssues.length,
+    feedbackIssuesKnown: openIssues.ok && closedIssues.ok,
+    externalFeedbackIssues: externalFeedbackIssues.length,
+    releases: releases.ok ? toSafeValue(releases.value.length, 0) : "unknown",
+    releasesKnown: releases.ok,
+    npmVersion: npmVersion.ok ? npmVersion.value : "unavailable",
+    npmDownloads: npmDownloads.ok ? npmDownloads.value : "unavailable",
+  };
+}
+
+function collectRequiredFileReport(files) {
+  return files.map((filePath) => ({
+    file: filePath,
+    exists: existsSync(path.resolve(packageRoot, filePath)),
+  }));
+}
+
+function getNpmDownloadsForReadiness() {
+  const override = process.env.AI_DEVTOOLS_CN_NPM_DOWNLOADS_JSON;
+  if (!override) {
+    try {
+      const value = execFileSync("curl", [
+        "-L",
+        "--max-time",
+        "8",
+        "https://api.npmjs.org/downloads/point/last-month/ai-devtools-cn",
+      ], {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+      }).trim();
+      const parsed = JSON.parse(value);
+      if (Number.isFinite(parsed.downloads)) {
+        return { ok: true, value: `${parsed.downloads}` };
+      }
+      return { ok: false };
+    } catch {
+      return { ok: false };
+    }
+  }
+
+  try {
+    const parsed = JSON.parse(override);
+    if (Number.isFinite(parsed.downloads)) {
+      return { ok: true, value: `${parsed.downloads}` };
+    }
+    return { ok: false };
+  } catch (error) {
+    return { ok: false, error };
+  }
+}
+
+function toSafeValue(value, fallback = "unknown") {
+  return value === null || value === undefined ? fallback : value;
+}
+
+function hasLabel(item, labelName) {
+  return Array.isArray(item.labels) && item.labels.some((label) => label.name === labelName);
+}
+
+function isExternalHumanAuthor(author) {
+  return Boolean(author?.login)
+    && author.login !== repoOwner
+    && author.is_bot !== true;
+}
+
+function getJsonFromEnvOrCommand(envName, command, commandArgs) {
+  const envValue = process.env[envName];
+  if (envValue) {
+    try {
+      return { ok: true, value: JSON.parse(envValue) };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  }
+
+  try {
+    const value = execFileSync(command, commandArgs, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    return { ok: true, value: JSON.parse(value) };
+  } catch (error) {
+    return { ok: false, error };
   }
 }
 
@@ -3096,6 +3406,9 @@ switch (command) {
     break;
   case "evidence":
     createEvidenceLedger(parseOptions(args));
+    break;
+  case "readiness":
+    createOpenAICodexReadiness(parseOptions(args));
     break;
   case "publish-status":
     showPublishStatus();

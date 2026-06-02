@@ -38,20 +38,38 @@ npm view ai-devtools-cn version：
 外部反馈 issue 链接（含场景）：
 - https://github.com/ONEISALL7/ai-devtools-cn/issues/169
 外部 merged PR 链接：
-- 暂无
+- https://github.com/ONEISALL7/ai-devtools-cn/pull/245（外部贡献者 @Jah-yee）
 公开案例（是否匿名授权）：
-- 暂无
+- 用例：在 PR review + CI troubleshooting 场景下将外部反馈转为案例（examples/case-studies/python-pr-review-example.md 与 pnpm workspace CI 试用包）
 本周是否形成可复用文档/模板变更：
-- 已形成 1 条反馈驱动改进需求，已在项目维护活动中记录
+- 已形成 1 条外部反馈驱动改进（#169）并完成 1 条对应 PR（#245）与 1 条公开 case study
 npm view ai-devtools-cn version：
 - npm 包版本：`0.18.1`
 - package.json 版本：`0.18.3`
 最近 7/30 天下载：
-- unavailable（当前环境未打通 npm downloads API）
+  - 116（截至 2026-05-02~2026-05-31）
 下一步行动：
-- 补齐 1 条外部 merged PR（非 maintainer 账号提交并合并）
-- 补齐 2-3 条外部 feedback issue，优先场景为 PR review / CI troubleshooting
+- 继续补齐 2-3 条外部 feedback issue，优先场景为 PR review / CI troubleshooting
 ```
+
+## 1.6) OpenAI 递交前 10 分钟清单（每次更新）
+
+每次准备提交前，按这条命令链直接生成核验证据：
+
+```bash
+npm run templates:publish-status
+npm run metrics:snapshot -- --output work/metrics-$(date +%F).md
+npm run templates:evidence -- --output work/external-evidence-$(date +%F).md
+npm run templates:readiness -- --output work/openai-readiness-$(date +%F).md
+```
+
+建议在申请材料中附上三项：
+
+- `docs/openai-codex-application-packet.md`（固定文案模板）
+- `work/external-evidence-YYYY-MM-DD.md`（外部反馈、外部 PR、公开帖子等核验清单）
+- `work/openai-readiness-YYYY-MM-DD.md`（可直接贴到 OpenAI 表单的三段英文文本）
+
+只保留真实、可核验的条目。维护者自己的本地草稿、占位 issue、未合并 PR 一律不计入外部采用。
 
 ## 2) 快速核验标准（提交前）
 
@@ -101,7 +119,7 @@ content.
   - issue #B：外部反馈，场景为 CI 排错。
 - 外部 PR：
   - PR #X：由 @username 提交，已合并。
-- npm：v0.18.1（公开包），月下载 unavailable（当前未打通 API）。
+  - npm：v0.18.1（公开包），月下载 116（截至 2026-05-02~2026-05-31）。
 ```
 
 ## 5) 你可以直接发给外部用户的体验要求
@@ -111,3 +129,9 @@ content.
 - 强制要求反馈里给出：使用场景、是否可直接提交 PR/issue/CI。
 
 这个要求会显著提高反馈可核验性，也更容易形成可用于申请的真实采用证据。
+
+## 6) 申请最终材料入口
+
+- `docs/openai-codex-application-packet.md`：可以直接贴申请文本（角色、资格、用途、Credits 用法）和周更核验清单。
+- `docs/external-adoption-log-2026-06-02.md`：本项目当前一期对外证据记录。
+- `docs/day8-day30-execution-log.md`：用于持续记录外部 trial / feedback / external PR 的周更进度。

@@ -68,6 +68,7 @@
     "templates:outreach": "node scripts/template-cli.mjs outreach",
     "templates:adoption": "node scripts/template-cli.mjs adoption",
     "templates:evidence": "node scripts/template-cli.mjs evidence",
+    "templates:readiness": "node scripts/template-cli.mjs readiness",
     "templates:publish-status": "node scripts/template-cli.mjs publish-status",
     "templates:doctor": "node scripts/template-cli.mjs doctor",
     "templates:publish-check": "node scripts/template-cli.mjs publish-check",

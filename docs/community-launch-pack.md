@@ -32,7 +32,7 @@ npx ai-devtools-cn launch
 - npm 当前可见版本：`0.18.1`（按 `npm view ai-devtools-cn version` 核验）
 - GitHub release：`v0.18.3`（仓库内最新 release）
 - 外部反馈：已有 1 条公开 feedback issue，并已转化为 pnpm workspace CI 试用包
-- 外部 merged PR：目前仍为 0
+- 外部 merged PR：1（已合并：[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
 - npm 发布同步：对外承诺 npx 能力前，先以 `npm run templates:publish-status` + `npm view` 双核验，确认 npm 已同步到 `v0.18.3` 或更高。
 
 不要写：

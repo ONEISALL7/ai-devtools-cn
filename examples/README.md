@@ -20,6 +20,10 @@
 | [用 PR Review 模板审查快速上手 PR](case-studies/pr-review-quickstart-release.md) | 如何审查文档入口型 PR |
 | [用 CI 排错模板修复 markdownlint MD012](case-studies/ci-markdownlint-md012.md) | 如何从 CI 日志定位最小修复 |
 | [用 release note 模板发布 v0.2.0](case-studies/release-v020.md) | 如何把 PR 和 changelog 整理成 release note |
+| [Node.js CI 依赖安装失败场景](case-studies/node-ci-troubleshooting.md) | 如何处理 npm ci lockfile 不一致并给出可复用 review comment |
+| [Python PR Review：函数签名变更](case-studies/python-pr-review-example.md) | 如何区分阻塞项、回归风险与验证边界 |
+| [依赖升级风险评估场景](case-studies/dependency-upgrade-risk-example.md) | 如何给升级 PR 做风险分层与回滚准备 |
+| [前端 README 改进案例](case-studies/frontend-readme-improvement-example.md) | 如何把 README 从“看得懂”变成“能跑起来” |
 
 ## 第一批用户试用包
 
