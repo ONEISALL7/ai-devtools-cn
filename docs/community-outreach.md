@@ -86,7 +86,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 
 还加了 CLI，一条命令生成可填写的模板工作稿。
 
-v0.17.x 当前包含：
+v0.18.x 当前包含：
 - 开源维护者工作包
 - 反馈 issue 草稿生成命令
 - 模板注册校验命令
@@ -113,7 +113,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例、GitHub v0.18.1 release 和已发布 npm 包。
+现在有模板、CLI、真实案例。GitHub 发布可核验为 `v0.18.3`，npm 公开包当前为 `0.18.1`（`npm view`），发布状态以联网后复核为准，请外部使用前再次确认。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -173,8 +173,8 @@ https://github.com/ONEISALL7/ai-devtools-cn
 发布前确认：
 
 - README 顶部能说明项目用途
-- `v0.18.1` release 已存在
-- npm 已同步到 `0.18.1`，`npx ai-devtools-cn@latest doctor` 可用
+- `v0.18.3` release 已存在（按仓库版本与发布日志核验）
+- npm 同步状态需先线下核验；仅在 `npm view ai-devtools-cn version` 与 `npx ai-devtools-cn@latest doctor` 可用时，对外承诺 npx 流程
 - issue 模板可用
 - [第一批用户试用计划](first-user-test-plan.md) 和 [外部试用者快速指南](external-tester-guide.md) 可直接发给试用者
 - [用户反馈](feedback.md) 和 [支持入口](../SUPPORT.md) 可访问
@@ -244,3 +244,20 @@ npm run templates:evidence -- --output work/external-evidence.md
 - release count
 
 这些指标可以帮助判断项目是否真正被使用，也能辅助后续申请开源维护者支持。
+
+## 外部采用快记录（与申请材料联动）
+
+首次发布后建议直接用这份记录块：
+
+```text
+日期：
+渠道：
+邀约对象：
+实际参与：
+反馈 issue：
+外部 PR：
+可公开证据链接：
+本周改进：
+```
+
+你可以把上述记录直接填进《[外部采用与资格材料快速包](open-source-readiness-pack.md)》统一保存。

@@ -13,7 +13,7 @@ npm install
 npm run templates:launch
 ```
 
-npm 公开包当前仍落后于 GitHub `main`。在 npm 版本同步到 `0.18.3` 或更高之前，请优先使用上面的 clone + `npm run templates:launch` 路径。
+npm 包当前仍落后于 GitHub `main`（本地核验值：npm 0.18.1，GitHub release 0.18.3）。在 npm 与主线内容对齐前，请优先使用上面的 clone + `npm run templates:launch` 路径。
 
 同步后可以改用：
 
@@ -29,11 +29,11 @@ npx ai-devtools-cn launch
 
 - 仓库：<https://github.com/ONEISALL7/ai-devtools-cn>
 - npm 包：<https://www.npmjs.com/package/ai-devtools-cn>
-- npm 当前发布版本：`0.18.1`
-- GitHub release 目标：`v0.18.3` patch release，用于同步公开仓库清理和公开安全脱敏模板
+- npm 当前可见版本：`0.18.1`（按 `npm view ai-devtools-cn version` 核验）
+- GitHub release：`v0.18.3`（仓库内最新 release）
 - 外部反馈：已有 1 条公开 feedback issue，并已转化为 pnpm workspace CI 试用包
 - 外部 merged PR：目前仍为 0
-- npm 发布同步：npm latest 仍落后于 GitHub `main`；在 `0.18.3` 完成 npm 发布前，不要把新增 CLI 或模板描述为可通过 `npx @latest` 使用
+- npm 发布同步：对外承诺 npx 能力前，先以 `npm run templates:publish-status` + `npm view` 双核验，确认 npm 已同步到 `v0.18.3` 或更高。
 
 不要写：
 
@@ -71,7 +71,7 @@ npm run templates:recipes
 npm run templates:recipes pr-review-docs
 npm run templates:trial -- --template pr-review --output work/trial
 
-等 npm 版本同步到 `0.18.3` 或更高后，可以改用：
+等 npm 版本同步到 `0.18.3` 或更高并可核验后，可以改用：
 
 npm view ai-devtools-cn version
 npx ai-devtools-cn@latest doctor
@@ -152,7 +152,7 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 - release note
 - security review
 
-现在有模板、CLI 和真实案例；npm 包仍待同步到 `0.18.3`。
+现在有模板、CLI 和真实案例；npm 包当前是 `0.18.1`，仍待同步到 `v0.18.3` 的 release 内容后再对外宣称完整 npx 体验。
 
 想请 5-10 位开发者试用 15 分钟，给一个公开安全反馈：
 https://github.com/ONEISALL7/ai-devtools-cn
@@ -284,6 +284,10 @@ npm run templates:starter -- 45 --output work/starter-45.md
 ```
 
 ## 发布后记录到 #51
+
+阶段性对照可以直接用：
+
+- [第 1-7 天执行清单](day1-day7-checklist.md)
 
 发布后，把下面这段填到 issue [#51](https://github.com/ONEISALL7/ai-devtools-cn/issues/51)：
 
