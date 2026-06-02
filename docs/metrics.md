@@ -31,6 +31,18 @@ npm run metrics:snapshot -- --output work/metrics.md
 
 `work/` 已加入 `.gitignore`，适合保存本地草稿。
 
+如果你在当前环境里无法正常访问 GitHub API，脚本会保留运行并把对应字段显示为 `unknown`。也可以用环境变量注入 JSON 进行离线复核：
+
+```bash
+AI_DEVTOOLS_CN_REPO_INFO_JSON='{"stargazerCount":3,"forkCount":2,"visibility":"PUBLIC","url":"https://github.com/ONEISALL7/ai-devtools-cn"}' \
+AI_DEVTOOLS_CN_MERGED_PRS_JSON='[{"number":246,"title":"Prepare 0.18.3 release","author":{"login":"ONEISALL7","is_bot":false}}]' \
+AI_DEVTOOLS_CN_CLOSED_ISSUES_JSON='[{"number":238,"title":"[Release]: sync v0.17.6 to npm","labels":[{"name":"release"}],"author":{"login":"ONEISALL7","is_bot":false}}]' \
+AI_DEVTOOLS_CN_OPEN_ISSUES_JSON='[]' \
+AI_DEVTOOLS_CN_RELEASE_TEXT=$'v0.18.3\tv0.18.3\t2026-06-02' \
+AI_DEVTOOLS_CN_NPM_DOWNLOADS_JSON='{"downloads":1200}' \
+npm run metrics:snapshot
+```
+
 ## 记录外部采用证据
 
 指标快照只能告诉你“数量是多少”，不能替代人工判断证据是否真实、可公开、可核验。收到外部反馈或外部 PR 后，可以生成证据台账：

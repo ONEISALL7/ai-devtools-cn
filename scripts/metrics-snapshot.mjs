@@ -14,56 +14,75 @@ const args = process.argv.slice(2);
 const options = parseOptions(args);
 const today = formatSnapshotDate();
 
-const repoInfo = getJson("gh", [
-  "repo",
-  "view",
-  repo,
-  "--json",
-  "stargazerCount,forkCount,isPrivate,visibility,url,description",
-]);
+const repoInfo = getJsonFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_REPO_INFO_JSON",
+  "gh",
+  [
+    "repo",
+    "view",
+    repo,
+    "--json",
+    "stargazerCount,forkCount,isPrivate,visibility,url,description",
+  ],
+);
 
-const mergedPrs = getJson("gh", [
-  "pr",
-  "list",
-  "--repo",
-  repo,
-  "--state",
-  "merged",
-  "--limit",
-  githubListLimit,
-  "--json",
-  "number,title,mergedAt,author",
-]);
+const mergedPrs = getJsonFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_MERGED_PRS_JSON",
+  "gh",
+  [
+    "pr",
+    "list",
+    "--repo",
+    repo,
+    "--state",
+    "merged",
+    "--limit",
+    githubListLimit,
+    "--json",
+    "number,title,mergedAt,author",
+  ],
+);
 
-const closedIssues = getJson("gh", [
-  "issue",
-  "list",
-  "--repo",
-  repo,
-  "--state",
-  "closed",
-  "--limit",
-  githubListLimit,
-  "--json",
-  "number,title,closedAt,labels,author",
-]);
+const closedIssues = getJsonFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_CLOSED_ISSUES_JSON",
+  "gh",
+  [
+    "issue",
+    "list",
+    "--repo",
+    repo,
+    "--state",
+    "closed",
+    "--limit",
+    githubListLimit,
+    "--json",
+    "number,title,closedAt,labels,author",
+  ],
+);
 
-const openIssues = getJson("gh", [
-  "issue",
-  "list",
-  "--repo",
-  repo,
-  "--state",
-  "open",
-  "--limit",
-  githubListLimit,
-  "--json",
-  "number,title,labels,author",
-]);
+const openIssues = getJsonFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_OPEN_ISSUES_JSON",
+  "gh",
+  [
+    "issue",
+    "list",
+    "--repo",
+    repo,
+    "--state",
+    "open",
+    "--limit",
+    githubListLimit,
+    "--json",
+    "number,title,labels,author",
+  ],
+);
 
-const releases = getText("gh", ["release", "list", "--repo", repo, "--limit", githubListLimit], {
-  allowFailure: true,
-});
+const releases = getTextFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_RELEASE_TEXT",
+  "gh",
+  ["release", "list", "--repo", repo, "--limit", githubListLimit],
+  { allowFailure: true },
+);
 const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl=false"], {
   allowFailure: true,
 });
@@ -202,6 +221,28 @@ function getJson(command, commandArgs) {
   } catch (error) {
     return { ok: false, error };
   }
+}
+
+function getJsonFromEnvOrCommand(envName, command, commandArgs) {
+  const envValue = process.env[envName];
+  if (envValue) {
+    try {
+      const value = JSON.parse(envValue);
+      return { ok: true, value: Array.isArray(value) ? value : (value ? [value] : []) };
+    } catch {
+      return { ok: false, error: new Error(`Invalid JSON in ${envName}`) };
+    }
+  }
+
+  return getJson(command, commandArgs);
+}
+
+function getTextFromEnvOrCommand(envName, command, commandArgs, options = {}) {
+  const envValue = process.env[envName];
+  if (envValue) {
+    return { ok: true, value: envValue };
+  }
+  return getText(command, commandArgs, options);
 }
 
 function getText(command, commandArgs, { allowFailure = false } = {}) {
