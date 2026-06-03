@@ -7,6 +7,7 @@
 - 外部 feedback issue：1（#169）
 - external merged PR：1（#245）
 - 说明：以下文档中仍保留早前执行段落的历史口径；当前对外提交请以本条为准。
+- 实时核验索引：`docs/openai-live-readiness-index-2026-06-03.md`
 
 这个文档是你在提交 OpenAI 资格申请前的“最后打包页”。目标是：把“我做了很多事情”变成“我有可核验证据”。
 
@@ -75,6 +76,7 @@ I will use API credits to speed up maintainer workloads: review note drafting, i
 ```bash
 npm run metrics:snapshot -- --output work/metrics-YYYY-MM-DD.md
 npm run templates:evidence -- --output work/external-evidence-YYYY-MM-DD.md
+npm run templates:readiness -- --output work/openai-readiness-YYYY-MM-DD.md
 ```
 
 ## 3. “真实采用”定义边界（提交前必须统一）
