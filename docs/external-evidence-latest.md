@@ -26,8 +26,8 @@
 | Closed issues | 110 |
 | Feedback-labeled issues（全部） | 22 |
 | External feedback issues（非 maintainer） | 1 |
-| Releases | 31 |
-| Latest release | v0.18.3 (2026-06-02) |
+| Releases | 32 |
+| Latest release | v0.18.4 (2026-06-03) |
 | npm package | <https://www.npmjs.com/package/ai-devtools-cn> |
 | npm version | 0.18.3 |
 | npm last-month downloads | 926 |

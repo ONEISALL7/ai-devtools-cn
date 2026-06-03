@@ -1,21 +1,22 @@
 # OpenAI Codex for Open Source（今日实时状态）
 
-更新时间：2026-06-03 23:54（本地终端核验，命令已复跑）
+更新时间：2026-06-04 10:02（本地终端核验，命令已复跑）
 
 ## 1) 当前核验口径（可直接用于提交说明）
 
 - 仓库：`https://github.com/ONEISALL7/ai-devtools-cn`
-- 版本：`ai-devtools-cn@0.18.3`（`npm view ai-devtools-cn version`）
-- GitHub latest release：`v0.18.3`
-- 发布对齐：`package.json`、`npm`、`release` 均为 `0.18.3`
-- 本地状态：`templates:publish-status` 显示源码比最新 release 多 `30` 个提交，建议补一次发版后同步标签。
+- 版本：`ai-devtools-cn@0.18.4`（`package.json`）
+- GitHub latest release：`v0.18.4`
+- npm 包版本：`ai-devtools-cn@0.18.3`（`npm view ai-devtools-cn version`）
+- 发布对齐：release 与 `package.json` 已对齐到 `0.18.4`；npm 仍滞后
+- 本地状态：`templates:publish-status` 显示 `source` 与 release 对齐，`npm` 落后 `1` 个补丁版本。
 - 核验命令：`npm run test`、`npm run templates:publish-check`、`npm run pack:dry-run`、`npm run lint:md` 全部通过
 - 公开可核验指标（最新快照文件）：
   - Stars/Forks：`3 / 2`
   - Merged PRs：`131`
   - External merged PRs（非 maintainer）：`1`（[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
   - 外部 feedback issue：`1`（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
-  - Releases：`31`
+- Releases：`32`
   - npm 月下载：`926`
 - 本轮核验文件：`docs/metrics-latest.md`、`docs/external-evidence-latest.md`、`docs/openai-readiness-latest.md`
 
@@ -30,8 +31,8 @@
 
 ## 3) 仍缺口（官方重点）
 
-- 还缺 2~3 条真实外部 feedback issue（非 maintainer）与场景复核闭环
-- 目标是再转化至少 1 个外部问题到 merged 外部 PR
+- 还缺 1~2 条真实外部 feedback issue（非 maintainer）与场景复核闭环
+- 目标是再转化至少 1 条外部问题到 merged 外部 PR
 
 ## 4) 下一步（必须由真实外部账号）
 

@@ -36,7 +36,7 @@
 | Closed issues | 110 |
 | Feedback-labeled issues（全部） | 22 |
 | External feedback issues（非 maintainer） | 1 |
-| Releases（已发布） | 31 |
+| Releases（已发布） | 32 |
 | npm package | 0.18.3 |
 | npm monthly downloads | 926 |
 

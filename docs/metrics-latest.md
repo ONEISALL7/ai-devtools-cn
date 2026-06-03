@@ -16,7 +16,7 @@
 | Open issues | 5 |
 | Feedback-labeled issues | 22 |
 | External feedback-labeled issues | 1 |
-| Releases | 31 |
+| Releases | 32 |
 | npm package | 0.18.3 |
 | npm monthly downloads | 926 |
 
@@ -71,6 +71,7 @@ External merged PRs:
 
 ## Release 列表
 
+- [v0.18.4](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.4) (2026-06-03)
 - [v0.18.3](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.3) (2026-06-02)
 - [v0.18.2](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.2) (2026-06-01)
 - [v0.18.1](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.1) (2026-06-01)
