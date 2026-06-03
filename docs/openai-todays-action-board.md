@@ -21,6 +21,7 @@
 - `work/external-evidence-2026-06-03-now.md`：已生成（当前口径）
 - `work/metrics-2026-06-03-now.md`：已生成（当前口径）
 - `npm`, GitHub 发布口径验证通过
+- `work/outreach-next-steps.md`：已生成，可直接发送给外部用户
 
 ## 下一步（真实用户动作，且不占时间的版本）
 
