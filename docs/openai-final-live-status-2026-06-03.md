@@ -2,8 +2,9 @@
 
 ## 结论先行（当前口径）
 
-- `npm` 与 `package.json` 与 GitHub release 已对齐：`0.18.3`。  
+- `npm` 与 `package.json` 与 GitHub release 的主版本号为 `0.18.3`。  
 - `npm run test`、`npm run lint:md`、`npm run templates:publish-check`、`npm run templates:publish-status`、`npm pack --dry-run` 全部通过。  
+- `templates:publish-status` 当前显示本地源码比 `v0.18.3` release 领先 15 个提交（未打新版 release）。  
 - 当前可核验外部信号：  
   - 外部 feedback issue：`1`（#169，作者 @oneshots）  
   - external merged PR：`1`（#245，作者 @Jah-yee）  
@@ -65,5 +66,24 @@
   - 外部 feedback issue：`1`（#169）
   - external merged PR：`1`（#245）
 - 结论：当前仍未进入“理想口径”，核心缺口仍是 **2-3 条真实外部反馈** 与其对应的闭环转化（外部 PR / 案例文档 / release）。
+
+## 2026-06-03 23:59（本轮补齐）
+
+- 已执行命令并通过：
+  - `npm run test`
+  - `npm run templates:publish-check`
+  - `npm run pack:dry-run`
+  - `npm run templates:publish-status`
+  - `npm run metrics:snapshot -- --output work/metrics-2026-06-03-2360.md`
+  - `npm run templates:evidence -- --output work/external-evidence-2026-06-03-2360.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-2026-06-03-2360.md --force`
+- 已修正外部反馈标签同步：
+  - 在 GitHub 标签中新增 `external-feedback`
+  - 已补给 issue `#169` 加上该标签
+- 当前最新口径（未提交外部新反馈前）：
+  - 外部 feedback issue：`1`（@oneshots 的 #169）
+  - external merged PR：`1`（@Jah-yee 的 #245）
+  - 发布对齐：`package.json`/`npm` `0.18.3`，但源码有 `15` 个未发版提交
+- 下一步执行点不变：发出 3 条真实邀请并持续记录 `docs/external-adoption-log-2026-06-03.md`，目标补齐 `2~3` 条真实外部反馈与 ≥1 条外部 PR。
 
 建议下一步：立即在你自己的真实账号下发出上述 5 套邀请文本中的任意 3 套，并在收到回复后，按 `docs/external-adoption-log-2026-06-03.md` 回填渠道、时间、issue/PR 链接。

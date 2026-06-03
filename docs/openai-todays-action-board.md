@@ -2,11 +2,12 @@
 
 ## 结论（先看这）
 
-- 仓库与发布链路已对齐并可核验：
+- 仓库与发布链路在关键口径可核验，但本地已超前 release：
   - 仓库：`https://github.com/ONEISALL7/ai-devtools-cn`
   - `package.json`：`0.18.3`
   - npm：`0.18.3`
   - 最新 release：`v0.18.3`
+  - 本地 main 比 release 领先：`15` 个提交（建议下个版本打 tag 并按 `npm publish` 同步）
 - 核心质量自检全部通过（`npm run test`、`npm run lint:md`、`npm run templates:publish-check`）。
 - 当前真实外部采用口径仍缺口：
   - 外部 feedback issue：`1`（#169）
