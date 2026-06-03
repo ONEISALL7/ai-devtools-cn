@@ -1,6 +1,6 @@
 # OpenAI Codex for Open Source（今日实时状态）
 
-更新时间：2026-06-03 23:59（本地终端核验，命令已复跑）
+更新时间：2026-06-03 23:54（本地终端核验，命令已复跑）
 
 ## 1) 当前核验口径（可直接用于提交说明）
 
@@ -8,7 +8,7 @@
 - 版本：`ai-devtools-cn@0.18.3`（`npm view ai-devtools-cn version`）
 - GitHub latest release：`v0.18.3`
 - 发布对齐：`package.json`、`npm`、`release` 均为 `0.18.3`
-- 本地状态：`templates:publish-status` 显示源码比最新 release 多 `26` 个提交，建议补一次发版后同步标签。
+- 本地状态：`templates:publish-status` 显示源码比最新 release 多 `30` 个提交，建议补一次发版后同步标签。
 - 核验命令：`npm run test`、`npm run templates:publish-check`、`npm run pack:dry-run`、`npm run lint:md` 全部通过
 - 公开可核验指标（最新快照文件）：
   - Stars/Forks：`3 / 2`
@@ -17,7 +17,7 @@
   - 外部 feedback issue：`1`（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
   - Releases：`31`
   - npm 月下载：`926`
-- 本轮核验文件：`work/metrics-20260603-now.md`、`work/external-evidence-20260603-now.md`、`work/openai-readiness-20260603-now.md`
+- 本轮核验文件：`work/metrics-20260603-final-livecheck.md`、`work/external-evidence-20260603-final-livecheck.md`、`work/openai-readiness-20260603-final-livecheck.md`
 
 ## 2) 已满足的基础条件
 
