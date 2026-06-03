@@ -6,7 +6,7 @@
 
 - 项目：`ai-devtools-cn`
 - 仓库：<https://github.com/ONEISALL7/ai-devtools-cn>
-- 发布：`ai-devtools-cn@0.18.3`
+- 发布：`ai-devtools-cn@0.18.4`
 - 公开仓库状态：public
 
 ## 二、资格自检
