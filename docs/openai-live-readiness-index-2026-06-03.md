@@ -5,9 +5,9 @@
 
 ## 一、公开可核验材料（建议用于提交前自检）
 
-- `work/metrics-20260603-final-now.md`
-- `work/external-evidence-20260603-final-now.md`
-- `work/openai-readiness-20260603-final-now.md`
+- `work/metrics-20260603-finalized-now.md`
+- `work/external-evidence-20260603-finalized-now.md`
+- `work/openai-readiness-20260603-finalized-now.md`
 - `docs/external-adoption-log-2026-06-03.md`（对外动作与缺口追踪）
 - `docs/external-tester-guide.md`（试用反馈入口）
 - `.github/ISSUE_TEMPLATE/template_feedback.yml`

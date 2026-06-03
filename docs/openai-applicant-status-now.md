@@ -1,6 +1,6 @@
 # OpenAI Codex for Open Source（今日实时状态）
 
-更新时间：2026-06-03 23:59（本地终端核验）
+更新时间：2026-06-03 23:59（本地终端核验，命令已复跑）
 
 ## 1) 当前核验口径（可直接用于提交说明）
 
@@ -17,7 +17,7 @@
   - 外部 feedback issue：`1`（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
   - Releases：`31`
   - npm 月下载：`926`
-- 本轮核验文件：`work/metrics-20260603-final-now.md`、`work/external-evidence-20260603-final-now.md`、`work/openai-readiness-20260603-final-now.md`
+- 本轮核验文件：`work/metrics-20260603-finalized-now.md`、`work/external-evidence-20260603-finalized-now.md`、`work/openai-readiness-20260603-finalized-now.md`
 
 ## 2) 已满足的基础条件
 
