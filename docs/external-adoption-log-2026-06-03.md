@@ -1,5 +1,27 @@
 # 外部采用与试用证据日志（2026-06-03）
 
+## 2026-06-03 23:59（终版核验）
+
+- 本次核验已全部复跑（本地与发布口径一致）：
+  - `npm run templates:publish-status -- --json`
+  - `npm run test`
+  - `npm run lint:md`
+  - `npm run metrics:snapshot -- --output work/metrics-20260603-final.md`
+  - `npm run templates:evidence -- --output work/external-evidence-20260603-final.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-20260603-final.md --force`
+- 核验结果（对外提交口径）：
+  - 外部反馈 issue：`1`（#169）
+  - External merged PR：`1`（#245）
+  - 外部邀请落地：`0/3`（本地仅准备模板，待你真实账号外发）
+  - Stars/Forks：`3 / 2`
+  - Merged PRs：`131`
+  - Releases：`31`
+  - npm：`0.18.3`
+  - npm downloads（last month）：`926`
+  - package/release/npm 一致：`0.18.3` / `v0.18.3` / `0.18.3`
+
+说明：本项记录是当前可对外提交口径。历史条目保留为复盘轨迹，申报或复盘请以本节为准。
+
 ## 2026-06-03 23:26（复核更新）
 
 - 已完成核验：

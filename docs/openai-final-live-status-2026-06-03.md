@@ -16,9 +16,9 @@
 
 ## 可复用快照（本轮）
 
-- `work/metrics-20260603-now.md`
-- `work/external-evidence-20260603-now.md`
-- `work/openai-readiness-20260603-now.md`
+- `work/metrics-20260603-final.md`
+- `work/external-evidence-20260603-final.md`
+- `work/openai-readiness-20260603-final.md`
 
 ## 关键可核验文件
 
