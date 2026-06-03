@@ -28,6 +28,14 @@
 - 公开渠道：GitHub / X / V2EX / 技术社区讨论帖（可选）
 - npm 与 release 记录：GitHub release、npm package 版本、下载数据
 
+## 1.1 案例证据入口（用于说明真实使用价值）
+
+- 统一案例总览（可直接复制复用）：`docs/external-case-stories.md`
+- 真实场景模板：`docs/real-world-scenarios.md`
+- 反馈闭环模板：`docs/feedback-case-guide.md`
+
+说明：外部反馈数字只能证明“有人试用”，案例材料才能证明“项目能解决维护任务”。
+
 记录样式示例（按周/按批）：
 
 ```markdown

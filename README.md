@@ -81,7 +81,7 @@ npx ai-devtools-cn starter 45 --output work/node-ci-starter.md
 npx ai-devtools-cn recommend ci
 npx ai-devtools-cn trial --template pr-review --output work/trial
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
-npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
+ npx ai-devtools-cn readiness --output work/openai-readiness-YYYY-MM-DD.md
 npx ai-devtools-cn publish-status
 ```
 
@@ -112,7 +112,7 @@ npm run templates:outreach -- --template pr-review --channel x --output work/out
 npm run templates:adoption -- --template pr-review --output work/adoption-sprint
 npm run templates:publish-status
 npm run templates:evidence -- --output work/external-evidence.md
-npm run templates:readiness -- --output work/openai-readiness-2026-06-02.md
+npm run templates:readiness -- --output work/openai-readiness-YYYY-MM-DD.md
 ```
 
 本仓库当前 CLI 命令：
@@ -139,7 +139,7 @@ npx ai-devtools-cn new pr-review --output work/pr-review.md
 npx ai-devtools-cn outreach --template pr-review --channel x --output work/outreach.md
 npx ai-devtools-cn adoption --template pr-review --output work/adoption-sprint
 npx ai-devtools-cn evidence --output work/external-evidence.md
-npx ai-devtools-cn readiness --output work/openai-readiness-2026-06-02.md
+npx ai-devtools-cn readiness --output work/openai-readiness-YYYY-MM-DD.md
 npx ai-devtools-cn publish-status
 ```
 
@@ -202,6 +202,11 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 | 正在修 CI 的维护者 | 用 [CI 排错模板](templates/ci-troubleshooting-template.md) 分析失败日志 |
 | 技术负责人 | 用 [AI 工具导入检查清单](templates/ai-tool-onboarding-checklist.md) 设计团队试点规则 |
 | 发版负责人 | 用 [发布说明模板](templates/release-note-template.md) 生成 release note 草稿 |
+
+## 外部真实案例清单
+
+- [外部真实案例：可复用场景](docs/external-case-stories.md)
+- [真实场景模板（PR review / CI / release）](docs/real-world-scenarios.md)
 
 ## 模板索引
 
