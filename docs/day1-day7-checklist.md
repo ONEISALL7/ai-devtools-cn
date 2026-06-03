@@ -45,7 +45,7 @@
 ```bash
 npm view ai-devtools-cn version  # => 0.18.1
 npm run templates:publish-status  # => npm is behind local package.json
-npm run metrics:snapshot         # => Stars 3, Forks 2, Merged PRs 130, External merged PRs 0
+npm run metrics:snapshot         # => Stars 3, Forks 2, Merged PRs 131, External merged PRs 1
 ```
 
 ## 第七天快照（可复制到 issue #51）
@@ -58,7 +58,7 @@ npm run metrics:snapshot         # => Stars 3, Forks 2, Merged PRs 130, External
 - 指标脚本和发布口径已建立（本轮 `npm run metrics:snapshot` 已执行；`npm run templates:publish-status` 与 `npm view` 形成同步核验）
 - Day7 目标可展示地落在仓库文件中
 未完成项：
-- 真实外部 PR 尚未形成（0）
+- 真实外部 PR 已形成 1 条（#245），目标是再形成 1 条以上
 下阶段要补齐：
 - 争取 1-3 条外部反馈 issue
 - 争取 1 条 external merged PR

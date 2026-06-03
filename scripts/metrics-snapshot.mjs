@@ -269,13 +269,19 @@ async function getNpmDownloads(name) {
   }
 
   try {
-    const response = await fetch(
+    const value = execFileSync("curl", [
+      "-L",
+      "--max-time",
+      "8",
       `https://api.npmjs.org/downloads/point/last-month/${encodeURIComponent(name)}`,
-    );
-    if (!response.ok) {
-      return { ok: false, error: new Error(`npm downloads API returned ${response.status}`) };
+    ], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    }).trim();
+    if (!value) {
+      return { ok: false, error: new Error("npm downloads API returned empty body") };
     }
-    return parseNpmDownloadsJson(await response.text());
+    return parseNpmDownloadsJson(value);
   } catch (error) {
     return { ok: false, error };
   }

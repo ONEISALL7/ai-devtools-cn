@@ -1,7 +1,7 @@
 name: Template usage feedback
 description: 反馈你如何使用本项目模板、CLI 或案例
 title: "[Feedback]: "
-labels: ["feedback", "needs-triage"]
+labels: ["feedback", "external-feedback", "needs-triage"]
 body:
   - type: markdown
     attributes:

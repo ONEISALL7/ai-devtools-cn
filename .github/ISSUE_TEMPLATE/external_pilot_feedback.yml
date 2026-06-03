@@ -1,7 +1,7 @@
 name: External pilot feedback
 description: 记录一次真实外部试用任务的公开安全反馈
 title: "[External Pilot]: "
-labels: ["feedback", "external-pilot", "needs-triage"]
+labels: ["feedback", "external-feedback", "external-pilot", "needs-triage"]
 body:
   - type: markdown
     attributes:

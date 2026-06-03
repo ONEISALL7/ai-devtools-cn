@@ -251,6 +251,11 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 - [Python PR review 示例：函数签名变更与兼容性验证](examples/case-studies/python-pr-review-example.md)
 - [依赖升级风险评估场景](examples/case-studies/dependency-upgrade-risk-example.md)
 - [前端 README 改进案例](examples/case-studies/frontend-readme-improvement-example.md)
+- [Issue triage 到 release 闭环案例](examples/case-studies/issue-triage-release-cycle.md)
+
+更多“用户一次就能复现”的实用路径见：
+
+- [真实场景文档](docs/real-world-scenarios.md)
 
 ## 文档入口
 

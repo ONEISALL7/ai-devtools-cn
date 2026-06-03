@@ -19,6 +19,7 @@
 | --- | --- |
 | [用 PR Review 模板审查快速上手 PR](case-studies/pr-review-quickstart-release.md) | 如何审查文档入口型 PR |
 | [用 CI 排错模板修复 markdownlint MD012](case-studies/ci-markdownlint-md012.md) | 如何从 CI 日志定位最小修复 |
+| [用 Issue Triage 建立维护闭环](case-studies/issue-triage-release-cycle.md) | 如何从反馈分流到 PR 和 release |
 | [用 release note 模板发布 v0.2.0](case-studies/release-v020.md) | 如何把 PR 和 changelog 整理成 release note |
 | [Node.js CI 依赖安装失败场景](case-studies/node-ci-troubleshooting.md) | 如何处理 npm ci lockfile 不一致并给出可复用 review comment |
 | [Python PR Review：函数签名变更](case-studies/python-pr-review-example.md) | 如何区分阻塞项、回归风险与验证边界 |

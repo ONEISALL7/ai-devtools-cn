@@ -1,5 +1,13 @@
 # OpenAI Codex for Open Source 申请材料包
 
+## 2026-06-03 当前终端核验
+
+- npm 包版本：`0.18.3`（`npm view ai-devtools-cn version`）
+- package/release：`0.18.3`（`package.json`） / `v0.18.3`（GitHub release）
+- 外部 feedback issue：1（#169）
+- external merged PR：1（#245）
+- 说明：以下文档中仍保留早前执行段落的历史口径；当前对外提交请以本条为准。
+
 这个文档是你在提交 OpenAI 资格申请前的“最后打包页”。目标是：把“我做了很多事情”变成“我有可核验证据”。
 
 ## 1. 一页版项目定位（可直接放到申请表）
@@ -51,9 +59,10 @@ I will use API credits to speed up maintainer workloads: review note drafting, i
 - GitHub stars/forks：3 / 2
 - merged PRs：131（`npm run metrics:snapshot`）
 - External feedback-labeled issue：1
-- npm：0.18.1（`npm view ai-devtools-cn version`）
-- npm 月下载：116（`2026-05-02 ~ 2026-05-31`）
+- npm：0.18.3（`npm view ai-devtools-cn version`）
+- npm 月下载：926（`2026-06-03 metrics snapshot`）
 - GitHub release：`v0.18.3`
+- 代码与发布状态：`package.json` 0.18.3，`GitHub release` v0.18.3，npm 与发布对齐（0.18.3）
 
 ### npm 与使用指标
 
@@ -120,6 +129,40 @@ npm run templates:evidence -- --output work/external-evidence-YYYY-MM-DD.md
 - [ ] external merged PR 进展有记录（0 也可写，但需解释追踪动作）
 ```
 
+## 8. 今晚持续执行清单（2026-06-03）
+
+- [x] 运行 `npm run metrics:snapshot -- --output work/metrics-2026-06-03-1900.md`
+- [x] 运行 `npm run templates:evidence -- --output work/external-evidence-2026-06-03.md`
+- [x] 运行 `npm run templates:readiness -- --output work/openai-readiness-2026-06-03.md`
+- [x] 运行 `npm run templates:publish-status` 并记录 npm 与本地版本差异
+- [ ] 继续进行外部真实试用邀约（目标：3 人）
+- [ ] 补齐至少 2 条外部 feedback issue（场景：PR review / CI 排错 / issue triage）
+- [ ] 产生至少 1 条新的 external merged PR
+
+### 8.1 2026-06-03 23:50 复盘（更新）
+
+- 已补齐执行口径并生成：
+  - `work/metrics-2026-06-03-23h.md`
+  - `work/external-evidence-2026-06-03-23h.md`
+  - `work/openai-readiness-2026-06-03-23h.md`
+  - `work/metrics-2026-06-03-2350.md`
+  - `work/external-evidence-2026-06-03-2350.md`
+  - `work/openai-readiness-2026-06-03-2350.md`
+  - `work/outreach-pr-review-github-2026-06-03.md`
+  - `work/outreach-ci-v2ex-2026-06-03.md`
+  - `work/outreach-issue-x-2026-06-03.md`
+  - `work/adoption-pr-review-closure-2026-06-03/`
+  - `work/adoption-ci-closure-2026-06-03/`
+  - `work/adoption-release-checklist-2026-06-03/`
+- 当前可核验数字（同批快照）：
+  - Stars/Forks：3 / 2
+  - Merged PRs：131
+  - External merged PRs：1（#245）
+  - External feedback issues：1（#169）
+  - Releases：31
+- npm package：0.18.3（与 package.json/release 对齐）
+- 下一步：继续邀请真实外部试用者，并补齐外部 feedback issue 到 2~3 条后再进入下一轮外部 PR 追踪
+
 推荐提交前先运行：
 
 ```bash
@@ -136,6 +179,8 @@ npm run templates:readiness -- --output work/openai-readiness-YYYY-MM-DD.md
 - `docs/external-pr-handoff-kit.md`
 - `docs/community-launch-pack.md`
 - `docs/day8-day30-checklist.md` / `docs/day8-day30-execution-log.md`
+- `docs/real-world-scenarios.md`
+- `examples/case-studies/issue-triage-release-cycle.md`
 
 ## 7. 可直接贴到申请表的英文版简述（< 500 字）
 

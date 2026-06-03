@@ -15,6 +15,7 @@
 | PR review | [用 PR Review 模板审查快速上手 PR](pr-review-quickstart-release.md) |
 | CI 排错 | [用 CI 排错模板修复 markdownlint MD012](ci-markdownlint-md012.md) |
 | 发版说明 | [用 release note 模板发布 v0.2.0](release-v020.md) |
+| Issue triage | [Issue Triage 绑定 PR/Release 闭环](issue-triage-release-cycle.md) |
 | CLI 维护 | [为模板库增加 CLI 注册校验](template-registry-validation.md) |
 | CI 排错 | [Node.js CI 依赖安装失败排查](node-ci-troubleshooting.md) |
 | PR review | [Python PR Review：签名变更与兼容性验证](python-pr-review-example.md) |
