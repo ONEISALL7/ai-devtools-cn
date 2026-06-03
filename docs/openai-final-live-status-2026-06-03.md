@@ -43,3 +43,24 @@
 3. 真实用户返回后形成 2~3 条外部 feedback issue（每条都需有场景和试用路径）  
 4. 至少转化 1 条外部问题为 external merged PR（可先做认领到 PR 的手工协同）  
 5. 每次新增外部反馈后即刻执行一轮快照并写入 `work/metrics-<date>.md` 与 `work/external-evidence-<date>.md`
+
+## 2026-06-03 12:11（继续执行）
+
+- 本轮核验与产出（基于当前终端）：
+  - `npm run templates:publish-status`：已通过，`npm`、`package.json`、`release` 均为 `0.18.3`；
+  - `npm run templates:publish-check`：通过；
+  - `npm run test`：通过（含 lint 与 snapshot 测试）；
+  - `npm run pack:dry-run`：通过。
+  - 新外部试用邀请包已重生成：
+    - `work/outreach-pr-review-x-2026-06-03-latest.md`
+    - `work/outreach-ci-github-2026-06-03-latest.md`
+    - `work/pilot-invites-2026-06-03-latest.md`
+  - 新外部试用冲刺包已重生成：
+    - `work/adoption-pr-review-latest/`
+    - `work/adoption-ci-latest/`
+- 外部真实反馈口径未变，仍为：
+  - 外部 feedback issue：`1`（#169）
+  - external merged PR：`1`（#245）
+- 结论：当前仍未进入“理想口径”，核心缺口仍是 **2-3 条真实外部反馈** 与其对应的闭环转化（外部 PR / 案例文档 / release）。
+
+建议下一步：立即在你自己的真实账号下发出上述 5 套邀请文本中的任意 3 套，并在收到回复后，按 `docs/external-adoption-log-2026-06-03.md` 回填渠道、时间、issue/PR 链接。
