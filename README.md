@@ -279,6 +279,7 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 - [维护者成长计划](docs/maintainer-growth-plan.md)
 - [仓库检查清单](docs/repository-checklist.md)
 - [OpenAI 申请材料包](docs/openai-codex-application-packet.md)
+- [OpenAI 实时申请看板（今日口径）](docs/openai-live-readiness-today-2026-06-03.md)
 - [外部采用与资格申请快速资料包](docs/open-source-readiness-pack.md)
 
 ## 设计原则
