@@ -1,5 +1,30 @@
 # 外部采用与试用证据日志（2026-06-03）
 
+## 2026-06-03 22:12（实时核验更新）
+
+- 已复盘最新口径：
+  - `Stars / Forks`：3 / 2
+  - `Merged PRs`：131（其中 external merged PR：1，作者非 maintainer 为 @Jah-yee）
+  - `External feedback issues`：1（#169，作者 @oneshots）
+  - `Releases`：31（最新 `v0.18.3`）
+  - `npm`：0.18.3（与 `package.json` 对齐）
+  - `npm monthly downloads`：926（上次快照）
+- 已执行的验证命令：
+  - `npm run test`
+  - `npm run lint:md`
+  - `npm run templates:publish-check`
+  - `npm run templates:publish-status`
+  - `npm run pack:dry-run`
+  - `npm run templates:evidence -- --output work/external-evidence-2026-06-03-now-latest.md --force`
+  - `npm run metrics:snapshot -- --output work/metrics-2026-06-03-now-latest.md`
+- 对外状态：
+  - 真实对外邀请：`0/3`（可用模板已准备：`work/outreach-*.md`）
+  - 尚未收到新的外部反馈（未收到新 issue/PR 关闭前提下无法“伪造”新增项）
+- 下一步：
+  - 按 `docs/external-tester-guide.md` 用你的真实账号发送 3 条邀约；
+  - 每条反馈回流后，24 小时内补一条可复用的公开问题解决案例；
+  - 外部反馈形成后立即更新本日志和 `work/metrics-...` / `work/external-evidence-...`。
+
 ## 2026-06-03 20:41（当前核验口径）
 
 - `npm view ai-devtools-cn version`、`package.json`、GitHub release 均为 `0.18.3`（已对齐）。
