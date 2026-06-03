@@ -1,6 +1,6 @@
 # OpenAI Codex for Open Source（今日实时状态）
 
-更新时间：2026-06-03 22:15（实时生成）
+更新时间：2026-06-03 22:19（实时生成）
 
 ## 1) 当前核验口径（可直接用于申请截图说明）
 
@@ -17,7 +17,7 @@
   - external merged PR：`1`（[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
   - Stars/Forks：`3 / 2`
   - Merged PRs：`131`
-  - 外部反馈可核验链接请见：`work/external-evidence-20260603-2215.md`
+  - 外部反馈可核验链接请见：`work/external-evidence-20260603-2219.md`
 
 ## 2) 已达到的 OpenAI 资格前置
 
@@ -46,7 +46,7 @@
 
 ## 5) 直接可提交材料（当外部反馈达到 2-3 条后）
 
-- `work/metrics-20260603-2215.md`
-- `work/external-evidence-20260603-2215.md`
-- `work/openai-readiness-20260603-2215.md`
+- `work/metrics-20260603-2218.md`
+- `work/external-evidence-20260603-2219.md`
+- `work/openai-readiness-20260603-2219.md`
 - `docs/openai-codex-application-packet.md`

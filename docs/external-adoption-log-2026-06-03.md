@@ -1,5 +1,16 @@
 # 外部采用与试用证据日志（2026-06-03）
 
+## 2026-06-03 22:19（本地核验更新）
+
+- 已完成核验：`npm run metrics:snapshot -- --output work/metrics-20260603-2218.md`、
+  `npm run templates:evidence -- --output work/external-evidence-20260603-2219.md --force`、
+  `npm run templates:readiness -- --output work/openai-readiness-20260603-2219.md --force`
+- 外部反馈口径：`external feedback issue = 1`（#169）
+- External merged PR：`1`（#245）
+- Stars/Forks/Merged PRs：`3 / 2 / 131`
+- 外部邀请落地：`0/3`（本地仅准备模板，真实邀请待你账号发送）
+- 说明：本日志仍以“新增真实外部反馈”作为最关键缺口，当前无新增外部 issue/PR。
+
 ## 2026-06-03 22:12（实时核验更新）
 
 - 已复盘最新口径：

@@ -4,7 +4,7 @@
 
 - `npm` 与 `package.json` 与 GitHub release 的主版本号为 `0.18.3`。  
 - `npm run test`、`npm run lint:md`、`npm run templates:publish-check`、`npm run templates:publish-status`、`npm pack --dry-run` 全部通过。  
-- `templates:publish-status` 当前显示本地源码比 `v0.18.3` release 领先 15 个提交（未打新版 release）。  
+- `templates:publish-status` 当前显示本地源码比 `v0.18.3` release 领先 19 个提交（未打新版 release）。  
 - 当前可核验外部信号：  
   - 外部 feedback issue：`1`（#169，作者 @oneshots）  
   - external merged PR：`1`（#245，作者 @Jah-yee）  
@@ -36,9 +36,9 @@
 - 核心文档存在：`README`、`CONTRIBUTING`、`SECURITY`、`MAINTAINERS`、`LICENSE`、`CHANGELOG`  
 - 发布链路可复验：GitHub release + npm + 本地包版本一致  
 - 可复验指标更新文件（当前口径）：
-  - `work/metrics-2026-06-03-now-live.md`
-  - `work/external-evidence-2026-06-03-now-live.md`
-  - `work/openai-readiness-2026-06-03-now-live.md`
+- `work/metrics-20260603-2218.md`
+- `work/external-evidence-20260603-2219.md`
+- `work/openai-readiness-20260603-2219.md`
 
 ## 下一步（必须由真实账号触达外部用户）
 
