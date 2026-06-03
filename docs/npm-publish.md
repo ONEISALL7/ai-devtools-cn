@@ -4,7 +4,7 @@
 
 ## 当前包名状态
 
-截至 2026-06-02，最新发布验证执行：
+截至 2026-06-03，最新发布验证执行：
 
 ```bash
 npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --strict-ssl=false
@@ -13,7 +13,7 @@ npm view ai-devtools-cn version --cache /private/tmp/ai-devtools-cn-npm-cache --
 当前返回：
 
 ```text
-0.18.1
+0.18.3
 ```
 
 npm 包页面：
@@ -24,7 +24,7 @@ https://www.npmjs.com/package/ai-devtools-cn
 
 ## 当前同步状态
 
-当前 `package.json` 与 GitHub release 已同步到 `ai-devtools-cn@0.18.3`，但 npm 公开包仍为 `0.18.1`，尚待同步到 `0.18.3`。
+当前 `package.json` 与 GitHub release 已同步到 `ai-devtools-cn@0.18.3`，并已与 npm 公开包对齐到 `0.18.3`。后续如继续落后于 `main`，请以发布流程进行同步。
 
 最新同步前应确认：
 

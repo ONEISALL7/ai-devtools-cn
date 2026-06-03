@@ -113,7 +113,7 @@ https://github.com/ONEISALL7/ai-devtools-cn
 - security review
 - output evaluation
 
-现在有模板、CLI、真实案例。GitHub 发布可核验为 `v0.18.3`，npm 公开包当前为 `0.18.1`（`npm view`），发布状态以联网后复核为准，请外部使用前再次确认。
+现在有模板、CLI、真实案例。GitHub 发布可核验为 `v0.18.3`，npm 公开包当前可见版本为 `0.18.3`（按 `npm view ai-devtools-cn version` 核验）；发布状态建议每次对外前再次联网复核。
 
 想请 5-10 位开发者试用一个模板，给我一个 issue 反馈：
 https://github.com/ONEISALL7/ai-devtools-cn

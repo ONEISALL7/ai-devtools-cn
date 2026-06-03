@@ -195,7 +195,7 @@ content.
   - issue #B：外部反馈，场景为 CI 排错。
 - 外部 PR：
   - PR #X：由 @username 提交，已合并。
-- npm：v0.18.1（公开包），月下载 926（截至 2026-06-03 latest metrics）。
+- npm：v0.18.3（公开包），月下载 926（截至 2026-06-03 latest metrics）。
 ```
 
 ## 9) 你可以直接发给外部用户的体验要求
