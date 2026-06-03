@@ -22,9 +22,9 @@ npm run test
 npm run templates:publish-check
 npm run pack:dry-run
 npm run templates:publish-status
-npm run templates:evidence -- --output work/external-evidence-20260603-final-now.md --force
-npm run metrics:snapshot -- --output work/metrics-20260603-final-now.md
-npm run templates:readiness -- --output work/openai-readiness-20260603-final-now.md --force
+npm run templates:evidence -- --output work/external-evidence-20260603-finalized-now.md --force
+npm run metrics:snapshot -- --output work/metrics-20260603-finalized-now.md
+npm run templates:readiness -- --output work/openai-readiness-20260603-finalized-now.md --force
 ```
 
 核验结果摘要：

@@ -8,7 +8,7 @@
 - 版本：`ai-devtools-cn@0.18.3`（`npm view ai-devtools-cn version`）
 - GitHub latest release：`v0.18.3`
 - 发布对齐：`package.json`、`npm`、`release` 均为 `0.18.3`
-- 本地状态：`templates:publish-status` 显示源码比最新 release 多 21 个提交，待下一次发版
+- 本地状态：`templates:publish-status` 显示源码比最新 release 多 25 个提交，待下一次发版
 - 核验命令：`npm run test`、`npm run templates:publish-check`、`npm run pack:dry-run`、`npm run lint:md` 全部通过
 - 公开可核验指标（最新快照文件）：
   - Stars/Forks：`3 / 2`
@@ -50,4 +50,4 @@
 ## 5) 本次提交可直接引用文本
 
 - 角色与用途（见：`docs/openai-codex-application-packet.md`）  
-- 一页式申请文案（见：`work/openai-readiness-20260603-final-now.md`）  
+- 一页式申请文案（见：`work/openai-readiness-20260603-finalized-now.md`）  

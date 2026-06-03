@@ -7,7 +7,7 @@
   - `package.json`：`0.18.3`
   - npm：`0.18.3`
   - 最新 release：`v0.18.3`
-  - 本地 main 比 release 领先：`23` 个提交（建议下个版本打 tag 并按 `npm publish` 同步）
+  - 本地 main 比 release 领先：`25` 个提交（建议下个版本打 tag 并按 `npm publish` 同步）
 - 核心质量自检全部通过（`npm run test`、`npm run lint:md`、`npm run templates:publish-check`）。
 - 当前真实外部采用口径仍缺口：
   - 外部 feedback issue：`1`（#169）
@@ -17,9 +17,9 @@
 ## 本会话已完成
 
 - `docs/openai-codex-application-packet.md`：申请文案与定义边界已可复用
-- `work/openai-readiness-2026-06-03-now.md`：已生成（当前口径）
-- `work/external-evidence-2026-06-03-now.md`：已生成（当前口径）
-- `work/metrics-2026-06-03-now.md`：已生成（当前口径）
+- `work/openai-readiness-20260603-finalized-now.md`：已生成（当前口径）
+- `work/external-evidence-20260603-finalized-now.md`：已生成（当前口径）
+- `work/metrics-20260603-finalized-now.md`：已生成（当前口径）
 - `npm`, GitHub 发布口径验证通过
 - `work/outreach-next-steps.md`：已生成，可直接发送给外部用户
 
