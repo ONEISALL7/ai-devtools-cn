@@ -1,6 +1,6 @@
 # OpenAI Codex for Open Source（今日实时状态）
 
-更新时间：2026-06-03（实时生成）
+更新时间：2026-06-03 22:15（实时生成）
 
 ## 1) 当前核验口径（可直接用于申请截图说明）
 
@@ -17,7 +17,7 @@
   - external merged PR：`1`（[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
   - Stars/Forks：`3 / 2`
   - Merged PRs：`131`
-  - 外部反馈可核验链接请见：`work/external-evidence-2026-06-03-now-live.md`
+  - 外部反馈可核验链接请见：`work/external-evidence-20260603-2215.md`
 
 ## 2) 已达到的 OpenAI 资格前置
 
@@ -40,13 +40,13 @@
 2. 任何反馈都在公开 issue 留下可核验链接，按 `docs/external-pr-handoff-kit.md` 引导到处理闭环
 3. 外部用户提交可认领 issue 后，给 `good first issue` / 简短任务，促成外部 PR
 4. 收到每条新反馈后，立刻再跑一次：
-   - `npm run metrics:snapshot -- --output work/metrics-<timestamp>.md`
-   - `npm run templates:evidence -- --output work/external-evidence-<timestamp>.md`
+   - `npm run metrics:snapshot -- --output work/metrics-<timestamp>.md --force`
+   - `npm run templates:evidence -- --output work/external-evidence-<timestamp>.md --force`
    - `npm run templates:readiness -- --output work/openai-readiness-<timestamp>.md --force`
 
 ## 5) 直接可提交材料（当外部反馈达到 2-3 条后）
 
-- `work/metrics-2026-06-03-now-live.md`
-- `work/external-evidence-2026-06-03-now-live.md`
-- `work/openai-readiness-2026-06-03-now-live.md`
+- `work/metrics-20260603-2215.md`
+- `work/external-evidence-20260603-2215.md`
+- `work/openai-readiness-20260603-2215.md`
 - `docs/openai-codex-application-packet.md`

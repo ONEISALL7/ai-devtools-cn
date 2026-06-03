@@ -1,13 +1,13 @@
 # OpenAI Codex for Open Source 申请当前核验索引（2026-06-03）
 
-**生成时间（本地）**：2026-06-03 22:04  
+**生成时间（本地）**：2026-06-03 22:15  
 **目标仓库**：[ONEISALL7/ai-devtools-cn](https://github.com/ONEISALL7/ai-devtools-cn)
 
 ## 一、公开可核验材料（建议用于提交前自检）
 
-- `work/metrics-2026-06-03-now-latest.md`
-- `work/external-evidence-2026-06-03-now-latest.md`
-- `work/openai-readiness-2026-06-03-now-latest.md`
+- `work/metrics-20260603-2215.md`
+- `work/external-evidence-20260603-2215.md`
+- `work/openai-readiness-20260603-2215.md`
 - `docs/external-adoption-log-2026-06-03.md`（对外动作与缺口追踪）
 - `docs/external-tester-guide.md`（试用反馈入口）
 - `.github/ISSUE_TEMPLATE/template_feedback.yml`
@@ -22,9 +22,9 @@ npm run test
 npm run templates:publish-check
 npm run pack:dry-run
 npm run templates:publish-status
-npm run templates:evidence -- --output work/external-evidence-2026-06-03-now-latest.md
-npm run metrics:snapshot -- --output work/metrics-2026-06-03-now-latest.md
-npm run templates:readiness -- --output work/openai-readiness-2026-06-03-now-latest.md
+npm run templates:evidence -- --output work/external-evidence-20260603-2215.md --force
+npm run metrics:snapshot -- --output work/metrics-20260603-2215.md --force
+npm run templates:readiness -- --output work/openai-readiness-20260603-2215.md --force
 ```
 
 核验结果摘要：
