@@ -1694,7 +1694,7 @@ function formatOpenAICodexReadiness({
     .map((item) => `- ${item.file}：${item.exists ? "✅" : "❌"}`)
     .join("\n");
   const allFilesPresent = requiredFileReport.every((item) => item.exists);
-  const isPublic = metricSnapshot.repoVisibility === "public";
+  const isPublic = String(metricSnapshot.repoVisibility ?? "").toLowerCase() === "public";
   const readinessTip = allFilesPresent && isPublic
     ? "✅ 可满足申请材料基础条件（文件与公开状态）"
     : "⚠️ 基础条件仍需补齐（请确认缺失项后再提交）";
@@ -1834,21 +1834,23 @@ function collectOpenSourceMetrics() {
     date: pr.mergedAt ? pr.mergedAt.slice(0, 10) : "unknown",
   }));
   const latestRelease = releases.ok ? releases.value[0] : null;
+  const normalizedVisibility = toSafeValue(repoInfo.ok ? repoInfo.value?.visibility : "", "private").toLowerCase();
+  const feedbackIssuesKnown = mergedIssueEvidenceKnown(closedIssues, openIssues);
 
   return {
     stars: repoInfo.ok ? toSafeValue(repoInfo.value?.stargazerCount) : "unknown",
     forks: repoInfo.ok ? toSafeValue(repoInfo.value?.forkCount) : "unknown",
-    repoVisibility: repoInfo.ok ? toSafeValue(repoInfo.value?.visibility, "unknown") : "unknown",
+    repoVisibility: normalizedVisibility || (repoInfo.ok ? toSafeValue(repoInfo.value?.visibility, "unknown") : "unknown"),
     repoUrl: repoInfo.ok ? toSafeValue(repoInfo.value?.url, `https://github.com/${repo}`) : `https://github.com/${repo}`,
     mergedPrs: mergedPrItems.length,
     mergedPrsKnown: mergedPrs.ok,
     externalMergedPrs: externalMergedPrs.length,
     externalMergedPrsKnown: mergedPrs.ok,
-    openIssues: openIssueItems.length,
-    closedIssues: closedIssueItems.length,
+    openIssues: openIssues.ok ? openIssueItems.length : "unknown",
+    closedIssues: closedIssues.ok ? closedIssueItems.length : "unknown",
     feedbackIssues: feedbackIssues.length,
     recentExternalFeedbackIssues,
-    feedbackIssuesKnown: openIssues.ok && closedIssues.ok,
+    feedbackIssuesKnown: feedbackIssuesKnown,
     externalFeedbackIssues: externalFeedbackIssues.length,
     recentExternalMergedPrs,
     latestReleaseTag: latestRelease?.tagName ?? null,
@@ -1858,6 +1860,10 @@ function collectOpenSourceMetrics() {
     npmVersion: npmVersion.ok ? npmVersion.value : "unavailable",
     npmDownloads: npmDownloads.ok ? npmDownloads.value : "unavailable",
   };
+}
+
+function mergedIssueEvidenceKnown(closedIssuesResult, openIssuesResult) {
+  return closedIssuesResult.ok && openIssuesResult.ok;
 }
 
 function collectRequiredFileReport(files) {
