@@ -134,9 +134,9 @@ npm run templates:readiness -- --output work/openai-readiness-YYYY-MM-DD.md
 ## 8. 今晚持续执行清单（2026-06-03）
 
 - [x] 使用统一口径更新三份核验文件：
-  - `npm run metrics:snapshot -- --output work/metrics-20260603-finalized-now.md`
-  - `npm run templates:evidence -- --output work/external-evidence-20260603-finalized-now.md --force`
-  - `npm run templates:readiness -- --output work/openai-readiness-20260603-finalized-now.md --force`
+  - `npm run metrics:snapshot -- --output work/metrics-20260603-now.md`
+  - `npm run templates:evidence -- --output work/external-evidence-20260603-now.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-20260603-now.md --force`
 - [x] 运行 `npm run templates:publish-status` 并确认 `npm`/`release`/`package.json` 一致（当前均为 `0.18.3`）
 - [ ] 继续进行外部真实试用邀约（目标：3 人）
 - [ ] 补齐至少 2 条真实外部 feedback issue（场景：PR review / CI 排错 / issue triage）

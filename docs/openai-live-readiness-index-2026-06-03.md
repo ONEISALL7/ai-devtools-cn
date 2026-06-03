@@ -5,9 +5,9 @@
 
 ## 一、公开可核验材料（建议用于提交前自检）
 
-- `work/metrics-20260603-finalized-now.md`
-- `work/external-evidence-20260603-finalized-now.md`
-- `work/openai-readiness-20260603-finalized-now.md`
+- `work/metrics-20260603-now.md`
+- `work/external-evidence-20260603-now.md`
+- `work/openai-readiness-20260603-now.md`
 - `docs/external-adoption-log-2026-06-03.md`（对外动作与缺口追踪）
 - `docs/external-tester-guide.md`（试用反馈入口）
 - `.github/ISSUE_TEMPLATE/template_feedback.yml`
@@ -22,9 +22,9 @@ npm run test
 npm run templates:publish-check
 npm run pack:dry-run
 npm run templates:publish-status
-npm run templates:evidence -- --output work/external-evidence-20260603-finalized-now.md --force
-npm run metrics:snapshot -- --output work/metrics-20260603-finalized-now.md
-npm run templates:readiness -- --output work/openai-readiness-20260603-finalized-now.md --force
+npm run templates:evidence -- --output work/external-evidence-20260603-now.md --force
+npm run metrics:snapshot -- --output work/metrics-20260603-now.md
+npm run templates:readiness -- --output work/openai-readiness-20260603-now.md --force
 ```
 
 核验结果摘要：

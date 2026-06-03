@@ -1,5 +1,26 @@
 # 外部采用与试用证据日志（2026-06-03）
 
+## 2026-06-03 23:26（复核更新）
+
+- 已完成核验：
+  - `npm run templates:publish-status -- --json`
+  - `npm run test`
+  - `npm run lint:md`
+  - `npm run metrics:snapshot -- --output work/metrics-20260603-now.md`
+  - `npm run templates:evidence -- --output work/external-evidence-20260603-now.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-20260603-now.md --force`
+- 核验结果（快照口径）：
+  - 外部反馈 issue：`1`（#169）
+  - External merged PR：`1`（#245）
+  - 外部邀请落地：`0/3`（本地仅准备模板，真实邀请仍待你账号实际发送）
+  - Stars/Forks：`3 / 2`
+  - Merged PRs：`131`
+  - Releases：`31`
+  - npm：`0.18.3`
+  - npm downloads（last month）：`926`
+
+说明：当前卡点仍是“外部真实反馈缺口”，需要真实账号发出 3 条外部邀请后追踪反馈和 PR 转化；本地材料已连续复核成功。
+
 ## 2026-06-03 22:19（本地核验更新）
 
 - 已完成核验：`npm run metrics:snapshot -- --output work/metrics-20260603-2218.md`、
