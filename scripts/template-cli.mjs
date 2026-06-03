@@ -1706,7 +1706,7 @@ function formatOpenAICodexReadiness({
 ## 一、项目定位（可直接放进申请）
 
 - 项目：\`ai-devtools-cn\`
-- 仓库：${metricSnapshot.repoUrl}
+- 仓库：<${metricSnapshot.repoUrl}>
 - 发布：\`${packageName}@${packageVersion}\`
 - 公开仓库状态：${metricSnapshot.repoVisibility}
 
@@ -1768,7 +1768,8 @@ ${readinessTemplate.creditsText}
 1. 运行 \`npm run metrics:snapshot -- --output work/metrics-${date}.md\`。
 2. 运行 \`npm run templates:evidence -- --output work/external-evidence-${date}.md\`。
 3. 邀请真实用户提交至少 2 条外部 feedback issue 并记录来源链接。
-4. 邀请真实用户认领 good first issue，争取 ≥1 条 external merged PR。`;
+4. 邀请真实用户认领 good first issue，争取 ≥1 条 external merged PR。
+`;
 }
 
 function collectOpenSourceMetrics() {
@@ -2115,13 +2116,19 @@ ${readTemplate(template).trim()}
 function formatEvidenceLedger(metricSnapshot) {
   const externalFeedbackRows = metricSnapshot.recentExternalFeedbackIssues.length > 0
     ? metricSnapshot.recentExternalFeedbackIssues
-      .map((issue) => `- ${issue.date} | external feedback issue | #${issue.number} - ${issue.title} | @${issue.author} | https://github.com/${repo}/issues/${issue.number}`)
+      .map((issue) => {
+        const issueUrl = `https://github.com/${repo}/issues/${issue.number}`;
+        return `- ${issue.date} | external feedback issue | [#${issue.number}](${issueUrl}) - ${issue.title} | @${issue.author} | <${issueUrl}>`;
+      })
       .join("\n")
     : "- 暂无外部反馈 issue";
 
   const externalMergedPrRows = metricSnapshot.recentExternalMergedPrs.length > 0
     ? metricSnapshot.recentExternalMergedPrs
-      .map((pr) => `- ${pr.date} | external merged PR | #${pr.number} - ${pr.title} | @${pr.author} | https://github.com/${repo}/pull/${pr.number}`)
+      .map((pr) => {
+        const prUrl = `https://github.com/${repo}/pull/${pr.number}`;
+        return `- ${pr.date} | external merged PR | [#${pr.number}](${prUrl}) - ${pr.title} | @${pr.author} | <${prUrl}>`;
+      })
       .join("\n")
     : "- 暂无外部 merged PR";
 
@@ -2155,24 +2162,27 @@ function formatEvidenceLedger(metricSnapshot) {
 | External feedback issues（非 maintainer） | ${metricSnapshot.feedbackIssuesKnown ? metricSnapshot.externalFeedbackIssues : "unknown"} |
 | Releases | ${metricSnapshot.releasesKnown ? metricSnapshot.releases : "unknown"} |
 | Latest release | ${metricSnapshot.latestReleaseTag ?? "unknown"} (${metricSnapshot.latestReleaseDate ?? "unknown"}) |
-| npm package | https://www.npmjs.com/package/ai-devtools-cn |
+| npm package | <https://www.npmjs.com/package/ai-devtools-cn> |
 | npm version | ${metricSnapshot.npmVersion} |
 | npm last-month downloads | ${metricSnapshot.npmDownloads} |
 
 ## 证据记录（可直接复制到提交说明）
 
 ### 外部反馈（external feedback issue）
-\n${externalFeedbackRows}
+
+${externalFeedbackRows}
 
 ### 外部采纳（external merged PR）
-\n${externalMergedPrRows}
+
+${externalMergedPrRows}
 
 ### 其他可核验链路
-- npm publish： https://www.npmjs.com/package/ai-devtools-cn
-- GitHub release： https://github.com/${repo}/releases
-- 仓库主页： ${metricSnapshot.repoUrl}
-- feedback entry template： ${templateFeedbackUrl}
-- external pilot template： ${externalPilotFeedbackUrl}
+
+- npm publish： <https://www.npmjs.com/package/ai-devtools-cn>
+- GitHub release： <https://github.com/${repo}/releases>
+- 仓库主页： <${metricSnapshot.repoUrl}>
+- feedback entry template： <${templateFeedbackUrl}>
+- external pilot template： <${externalPilotFeedbackUrl}>
 
 ### 申请场景可复制文本
 
@@ -2200,6 +2210,7 @@ The project is a public OSS repository with reusable maintenance templates for P
 2. 继续做真实外部试用邀约（5-10 位/周）并引导提交 feedback issue。
 3. 邀请至少 1 位外部贡献者认领 good first issue，并追踪其 PR 合并情况。
 4. 每日/每次发布后跑一次：
+
 \`\`\`bash
 npm run metrics:snapshot -- --output work/metrics-$(date +%F).md
 npm run templates:evidence -- --output work/external-evidence-$(date +%F).md --force

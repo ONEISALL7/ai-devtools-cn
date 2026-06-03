@@ -72,7 +72,8 @@
     "templates:publish-status": "node scripts/template-cli.mjs publish-status",
     "templates:doctor": "node scripts/template-cli.mjs doctor",
     "templates:publish-check": "node scripts/template-cli.mjs publish-check",
-    "templates:validate": "node scripts/template-cli.mjs validate"
+    "templates:validate": "node scripts/template-cli.mjs validate",
+    "proof:openai": "npm run metrics:snapshot -- --output docs/metrics-latest.md && npm run templates:evidence -- --output docs/external-evidence-latest.md --force && npm run templates:readiness -- --output docs/openai-readiness-latest.md --force"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.22.1"

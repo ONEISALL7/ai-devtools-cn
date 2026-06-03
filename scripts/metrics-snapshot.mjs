@@ -77,10 +77,10 @@ const openIssues = getJsonFromEnvOrCommand(
   ],
 );
 
-const releases = getTextFromEnvOrCommand(
-  "AI_DEVTOOLS_CN_RELEASE_TEXT",
+const releases = getJsonFromEnvOrCommand(
+  "AI_DEVTOOLS_CN_RELEASE_JSON",
   "gh",
-  ["release", "list", "--repo", repo, "--limit", githubListLimit],
+  ["release", "list", "--repo", repo, "--limit", githubListLimit, "--json", "tagName,name,publishedAt"],
   { allowFailure: true },
 );
 const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl=false"], {
@@ -89,7 +89,18 @@ const npmVersion = getText("npm", ["view", packageName, "version", "--strict-ssl
 const npmDownloads = await getNpmDownloads(packageName);
 
 const releaseRows = releases.ok
-  ? releases.value.trim().split("\n").filter(Boolean)
+  ? releases.value
+      .filter((row) => row.tagName)
+  : [];
+const releaseLinks = releases.ok
+  ? releases.value
+      .filter((row) => row.tagName)
+      .map((row) => {
+        const tag = row.tagName;
+        const publishedAtRaw = row.publishedAt || "";
+        const publishedAt = publishedAtRaw ? publishedAtRaw.slice(0, 10) : "unknown";
+        return `- [${tag}](https://github.com/${repo}/releases/tag/${tag}) (${publishedAt})`;
+      })
   : [];
 const mergedPrItems = mergedPrs.ok ? mergedPrs.value : [];
 const closedIssueItems = closedIssues.ok ? closedIssues.value : [];
@@ -109,7 +120,7 @@ const markdown = `# 项目指标快照
 
 | 指标 | 值 |
 | --- | --- |
-| 仓库 | ${repoInfo.ok ? repoInfo.value.url : `https://github.com/${repo}`} |
+| 仓库 | <${repoInfo.ok ? repoInfo.value.url : `https://github.com/${repo}`}> |
 | 可见性 | ${repoInfo.ok ? repoInfo.value.visibility : "unknown"} |
 | Stars | ${repoInfo.ok ? repoInfo.value.stargazerCount : "unknown"} |
 | Forks | ${repoInfo.ok ? repoInfo.value.forkCount : "unknown"} |
@@ -147,7 +158,7 @@ ${formatPullRequests(externalMergedPrs.slice(0, 10), "- none yet")}
 
 ## Release 列表
 
-${releaseRows.length > 0 ? releaseRows.map((row) => `- ${row}`).join("\n") : "- unavailable"}
+${releaseLinks.length > 0 ? releaseLinks.join("\n") : "- unavailable"}
 
 ## 备注
 

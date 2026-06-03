@@ -17,7 +17,7 @@
   - 外部 feedback issue：`1`（[#169](https://github.com/ONEISALL7/ai-devtools-cn/issues/169)）
   - Releases：`31`
   - npm 月下载：`926`
-- 本轮核验文件：`work/metrics-20260603-final-livecheck.md`、`work/external-evidence-20260603-final-livecheck.md`、`work/openai-readiness-20260603-final-livecheck.md`
+- 本轮核验文件：`docs/metrics-latest.md`、`docs/external-evidence-latest.md`、`docs/openai-readiness-latest.md`
 
 ## 2) 已满足的基础条件
 

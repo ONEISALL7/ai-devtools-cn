@@ -49,10 +49,15 @@ if (args[0] === "repo" && args[1] === "view") {
 
 if (args[0] === "release" && args[1] === "list") {
   const limit = Number(args[args.indexOf("--limit") + 1]);
-  console.log(Array.from({ length: Math.min(limit, 101) }, (_, index) => {
+  const items = Array.from({ length: Math.min(limit, 101) }, (_, index) => {
     const version = "v0." + (101 - index) + ".0";
-    return version + "\\\\t" + (index === 0 ? "Latest" : "") + "\\\\t" + version + "\\\\t2026-06-01T00:00:00Z";
-  }).join("\\n"));
+    return {
+      tagName: version,
+      name: index === 0 ? "Latest" : "",
+      publishedAt: "2026-06-01T00:00:00Z",
+    };
+  });
+  console.log(JSON.stringify(items));
   process.exit(0);
 }
 

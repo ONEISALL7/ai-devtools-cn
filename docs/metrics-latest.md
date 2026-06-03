@@ -1,6 +1,6 @@
 # 项目指标快照
 
-日期：2026-06-03
+日期：2026-06-04
 
 ## 仓库
 
@@ -71,37 +71,37 @@ External merged PRs:
 
 ## Release 列表
 
-- v0.18.3 - release status sync and public redaction  Latest  v0.18.3  2026-06-02T03:14:00Z
-- v0.18.2 - external pilot invite pack    v0.18.2  2026-06-01T11:03:38Z
-- v0.18.1 - external pilot feedback    v0.18.1  2026-06-01T10:36:06Z
-- v0.18.0 - external pilot task pack    v0.18.0  2026-06-01T10:15:35Z
-- v0.17.7 - npm status sync    v0.17.7  2026-06-01T09:57:03Z
-- v0.17.6 - CLI CI workflow    v0.17.6  2026-06-01T09:23:41Z
-- v0.17.5 - npm published docs sync    v0.17.5  2026-06-01T08:53:00Z
-- v0.17.4 - feedback evidence fields    v0.17.4  2026-06-01T08:06:05Z
-- v0.17.3 - external PR start command alignment    v0.17.3  2026-06-01T07:52:35Z
-- v0.17.2 - release metrics count fix    v0.17.2  2026-06-01T07:41:57Z
-- v0.17.1 - npm boundary and README release sync    v0.17.1  2026-06-01T07:34:51Z
-- v0.17.0 - External contribution and real-use recipes    v0.17.0  2026-06-01T06:57:19Z
-- v0.16.2 - Feedback-driven pnpm workspace CI trial pack    v0.16.2  2026-06-01T02:19:10Z
-- v0.16.1 - Tester guide and npm publish handoff    v0.16.1  2026-05-31T17:54:07Z
-- v0.16.0 - Adoption sprint CLI    v0.16.0  2026-05-31T17:36:00Z
-- v0.15.0 - OpenAI application pack CLI    v0.15.0  2026-05-31T17:24:28Z
-- v0.14.0 - External evidence ledger CLI    v0.14.0  2026-05-31T17:10:30Z
-- v0.13.0 - Contributor onboarding template    v0.13.0  2026-05-31T16:46:20Z
-- v0.12.0 - Outreach invite CLI    v0.12.0  2026-05-31T16:34:45Z
-- v0.11.0 - npm publish readiness check    v0.11.0  2026-05-31T16:22:05Z
-- v0.10.0 - CLI discovery commands    v0.10.0  2026-05-31T15:57:19Z
-- v0.9.0 - Trial pack examples    v0.9.0  2026-05-31T15:26:39Z
-- v0.8.0 - CLI doctor command    v0.8.0  2026-05-31T15:09:57Z
-- v0.7.0 - First-user trial pack CLI    v0.7.0  2026-05-31T15:00:06Z
-- v0.6.1 - npm publish readiness    v0.6.1  2026-05-31T14:48:03Z
-- v0.6.0 - Feedback and npx usability    v0.6.0  2026-05-31T14:17:50Z
-- v0.5.0 - Maintainer kit CLI    v0.5.0  2026-05-31T13:42:53Z
-- v0.4.0 - Maintenance workflow support    v0.4.0  2026-05-31T13:19:10Z
-- v0.3.0 - npm-ready template CLI    v0.3.0  2026-05-31T12:20:58Z
-- v0.2.0 - Quickstart and template index    v0.2.0  2026-05-31T11:15:28Z
-- v0.1.0 - Initial project structure    v0.1.0  2026-05-31T09:37:13Z
+- [v0.18.3](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.3) (2026-06-02)
+- [v0.18.2](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.2) (2026-06-01)
+- [v0.18.1](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.1) (2026-06-01)
+- [v0.18.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.18.0) (2026-06-01)
+- [v0.17.7](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.7) (2026-06-01)
+- [v0.17.6](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.6) (2026-06-01)
+- [v0.17.5](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.5) (2026-06-01)
+- [v0.17.4](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.4) (2026-06-01)
+- [v0.17.3](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.3) (2026-06-01)
+- [v0.17.2](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.2) (2026-06-01)
+- [v0.17.1](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.1) (2026-06-01)
+- [v0.17.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.17.0) (2026-06-01)
+- [v0.16.2](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.2) (2026-06-01)
+- [v0.16.1](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.1) (2026-05-31)
+- [v0.16.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.0) (2026-05-31)
+- [v0.15.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.15.0) (2026-05-31)
+- [v0.14.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.14.0) (2026-05-31)
+- [v0.13.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.13.0) (2026-05-31)
+- [v0.12.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.12.0) (2026-05-31)
+- [v0.11.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.11.0) (2026-05-31)
+- [v0.10.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.10.0) (2026-05-31)
+- [v0.9.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.9.0) (2026-05-31)
+- [v0.8.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.8.0) (2026-05-31)
+- [v0.7.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.7.0) (2026-05-31)
+- [v0.6.1](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.6.1) (2026-05-31)
+- [v0.6.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.6.0) (2026-05-31)
+- [v0.5.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.5.0) (2026-05-31)
+- [v0.4.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.4.0) (2026-05-31)
+- [v0.3.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.3.0) (2026-05-31)
+- [v0.2.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.2.0) (2026-05-31)
+- [v0.1.0](https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.1.0) (2026-05-31)
 
 ## 备注
 

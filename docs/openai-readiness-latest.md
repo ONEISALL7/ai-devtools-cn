@@ -1,8 +1,6 @@
 # OpenAI Codex for Open Source 资格申请材料（AI DevTools CN）
 
-生成日期：2026-06-03
-
-更新时间：2026-06-03 23:59（终版核验）
+生成日期：2026-06-04
 
 ## 一、项目定位（可直接放进申请）
 
@@ -73,13 +71,7 @@ I will use API credits to speed up maintainer workloads: review note drafting, i
 
 ## 五、下一步
 
-1. 运行 `npm run metrics:snapshot -- --output work/metrics-2026-06-03.md`。
-2. 运行 `npm run templates:evidence -- --output work/external-evidence-2026-06-03.md`。
+1. 运行 `npm run metrics:snapshot -- --output work/metrics-2026-06-04.md`。
+2. 运行 `npm run templates:evidence -- --output work/external-evidence-2026-06-04.md`。
 3. 邀请真实用户提交至少 2 条外部 feedback issue 并记录来源链接。
 4. 邀请真实用户认领 good first issue，争取 ≥1 条 external merged PR。
-
-## 证据文件（本次终版）
-
-- `work/openai-readiness-20260603-final.md`
-- `work/external-evidence-20260603-final.md`
-- `work/metrics-20260603-final.md`
