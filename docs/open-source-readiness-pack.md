@@ -219,6 +219,7 @@ content.
 - `docs/openai-codex-application-packet.md`：可以直接贴申请文本（角色、资格、用途、Credits 用法）和周更核验清单。
 - `docs/external-adoption-log-2026-06-02.md`：本项目当前一期对外证据记录。
 - `docs/external-adoption-log-2026-06-03.md`：本日对外邀约与外部反馈流水。
+- `docs/external-value-summary.md`：用于说明项目真实使用价值与当前缺口的核验清单。
 
 - `docs/external-adoption-log-2026-06-03.md`
 - `docs/external-feedback-evidence-snapshot-2026-06-03.md`
