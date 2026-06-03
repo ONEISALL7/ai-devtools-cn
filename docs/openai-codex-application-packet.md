@@ -133,37 +133,15 @@ npm run templates:readiness -- --output work/openai-readiness-YYYY-MM-DD.md
 
 ## 8. 今晚持续执行清单（2026-06-03）
 
-- [x] 运行 `npm run metrics:snapshot -- --output work/metrics-2026-06-03-1900.md`
-- [x] 运行 `npm run templates:evidence -- --output work/external-evidence-2026-06-03.md`
-- [x] 运行 `npm run templates:readiness -- --output work/openai-readiness-2026-06-03.md`
-- [x] 运行 `npm run templates:publish-status` 并记录 npm 与本地版本差异
+- [x] 使用统一口径更新三份核验文件：
+  - `npm run metrics:snapshot -- --output work/metrics-20260603-final-now.md`
+  - `npm run templates:evidence -- --output work/external-evidence-20260603-final-now.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-20260603-final-now.md --force`
+- [x] 运行 `npm run templates:publish-status` 并确认 `npm`/`release`/`package.json` 一致（当前均为 `0.18.3`）
 - [ ] 继续进行外部真实试用邀约（目标：3 人）
-- [ ] 补齐至少 2 条外部 feedback issue（场景：PR review / CI 排错 / issue triage）
-- [ ] 产生至少 1 条新的 external merged PR
-
-### 8.1 2026-06-03 23:50 复盘（更新）
-
-- 已补齐执行口径并生成：
-  - `work/metrics-2026-06-03-23h.md`
-  - `work/external-evidence-2026-06-03-23h.md`
-  - `work/openai-readiness-2026-06-03-23h.md`
-  - `work/metrics-2026-06-03-2350.md`
-  - `work/external-evidence-2026-06-03-2350.md`
-  - `work/openai-readiness-2026-06-03-2350.md`
-  - `work/outreach-pr-review-github-2026-06-03.md`
-  - `work/outreach-ci-v2ex-2026-06-03.md`
-  - `work/outreach-issue-x-2026-06-03.md`
-  - `work/adoption-pr-review-closure-2026-06-03/`
-  - `work/adoption-ci-closure-2026-06-03/`
-  - `work/adoption-release-checklist-2026-06-03/`
-- 当前可核验数字（同批快照）：
-  - Stars/Forks：3 / 2
-  - Merged PRs：131
-  - External merged PRs：1（#245）
-  - External feedback issues：1（#169）
-  - Releases：31
-- npm package：0.18.3（与 package.json/release 对齐）
-- 下一步：继续邀请真实外部试用者，并补齐外部 feedback issue 到 2~3 条后再进入下一轮外部 PR 追踪
+- [ ] 补齐至少 2 条真实外部 feedback issue（场景：PR review / CI 排错 / issue triage）
+- [ ] 争取至少 1 条新增 external merged PR
+- [ ] 每条新反馈 24 小时内补一条日志到 `docs/external-adoption-log-2026-06-03.md`
 
 推荐提交前先运行：
 
