@@ -751,16 +751,24 @@ https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/good-first-pr-briefs.
 }
 
 function listLaunchChecklist() {
+  const metrics = collectOpenSourceMetrics();
+  const externalMergedPrs = metrics.externalMergedPrsKnown
+    ? String(metrics.externalMergedPrs)
+    : "unknown";
+  const packageVersion = metrics.npmVersion;
+  const externalFeedback = metrics.feedbackIssuesKnown
+    ? String(metrics.externalFeedbackIssues)
+    : "unknown";
   console.log(`社区发布入口
 
 Community Launch Pack:
 https://github.com/ONEISALL7/ai-devtools-cn/blob/main/docs/community-launch-pack.md
 
 当前可公开状态:
-- npm package: https://www.npmjs.com/package/ai-devtools-cn
+- npm package: https://www.npmjs.com/package/ai-devtools-cn (version ${packageVersion})
 - GitHub latest release: https://github.com/ONEISALL7/ai-devtools-cn/releases
-- 外部反馈: 已有 1 条公开 feedback issue，并已转化为反馈驱动改进
-- external merged PR: 目前仍为 0，不能把维护者自己的 PR 写成 external merged PR
+- 外部反馈: 已有 ${externalFeedback} 条公开 feedback issue（已按非 maintainer 作者过滤）
+- external merged PR: 当前为 ${externalMergedPrs}（仅计入非 maintainer 外部贡献者 PR）
 
 当前 npm 包未同步时，先用 clone 路径:
   git clone https://github.com/ONEISALL7/ai-devtools-cn.git
@@ -1803,6 +1811,29 @@ function collectOpenSourceMetrics() {
   const feedbackIssues = allIssues.filter((issue) => hasLabel(issue, "feedback"));
   const externalFeedbackIssues = feedbackIssues.filter((issue) => isExternalHumanAuthor(issue.author));
   const externalMergedPrs = mergedPrItems.filter((pr) => isExternalHumanAuthor(pr.author));
+  const sortedExternalFeedbackIssues = [...externalFeedbackIssues].sort((a, b) => {
+    const aTime = Date.parse(a.createdAt ?? 0);
+    const bTime = Date.parse(b.createdAt ?? 0);
+    return Number.isFinite(bTime) && Number.isFinite(aTime) ? bTime - aTime : 0;
+  });
+  const sortedExternalMergedPrs = [...externalMergedPrs].sort((a, b) => {
+    const aTime = Date.parse(a.mergedAt ?? 0);
+    const bTime = Date.parse(b.mergedAt ?? 0);
+    return Number.isFinite(bTime) && Number.isFinite(aTime) ? bTime - aTime : 0;
+  });
+  const recentExternalFeedbackIssues = sortedExternalFeedbackIssues.slice(0, 6).map((issue) => ({
+    number: issue.number,
+    title: issue.title,
+    author: issue.author?.login || "unknown",
+    date: (issue.createdAt || issue.closedAt || issue.updatedAt || "unknown").slice(0, 10),
+  }));
+  const recentExternalMergedPrs = sortedExternalMergedPrs.slice(0, 6).map((pr) => ({
+    number: pr.number,
+    title: pr.title,
+    author: pr.author?.login || "unknown",
+    date: pr.mergedAt ? pr.mergedAt.slice(0, 10) : "unknown",
+  }));
+  const latestRelease = releases.ok ? releases.value[0] : null;
 
   return {
     stars: repoInfo.ok ? toSafeValue(repoInfo.value?.stargazerCount) : "unknown",
@@ -1816,8 +1847,12 @@ function collectOpenSourceMetrics() {
     openIssues: openIssueItems.length,
     closedIssues: closedIssueItems.length,
     feedbackIssues: feedbackIssues.length,
+    recentExternalFeedbackIssues,
     feedbackIssuesKnown: openIssues.ok && closedIssues.ok,
     externalFeedbackIssues: externalFeedbackIssues.length,
+    recentExternalMergedPrs,
+    latestReleaseTag: latestRelease?.tagName ?? null,
+    latestReleaseDate: latestRelease?.publishedAt ? latestRelease.publishedAt.slice(0, 10) : null,
     releases: releases.ok ? toSafeValue(releases.value.length, 0) : "unknown",
     releasesKnown: releases.ok,
     npmVersion: npmVersion.ok ? npmVersion.value : "unavailable",
@@ -2036,13 +2071,14 @@ function createAdoptionSprint(options) {
 function createEvidenceLedger(options) {
   const outputPath = options.output ?? path.join("work", "external-evidence.md");
   const resolvedOutput = resolveOutputPath(outputPath);
+  const metricSnapshot = collectOpenSourceMetrics();
 
   if (existsSync(resolvedOutput) && !options.force) {
     fail(`输出文件已存在：${outputPath}\n如需覆盖，请加 --force。`);
   }
 
   mkdirSync(path.dirname(resolvedOutput), { recursive: true });
-  writeFileSync(resolvedOutput, formatEvidenceLedger(), "utf8");
+  writeFileSync(resolvedOutput, formatEvidenceLedger(metricSnapshot), "utf8");
   console.log(`已生成外部采用证据台账：${formatDisplayPath(resolvedOutput)}`);
 }
 
@@ -2070,95 +2106,99 @@ ${readTemplate(template).trim()}
 `;
 }
 
-function formatEvidenceLedger() {
+function formatEvidenceLedger(metricSnapshot) {
+  const externalFeedbackRows = metricSnapshot.recentExternalFeedbackIssues.length > 0
+    ? metricSnapshot.recentExternalFeedbackIssues
+      .map((issue) => `- ${issue.date} | external feedback issue | #${issue.number} - ${issue.title} | @${issue.author} | https://github.com/${repo}/issues/${issue.number}`)
+      .join("\n")
+    : "- 暂无外部反馈 issue";
+
+  const externalMergedPrRows = metricSnapshot.recentExternalMergedPrs.length > 0
+    ? metricSnapshot.recentExternalMergedPrs
+      .map((pr) => `- ${pr.date} | external merged PR | #${pr.number} - ${pr.title} | @${pr.author} | https://github.com/${repo}/pull/${pr.number}`)
+      .join("\n")
+    : "- 暂无外部 merged PR";
+
   return `# AI DevTools CN 外部采用证据台账
 
-这个台账用于记录可公开核验的外部采用信号，辅助维护复盘和公开项目运营。它不是宣传稿，也不是用来包装维护者自建活动的材料。
+生成日期：${formatSnapshotDate()}
+
+这个台账用于记录**可公开核验**的外部采用信号，辅助 OpenAI 申请材料与项目运营复盘。它不是宣传稿，也不能把维护者自建行为当外部采用。
 
 ## 记录原则
 
-- 只记录可核验链接，例如 GitHub issue、PR、release、npm 页面、公开帖子或公开案例。
-- 区分维护者活动和外部采用信号。
-- 不把维护者自己创建的测试 issue、占位 issue、内部草稿或泛泛讨论写成外部反馈。
-- 不记录 API key、token、客户信息、内部日志、未公开源码、生产事故敏感细节或个人隐私。
-- 私聊反馈只有在对方明确允许匿名整理后，才记录为匿名案例。
+- 只记录可核验链接（issue、PR、release、npm、公开帖子）。
+- 区分 maintainer 活动与 external 采集信号。
+- 外部 feedback issue 要是非 maintainer 公开账号提交。
+- External merged PR 只计入非 maintainer 作者提交并合并的 PR。
+- 外部反馈驱动的 maintainer PR / release 要明确标记为 feedback-driven，不计 external merged PR。
+- claim/starter/feedback 模板是内部准备稿，可用于外部协作流程，不应计为 external merged PR。
+- 不记录 API key、token、客户信息、敏感日志、未公开源码和个人隐私。
 
-## 当前快照
+## 关键快照
 
-请先运行：
+| 指标 | 值 |
+| --- | --- |
+| GitHub Stars | ${metricSnapshot.stars} |
+| Forks | ${metricSnapshot.forks} |
+| Merged PRs | ${metricSnapshot.mergedPrsKnown ? metricSnapshot.mergedPrs : "unknown"} |
+| External merged PRs（非 maintainer） | ${metricSnapshot.externalMergedPrsKnown ? metricSnapshot.externalMergedPrs : "unknown"} |
+| Open issues | ${metricSnapshot.openIssues} |
+| Closed issues | ${metricSnapshot.closedIssues} |
+| Feedback-labeled issues（全部） | ${metricSnapshot.feedbackIssuesKnown ? metricSnapshot.feedbackIssues : "unknown"} |
+| External feedback issues（非 maintainer） | ${metricSnapshot.feedbackIssuesKnown ? metricSnapshot.externalFeedbackIssues : "unknown"} |
+| Releases | ${metricSnapshot.releasesKnown ? metricSnapshot.releases : "unknown"} |
+| Latest release | ${metricSnapshot.latestReleaseTag ?? "unknown"} (${metricSnapshot.latestReleaseDate ?? "unknown"}) |
+| npm package | https://www.npmjs.com/package/ai-devtools-cn |
+| npm version | ${metricSnapshot.npmVersion} |
+| npm last-month downloads | ${metricSnapshot.npmDownloads} |
 
-\`\`\`bash
-npm run metrics:snapshot -- --output work/metrics.md
-\`\`\`
+## 证据记录（可直接复制到提交说明）
 
-然后把关键数字填到这里：
+### 外部反馈（external feedback issue）
+\n${externalFeedbackRows}
 
-\`\`\`text
-日期：
-GitHub stars：
-Forks：
-Merged PRs：
-External merged PRs：
-Closed issues：
-External feedback issues：
-Releases：
-npm package/version：
-npm downloads：
-\`\`\`
+### 外部采纳（external merged PR）
+\n${externalMergedPrRows}
 
-## 证据记录表
+### 其他可核验链路
+- npm publish： https://www.npmjs.com/package/ai-devtools-cn
+- GitHub release： https://github.com/${repo}/releases
+- 仓库主页： ${metricSnapshot.repoUrl}
+- feedback entry template： ${templateFeedbackUrl}
+- external pilot template： ${externalPilotFeedbackUrl}
 
-| 日期 | 类型 | 链接 | 外部作者/来源 | 公开可核验 | 摘要 | 后续动作 |
-| --- | --- | --- | --- | --- | --- | --- |
-| 2026-06-01 | npm publish | https://www.npmjs.com/package/ai-devtools-cn | maintainer | yes | 发布 ai-devtools-cn@0.16.1，并通过 npx doctor 验证 | 继续同步当前 release 并检查下载量 |
-| 2026-05-31 | external feedback issue | https://github.com/ONEISALL7/ai-devtools-cn/issues/169 | @oneshots | yes | 用户反馈 CI 排错模板缺少 pnpm workspace / monorepo 示例 | 已通过 #173 和 v0.16.2 回应 |
-| 2026-06-01 | feedback-driven PR | https://github.com/ONEISALL7/ai-devtools-cn/pull/173 | maintainer | yes | 基于 #169 新增 pnpm workspace CI 排错试用包 | 不计为 external merged PR |
-| 2026-06-01 | feedback-driven release | https://github.com/ONEISALL7/ai-devtools-cn/releases/tag/v0.16.2 | maintainer | yes | 发布反馈驱动的 pnpm workspace CI 试用包版本 | npm 0.16.2 仍需完成 2FA 发布 |
-| YYYY-MM-DD | external feedback issue |  | GitHub user | yes | 用户试用模板后的反馈 | 建立改进 issue |
-| YYYY-MM-DD | external PR |  | GitHub user | yes | 外部贡献者提交文档/案例 | review 并合并 |
-| YYYY-MM-DD | public mention |  | X/V2EX/blog | yes | 公开介绍或讨论项目 | 回复并邀请反馈 |
-| YYYY-MM-DD | anonymized case study |  | anonymous | partial | 经允许整理的匿名案例 | 沉淀到 examples |
+### 申请场景可复制文本
+
+The project is a public OSS repository with reusable maintenance templates for PR review, issue triage, CI troubleshooting, and release workflows. Recent external signals include external feedback issues and external merged PRs shown above, plus a published npm package and public release history. We separate external feedback-driven maintainer work from true external adoption signals in this evidence ledger.
 
 ## 可计入公开证据台账的内容
 
-- npm package 已发布，并能通过 \`npx ai-devtools-cn doctor\` 验证。
-- 外部用户提交的 feedback issue。
-- 基于外部 feedback issue 完成的维护者 PR 和 release，但要标明它不是外部 PR。
-- 外部贡献者提交并合并的 PR。
-- Good First PR Briefs、handoff/pr-pack/review-pr/claim/starter 命令和 issue 评论可以作为外部贡献转化管线证据，但 generated local drafts are not external merged PRs。
-- 公开帖子、博客、讨论或引用。
-- 经允许匿名化整理的真实使用案例。
+- npm package 已发布，可通过 npx / doctor 与 release 链接核验。
+- 外部用户提交的 feedback issue（非 maintainer）。
+- 外部贡献者提交并合并的 PR（external merged PR）。
+- 基于外部 feedback issue 完成的维护者 PR/release，但需在 notes 中标注 feedback-driven。
+- 公开帖子、文章、课程、社区讨论中可核验的提及。
+- 经对方授权后可匿名化沉淀的真实案例。
 
 ## 不应计入外部采用的内容
 
-- 维护者自己创建或关闭的 issue。
-- 维护者自己提交的 PR。
-- 维护者或 CLI 生成的 claim/starter 本地草稿；generated local drafts are not external merged PRs。
-- 仅用于测试 issue template 的占位 issue。
-- 没有链接、无法核验的截图或口头说法。
-- 未经允许的私聊内容。
+- 维护者自己创建/关闭的 issue。
+- 维护者自己提交的 PR 与 maintainer 自建测试 PR。
+- maintainer 的 claim / starter / feedback 本地草稿：generated local drafts are not external merged PRs。
+- 仅内部讨论、截图/口头说法、无链接内容。
 
-## 申请表述草稿
+## 下次执行动作
 
-当外部证据足够后，再把下面这段改成真实数字：
-
-\`\`\`text
-The project has public maintenance records, regular releases, a working CLI, npm availability, external feedback issues, and external contribution activity. We use the evidence ledger to separate maintainer activity from real external adoption signals and avoid overstating usage.
+1. 每次新增外部反馈后，立即追加一条日志行到本台账。
+2. 继续做真实外部试用邀约（5-10 位/周）并引导提交 feedback issue。
+3. 邀请至少 1 位外部贡献者认领 good first issue，并追踪其 PR 合并情况。
+4. 每日/每次发布后跑一次：
+\`\`\`bash
+npm run metrics:snapshot -- --output work/metrics-$(date +%F).md
+npm run templates:evidence -- --output work/external-evidence-$(date +%F).md --force
+npm run templates:readiness -- --output work/openai-readiness-$(date +%F).md --force
 \`\`\`
-
-如果外部证据仍不足，应如实写：
-
-\`\`\`text
-The project is early and actively maintained. Current strength is maintainer activity, releases, CI, templates, a published npm CLI, and clear feedback channels. External adoption is still being collected through outreach, feedback issues, good first issues, and real-world case studies.
-\`\`\`
-
-## 下一步
-
-1. 记录 npm 页面链接、当前版本和 \`npx ai-devtools-cn doctor\` 验证结果。
-2. 用 \`npm run templates:outreach\` 邀请 5-10 位真实开发者试用。
-3. 引导试用者提交 feedback issue。
-4. 邀请外部贡献者认领 good first issue，并让他们先 clone 仓库，再用 \`npm run templates:pr-pack -- 45\`、\`npm run templates:claim -- 45\` 和 \`npm run templates:starter -- 45\` 准备真实 PR；npm 同步后再改用 npx 路径。
-5. 根据外部反馈发布一个反馈驱动版本。
 `;
 }
 

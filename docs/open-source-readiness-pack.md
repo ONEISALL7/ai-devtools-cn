@@ -125,7 +125,7 @@ npm run templates:readiness -- --output work/openai-readiness-$(date +%F).md
 - 当前差距（该条历史口径）：
   - external feedback issue：仍在 1 条（#169）
   - external merged PR：1 条（#245）
-  - npm 与 release：当时未同步到 `0.18.3`（当前已对齐）
+  - npm 与 release：当前已对齐（`0.18.3`）
 - 下一步（今晚收尾）：
   - 继续发送至少 3 个真实邀请（GitHub/社群）
   - 每个反馈直接留存到 `docs/external-adoption-log-2026-06-03.md`
@@ -141,7 +141,7 @@ npm run templates:readiness -- --output work/openai-readiness-$(date +%F).md
 - 当前差距：
   - external feedback issue：仍在 1 条（#169）
   - external merged PR：1 条（#245）
-  - npm 与 release：仍未同步到 `0.18.3`（发布仍在进行）
+  - npm 与 release：当前已对齐（`0.18.3`，发布已可核验）
 - 下一步：
   - 继续发送至少 3 个真实邀请（GitHub/社群）
   - 每个反馈直接留存到 `docs/external-adoption-log-2026-06-03.md`

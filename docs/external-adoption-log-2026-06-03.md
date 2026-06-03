@@ -1,5 +1,17 @@
 # 外部采用与试用证据日志（2026-06-03）
 
+## 2026-06-03 20:41（当前核验口径）
+
+- `npm view ai-devtools-cn version`、`package.json`、GitHub release 均为 `0.18.3`（已对齐）。
+- 本地自检通过：`npm run test`、`npm run lint:md`、`npm run templates:publish-check`、`npm run templates:publish-status`、`npm pack --dry-run`。
+- 外部反馈当前可核验口径：  
+  - 外部 feedback issue：`1`（#169）  
+  - external merged PR：`1`（#245）  
+- 对外行动状态（你的账号）：
+  - 真实对外邀请：`0/3`（尚未实际发出）
+  - 已准备邀请模板：`work/next-outreach-2026-06-03.md`、`work/outreach-pr-review-github-2026-06-03.md`、`work/outreach-ci-v2ex-2026-06-03.md`、`work/outreach-pr-review-x-2026-06-03.md`
+- 结论：项目“内核链路与材料”已足够接近申请前口径；核心短板仍是“真实外部反馈回流 + 外部 PR 转化闭环”。
+
 - 版本快照：`package.json` `0.18.3`，`npm` `0.18.3`（已对齐）
 - 公开仓库：<https://github.com/ONEISALL7/ai-devtools-cn>
 - 公开性：仓库公开（`npm run metrics:snapshot` 及 `npm run templates:publish-status` 核验通过）

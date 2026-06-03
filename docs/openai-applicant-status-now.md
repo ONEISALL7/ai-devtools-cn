@@ -17,7 +17,7 @@
   - external merged PR：`1`（[#245](https://github.com/ONEISALL7/ai-devtools-cn/pull/245)）
   - Stars/Forks：`3 / 2`
   - Merged PRs：`131`
-  - 外部反馈可核验链接请见：`work/external-evidence-2026-06-03-live-refresh.md`
+  - 外部反馈可核验链接请见：`work/external-evidence-2026-06-03-now-live.md`
 
 ## 2) 已达到的 OpenAI 资格前置
 
@@ -35,7 +35,8 @@
 
 1. 先发三类真实邀请（同一周内跟进）：
    - [work/outreach-now.md](/Users/mingliang/Documents/Codex/2026-05-31/chatgpt-github-primary-maintainer-core-maintainer/outputs/ai-devtools-cn/work/outreach-now.md)
-   - [work/adoption-now.md](/Users/mingliang/Documents/Codex/2026-05-31/chatgpt-github-primary-maintainer-core-maintainer/outputs/ai-devtools-cn/work/adoption-now.md)（含 7 天推进节奏）
+   - [work/adoption-now.md](/Users/mingliang/Documents/Codex/2026-05-31/chatgpt-github-primary-maintainer-core-maintainer/outputs/ai-devtools-cn/work/adoption-now.md)
+   - [work/outreach-pr-review-x-2026-06-03.md](/Users/mingliang/Documents/Codex/2026-05-31/chatgpt-github-primary-maintainer-core-maintainer/outputs/ai-devtools-cn/work/outreach-pr-review-x-2026-06-03.md)
 2. 任何反馈都在公开 issue 留下可核验链接，按 `docs/external-pr-handoff-kit.md` 引导到处理闭环
 3. 外部用户提交可认领 issue 后，给 `good first issue` / 简短任务，促成外部 PR
 4. 收到每条新反馈后，立刻再跑一次：
@@ -45,7 +46,7 @@
 
 ## 5) 直接可提交材料（当外部反馈达到 2-3 条后）
 
-- `work/metrics-2026-06-03-live-refresh.md`
-- `work/external-evidence-2026-06-03-live-refresh.md`
-- `work/openai-readiness-2026-06-03-live-refresh.md`
+- `work/metrics-2026-06-03-now-live.md`
+- `work/external-evidence-2026-06-03-now-live.md`
+- `work/openai-readiness-2026-06-03-now-live.md`
 - `docs/openai-codex-application-packet.md`

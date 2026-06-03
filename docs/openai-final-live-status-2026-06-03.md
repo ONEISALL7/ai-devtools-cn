@@ -1,40 +1,43 @@
 # OpenAI 资格申请：今日最终可核验口径（2026-06-03）
 
-## 结论先行
+## 结论先行（当前口径）
 
-- `npm` 与 `package.json` 对齐：`0.18.3`  
-- GitHub 发布与 package 对齐：`v0.18.3`  
-- `npm run test`、`npm run lint:md`、`npm run templates:publish-check`、`npm run templates:publish-status` 已通过  
-- 当前口径下可核验外部信号：  
+- `npm` 与 `package.json` 与 GitHub release 已对齐：`0.18.3`。  
+- `npm run test`、`npm run lint:md`、`npm run templates:publish-check`、`npm run templates:publish-status`、`npm pack --dry-run` 全部通过。  
+- 当前可核验外部信号：  
   - 外部 feedback issue：`1`（#169，作者 @oneshots）  
   - external merged PR：`1`（#245，作者 @Jah-yee）  
-- 结论：公开治理链路完整，距离“理想申请口径”尚差 1~2 条真实外部反馈与对应 PR 转化。
+- 项目有完整的治理链路（release、版本、模板、案例与证据台账），但距离“理想口径”还差 **2~3 条真实外部反馈** 与其对应闭环。
 
-## 2026-06-03 20:17 实时复核（本地终端）
+## 2026-06-03 20:41 实时复核（本地终端）
 
-- 已完成：
-  - `npm run metrics:snapshot -- --output work/metrics-check-now.md`  
-  - `npm run templates:evidence -- --output work/external-evidence-check-now.md`  
-  - `npm run templates:readiness -- --output work/openai-readiness-check-now.md`  
-  - `npm run templates:publish-status`：`npm` / `package.json` / `release` 均为 `0.18.3`  
-  - `npm run templates:publish-check`、`npm run pack:dry-run`、`npm run test`、`npm run lint:md` 已通过  
-- 外部信号口径未变：
+- 已执行并通过：
+  - `npm view ai-devtools-cn version`（返回 `0.18.3`）
+  - `npm run metrics:snapshot -- --output work/metrics-2026-06-03-now-live.md`
+  - `npm run templates:evidence -- --output work/external-evidence-2026-06-03-now-live.md --force`
+  - `npm run templates:readiness -- --output work/openai-readiness-2026-06-03-now-live.md --force`
+  - `npm run templates:publish-status`
+  - `npm run templates:publish-check`
+  - `npm run pack:dry-run`
+  - `npm run test`
+- 外部口径未变：
   - 外部 feedback issue：`1`（#169）  
   - external merged PR：`1`（#245）  
-- 新增外部邀约资料（可直接发送）：
+- 对外试用邀约已预先生成（可直接发送）：
   - `work/next-outreach-2026-06-03.md`  
-  - 仍沿用原邀请包：`work/outreach-pr-review-github-2026-06-03.md`、`work/outreach-ci-v2ex-2026-06-03.md`、`work/outreach-pr-review-x-2026-06-03.md`
+  - `work/outreach-pr-review-github-2026-06-03.md`  
+  - `work/outreach-ci-v2ex-2026-06-03.md`
+  - `work/outreach-pr-review-x-2026-06-03.md`
 
 ## 当前基础条件（已满足）
 
 - 仓库公开：是（`ONEISALL7/ai-devtools-cn`）  
 - 核心文档存在：`README`、`CONTRIBUTING`、`SECURITY`、`MAINTAINERS`、`LICENSE`、`CHANGELOG`  
 - 发布链路可复验：GitHub release + npm + 本地包版本一致  
-- 可复验指标更新文件：
-  - `work/metrics-now.md`
-  - `work/metrics-2026-06-03-finalized.md`
-  - `work/external-evidence-final-now.md`
-  - `work/openai-readiness-final-now.md`
+- 可复验指标更新文件（当前口径）：
+  - `work/metrics-2026-06-03-now-live.md`
+  - `work/external-evidence-2026-06-03-now-live.md`
+  - `work/openai-readiness-2026-06-03-now-live.md`
 
 ## 下一步（必须由真实账号触达外部用户）
 
