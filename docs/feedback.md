@@ -4,6 +4,8 @@
 
 如果你是第一批试用者，可以先按 [第一批用户试用计划](first-user-test-plan.md) 完成 15 分钟试用，再按本文格式提交反馈。第一次接触项目的外部用户也可以先看 [外部试用者快速指南](external-tester-guide.md)。
 
+如果要把反馈整理成公开案例，请先阅读[用户反馈到公开案例指南](feedback-case-guide.md)，确认来源、授权、脱敏和证据台账边界。
+
 也可以用 CLI 生成一份可复制到 GitHub issue 的反馈草稿：
 
 ```bash
