@@ -270,6 +270,7 @@ npx ai-devtools-cn starter 45 --output work/starter-45.md
 - [社区推广和反馈收集](docs/community-outreach.md)
 - [社区发布包](docs/community-launch-pack.md)
 - [外部试用者快速指南](docs/external-tester-guide.md)
+- [用户反馈到公开案例指南](docs/feedback-case-guide.md)
 - [真实试用配方](docs/usage-recipes.md)
 - [第一批用户试用计划](docs/first-user-test-plan.md)
 - [外部 PR 交接包](docs/external-pr-handoff-kit.md)
